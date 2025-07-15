@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>公民神總複習 - 首頁</title>
+    <!-- Font Awesome script is still useful for other icons in the page -->
+    <script src="https://kit.fontawesome.com/62a9d1d113.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
+
+        :root {
+            --primary-glow: #00f2ea; /* 亮青色 */
+            --secondary-glow: #ff00ff; /* 洋紅色 */
+            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --bg-dark: #0d1b2a;
+            --bg-dark-2: #020a12;
+            --text-color: #e0e0e0;
+            --card-bg: rgba(23, 37, 51, 0.7);
+            --border-color: rgba(0, 242, 234, 0.3);
+            --accent-border-color: rgba(240, 225, 74, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-2));
+            color: var(--text-color);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px; /* Wider container for index page */
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 6rem 0;
+            border-bottom: 2px solid var(--border-color);
+            box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: var(--text-color);
+            text-shadow:
+                0 0 5px #fff,
+                0 0 10px var(--accent-glow),
+                0 0 20px var(--accent-glow),
+                0 0 40px var(--accent-glow);
+            animation: flicker-orange 3s infinite alternate;
+            z-index: 2;
+            position: relative;
+        }
+
+        @keyframes flicker-orange {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow:
+                0 0 4px #fff,
+                0 0 11px var(--accent-glow),
+                0 0 19px var(--accent-glow),
+                0 0 40px var(--accent-glow),
+                0 0 80px var(--accent-glow);
+            }
+            20%, 24%, 55% { text-shadow: none; }
+        }
+
+        header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary-glow);
+            margin-top: 1rem;
+            text-shadow: 0 0 8px var(--secondary-glow);
+            animation: bounce 2s infinite;
+            z-index: 2;
+            position: relative;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-8px);}
+        }
+
+        section {
+            margin-bottom: 4rem;
+            padding: 2.5rem;
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 0 30px rgba(0, 242, 234, 0.1), inset 0 0 15px rgba(0, 242, 234, 0.1);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--primary-glow);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            text-shadow: 0 0 10px var(--primary-glow);
+            border-bottom: 2px solid var(--accent-border-color);
+            padding-bottom: 1rem;
+        }
+        
+        .section-title i {
+            font-size: 2.5rem;
+            color: var(--accent-glow);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+        
+        .chapter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .link-card {
+            background: rgba(0,0,0,0.2);
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center content vertically */
+            align-items: center; /* Center content horizontally */
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            text-decoration: none;
+            color: var(--text-color);
+            min-height: 120px;
+        }
+
+        .link-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            border-color: var(--accent-glow);
+            box-shadow: 0 15px 30px rgba(240, 225, 74, 0.2);
+            background-color: rgba(240, 225, 74, 0.1);
+        }
+
+        .link-card .chapter-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--primary-glow);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            text-shadow: 0 0 8px var(--primary-glow);
+        }
+
+        .link-card .chapter-title {
+            font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* Mascot Styles */
+        #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
+        #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
+        #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
+        #mascot-img.enlarged { transform: scale(2.5) !important; }
+        #mascot-speech { position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9); color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3); }
+        #mascot-speech.visible { opacity: 1; transform: translateY(0); }
+        .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+            color: #777;
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            header { padding: 4rem 0; }
+            header h1 { font-size: 3rem; }
+            header h2 { font-size: 1.3rem; }
+            section { padding: 1.5rem; }
+            .section-title { font-size: 2rem; }
+            .chapter-grid { grid-template-columns: 1fr; }
+            #mascot-img { width: 80px; }
+            #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>公民神總複習</h1>
+            <h2>邱俐瑜公民，成為公民神不再只是夢想！</h2>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Part 1 -->
+        <section id="part1">
+            <h2 class="section-title"><i class="fas fa-user-friends"></i> 壹・自我、社會與文化</h2>
+            <div class="chapter-grid" id="part1-grid">
+                <!-- Links will be inserted here by JS -->
+            </div>
+        </section>
+
+        <!-- Part 2 -->
+        <section id="part2">
+            <h2 class="section-title"><i class="fas fa-landmark"></i> 貳・政治、法律與權利</h2>
+            <div class="chapter-grid" id="part2-grid">
+                <!-- Links will be inserted here by JS -->
+            </div>
+        </section>
+
+        <!-- Part 3 -->
+        <section id="part3">
+            <h2 class="section-title"><i class="fas fa-chart-line"></i> 參・經濟、選擇與全球化</h2>
+            <div class="chapter-grid" id="part3-grid">
+                <!-- Links will be inserted here by JS -->
+            </div>
+        </section>
+        
+    </main>
+    
+    <div id="mascot-container">
+        <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
+        <div id="mascot-speech">公民好神！</div>
+    </div>
+
+    <footer>
+        <p>Copyright © Liyuchiutiger Gongminshen</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chapters = [
+                // Part 1
+                { file: 'ch1-1.html', title: '人性尊嚴與普世人權', chapter: '1-1' },
+                { file: 'ch1-2.html', title: '性別', chapter: '1-2' },
+                { file: 'ch2-1.html', title: '家庭組成', chapter: '2-1' },
+                { file: 'ch2-2.html', title: '平權家庭', chapter: '2-2' },
+                { file: 'ch3-1.html', title: '學校生活', chapter: '3-1' },
+                { file: 'ch3-2.html', title: '社區與部落', chapter: '3-2' },
+                { file: 'ch4-1.html', title: '社會生活中的公民德性', chapter: '4-1' },
+                { file: 'ch4-2.html', title: '志願結社', chapter: '4-2' },
+                { file: 'ch4-3.html', title: '社會文化', chapter: '4-3' },
+                { file: 'ch5-1.html', title: '社會規範', chapter: '5-1' },
+                { file: 'ch5-2.html', title: '公平正義', chapter: '5-2' },
+                { file: 'ch5-3.html', title: '社會福利', chapter: '5-3' },
+                { file: 'ch6-1.html', title: '國家', chapter: '6-1' },
+                { file: 'ch6-2.html', title: '民主政治', chapter: '6-2' },
+                
+                // Part 2
+                { file: 'ch7-1.html', title: '權力分立', chapter: '7-1' },
+                { file: 'ch7-2.html', title: '我國中央政府', chapter: '7-2' },
+                { file: 'ch7-3.html', title: '我國地方政府', chapter: '7-3' },
+                { file: 'ch8-1.html', title: '民主國家中的公共意見', chapter: '8-1' },
+                { file: 'ch8-2.html', title: '政治參與', chapter: '8-2' },
+                { file: 'ch9-1.html', title: '憲法與人權保障', chapter: '9-1' },
+                { file: 'ch9-2.html', title: '民法與生活', chapter: '9-2' },
+                { file: 'ch9-3.html', title: '刑法與生活', chapter: '9-3' },
+                { file: 'ch10-1.html', title: '民事糾紛的解決', chapter: '10-1' },
+                { file: 'ch10-2.html', title: '刑事糾紛的解決', chapter: '10-2' },
+                { file: 'ch11-1.html', title: '行政法與生活', chapter: '11-1' },
+                { file: 'ch11-2.html', title: '法律對兒少的保障', chapter: '11-2' },
+
+                // Part 3
+                { file: 'ch12-1.html', title: '選擇與機會成本', chapter: '12-1' },
+                { file: 'ch12-2.html', title: '資源分配', chapter: '12-2' },
+                { file: 'ch13-1.html', title: '廠商競爭', chapter: '13-1' },
+                { file: 'ch13-2.html', title: '市場交易的形成', chapter: '13-2' },
+                { file: 'ch14-1.html', title: '貨幣與支付方式', chapter: '14-1' },
+                { file: 'ch14-2.html', title: '勞動參與', chapter: '14-2' },
+                { file: 'ch15-1.html', title: '科技發展與智慧財產權', chapter: '15-1' },
+                { file: 'ch15-2.html', title: '社群網路與媒體識讀', chapter: '15-2' },
+                { file: 'ch16-1.html', title: '全球化', chapter: '16-1' },
+                { file: 'ch16-2.html', title: '國際社會的形成與互動', chapter: '16-2' }
+            ];
+
+            const part1Grid = document.getElementById('part1-grid');
+            const part2Grid = document.getElementById('part2-grid');
+            const part3Grid = document.getElementById('part3-grid');
+
+            chapters.forEach(c => {
+                const chapterNum = parseInt(c.chapter.split('-')[0]);
+                const cardHTML = `
+                    <a href="${c.file}" class="link-card">
+                        <div class="chapter-number">${c.chapter}</div>
+                        <div class="chapter-title">${c.title}</div>
+                    </a>
+                `;
+                
+                if (chapterNum <= 6) {
+                    part1Grid.innerHTML += cardHTML;
+                } else if (chapterNum <= 11) {
+                    part2Grid.innerHTML += cardHTML;
+                } else {
+                    part3Grid.innerHTML += cardHTML;
+                }
+            });
+
+
+            // Section fade-in animation
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 }); 
+            sections.forEach(section => observer.observe(section));
+
+            // Mascot JS
+            const mascotContainer = document.getElementById('mascot-container');
+            const mascotImg = document.getElementById('mascot-img');
+            const speechBubble = document.getElementById('mascot-speech');
+            
+            const messages = [
+                "公民好神！我會遵守公民神會員守則！",
+                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
+                "公民神有三力：注意力、記憶力、戰鬥力！"
+            ];
+            let messageIndex = 0;
+            let clickTimer = null;
+            let speechTimeout = null;
+
+            mascotContainer.addEventListener('click', () => {
+                clearTimeout(clickTimer);
+                clickTimer = setTimeout(() => {
+                    speechBubble.textContent = messages[messageIndex];
+                    speechBubble.classList.add('visible');
+                    messageIndex = (messageIndex + 1) % messages.length;
+                    clearTimeout(speechTimeout);
+                    speechTimeout = setTimeout(() => speechBubble.classList.remove('visible'), 4000);
+                }, 250);
+            });
+
+            mascotContainer.addEventListener('dblclick', () => {
+                clearTimeout(clickTimer);
+                speechBubble.classList.remove('visible');
+                triggerExplosion();
+            });
+
+            function triggerExplosion() {
+                mascotImg.classList.add('enlarged');
+                const particleCount = 40;
+                const particleColors = [ 'var(--primary-glow)', 'var(--secondary-glow)', 'var(--accent-glow)', '#ffffff' ];
+
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    mascotContainer.appendChild(particle);
+                    const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+                    const angle = Math.random() * 360;
+                    const radius = Math.random() * 120 + 50;
+                    const x = Math.cos(angle * Math.PI / 180) * radius;
+                    const y = Math.sin(angle * Math.PI / 180) * radius;
+                    particle.style.background = color;
+                    requestAnimationFrame(() => {
+                        particle.style.transform = `translate(${x}px, ${y}px) scale(0)`;
+                        particle.style.opacity = '0';
+                    });
+                    setTimeout(() => particle.remove(), 1000);
+                }
+                setTimeout(() => mascotImg.classList.remove('enlarged'), 300);
+            }
+        });
+    </script>
+</body>
+</html>

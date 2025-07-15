@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重點1-1：人性尊嚴與普世人權</title>
+    <!-- Font Awesome script is still useful for other icons in the page -->
+    <script src="https://kit.fontawesome.com/62a9d1d113.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
+
+        :root {
+            --primary-glow: #00f2ea; /* 亮青色 */
+            --secondary-glow: #ff00ff; /* 洋紅色 */
+            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --bg-dark: #0d1b2a;
+            --bg-dark-2: #020a12;
+            --text-color: #e0e0e0;
+            --card-bg: rgba(23, 37, 51, 0.7);
+            --correct-color: #00ff87;
+            --wrong-color: #ff2a6d;
+            --border-color: rgba(0, 242, 234, 0.3);
+            --accent-border-color: rgba(240, 225, 74, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-2));
+            color: var(--text-color);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 5rem 0;
+            border-bottom: 2px solid var(--border-color);
+            box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 900;
+            color: var(--text-color);
+            white-space: nowrap; /* 新增：防止標題換行 */
+            text-shadow:
+                0 0 5px #fff,
+                0 0 10px var(--accent-glow),
+                0 0 20px var(--accent-glow),
+                0 0 40px var(--accent-glow);
+            animation: flicker-orange 3s infinite alternate;
+        }
+
+        @keyframes flicker-orange {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow:
+                0 0 4px #fff,
+                0 0 11px var(--accent-glow),
+                0 0 19px var(--accent-glow),
+                0 0 40px var(--accent-glow),
+                0 0 80px var(--accent-glow);
+            }
+            20%, 24%, 55% { text-shadow: none; }
+        }
+
+        header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary-glow);
+            margin-top: 1rem;
+            white-space: nowrap; /* 新增：防止副標題換行 */
+            text-shadow: 0 0 8px var(--secondary-glow);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-8px);}
+        }
+
+        section {
+            margin-bottom: 4rem;
+            padding: 2.5rem;
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 0 30px rgba(0, 242, 234, 0.1), inset 0 0 15px rgba(0, 242, 234, 0.1);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .highlight-text {
+            font-weight: bold;
+            color: var(--accent-glow);
+            text-shadow: 0 0 5px var(--accent-glow);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary-glow);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+        
+        .section-title i {
+            font-size: 2.2rem;
+            color: var(--accent-glow);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .dignity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .dignity-card {
+            background: rgba(0,0,0,0.2);
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+
+        .dignity-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--accent-glow);
+            box-shadow: 0 15px 30px rgba(240, 225, 74, 0.2);
+        }
+        
+        .dignity-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary-glow);
+            border-bottom: 3px solid var(--accent-glow);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .dignity-card .example-group { margin-top: 1rem; padding: 1rem; background-color: rgba(13, 27, 42, 0.5); border-radius: 10px; }
+        .example-group .example-title { display: flex; align-items: center; gap: 0.75rem; font-weight: bold; margin-bottom: 0.5rem; font-size: 1.1rem; }
+        .example-title.positive { color: var(--correct-color); }
+        .example-title.negative { color: var(--wrong-color); }
+        .example-title i { font-size: 1.3rem; }
+        .example-group .example-text { padding-left: 2rem; font-size: 0.95rem; opacity: 0.9; }
+
+        .highlight-box { background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05)); padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow); font-size: 1.1rem; margin-top: 2rem; box-shadow: inset 0 0 10px rgba(240, 225, 74, 0.2); }
+        .highlight-box strong { color: var(--accent-glow); font-weight: 700; }
+        .highlight-box ul { list-style: none; padding-left: 0; }
+        .highlight-box li { margin-bottom: 0.5rem; }
+        .highlight-box i { color: var(--accent-glow); margin-right: 0.5rem; }
+        
+        #rights-section ul { list-style: none; padding-left: 1rem; }
+        #rights-section li { position: relative; padding-left: 1.5rem; margin-bottom: 1rem; }
+        #rights-section li::before { content: '\f138'; font-family: 'Font Awesome 5 Free'; font-weight: 900; position: absolute; left: 0; top: 5px; color: var(--primary-glow); }
+        #rights-section h4 { font-family: 'Orbitron', sans-serif; color: var(--primary-glow); margin-top: 2rem; margin-bottom: 1rem; font-size: 1.4rem; }
+
+        /* --- UNIFIED QUIZ STYLES (from ch2-1.html) --- */
+        .quiz-container { margin-bottom: 3rem; }
+        .quiz-container:last-child { margin-bottom: 0; }
+        .quiz-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); }
+        .quiz-title i { margin-right: 0.75rem; }
+        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
+        #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
+        #quiz-section .options { display: grid; gap: 1rem; }
+        
+        .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+        .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
+        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark); }
+        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark); }
+        
+        .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
+        .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
+        .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        
+        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--accent-glow); }
+        
+        .fun-bg-section {
+            position: relative;
+            min-height: 150px;
+            margin-top: 4rem;
+            margin-bottom: 2rem;
+            border-radius: 20px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .typing-effect {
+            position: relative;
+            z-index: 5;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.6rem; 
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            text-align: center;
+            max-width: 100%;
+        }
+
+        .typing-effect .cursor {
+            display: inline-block;
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            margin-left: 5px;
+            width: 10px;
+            height: 1.6rem;
+            animation: blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes blink-caret {
+            from, to { background-color: transparent; box-shadow: none; }
+            50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); }
+        }
+
+        .floating-mascot-bg {
+            position: absolute;
+            width: 250px;
+            height: auto;
+            opacity: 0.15;
+            animation: floatMascot 15s ease-in-out infinite alternate;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        @keyframes floatMascot {
+            from {
+                transform: translate(-60%, -60%) rotate(-15deg);
+            }
+            to {
+                transform: translate(-40%, -40%) rotate(15deg);
+            }
+        }
+        
+        #return-home-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            z-index: 1001;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        #return-home-btn svg {
+            width: 100%;
+            height: 100%;
+            stroke: #ffffff;
+            stroke-width: 2px;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 6px var(--primary-glow));
+        }
+
+        #return-home-btn:hover {
+            transform: scale(1.1);
+        }
+
+        #return-home-btn:hover svg {
+            stroke: var(--primary-glow);
+            filter: drop-shadow(0 0 12px var(--primary-glow));
+            transform: rotate(-10deg);
+        }
+
+        footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+        #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
+        #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
+        #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
+        #mascot-img.enlarged { transform: scale(2.5) !important; }
+        #mascot-speech { position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9); color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3); }
+        #mascot-speech.visible { opacity: 1; transform: translateY(0); }
+        .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            header {
+                padding: 3rem 0;
+            }
+             header h1 {
+                font-size: 2.5rem; /* 調整字體大小 */
+            }
+            header h2 {
+                font-size: 1.2rem; /* 調整字體大小 */
+            }
+            section {
+                padding: 1.5rem;
+                margin-bottom: 2rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .dignity-grid {
+                grid-template-columns: 1fr;
+            }
+            .typing-effect {
+                font-size: 1.2rem;
+            }
+            .typing-effect .cursor {
+                height: 1.2rem;
+            }
+            #quiz-section .question, .option-btn {
+                font-size: 1rem;
+            }
+            #return-home-btn {
+                width: 45px;
+                height: 45px;
+                left: 15px;
+                bottom: 15px;
+            }
+            #mascot-container {
+                right: 15px;
+                bottom: 15px;
+            }
+            #mascot-img {
+                width: 80px;
+            }
+            #mascot-speech {
+                max-width: 180px;
+                font-size: 0.8rem;
+                padding: 8px 12px;
+                bottom: 90px;
+            }
+        }
+  @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.6rem;
+            }
+            header h2 {
+                font-size: 0.8rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>重點1-1：人性尊嚴與普世人權</h1>
+            <h2>邱俐瑜公民，成為公民神不再只是夢想！</h2>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="dignity-section">
+            <h2 class="section-title"><i class="fas fa-gem"></i>一、人性尊嚴</h2>
+            <p>人性尊嚴指身為「人」應享有的尊嚴，是與生俱來的，不論個人能力、背景、成就，每個人都應被尊重。主要包含四大面向：</p>
+            <div class="dignity-grid">
+                <div class="dignity-card">
+                    <h3><i class="fas fa-user-check"></i> 獨立自主</h3>
+                    <p>每個人都是獨立自主的個體，不是他人的附屬品。</p>
+                    <div class="example-group">
+                        <p class="example-title positive"><i class="fas fa-check-circle"></i> 具人性尊嚴</p>
+                        <p class="example-text">每個人都是獨一無二、不可取代的。</p>
+                    </div>
+                    <div class="example-group">
+                        <p class="example-title negative"><i class="fas fa-times-circle"></i> 尊嚴受損</p>
+                        <p class="example-text">奴隸制度下的工具之一，易被取代。</p>
+                    </div>
+                </div>
+                <div class="dignity-card">
+                    <h3><i class="fas fa-star"></i> 存在價值</h3>
+                    <p>每一個人都具有其存在的意義與價值。</p>
+                     <div class="example-group">
+                        <p class="example-title positive"><i class="fas fa-check-circle"></i> 具人性尊嚴</p>
+                        <p class="example-text">每個人的出生都有意義與價值。</p>
+                    </div>
+                    <div class="example-group">
+                        <p class="example-title negative"><i class="fas fa-times-circle"></i> 尊嚴受損</p>
+                        <p class="example-text">活著的價值就是勞動，沒有自我存在價值。</p>
+                    </div>
+                </div>
+                <div class="dignity-card">
+                    <h3><i class="fas fa-hand-pointer"></i> 自由選擇</h3>
+                    <p>個人可以自由的選擇與行動，決定想要的生活與未來。</p>
+                     <div class="example-group">
+                        <p class="example-title positive"><i class="fas fa-check-circle"></i> 具人性尊嚴</p>
+                        <p class="example-text">可自己決定生活方式與未來發展。</p>
+                    </div>
+                    <div class="example-group">
+                        <p class="example-title negative"><i class="fas fa-times-circle"></i> 尊嚴受損</p>
+                        <p class="example-text">只能持續勞動，無法選擇自己想要的生活。</p>
+                    </div>
+                </div>
+                <div class="dignity-card">
+                    <h3><i class="fas fa-balance-scale"></i> 平等尊重</h3>
+                    <p>每一個人都應受到平等的尊重與對待。</p>
+                    <div class="example-group">
+                        <p class="example-title positive"><i class="fas fa-check-circle"></i> 具人性尊嚴</p>
+                        <p class="example-text">應受到同等的尊重與對待，如獲獎受肯定。</p>
+                    </div>
+                    <div class="example-group">
+                        <p class="example-title negative"><i class="fas fa-times-circle"></i> 尊嚴受損</p>
+                        <p class="example-text">社會地位低下，經常受到歧視。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <h4><i class="fas fa-info-circle"></i>核心說明</h4>
+                <ul>
+                    <li><i class="fas fa-key"></i>人性尊嚴是<strong class="highlight-text">先天固有</strong>的，不須經過後天努力就能擁有。</li>
+                    <li><i class="fas fa-shield-alt"></i>人的<strong class="highlight-text">基本生活</strong>受到保障，才能活得有尊嚴。</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="rights-section">
+            <h2 class="section-title"><i class="fas fa-globe-asia"></i>二、人權保障</h2>
+            <h4><i class="fas fa-book-open"></i>意義</h4>
+            <ul>
+                <li>人權是指人<strong class="highlight-text">與生俱來</strong>應享有的各項權利，包括生命、自由、安全、生存等不可或缺、不可剝奪的權利。</li>
+                <li>人權具有<strong class="highlight-text">普遍性 (普世)</strong>、<strong class="highlight-text">平等性</strong>與<strong class="highlight-text">不可剝奪</strong>等特徵，適用於世界上的每一個人。</li>
+            </ul>
+            <h4><i class="fas fa-link"></i>關聯</h4>
+            <ul>
+                <li>保障人權才能維護人性尊嚴，人權保障是將維護人性尊嚴的方式<strong class="highlight-text">具體實踐</strong>。</li>
+                <li><strong class="highlight-text">普世人權</strong>才能確保人人享有人性尊嚴。</li>
+            </ul>
+            <h4><i class="fas fa-scroll"></i>國際法典</h4>
+            <div class="highlight-box">
+                <p><strong>聯合國《世界人權宣言》</strong>：宣告「人人生而自由，在尊嚴和權利上一律平等」，此宣言為各國努力實踐人權的共同標準，奠定人權的普世性基礎。</p>
+                <p style="margin-top: 1rem;"><strong>人權兩公約</strong>：包含《公民與政治權利國際公約》及《經濟社會文化權利國際公約》。</p>
+            </div>
+            <h4><i class="fas fa-gavel"></i>保障措施</h4>
+            <ul>
+                <li><strong>透過法律制定</strong>：禁止他人或政府侵害人權，例如民主國家以《憲法》保障人權。</li>
+                <li><strong>政府積極提供</strong>：提供生存的保障，例如政府發放白米給獨居老人。</li>
+                <li><strong>個人積極尊重</strong>：維護自己與他人的人權。</li>
+            </ul>
+        </section>
+
+        <section id="quiz-section">
+            <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(112 會考)</span></h3>
+                <div class="question">
+                    <p>我國在面對新冠肺炎疫情時，可透過接種疫苗來降低染疫風險，但逾期停留或逾期居留的外國人卻無法接種疫苗，一旦染疫後，可能也無法得到適當的醫療服務，甚至危及他們的<strong class="highlight-text">生命安全</strong>。因此有民間團體呼籲政府應將這些人納入公費疫苗施打對象。後來，政府基於防疫需求與風險控管，在國內疫苗供應充足的情況下，以專案方式為這些人施打疫苗。</p>
+                    <p><strong>請問，上述民間團體的呼籲隱含下列哪一觀點？</strong></p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 公民參政權應受到重視</button>
+                    <button class="option-btn" data-correct="false">(B) 政府應得到人民定期授權</button>
+                    <button class="option-btn" data-correct="true">(C) 基本人權應受到普遍性保障</button>
+                    <button class="option-btn" data-correct="false">(D) 國家權力應受制衡以免遭濫用</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span>(99 基測)</span></h3>
+                <div class="question">
+                    <p><strong>下方是一份報告中的相關內容。根據內容判斷，下列哪一項敘述最可能是該報告的觀點？</strong></p>
+                    <div class="highlight-box" style="margin-top:1rem; font-size: 1rem;">
+                        某些威權國家，常以自身的價值理念，批判西方國家所宣揚的人權理念，認為落實人權的方法會依不同文化、歷史背景而產生差異。但我們認為，<strong class="highlight-text">不能以文化背景為由，而與基本人權的核心價值背道而馳</strong>。
+                    </div>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 國家主權高於人權</button>
+                    <button class="option-btn" data-correct="true">(B) 各國都應保障人權</button>
+                    <button class="option-btn" data-correct="false">(C) 人權由政黨的體制決定</button>
+                    <button class="option-btn" data-correct="false">(D) 人權因文化差異而不同</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+        </section>
+        
+        <section class="fun-bg-section">
+            <h3 class="typing-effect">
+                <span id="typing-text-span"></span><span class="cursor"></span>
+            </h3>
+            <img src="image/LiyuChillGuy(W).svg" class="floating-mascot-bg" alt="Floating Mascot Background">
+        </section>
+    </main>
+
+    <a href="index.html" id="return-home-btn" title="返回主頁">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+    </a>
+    
+    <div id="mascot-container">
+        <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
+        <div id="mascot-speech">公民好神！</div>
+    </div>
+
+    <footer>
+        <p>Copyright © Liyuchiutiger Gongminshen</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let typingStarted = false; 
+
+            const typingSentences = [
+                "公民好神！我會遵守公民神會員守則！",
+                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
+                "公民神有三力：注意力、記憶力、戰鬥力！"
+            ];
+            const typingElementSpan = document.getElementById('typing-text-span');
+
+            function startTypingLoop() {
+                if (!typingElementSpan) return;
+                let sentenceIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
+
+                function loop() {
+                    const currentSentence = typingSentences[sentenceIndex];
+                    if (isDeleting) {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex - 1);
+                        charIndex--;
+                        if (charIndex === 0) {
+                            isDeleting = false;
+                            sentenceIndex = (sentenceIndex + 1) % typingSentences.length;
+                            setTimeout(loop, 500);
+                        } else {
+                            setTimeout(loop, 50);
+                        }
+                    } else {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex + 1);
+                        charIndex++;
+                        if (charIndex === currentSentence.length) {
+                            isDeleting = true;
+                            setTimeout(loop, 2500); 
+                        } else {
+                            setTimeout(loop, 120);
+                        }
+                    }
+                }
+                loop();
+            }
+            
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
+                            typingStarted = true;
+                            startTypingLoop();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 }); 
+            
+            sections.forEach(section => observer.observe(section));
+
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>接種疫苗主要是保障人民生存的權利，屬於基本人權。民間團體呼籲將「逾期停留或居留的外國人」納入施打對象，其觀點正在強調<strong class="highlight-text">無論國籍或身分為何，基本人權應普及每一個人</strong>，都應受到同等的保障，這正是「人權的普遍性保障」。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 公民參政權</strong>指的是選舉、罷免等政治權利，通常限定於本國「公民」。題目的核心是所有人的「生命安全」，而非公民獨有的參政權。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 政府應得到人民定期授權</strong>指的是「主權在民」。題目討論的是人權保障的對象範圍，與政府權力是否來自人民授權沒有直接關係。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 國家權力應受制衡</strong>指的是「權力分立」。這是在討論政府的結構，而不是人權保障的對象。</p>`
+                },
+                quiz2: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>報告中強調「不能以文化背景為由，而與基本人權的核心價值背道而馳」，這句話的深層含義是，雖然各國文化不同，但<strong class="highlight-text">基本人權的標準是普世的、應優先於文化差異的</strong>。因此，報告的核心觀點是 (B) 各國都應保障人權。而 (A)、(C)、(D) 都是報告所反對的威權國家論點。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 國家主權高於人權</strong>：這是報告中所批判的威權國家的藉口，與報告的觀點背道而馳。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 人權由政黨的體制決定</strong>：這與人權「與生俱來、普世」的特性完全相反，是報告所反對的觀點。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 人權因文化差異而不同</strong>：這是威權國家提出的論點，而報告的內容正是在<strong>批判</strong>這個觀點，認為基本人權不應因文化而異。</p>`
+                }
+            };
+            
+            const quizContainers = document.querySelectorAll('.quiz-container');
+            
+            quizContainers.forEach((container, index) => {
+                const quizId = `quiz${index + 1}`;
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
+
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        
+                        optionButtons.forEach(btn => {
+                            btn.disabled = true;
+                        });
+
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = allQuizData[quizId].correct;
+                            feedbackArea.className = 'feedback-area feedback-correct';
+                        } else {
+                            const optionLetter = button.textContent.substring(1, 2);
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
+                            feedbackArea.className = 'feedback-area feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
+                    });
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+
+            const mascotContainer = document.getElementById('mascot-container');
+            const mascotImg = document.getElementById('mascot-img');
+            const speechBubble = document.getElementById('mascot-speech');
+            
+            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            let messageIndex = 0;
+            let clickTimer = null;
+            let speechTimeout = null;
+
+            mascotContainer.addEventListener('click', () => {
+                clearTimeout(clickTimer);
+                clickTimer = setTimeout(() => {
+                    speechBubble.textContent = messages[messageIndex];
+                    speechBubble.classList.add('visible');
+                    messageIndex = (messageIndex + 1) % messages.length;
+                    clearTimeout(speechTimeout);
+                    speechTimeout = setTimeout(() => speechBubble.classList.remove('visible'), 4000);
+                }, 250);
+            });
+
+            mascotContainer.addEventListener('dblclick', () => {
+                clearTimeout(clickTimer);
+                speechBubble.classList.remove('visible');
+                triggerExplosion();
+            });
+
+            function triggerExplosion() {
+                mascotImg.classList.add('enlarged');
+                const particleCount = 40;
+                const particleColors = [ 'var(--primary-glow)', 'var(--secondary-glow)', 'var(--accent-glow)', '#ffffff' ];
+
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    mascotContainer.appendChild(particle);
+                    const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+                    const angle = Math.random() * 360;
+                    const radius = Math.random() * 120 + 50;
+                    const x = Math.cos(angle * Math.PI / 180) * radius;
+                    const y = Math.sin(angle * Math.PI / 180) * radius;
+                    particle.style.background = color;
+                    requestAnimationFrame(() => {
+                        particle.style.transform = `translate(${x}px, ${y}px) scale(0)`;
+                        particle.style.opacity = '0';
+                    });
+                    setTimeout(() => particle.remove(), 1000);
+                }
+                setTimeout(() => mascotImg.classList.remove('enlarged'), 300);
+            }
+        });
+    </script>
+</body>
+</html>

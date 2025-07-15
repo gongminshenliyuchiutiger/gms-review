@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重點10-2：刑事糾紛的解決</title>
+    <!-- Font Awesome script is still useful for other icons in the page -->
+    <script src="https://kit.fontawesome.com/62a9d1d113.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
+
+        :root {
+            --primary-glow: #00f2ea; /* 亮青色 */
+            --secondary-glow: #ff00ff; /* 洋紅色 */
+            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --bg-dark: #0d1b2a;
+            --bg-dark-2: #020a12;
+            --text-color: #e0e0e0;
+            --card-bg: rgba(23, 37, 51, 0.7);
+            --correct-color: #00ff87;
+            --wrong-color: #ff2a6d;
+            --border-color: rgba(0, 242, 234, 0.3);
+            --accent-border-color: rgba(240, 225, 74, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-2));
+            color: var(--text-color);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 5rem 0;
+            border-bottom: 2px solid var(--border-color);
+            box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 900;
+            color: var(--text-color);
+            white-space: nowrap; /* 新增：防止標題換行 */
+            text-shadow:
+                0 0 5px #fff,
+                0 0 10px var(--accent-glow),
+                0 0 20px var(--accent-glow),
+                0 0 40px var(--accent-glow);
+            animation: flicker-orange 3s infinite alternate;
+        }
+
+        @keyframes flicker-orange {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow:
+                0 0 4px #fff,
+                0 0 11px var(--accent-glow),
+                0 0 19px var(--accent-glow),
+                0 0 40px var(--accent-glow),
+                0 0 80px var(--accent-glow);
+            }
+            20%, 24%, 55% { text-shadow: none; }
+        }
+
+        header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary-glow);
+            margin-top: 1rem;
+            text-shadow: 0 0 8px var(--secondary-glow);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-8px);}
+        }
+
+        section {
+            margin-bottom: 4rem;
+            padding: 2.5rem;
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 0 30px rgba(0, 242, 234, 0.1), inset 0 0 15px rgba(0, 242, 234, 0.1);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .highlight-text {
+            font-weight: bold;
+            color: var(--accent-glow);
+            text-shadow: 0 0 5px var(--accent-glow);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary-glow);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+        
+        .section-title i {
+            font-size: 2.2rem;
+            color: var(--accent-glow);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .info-card {
+            background: rgba(0,0,0,0.2);
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--accent-glow);
+            box-shadow: 0 15px 30px rgba(240, 225, 74, 0.2);
+        }
+        
+        .info-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary-glow);
+            border-bottom: 3px solid var(--accent-glow);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+            flex-grow: 1;
+        }
+        .info-card li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .info-card li::before {
+            content: '\f105'; /* Font Awesome angle-right */
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--accent-glow);
+            transition: transform 0.3s;
+        }
+        .info-card:hover li::before {
+            transform: rotate(90deg);
+        }
+        
+        .info-card h4 {
+            font-size: 1.2rem;
+            color: var(--primary-glow);
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        th, td {
+            padding: 0.8rem;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+        th {
+            background-color: rgba(0, 242, 234, 0.1);
+            color: var(--primary-glow);
+            font-family: 'Orbitron', sans-serif;
+        }
+        td {
+             background-color: rgba(13, 27, 42, 0.5);
+        }
+
+        .highlight-box { background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05)); padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow); font-size: 1.1rem; margin-top: 2rem; box-shadow: inset 0 0 10px rgba(240, 225, 74, 0.2); }
+        .highlight-box strong { color: var(--accent-glow); font-weight: 700; }
+        
+        /* --- QUIZ STYLES --- */
+        .quiz-container { margin-bottom: 3rem; }
+        .quiz-container:last-child { margin-bottom: 0; }
+        .quiz-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); }
+        .quiz-title i { margin-right: 0.75rem; }
+        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
+        #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
+        #quiz-section .options { display: grid; gap: 1rem; }
+        
+        .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+        .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
+        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark); }
+        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark); }
+        
+        .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
+        .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
+        .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        
+        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--accent-glow); }
+        
+        /* --- FUN STYLES --- */
+        .fun-bg-section {
+            position: relative;
+            min-height: 150px;
+            margin-top: 4rem;
+            margin-bottom: 2rem;
+            border-radius: 20px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        .typing-effect {
+            position: relative;
+            z-index: 5;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.6rem; 
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            text-align: center;
+            max-width: 100%;
+        }
+        .typing-effect .cursor {
+            display: inline-block;
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            margin-left: 5px;
+            width: 10px;
+            height: 1.6rem;
+            animation: blink-caret 0.75s step-end infinite;
+        }
+        @keyframes blink-caret {
+            from, to { background-color: transparent; box-shadow: none; }
+            50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); }
+        }
+        .floating-mascot-bg {
+            position: absolute;
+            width: 250px;
+            height: auto;
+            opacity: 0.15;
+            animation: floatMascot 15s ease-in-out infinite alternate;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+        @keyframes floatMascot {
+            from { transform: translate(-60%, -60%) rotate(-15deg); }
+            to { transform: translate(-40%, -40%) rotate(15deg); }
+        }
+        
+        #return-home-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            z-index: 1001;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        #return-home-btn svg {
+            width: 100%;
+            height: 100%;
+            stroke: #ffffff;
+            stroke-width: 2px;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 6px var(--primary-glow));
+        }
+        #return-home-btn:hover { transform: scale(1.1); }
+        #return-home-btn:hover svg {
+            stroke: var(--primary-glow);
+            filter: drop-shadow(0 0 12px var(--primary-glow));
+            transform: rotate(-10deg);
+        }
+
+        footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+        #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
+        #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
+        #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
+        #mascot-img.enlarged { transform: scale(2.5) !important; }
+        #mascot-speech { position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9); color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3); }
+        #mascot-speech.visible { opacity: 1; transform: translateY(0); }
+        .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            header { padding: 3rem 0; }
+            header h1 { font-size: 2.5rem; }
+            header h2 { font-size: 1.2rem; }
+            section { padding: 1.5rem; margin-bottom: 2rem; }
+            .section-title { font-size: 2rem; }
+            .content-grid { grid-template-columns: 1fr; }
+            .info-card { margin-bottom: 1.5rem; }
+            .info-card:last-child { margin-bottom: 0; }
+            .typing-effect { font-size: 1.2rem; }
+            .typing-effect .cursor { height: 1.2rem; }
+            #quiz-section .question, .option-btn { font-size: 1rem; }
+            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
+            #mascot-container { right: 15px; bottom: 15px; }
+            #mascot-img { width: 80px; }
+            #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>重點10-2：刑事糾紛的解決</h1>
+            <h2>邱俐瑜公民，成為公民神不再只是夢想！</h2>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="procedure-section">
+            <h2 class="section-title"><i class="fas fa-sitemap"></i> 一、刑事訴訟程序</h2>
+            <p>目的在於確認國家對被告是否有刑罰權，確保國家裁判的正當性。主要分為四大階段：</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>階段</th>
+                        <th>負責人員</th>
+                        <th>說明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>偵查</strong></td>
+                        <td>檢察官指揮警察</td>
+                        <td>調查犯罪事實及蒐集證據。偵查過程採<strong class="highlight-text">不公開原則</strong>。</td>
+                    </tr>
+                     <tr>
+                        <td><strong>起訴</strong></td>
+                        <td>檢察官 / 被害人、律師</td>
+                        <td><strong>公訴</strong>：檢察官認為證據足以證明被告有犯罪嫌疑時，代表國家向法院提起公訴。<br><strong>自訴</strong>：被害人（及家屬）不經檢察官偵查程序，自行委任律師向法院提起訴訟。</td>
+                    </tr>
+                     <tr>
+                        <td><strong>審判</strong></td>
+                        <td>法官</td>
+                        <td>採<strong class="highlight-text">有罪才罰</strong>原則，法官收到起訴書後才進入審判程序，依據證據進行公正審判。</td>
+                    </tr>
+                     <tr>
+                        <td><strong>執行</strong></td>
+                        <td>檢察官</td>
+                        <td>判決確定後，由檢察官執行，對受刑人施予刑罰。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="roles-section">
+            <h2 class="section-title"><i class="fas fa-user-friends"></i> 二、刑事訴訟的關鍵角色</h2>
+            <div class="highlight-box">
+                <h4><i class="fas-fa-key"></i> 偵查的啟動與起訴的程序</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th colspan="3">啟動偵查的原因</th>
+                            <th colspan="2">起訴的程序</th>
+                        </tr>
+                        <tr>
+                            <th>項目</th>
+                            <th>告訴</th>
+                            <th>告發</th>
+                            <th>自首</th>
+                            <th>公訴</th>
+                            <th>自訴</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>提出者</strong></td>
+                            <td>被害人及其家屬</td>
+                            <td>任何人</td>
+                            <td>犯罪者</td>
+                            <td>檢察官</td>
+                            <td>被害人(須委任律師)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>目的</strong></td>
+                            <td>請求追訴犯罪</td>
+                            <td>告知犯罪事實</td>
+                            <td>承認犯罪事實</td>
+                            <td>請求法院審判</td>
+                            <td>請求法院審判</td>
+                        </tr>
+                         <tr>
+                            <td><strong>受理機關</strong></td>
+                            <td colspan="3">警察機關或檢察官</td>
+                            <td colspan="2">法院</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="content-grid" style="margin-top: 2rem;">
+                <div class="info-card">
+                    <h3>警察</h3>
+                    <ul>
+                        <li>受理民眾報案（包括告訴、告發或自首）。</li>
+                        <li>初步蒐集相關證據，協助檢察官偵查犯罪。</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h3>檢察官</h3>
+                    <ul>
+                        <li><strong class="highlight-text">偵查</strong>、追訴犯罪，指揮刑事裁判的執行。</li>
+                        <li>代表國家擔任刑事訴訟的原告，向法院<strong class="highlight-text">提起公訴</strong>。</li>
+                    </ul>
+                </div>
+                 <div class="info-card">
+                    <h3>法官</h3>
+                    <ul>
+                        <li>超然中立，不受外界干涉，依法進行客觀、公正的審判。</li>
+                        <li>採<strong class="highlight-text">無罪推定原則</strong>：被告未經審判證明有罪確定前，推定其為無罪。</li>
+                    </ul>
+                </div>
+                 <div class="info-card">
+                    <h3>律師</h3>
+                    <ul>
+                        <li>受當事人委託，在訴訟中為當事人<strong class="highlight-text">辯護</strong>，維護當事人的權益。</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="court-section">
+            <h2 class="section-title"><i class="fas fa-landmark"></i> 三、刑事訴訟法庭席位</h2>
+            <div class="content-grid">
+                 <div class="info-card">
+                    <h3>公訴案件</h3>
+                    <p>檢察官代表國家起訴，與被告律師地位平等，向法官進行辯論。</p>
+                    <ul>
+                        <li><strong>原告方</strong>：檢察官</li>
+                        <li><strong>被告方</strong>：被告、律師</li>
+                        <li><strong>中立方</strong>：法官、書記官、通譯</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h3>自訴案件</h3>
+                    <p>被害人自己當原告（須委任律師），直接與被告進行攻防。</p>
+                     <ul>
+                        <li><strong>原告方</strong>：被害人(自訴人)、律師</li>
+                        <li><strong>被告方</strong>：被告、律師</li>
+                        <li><strong>中立方</strong>：法官、書記官、通譯</li>
+                        <li><strong class="highlight-text">註</strong>：自訴人與檢察官不會同時出現。</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="quiz-section">
+            <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(111 會考)</span></h3>
+                <div class="question">
+                    <p>國中生小安寄了一封陳情信給某位公職人員，信中敘述父親因沉迷賭博，導致家中債臺高築，害他的小母離異、家庭破碎，希望有人能幫幫他，讓父親不再沉溺賭海。該名公職人員收到信後立刻啟動偵辦，循線破獲非法賭場，並依法對賭場業者與賭徒提起公訴。根據上述內容判斷，小安寄信的對象應是下列何者？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 法官</button>
+                    <button class="option-btn" data-correct="false">(B) 律師</button>
+                    <button class="option-btn" data-correct="true">(C) 檢察官</button>
+                    <button class="option-btn" data-correct="false">(D) 警察局局長</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span>(110 會考)</span></h3>
+                <div class="question">
+                    <div class="highlight-box" style="padding:1rem;">
+                        <p><strong>消費者請注意</strong></p>
+                        <p>豪闊公司未經主管機關許可，自國外引進並聲稱具有療效的床墊販售牟利，違反《藥事法》規定，相關單位進行調查後，決定對該公司業務負責人提起公訴。</p>
+                    </div>
+                    <p>上方是一則網路新聞報導，根據其中內容判斷，在此案的處理過程中，最可能會出現下列何種情況？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 大法官對案件進行公平審理</button>
+                    <button class="option-btn" data-correct="true">(B) 檢察官主導案件的偵查工作</button>
+                    <button class="option-btn" data-correct="false">(C) 消保官追訴負責人的犯罪行為</button>
+                    <button class="option-btn" data-correct="false">(D) 書記官協助業者進行調解事宜</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+        </section>
+        
+        <section class="fun-bg-section">
+            <h3 class="typing-effect">
+                <span id="typing-text-span"></span><span class="cursor"></span>
+            </h3>
+            <img src="image/LiyuChillGuy(W).svg" class="floating-mascot-bg" alt="Floating Mascot Background">
+        </section>
+    </main>
+
+    <a href="index.html" id="return-home-btn" title="返回主頁">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+    </a>
+    
+    <div id="mascot-container">
+        <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
+        <div id="mascot-speech">程序正義，不可或缺！</div>
+    </div>
+
+    <footer>
+        <p>Copyright © Liyuchiutiger Gongminshen</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let typingStarted = false; 
+
+            const typingSentences = [
+                "公民好神！我會遵守公民神會員守則！",
+                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
+                "公民神有三力：注意力、記憶力、戰鬥力！"
+            ];
+            const typingElementSpan = document.getElementById('typing-text-span');
+
+            function startTypingLoop() {
+                if (!typingElementSpan) return;
+                let sentenceIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
+
+                function loop() {
+                    const currentSentence = typingSentences[sentenceIndex];
+                    if (isDeleting) {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex - 1);
+                        charIndex--;
+                        if (charIndex === 0) {
+                            isDeleting = false;
+                            sentenceIndex = (sentenceIndex + 1) % typingSentences.length;
+                            setTimeout(loop, 500);
+                        } else {
+                            setTimeout(loop, 50);
+                        }
+                    } else {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex + 1);
+                        charIndex++;
+                        if (charIndex === currentSentence.length) {
+                            isDeleting = true;
+                            setTimeout(loop, 2500); 
+                        } else {
+                            setTimeout(loop, 120);
+                        }
+                    }
+                }
+                loop();
+            }
+            
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
+                            typingStarted = true;
+                            startTypingLoop();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 }); 
+            
+            sections.forEach(section => observer.observe(section));
+
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>題目中描述公職人員「啟動偵辦」、「破獲非法賭場」並最終「提起公訴」。在刑事訴訟程序中，負責<strong class="highlight-text">偵查犯罪並代表國家提起公訴</strong>的角色是「檢察官」。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 法官</strong>：負責審判，不負責偵查或起訴。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 律師</strong>：為當事人辯護，不具備國家公權力。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 警察局局長</strong>：警察負責協助偵查，但最終決定並提起公訴的是檢察官。</p>`
+                },
+                quiz2: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>新聞報導中提到「相關單位進行調查後，決定……提起公訴」。在刑事訴訟中，<strong class="highlight-text">偵查犯罪並提起公訴是檢察官的主要職權</strong>。因此，(B)檢察官主導案件的偵查工作，是最可能發生的情況。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 大法官</strong>：負責解釋憲法，不審理個案。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 消保官</strong>：處理消費爭議，不負責追訴犯罪行為。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 書記官</strong>：負責法庭紀錄，不負責調解。</p>`
+                }
+            };
+            
+            const quizContainers = document.querySelectorAll('.quiz-container');
+            
+            quizContainers.forEach((container, index) => {
+                const quizId = `quiz${index + 1}`;
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
+
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        
+                        optionButtons.forEach(btn => {
+                            btn.disabled = true;
+                        });
+
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = allQuizData[quizId].correct;
+                            feedbackArea.className = 'feedback-area feedback-correct';
+                        } else {
+                            const optionLetter = button.textContent.substring(1, 2);
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
+                            feedbackArea.className = 'feedback-area feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
+                    });
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+
+            const mascotContainer = document.getElementById('mascot-container');
+            const mascotImg = document.getElementById('mascot-img');
+            const speechBubble = document.getElementById('mascot-speech');
+            
+            const messages = ["公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！"];
+            let messageIndex = 0;
+            let clickTimer = null;
+            let speechTimeout = null;
+
+            mascotContainer.addEventListener('click', () => {
+                clearTimeout(clickTimer);
+                clickTimer = setTimeout(() => {
+                    speechBubble.textContent = messages[messageIndex];
+                    speechBubble.classList.add('visible');
+                    messageIndex = (messageIndex + 1) % messages.length;
+                    clearTimeout(speechTimeout);
+                    speechTimeout = setTimeout(() => speechBubble.classList.remove('visible'), 4000);
+                }, 250);
+            });
+
+            mascotContainer.addEventListener('dblclick', () => {
+                clearTimeout(clickTimer);
+                speechBubble.classList.remove('visible');
+                triggerExplosion();
+            });
+
+            function triggerExplosion() {
+                mascotImg.classList.add('enlarged');
+                const particleCount = 40;
+                const particleColors = [ 'var(--primary-glow)', 'var(--secondary-glow)', 'var(--accent-glow)', '#ffffff' ];
+
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    mascotContainer.appendChild(particle);
+                    const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+                    const angle = Math.random() * 360;
+                    const radius = Math.random() * 120 + 50;
+                    const x = Math.cos(angle * Math.PI / 180) * radius;
+                    const y = Math.sin(angle * Math.PI / 180) * radius;
+                    particle.style.background = color;
+                    requestAnimationFrame(() => {
+                        particle.style.transform = `translate(${x}px, ${y}px) scale(0)`;
+                        particle.style.opacity = '0';
+                    });
+                    setTimeout(() => particle.remove(), 1000);
+                }
+                setTimeout(() => mascotImg.classList.remove('enlarged'), 300);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重點2-2：平權家庭</title>
+    <!-- Font Awesome script -->
+    <script src="https://kit.fontawesome.com/62a9d1d113.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
+
+        :root {
+            --primary-glow: #00f2ea; /* 亮青色 */
+            --secondary-glow: #ff00ff; /* 洋紅色 */
+            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --bg-dark: #0d1b2a;
+            --bg-dark-2: #020a12;
+            --text-color: #e0e0e0;
+            --card-bg: rgba(23, 37, 51, 0.7);
+            --correct-color: #00ff87;
+            --wrong-color: #ff2a6d;
+            --border-color: rgba(0, 242, 234, 0.3);
+            --accent-border-color: rgba(240, 225, 74, 0.5);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-2));
+            color: var(--text-color);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+
+        header {
+            text-align: center;
+            padding: 5rem 0;
+            border-bottom: 2px solid var(--border-color);
+            box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+        }
+
+header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 900;
+            color: var(--text-color);
+            white-space: nowrap; /* 新增：防止標題換行 */
+            text-shadow:
+                0 0 5px #fff,
+                0 0 10px var(--accent-glow),
+                0 0 20px var(--accent-glow),
+                0 0 40px var(--accent-glow);
+            animation: flicker-orange 3s infinite alternate;
+        }
+
+        @keyframes flicker-orange {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-glow), 0 0 19px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow);
+            }
+            20%, 24%, 55% { text-shadow: none; }
+        }
+
+        header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary-glow);
+            margin-top: 1rem;
+            text-shadow: 0 0 8px var(--secondary-glow);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-8px);}
+        }
+
+        section {
+            margin-bottom: 4rem;
+            padding: 2.5rem;
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 0 30px rgba(0, 242, 234, 0.1), inset 0 0 15px rgba(0, 242, 234, 0.1);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        section.visible { opacity: 1; transform: translateY(0); }
+        
+        .highlight-text {
+            font-weight: bold;
+            color: var(--accent-glow);
+            text-shadow: 0 0 5px var(--accent-glow);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary-glow);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+        
+        .section-title i {
+            font-size: 2.2rem;
+            color: var(--accent-glow);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+        
+        h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.6rem;
+            color: var(--primary-glow);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+        }
+
+        .info-card {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .info-card h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-glow);
+            margin: 0 0 1rem 0;
+        }
+        .info-card ul { list-style-type: none; padding-left: 0; }
+        .info-card li { position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem; }
+        .info-card li::before { content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900; position: absolute; left: 0; top: 2px; color: var(--primary-glow); }
+
+        .law-comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+        .law-column {
+            background: rgba(13, 27, 42, 0.5);
+            padding: 1.5rem;
+            border-radius: 15px;
+            position: relative;
+        }
+        .law-column::before {
+            font-family: 'Orbitron', sans-serif;
+            position: absolute;
+            top: -15px;
+            left: 1.5rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        .law-before::before {
+            content: '修改前';
+            background: var(--wrong-color);
+            color: var(--bg-dark);
+        }
+        .law-after::before {
+            content: '修改後';
+            background: var(--correct-color);
+            color: var(--bg-dark);
+        }
+        .law-column ul { list-style: none; padding-left: 0; margin-top: 1rem; }
+        .law-column li { margin-bottom: 1rem; }
+        .law-column strong { color: var(--primary-glow); }
+
+        .table-container { overflow-x: auto; margin-top: 1.5rem; }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .data-table th, .data-table td {
+            border: 1px solid var(--accent-border-color);
+            padding: 0.8rem;
+            text-align: center;
+        }
+        .data-table thead th {
+            background-color: rgba(13, 27, 42, 0.7);
+            color: var(--primary-glow);
+        }
+
+        /* Quiz Styles */
+        .quiz-container { margin-bottom: 3rem; }
+        .quiz-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); }
+        .quiz-title i { margin-right: 0.75rem; }
+        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; }
+        #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
+        #quiz-section .options { display: grid; gap: 1rem; }
+        .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+        .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
+        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark); }
+        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark); }
+        
+        .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
+        .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
+        .reset-btn:hover { transform: scale(1.05); }
+        
+        /* Mascot & Typing Effect Styles */
+        .fun-bg-section {
+            position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem;
+            border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color);
+            overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem;
+        }
+        .typing-effect {
+            position: relative; z-index: 5; font-family: 'Orbitron', monospace; font-size: 1.6rem; 
+            font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            text-align: center; max-width: 100%;
+            border-bottom: none; /* <--- FIXED: Explicitly remove the border for this element */
+        }
+        .typing-effect .cursor {
+            display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            margin-left: 5px; width: 10px; height: 1.6rem; animation: blink-caret 0.75s step-end infinite;
+        }
+        @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
+        .floating-mascot-bg {
+            position: absolute; width: 250px; height: auto; opacity: 0.15;
+            animation: floatMascot 15s ease-in-out infinite alternate;
+            top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;
+        }
+        @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
+        #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
+        #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
+        #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
+        #mascot-img.enlarged { transform: scale(2.5) !important; }
+        #mascot-speech {
+            position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9);
+            color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px;
+            font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3);
+        }
+        #mascot-speech.visible { opacity: 1; transform: translateY(0); }
+        .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
+
+
+        /* Floating Home Button & Footer */
+        #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
+        #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
+        #return-home-btn:hover { transform: scale(1.1); }
+        #return-home-btn:hover svg { stroke: var(--primary-glow); filter: drop-shadow(0 0 12px var(--primary-glow)); transform: rotate(-10deg); }
+        footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            header h1 { font-size: 2.5rem; }
+            section { padding: 1.5rem; }
+            .section-title { font-size: 2rem; }
+            .law-comparison-grid { grid-template-columns: 1fr; }
+            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
+
+            /* Adjust new elements for mobile */
+            .typing-effect { font-size: 1.2rem; }
+            .typing-effect .cursor { height: 1.2rem; }
+            #mascot-container { right: 15px; bottom: 15px; }
+            #mascot-img { width: 80px; }
+            #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>重點2-2：平權家庭</h1>
+            <h2>邱俐瑜公民，成為公民神不再只是夢想！</h2>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section id="rights-equality-section">
+            <h2 class="section-title"><i class="fas fa-balance-scale-right"></i>一、邁向平權的家庭關係</h2>
+            <p>隨著社會變遷與平權意識抬頭，我國《民法》親屬編歷經多次修正，從過去「以夫、父為中心」的規定，轉變為強調<strong class="highlight-text">性別平等、尊重個人意願、保障子女最佳利益</strong>的現代家庭法制。</p>
+            
+            <h3>夫妻平權</h3>
+            <div class="law-comparison-grid">
+                <div class="law-column law-before">
+                    <ul>
+                        <li><strong>夫妻姓氏：</strong>妻「冠夫姓」。</li>
+                        <li><strong>夫妻住所：</strong>以「夫之住所」為住所。</li>
+                        <li><strong>夫妻財產：</strong>由「夫管理」。</li>
+                    </ul>
+                </div>
+                <div class="law-column law-after">
+                     <ul>
+                        <li><strong>夫妻姓氏：</strong><strong class="highlight-text">各自保有其姓氏</strong>。</li>
+                        <li><strong>夫妻住所：</strong><strong class="highlight-text">平等協議</strong>其婚姻住所。</li>
+                        <li><strong>夫妻財產：</strong><strong class="highlight-text">夫妻自由選擇</strong>何種夫妻財產制。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>親子平權</h3>
+             <div class="law-comparison-grid">
+                <div class="law-column law-before">
+                    <ul>
+                        <li><strong>子女姓氏：</strong>從父姓。</li>
+                        <li><strong>子女親權：</strong>父母意見不一致時，由「父」行使。</li>
+                        <li><strong>子女扶養：</strong>子女應扶養年老父母。</li>
+                    </ul>
+                </div>
+                <div class="law-column law-after">
+                     <ul>
+                        <li><strong>子女姓氏：</strong>父母<strong class="highlight-text">共同約定</strong>。</li>
+                        <li><strong>子女親權：</strong>父母共同行使，意見不一時，得請求法院依<strong class="highlight-text">子女最佳利益</strong>決定。</li>
+                        <li><strong>子女扶養：</strong>若子女曾被父母家暴或遺棄，經舉證後可請求法院<strong class="highlight-text">減輕或免除</strong>扶養義務。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="info-card">
+                 <h4><i class="fas fa-gavel"></i> 親權（監護權）</h4>
+                 <p>指父母對於未成年子女，具有<strong class="highlight-text">保護及教養</strong>的權利與義務。近期《民法》修正草案更將「懲戒」字眼刪除，要求父母在保護教養時，應<strong class="highlight-text">尊重子女人格</strong>，不得對子女有身心暴力行為。</p>
+            </div>
+        </section>
+
+        <section id="dv-prevention-section">
+            <h2 class="section-title"><i class="fas fa-shield-alt"></i>二、家庭暴力防治</h2>
+            <p>家庭暴力是指家庭成員間實施身體、精神或經濟上之騷擾、控制、脅迫或其他不法侵害之行為。</p>
+            <div class="info-card">
+                <h4><i class="fas fa-user-friends"></i> 保護對象</h4>
+                <ul>
+                    <li>配偶與前配偶。</li>
+                    <li>現有或曾有同居關係、家長家屬或家屬間關係者。</li>
+                    <li>現有或曾有親密關係之未同居伴侶（<strong class="highlight-text">恐怖情人條款</strong>）。</li>
+                    <li>目睹家庭暴力之兒童及少年。</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                 <h4><i class="fas fa-file-contract"></i> 法律保障：保護令</h4>
+                 <p>家暴被害人可直接（或透過警察、社工）向<strong class="highlight-text">地方法院</strong>聲請保護令，禁止加害人施暴、騷擾或接近，以保障人身安全。若加害人違反保護令，將負起法律責任。</p>
+                 <h4><i class="fas fa-hands-helping"></i> 其他協助</h4>
+                 <p>各縣市政府設有家庭暴力暨性侵害防治中心，並可撥打 <strong class="highlight-text">113 保護專線</strong>尋求協助。</p>
+            </div>
+        </section>
+
+        <section id="social-support-section">
+            <h2 class="section-title"><i class="fas fa-users-cog"></i>三、社會支持系統的角色</h2>
+            <p>面對現代家庭的挑戰，政府與民間團體提供多樣的支持服務，以協助家庭發揮功能。</p>
+             <div class="info-card">
+                <h4><i class="fas fa-baby-carriage"></i> 面對「少子化」問題</h4>
+                <p>因低薪、高房價、婚育觀念改變等因素，導致生育率下降，影響家庭生育功能。</p>
+                <ul>
+                    <li><strong>政府協助：</strong>發放生育給付、育兒津貼、提供公共托育服務等，營造友善育兒環境。</li>
+                </ul>
+            </div>
+             <div class="info-card">
+                <h4><i class="fas fa-users"></i> 面對「高齡化」問題</h4>
+                <p>因醫療進步使平均壽命延長，高齡人口增加，影響家庭保護與照顧功能。</p>
+                <ul>
+                    <li><strong>政府協助：</strong>推動「長期照顧十年計畫」，提供居家服務、日間照顧中心等，並鼓勵民間採取「三代同鄰」居住型態。</li>
+                </ul>
+            </div>
+        </section>
+
+
+        <section id="quiz-section">
+            <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(112 會考)</span></h3>
+                <div class="question">
+                    <p>甲國女性的就業率，長期以來大幅低於全國平均值，因此該國政府調查女性勞動人口中未就業者的原因，下表是調查結果中的部分統計資料。關於此資料的解讀，下列何者最適當？</p>
+                     <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>年齡(歲)</th><th>需照顧未滿12歲子女</th><th>需照顧65歲以上家屬</th><th>負責打理家務</th><th>健康狀況不佳</th><th>其他</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>30~34</td><td>65.37</td><td>0.89</td><td>11.43</td><td>2.98</td><td>19.33</td></tr>
+                                <tr><td>35~39</td><td>55.35</td><td>2.60</td><td>21.39</td><td>4.26</td><td>16.40</td></tr>
+                                <tr><td>40~44</td><td>35.36</td><td>5.16</td><td>39.70</td><td>7.15</td><td>12.63</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 老年人口比例呈現上升趨勢</button>
+                    <button class="option-btn" data-correct="false">(B) 家庭職能因社會變遷而弱化</button>
+                    <button class="option-btn" data-correct="true">(C) 家庭平權的觀念仍有待加強</button>
+                    <button class="option-btn" data-correct="false">(D) 勞雇間的權力與資源不對等</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span>(99 基測)</span></h3>
+                <div class="question">
+                    <p>右表為甲國已婚者處理家事時間的調查結果，根據表中內容判斷，該國最應宣導下列哪一種觀念？</p>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead><tr><th></th><th>男性</th><th>女性</th></tr></thead>
+                            <tbody>
+                                <tr><td>就業比例</td><td>67.0%</td><td>49.7%</td></tr>
+                                <tr><td>就業者平均處理家事的時間</td><td>0.46 (小時/天)</td><td>1.97 (小時/天)</td></tr>
+                                <tr><td>無就業者平均處理家事的時間</td><td>1.01 (小時/天)</td><td>4.03 (小時/天)</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 提供失業者就業機會</button>
+                    <button class="option-btn" data-correct="true">(B) 均衡家庭勞務的分配</button>
+                    <button class="option-btn" data-correct="false">(C) 減緩性別比例的失衡</button>
+                    <button class="option-btn" data-correct="false">(D) 強調職場的專業分工</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+        </section>
+
+        <!-- Fun BG Section -->
+        <section class="fun-bg-section">
+            <h3 class="typing-effect">
+                <span id="typing-text-span"></span><span class="cursor"></span>
+            </h3>
+            <img src="image/LiyuChillGuy(W).svg" class="floating-mascot-bg" alt="Floating Mascot Background">
+        </section>
+        
+    </main>
+
+    <a href="index.html" id="return-home-btn" title="返回主頁">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+    </a>
+
+    <!-- Mascot -->
+    <div id="mascot-container">
+        <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
+        <div id="mascot-speech">公民好神！</div>
+    </div>
+    
+    <footer>
+        <p>Copyright © Liyuchiutiger Gongminshen</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let typingStarted = false;
+
+            // Section fade-in animation
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
+                            typingStarted = true;
+                            startTypingLoop();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 }); 
+            sections.forEach(section => observer.observe(section));
+
+            // Quiz logic
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>表格顯示，甲國女性未就業的主因是「需照顧未滿12歲子女」及「負責打理家務」，這些皆屬於傳統家庭勞務。這反映出社會上仍普遍認為<strong class="highlight-text">女性應承擔主要的家庭照顧責任</strong>，這正是家庭平權觀念不足的體現，故答案為(C)。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 老年人口比例上升：</strong>雖然表格有「需照顧65歲以上家屬」的選項，但其佔比遠低於照顧子女與打理家務，無法從此數據直接推斷老年人口比例的趨勢。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 家庭職能弱化：</strong>表格顯示女性仍在大量執行家庭照顧與家務的職能，並未弱化，反而是因此退出就業市場。這反映的是職能分配不均，而非職能弱化。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 勞雇間的權力與資源不對等：</strong>表格資料主要呈現女性因「家庭因素」而未就業，並未提供勞動市場中勞雇關係的資訊，無法推斷此項。</p>`
+                },
+                quiz2: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>表格數據明確顯示，無論是否就業，<strong class="highlight-text">女性處理家事的時間都遠遠高於男性</strong>（就業者：女1.97 > 男0.46；無就業者：女4.03 > 男1.01）。這顯示了家務分配的嚴重不均，因此該國最應宣導「均衡家庭勞務的分配」，以落實平權觀念。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 提供失業者就業機會：</strong>雖然表格有就業比例，但核心問題是「家務時間分配不均」，而非失業問題。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 減緩性別比例的失衡：</strong>題目並未提供人口性別比例的資訊，無法判斷。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 強調職場的專業分工：</strong>題目討論的是「家庭」內的勞務分工，與職場分工無關。</p>`
+                }
+            };
+            
+            const quizContainers = document.querySelectorAll('.quiz-container');
+            
+            quizContainers.forEach((container, index) => {
+                const quizId = `quiz${index + 1}`;
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
+
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        optionButtons.forEach(btn => btn.disabled = true);
+                        
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = allQuizData[quizId].correct;
+                            feedbackArea.className = 'feedback-area feedback-correct';
+                        } else {
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            const optionLetter = button.textContent.substring(1, 2);
+                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
+                            feedbackArea.className = 'feedback-area feedback-wrong';
+                        }
+                        
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
+                    });
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+
+            // Typing Effect and Mascot JS
+            const typingSentences = [
+                "公民好神！我會遵守公民神會員守則！",
+                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
+                "公民神有三力：注意力、記憶力、戰鬥力！"
+            ];
+            const typingElementSpan = document.getElementById('typing-text-span');
+
+            function startTypingLoop() {
+                if (!typingElementSpan) return;
+                let sentenceIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
+
+                function loop() {
+                    const currentSentence = typingSentences[sentenceIndex];
+                    if (isDeleting) {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex - 1);
+                        charIndex--;
+                        if (charIndex === 0) {
+                            isDeleting = false;
+                            sentenceIndex = (sentenceIndex + 1) % typingSentences.length;
+                            setTimeout(loop, 500);
+                        } else {
+                            setTimeout(loop, 50);
+                        }
+                    } else {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex + 1);
+                        charIndex++;
+                        if (charIndex === currentSentence.length) {
+                            isDeleting = true;
+                            setTimeout(loop, 2500); 
+                        } else {
+                            setTimeout(loop, 120);
+                        }
+                    }
+                }
+                loop();
+            }
+
+            const mascotContainer = document.getElementById('mascot-container');
+            const mascotImg = document.getElementById('mascot-img');
+            const speechBubble = document.getElementById('mascot-speech');
+            
+            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            let messageIndex = 0;
+            let clickTimer = null;
+            let speechTimeout = null;
+
+            mascotContainer.addEventListener('click', () => {
+                clearTimeout(clickTimer);
+                clickTimer = setTimeout(() => {
+                    speechBubble.textContent = messages[messageIndex];
+                    speechBubble.classList.add('visible');
+                    messageIndex = (messageIndex + 1) % messages.length;
+                    clearTimeout(speechTimeout);
+                    speechTimeout = setTimeout(() => speechBubble.classList.remove('visible'), 4000);
+                }, 250);
+            });
+
+            mascotContainer.addEventListener('dblclick', () => {
+                clearTimeout(clickTimer);
+                speechBubble.classList.remove('visible');
+                triggerExplosion();
+            });
+
+            function triggerExplosion() {
+                mascotImg.classList.add('enlarged');
+                const particleCount = 40;
+                const particleColors = [ 'var(--primary-glow)', 'var(--secondary-glow)', 'var(--accent-glow)', '#ffffff' ];
+
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    mascotContainer.appendChild(particle);
+                    const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+                    const angle = Math.random() * 360;
+                    const radius = Math.random() * 120 + 50;
+                    const x = Math.cos(angle * Math.PI / 180) * radius;
+                    const y = Math.sin(angle * Math.PI / 180) * radius;
+                    particle.style.background = color;
+                    requestAnimationFrame(() => {
+                        particle.style.transform = `translate(${x}px, ${y}px) scale(0)`;
+                        particle.style.opacity = '0';
+                    });
+                    setTimeout(() => particle.remove(), 1000);
+                }
+                setTimeout(() => mascotImg.classList.remove('enlarged'), 300);
+            }
+
+        });
+    </script>
+</body>
+</html>

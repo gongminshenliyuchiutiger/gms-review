@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重點4-1：社會生活中的公民德性</title>
+    <!-- Font Awesome script -->
+    <script src="https://kit.fontawesome.com/62a9d1d113.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
+
+        :root {
+            --primary-glow: #00f2ea; /* 亮青色 */
+            --secondary-glow: #ff00ff; /* 洋紅色 */
+            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --bg-dark: #0d1b2a;
+            --bg-dark-2: #020a12;
+            --text-color: #e0e0e0;
+            --card-bg: rgba(23, 37, 51, 0.7);
+            --correct-color: #00ff87;
+            --wrong-color: #ff2a6d;
+            --border-color: rgba(0, 242, 234, 0.3);
+            --accent-border-color: rgba(240, 225, 74, 0.5);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-2));
+            color: var(--text-color);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+
+        header {
+            text-align: center;
+            padding: 5rem 0;
+            border-bottom: 2px solid var(--border-color);
+            box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 900;
+            color: var(--text-color);
+            white-space: nowrap; /* 新增：防止標題換行 */
+            text-shadow:
+                0 0 5px #fff,
+                0 0 10px var(--accent-glow),
+                0 0 20px var(--accent-glow),
+                0 0 40px var(--accent-glow);
+            animation: flicker-orange 3s infinite alternate;
+        }
+
+
+        @keyframes flicker-orange {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-glow), 0 0 19px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow);
+            }
+            20%, 24%, 55% { text-shadow: none; }
+        }
+
+        header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary-glow);
+            margin-top: 1rem;
+            white-space: nowrap; /* 新增：防止副標題換行 */
+            text-shadow: 0 0 8px var(--secondary-glow);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-8px);}
+        }
+
+        section {
+            margin-bottom: 4rem;
+            padding: 2.5rem;
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 0 30px rgba(0, 242, 234, 0.1), inset 0 0 15px rgba(0, 242, 234, 0.1);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        section.visible { opacity: 1; transform: translateY(0); }
+        
+        .highlight-text {
+            font-weight: bold;
+            color: var(--accent-glow);
+            text-shadow: 0 0 5px var(--accent-glow);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary-glow);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+        
+        .section-title i {
+            font-size: 2.2rem;
+            color: var(--accent-glow);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+        
+        h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-glow);
+            margin-bottom: 1rem;
+        }
+        h3 { font-size: 1.6rem; }
+        h4 { font-size: 1.4rem; }
+
+        .info-card {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .info-card h4 {
+            margin-top: 0;
+            color: var(--accent-glow);
+            border-bottom: 2px solid var(--accent-border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05));
+            padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow);
+            margin-top: 2rem;
+        }
+        
+        .comparison-table {
+            width: 100%; border-collapse: collapse; margin-top: 1.5rem;
+        }
+        .comparison-table th, .comparison-table td {
+            border: 1px solid var(--border-color); padding: 1rem; text-align: center;
+            vertical-align: top;
+        }
+        .comparison-table thead th { background-color: rgba(13, 27, 42, 0.7); color: var(--primary-glow); }
+        .comparison-table tbody th { font-weight: bold; color: var(--accent-glow); }
+        .comparison-table ul { list-style: none; padding: 0; text-align: left;}
+        .comparison-table li { margin-bottom: 0.5rem; }
+
+        .definition-list dt {
+            font-weight: bold; color: var(--primary-glow); margin-top: 1rem;
+        }
+        .definition-list dd {
+            padding-left: 1rem; border-left: 2px solid var(--border-color);
+        }
+        .flowchart {
+            display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+        }
+        .flowchart img { max-width: 100%; height: auto; border-radius: 10px; }
+
+        /* Quiz Styles */
+        .quiz-container { margin-bottom: 3rem; }
+        .quiz-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); }
+        .quiz-title i { margin-right: 0.75rem; }
+        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; }
+        #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
+        #quiz-section .options { display: grid; gap: 1rem; }
+        .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+        .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
+        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark);}
+        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
+        
+        .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
+        .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
+        .reset-btn:hover { transform: scale(1.05); }
+
+        .matching-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .matching-item:last-child { border-bottom: none; }
+        .matching-item p { flex-grow: 1; margin: 0; }
+        .matching-select { background-color: var(--bg-dark); color: var(--text-color); border: 1px solid var(--primary-glow); border-radius: 5px; padding: 0.4rem; font-family: inherit; font-size: 1rem; cursor: pointer; }
+        .feedback-icon { font-size: 1.2rem; font-weight: 900; display: none; }
+        .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
+        .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
+        
+        /* Mascot & Typing Effect Styles */
+        .fun-bg-section {
+            position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem;
+            border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color);
+            overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem;
+        }
+        .typing-effect {
+            position: relative; z-index: 5; font-family: 'Orbitron', monospace; font-size: 1.6rem; 
+            font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            text-align: center; max-width: 100%;
+        }
+        .typing-effect .cursor {
+            display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            margin-left: 5px; width: 10px; height: 1.6rem; animation: blink-caret 0.75s step-end infinite;
+        }
+        @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
+        .floating-mascot-bg {
+            position: absolute; width: 250px; height: auto; opacity: 0.15;
+            animation: floatMascot 15s ease-in-out infinite alternate;
+            top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;
+        }
+        @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
+        #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
+        #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
+        #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
+        #mascot-img.enlarged { transform: scale(2.5) !important; }
+        #mascot-speech {
+            position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9);
+            color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px;
+            font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3);
+        }
+        #mascot-speech.visible { opacity: 1; transform: translateY(0); }
+        .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
+
+        /* Floating Home Button & Footer */
+        #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
+        #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
+        #return-home-btn:hover { transform: scale(1.1); }
+        #return-home-btn:hover svg { stroke: var(--primary-glow); filter: drop-shadow(0 0 12px var(--primary-glow)); transform: rotate(-10deg); }
+        footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            header h1 { font-size: 2.5rem; }
+            section { padding: 1.5rem; }
+            .section-title { font-size: 2rem; }
+            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
+
+            /* Adjust new elements for mobile */
+            .typing-effect { font-size: 1.2rem; }
+            .typing-effect .cursor { height: 1.2rem; }
+            #mascot-container { right: 15px; bottom: 15px; }
+            #mascot-img { width: 80px; }
+            #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>重點4-1：社會生活中的公民德性</h1>
+            <h2>邱俐瑜公民，成為公民神不再只是夢想！</h2>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section id="public-affairs-section">
+            <h2 class="section-title"><i class="fas fa-comments"></i>一、公共事務參與</h2>
+            <h3>公共事務</h3>
+            <ul>
+                <li>涉及與<strong class="highlight-text">眾人利益</strong>有關，無法獨自決定的事務，如公共政策、班級制訂等。</li>
+                <li>每個人依扮演角色不同（國民、公民），權利義務及可參與公共事務的範圍也不同。</li>
+            </ul>
+            <table class="comparison-table">
+                <thead><tr><th>事務</th><th>國民可參與的公共事務</th><th>公民才可參與的公共事務</th></tr></thead>
+                <tbody>
+                    <tr><th>年齡限制</th><td>無</td><td>有</td></tr>
+                    <tr><th>參與者</th><td>國民（具我國國籍的人民）、公民皆可</td><td>公民（具法定資格享有參政權的國民）</td></tr>
+                    <tr><th>舉例</th><td>關心時事、發表意見</td><td>公民投票（須滿18歲）</td></tr>
+                </tbody>
+            </table>
+            <h3>重要性</h3>
+            <dl class="definition-list">
+                <dt>與成員權益息息相關</dt>
+                <dd>公共事務的決定涉及與群體成員的<strong class="highlight-text">利益分配</strong>與<strong class="highlight-text">權利保障</strong>，可能直接或間接影響成員的生活。</dd>
+                <dt>讓決策貼近成員需求</dt>
+                <dd>每位成員的需求不同，透過參與公共事務，積極表達意見、參與討論，才能讓決策兼顧與貼近所有成員的需求。</dd>
+                <dt>監督防止少數操弄</dt>
+                <dd>群體成員若對公共事務冷漠以待，可能導致少數人決定公共事務，漠視多數人需求，或因缺乏監督，導致資源分配不公或其他人權利受到影響。</dd>
+            </dl>
+        </section>
+
+        <section id="people-citizen-section">
+            <h2 class="section-title"><i class="fas fa-users"></i>二、國民與公民</h2>
+            <table class="comparison-table">
+                <thead><tr><th style="width: 20%;">項目</th><th style="width: 20%;">條件</th><th>說明</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <th>國民</th>
+                        <td>具備某國國籍</td>
+                        <td>
+                            <p>1. 具備某國國籍，即為該國的國民。</p>
+                            <p>2. 國籍的取得途徑：</p>
+                            <ul>
+                                <li><strong>天生取得：</strong>
+                                    <ul>
+                                        <li>屬人主義（血統主義）：以父母的國籍為準。</li>
+                                        <li>屬地主義（出生地主義）：以出生地為準。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>歸化取得：</strong>因出生以外的原因（如婚姻、認領、收養），自願申請取得他國國籍。</li>
+                            </ul>
+                            <p>※ 我國《國籍法》採<strong class="highlight-text">屬人為主，屬地為輔</strong>的折衷制。</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>狹義<br>公民</th>
+                        <td>符合法定年齡<br>+<br>能行使參政權</td>
+                        <td>
+                            <p>1. 法定年齡：</p>
+                            <ul>
+                                <li>《公民投票法》：年滿<strong class="highlight-text">18歲</strong>。</li>
+                                <li>《中華民國憲法》：年滿<strong class="highlight-text">20歲</strong>，有依法選舉之權。</li>
+                                <li>《公務人員考試法》：年滿<strong class="highlight-text">18歲</strong>，得應本法之考試。</li>
+                            </ul>
+                            <p>2. 參政權：包括選舉、罷免、創制、複決、應考試服公職等權利。</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="civic-virtue-section">
+            <h2 class="section-title"><i class="fas fa-gem"></i>三、公民應具備的德性</h2>
+            <table class="comparison-table">
+                <thead><tr><th style="width: 25%;">公民德性</th><th>說明</th></tr></thead>
+                <tbody>
+                    <tr><th>充實知能、積極參與</th><td>1. 參與成員應對公共事務有基本認識與溝通能力。<br>2. 公共事務由眾人決定，成員應積極參與。</td></tr>
+                    <tr><th>遵守法律、發揮道德</th><td>1. 參與公共事務時，個人與政府都應遵守法律規範。<br>2. 法律未規範的範圍，也應發揮私德與公德心，尊重他人的尊嚴與權利。</td></tr>
+                    <tr><th>理性思考、相互尊重</th><td>1. 具備理性思考能力，不盲目附會或反對他人論點。<br>2. 每個人都有表達意見的權利，理解彼此的差異與獨特性，互相接納與尊重。</td></tr>
+                    <tr><th>捍衛正義、促進公益</th><td>1. 若有人權益受損時，應挺身而出為其爭取權益，以實現公平正義。<br>2. 個人可以奉獻自己的心力與資源，從事對他人有利的公益行為。</td></tr>
+                </tbody>
+            </table>
+            <h4>觀念比較：發揮公德、促進公益、捍衛正義</h4>
+            <table class="comparison-table">
+                <thead><tr><th>公民德性</th><th>發揮公德</th><th>促進公益</th><th>捍衛正義</th></tr></thead>
+                <tbody>
+                    <tr><th>強調面向</th><td>培養自制能力、做好自己的本分</td><td>從事對他人有利的行為</td><td>從事對他人有利的行為，強調對象是弱勢群體或權益受損者</td></tr>
+                    <tr><th>舉例</th><td>做好資源回收</td><td>參與淨灘的環保活動</td><td>募款幫助植物人</td></tr>
+                    <tr><th>特性</th><td>較為消極</td><td>較為積極</td><td>較為積極</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="quiz-section">
+            <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-tasks"></i>模擬神給酷</h3>
+                <div class="info-card">
+                     <p><strong>下列行為最符合何種公民德性的表現？請填入正確代號。</strong><br>
+                     (甲) 發揮公德 &nbsp;&nbsp; (乙) 促進公益 &nbsp;&nbsp; (丙) 捍衛正義
+                     </p>
+                     <div class="matching-item" data-answer="乙"><p>1. 小志加入社區巡守隊志工，幫忙巡視社區安全。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="丙"><p>2. 小珍定期捐款給喜憨兒基金會，為心智障礙者盡心力。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="甲"><p>3. 小勇搭乘捷運時，會禮讓他人並遵守先下後上的乘車順序。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="乙"><p>4. 愛好大自然的小平，為了維護海灘潔淨，號召同班同學一起淨灘。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="甲"><p>5. 王媽媽帶小兒子去公園玩耍，會珍惜使用、不損壞公園的公共設施。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="丙"><p>6. 小張在路邊看見民眾違規占用身障停車格，便撥打110報案專線檢舉。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
+                </div>
+            </div>
+
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(112 會考)</span></h3>
+                <div class="question">
+                    <p>王伯伯參與里民大會討論時，常常見到少數里民與他意見不同的情況，不過他總是說：「雖然其他人的意見與我不同，但應該要讓大家都有發言的機會，不能剝奪少數意見發聲的權利。」上述王伯伯的做法，最能表現出哪一種公民素養？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 重視自身權利，善盡國民義務</button>
+                    <button class="option-btn" data-correct="false">(B) 參與公共事務，積極監督政府</button>
+                    <button class="option-btn" data-correct="true">(C) 尊重不同看法，維護基本人權</button>
+                    <button class="option-btn" data-correct="false">(D) 熱心社會公益，經常回饋社會</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span>(111 會考)</span></h3>
+                <div class="question">
+                    <p>阿泉在餐廳外等候用餐時，看見店門口張貼一張「禁止寵物入內，導盲犬除外」的貼紙，他疑惑視障者應該看不見貼紙，於是好奇地向店家詢問張貼貼紙的用意，店員說明這是為了提醒其他客人，店內出現的狗是正在執行勤務的導盲犬，要請客人注意不要打擾牠。上述店家的作為主要展現下列何項素養？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 增進公共利益</button>
+                    <button class="option-btn" data-correct="true">(B) 實踐公平正義</button>
+                    <button class="option-btn" data-correct="false">(C) 重視環境倫理</button>
+                    <button class="option-btn" data-correct="false">(D) 維護善良風俗</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+        </section>
+
+        <!-- Fun BG Section -->
+        <section class="fun-bg-section">
+            <h3 class="typing-effect">
+                <span id="typing-text-span"></span><span class="cursor"></span>
+            </h3>
+            <img src="image/LiyuChillGuy(W).svg" class="floating-mascot-bg" alt="Floating Mascot Background">
+        </section>
+
+    </main>
+
+    <a href="index.html" id="return-home-btn" title="返回主頁">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+    </a>
+    
+    <!-- Mascot -->
+    <div id="mascot-container">
+        <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
+        <div id="mascot-speech">公民好神！</div>
+    </div>
+
+    <footer>
+        <p>Copyright © Liyuchiutiger Gongminshen</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let typingStarted = false;
+
+            // Section fade-in animation
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
+                            typingStarted = true;
+                            startTypingLoop();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 }); 
+            sections.forEach(section => observer.observe(section));
+
+            // Matching quiz logic
+            const matchingSelects = document.querySelectorAll('.matching-select');
+            matchingSelects.forEach(select => {
+                select.addEventListener('change', (e) => {
+                    const selectedValue = e.target.value;
+                    const item = e.target.closest('.matching-item');
+                    const correctAnswer = item.dataset.answer;
+                    const feedbackIcon = item.querySelector('.feedback-icon');
+                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    if (selectedValue === "請選擇") {
+                        feedbackIcon.style.display = 'none';
+                        return;
+                    }
+                    feedbackIcon.style.display = 'inline-block';
+                    if (selectedValue === correctAnswer) {
+                        feedbackIcon.classList.add('icon-correct');
+                        feedbackIcon.innerHTML = '✓';
+                    } else {
+                        feedbackIcon.classList.add('icon-wrong');
+                        feedbackIcon.innerHTML = '✗';
+                    }
+                });
+            });
+
+            // Multiple choice quiz logic
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>王伯伯的做法核心在於「讓大家都有發言的機會」，即使意見不同，也尊重他人發言的權利。這正體現了「<strong class="highlight-text">理性思考、相互尊重</strong>」的公民德性，也就是尊重不同看法，並維護他人表達意見的基本人權。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 題目重點在於王伯伯對待「他人意見」的態度，而非強調他自己的權利或義務。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 雖然王伯伯參與了公共事務，但他的發言內容更能體現「尊重」，而非「監督政府」。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 王伯伯的行為是參與討論的態度，與回饋社會的公益行為較無直接關係。</p>`
+                },
+                quiz2: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>店家張貼「導盲犬除外」的貼紙，是為了保障<strong class="highlight-text">視障者（弱勢群體）</strong>的權益，讓他們能順利進入餐廳。這種為權益受損者或弱勢群體挺身而出的行為，正是「捍衛正義」或「實踐公平正義」的表現。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 增進公共利益</strong>：雖然此舉對視障者有利，但其更強調對特定弱勢群體的保障，因此「公平正義」是更精確的概念。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 重視環境倫理</strong>：店家的行為與環境保護無關。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 維護善良風俗</strong>：此行為屬於保障權益，與傳統風俗習慣較無關聯。</p>`
+                }
+            };
+            
+            const quizContainers = document.querySelectorAll('.quiz-container');
+            
+            quizContainers.forEach((container, index) => {
+                if(container.querySelector('.option-btn')) { // Only process MCQs
+                    const quizId = `quiz${index}`; // Use index to create a unique ID for MCQs
+                    const optionButtons = container.querySelectorAll('.option-btn');
+                    const feedbackArea = container.querySelector('.feedback-area');
+                    const resetButton = container.querySelector('.reset-btn');
+
+                    optionButtons.forEach(button => {
+                        button.addEventListener('click', () => {
+                            const isCorrect = button.dataset.correct === 'true';
+                            optionButtons.forEach(btn => btn.disabled = true);
+                            
+                            if (isCorrect) {
+                                button.classList.add('correct');
+                                feedbackArea.innerHTML = allQuizData[quizId].correct;
+                                feedbackArea.className = 'feedback-area feedback-correct';
+                            } else {
+                                button.classList.add('wrong');
+                                container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                                const optionLetter = button.textContent.substring(1, 2);
+                                feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
+                                feedbackArea.className = 'feedback-area feedback-wrong';
+                            }
+                            
+                            feedbackArea.style.display = 'block';
+                            resetButton.style.display = 'block';
+                            feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        });
+                    });
+                    
+                    resetButton.addEventListener('click', () => {
+                        optionButtons.forEach(btn => {
+                            btn.disabled = false;
+                            btn.classList.remove('correct', 'wrong');
+                        });
+                        feedbackArea.style.display = 'none';
+                        resetButton.style.display = 'none';
+                        container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                }
+            });
+
+            // Typing Effect and Mascot JS
+            const typingSentences = [
+                "公民好神！我會遵守公民神會員守則！",
+                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
+                "公民神有三力：注意力、記憶力、戰鬥力！"
+            ];
+            const typingElementSpan = document.getElementById('typing-text-span');
+
+            function startTypingLoop() {
+                if (!typingElementSpan) return;
+                let sentenceIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
+
+                function loop() {
+                    const currentSentence = typingSentences[sentenceIndex];
+                    if (isDeleting) {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex - 1);
+                        charIndex--;
+                        if (charIndex === 0) {
+                            isDeleting = false;
+                            sentenceIndex = (sentenceIndex + 1) % typingSentences.length;
+                            setTimeout(loop, 500);
+                        } else {
+                            setTimeout(loop, 50);
+                        }
+                    } else {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex + 1);
+                        charIndex++;
+                        if (charIndex === currentSentence.length) {
+                            isDeleting = true;
+                            setTimeout(loop, 2500); 
+                        } else {
+                            setTimeout(loop, 120);
+                        }
+                    }
+                }
+                loop();
+            }
+
+            const mascotContainer = document.getElementById('mascot-container');
+            const mascotImg = document.getElementById('mascot-img');
+            const speechBubble = document.getElementById('mascot-speech');
+            
+            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            let messageIndex = 0;
+            let clickTimer = null;
+            let speechTimeout = null;
+
+            mascotContainer.addEventListener('click', () => {
+                clearTimeout(clickTimer);
+                clickTimer = setTimeout(() => {
+                    speechBubble.textContent = messages[messageIndex];
+                    speechBubble.classList.add('visible');
+                    messageIndex = (messageIndex + 1) % messages.length;
+                    clearTimeout(speechTimeout);
+                    speechTimeout = setTimeout(() => speechBubble.classList.remove('visible'), 4000);
+                }, 250);
+            });
+
+            mascotContainer.addEventListener('dblclick', () => {
+                clearTimeout(clickTimer);
+                speechBubble.classList.remove('visible');
+                triggerExplosion();
+            });
+
+            function triggerExplosion() {
+                mascotImg.classList.add('enlarged');
+                const particleCount = 40;
+                const particleColors = [ 'var(--primary-glow)', 'var(--secondary-glow)', 'var(--accent-glow)', '#ffffff' ];
+
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    mascotContainer.appendChild(particle);
+                    const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+                    const angle = Math.random() * 360;
+                    const radius = Math.random() * 120 + 50;
+                    const x = Math.cos(angle * Math.PI / 180) * radius;
+                    const y = Math.sin(angle * Math.PI / 180) * radius;
+                    particle.style.background = color;
+                    requestAnimationFrame(() => {
+                        particle.style.transform = `translate(${x}px, ${y}px) scale(0)`;
+                        particle.style.opacity = '0';
+                    });
+                    setTimeout(() => particle.remove(), 1000);
+                }
+                setTimeout(() => mascotImg.classList.remove('enlarged'), 300);
+            }
+        });
+    </script>
+</body>
+</html>

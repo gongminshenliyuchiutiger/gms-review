@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重點5-1：社會規範</title>
+    <!-- Font Awesome script -->
+    <script src="https://kit.fontawesome.com/62a9d1d113.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
+
+        :root {
+            --primary-glow: #00f2ea; /* 亮青色 */
+            --secondary-glow: #ff00ff; /* 洋紅色 */
+            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --bg-dark: #0d1b2a;
+            --bg-dark-2: #020a12;
+            --text-color: #e0e0e0;
+            --card-bg: rgba(23, 37, 51, 0.7);
+            --correct-color: #00ff87;
+            --wrong-color: #ff2a6d;
+            --border-color: rgba(0, 242, 234, 0.3);
+            --accent-border-color: rgba(240, 225, 74, 0.5);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-2));
+            color: var(--text-color);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+
+        header {
+            text-align: center;
+            padding: 5rem 0;
+            border-bottom: 2px solid var(--border-color);
+            box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 900;
+            color: var(--text-color);
+            white-space: nowrap; /* 新增：防止標題換行 */
+            text-shadow:
+                0 0 5px #fff,
+                0 0 10px var(--accent-glow),
+                0 0 20px var(--accent-glow),
+                0 0 40px var(--accent-glow);
+            animation: flicker-orange 3s infinite alternate;
+        }
+
+        @keyframes flicker-orange {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-glow), 0 0 19px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow);
+            }
+            20%, 24%, 55% { text-shadow: none; }
+        }
+
+        header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary-glow);
+            margin-top: 1rem;
+            text-shadow: 0 0 8px var(--secondary-glow);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-8px);}
+        }
+
+        section {
+            margin-bottom: 4rem;
+            padding: 2.5rem;
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 0 30px rgba(0, 242, 234, 0.1), inset 0 0 15px rgba(0, 242, 234, 0.1);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        section.visible { opacity: 1; transform: translateY(0); }
+        
+        .highlight-text {
+            font-weight: bold;
+            color: var(--accent-glow);
+            text-shadow: 0 0 5px var(--accent-glow);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary-glow);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+        
+        .section-title i {
+            font-size: 2.2rem;
+            color: var(--accent-glow);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+        
+        h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-glow);
+            margin-bottom: 1rem;
+        }
+        h3 { font-size: 1.6rem; }
+        h4 { font-size: 1.4rem; }
+
+        .info-card {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .comparison-table {
+            width: 100%; border-collapse: collapse; margin-top: 1.5rem;
+        }
+        .comparison-table th, .comparison-table td {
+            border: 1px solid var(--border-color); padding: 1rem; text-align: left;
+            vertical-align: top;
+        }
+        .comparison-table thead th { background-color: rgba(13, 27, 42, 0.7); color: var(--primary-glow); text-align: center; }
+        .comparison-table tbody th { font-weight: bold; color: var(--accent-glow); text-align: center; }
+
+        .definition-list dt {
+            font-weight: bold; color: var(--primary-glow); margin-top: 1rem;
+        }
+        .definition-list dd {
+            padding-left: 1rem; border-left: 2px solid var(--border-color);
+        }
+        
+        /* Quiz Styles */
+        .quiz-container { margin-bottom: 3rem; }
+        .quiz-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); }
+        .quiz-title i { margin-right: 0.75rem; }
+        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; }
+        #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
+        #quiz-section .dialogue-box {
+            background: rgba(0, 242, 234, 0.08); padding: 1rem; border-radius: 10px; margin-top: 1rem;
+        }
+        #quiz-section .dialogue-box p { margin: 0.5rem 0; }
+        #quiz-section .options { display: grid; gap: 1rem; }
+        .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+        .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
+        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark);}
+        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
+        
+        .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
+        .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
+        .reset-btn:hover { transform: scale(1.05); }
+        
+        /* Mascot & Typing Effect Styles */
+        .fun-bg-section {
+            position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem;
+            border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color);
+            overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem;
+        }
+        .typing-effect {
+            position: relative; z-index: 5; font-family: 'Orbitron', monospace; font-size: 1.6rem; 
+            font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            text-align: center; max-width: 100%;
+        }
+        .typing-effect .cursor {
+            display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            margin-left: 5px; width: 10px; height: 1.6rem; animation: blink-caret 0.75s step-end infinite;
+        }
+        @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
+        .floating-mascot-bg {
+            position: absolute; width: 250px; height: auto; opacity: 0.15;
+            animation: floatMascot 15s ease-in-out infinite alternate;
+            top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;
+        }
+        @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
+        #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
+        #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
+        #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
+        #mascot-img.enlarged { transform: scale(2.5) !important; }
+        #mascot-speech {
+            position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9);
+            color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px;
+            font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3);
+        }
+        #mascot-speech.visible { opacity: 1; transform: translateY(0); }
+        .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
+
+        /* Floating Home Button & Footer */
+        #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
+        #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
+        #return-home-btn:hover { transform: scale(1.1); }
+        #return-home-btn:hover svg { stroke: var(--primary-glow); filter: drop-shadow(0 0 12px var(--primary-glow)); transform: rotate(-10deg); }
+        footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            header h1 { font-size: 2.5rem; }
+            section { padding: 1.5rem; }
+            .section-title { font-size: 2rem; }
+            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
+
+            /* Adjust new elements for mobile */
+            .typing-effect { font-size: 1.2rem; }
+            .typing-effect .cursor { height: 1.2rem; }
+            #mascot-container { right: 15px; bottom: 15px; }
+            #mascot-img { width: 80px; }
+            #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>重點5-1：社會規範</h1>
+            <h2>邱俐瑜公民，成為公民神不再只是夢想！</h2>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section id="norms-meaning-section">
+            <h2 class="section-title"><i class="fas fa-book-open"></i>一、社會規範的意義與種類</h2>
+            <div class="info-card">
+                 <dl class="definition-list">
+                    <dt>意義</dt>
+                    <dd>指社會成員日常生活的行為準則及依據。</dd>
+                    <dt>重要性</dt>
+                    <dd>1. 維持社會秩序：指導與約束個人行為，避免糾紛、衝突的發生。<br>2. 協助融入社會：協助個人建立符合期待的行為模式，融入社會生活。</dd>
+                    <dt>與文化的關係</dt>
+                    <dd>1. 文化→規範：文化會影響社會規範的形成與種類。<br>2. 規範→文化：社會規範會影響約束社會文化中的成員。兩者密不可分。</dd>
+                 </dl>
+            </div>
+            <h3 style="margin-top: 2rem;">種類</h3>
+            <table class="comparison-table">
+                <thead><tr><th style="width: 20%;">項目</th><th style="width: 50%;">說明</th><th>舉例</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <th>風俗習慣</th>
+                        <td>1. 長久累積、約定俗成的生活經驗，形成相沿成習的<strong class="highlight-text">慣例</strong>。<br>2. 可反映該社會的文化特色。<br>3. 最早發展出來的規範形式。</td>
+                        <td>清明節掃墓、樹葬或土葬、中秋節賞月、紋面傳統。</td>
+                    </tr>
+                    <tr>
+                        <th>倫理道德</th>
+                        <td>1. 倫理：人與人<strong class="highlight-text">相處</strong>的應對進退之道。<br>2. 道德：內在判斷<strong class="highlight-text">是非、善惡</strong>的標準。</td>
+                        <td>孝順父母、五倫、第六倫、環境倫理。</td>
+                    </tr>
+                    <tr>
+                        <th>宗教信仰</th>
+                        <td>1. 透過<strong class="highlight-text">超自然</strong>力量、教義或戒律，約束個人行為。<br>2. 大多主張勸人為善，具有穩定社會的作用。</td>
+                        <td>生死輪迴觀念、佛教吃素念經、伊斯蘭教不吃豬肉。</td>
+                    </tr>
+                    <tr>
+                        <th>法律</th>
+                        <td>1. 政府經<strong class="highlight-text">一定程序</strong>制定的規範。<br>2. 具體明文規範，具<strong class="highlight-text">明確性</strong>。<br>3. 以<strong class="highlight-text">公權力</strong>為後盾，可對違反法律規定的人，進行<strong class="highlight-text">強制性制裁</strong>。</td>
+                        <td>公共場所禁止吸菸(《菸害防制法》)、禁止酒駕規定。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="concepts-comparison-section">
+            <h2 class="section-title"><i class="fas fa-balance-scale"></i>二、觀念比較</h2>
+            <h4>各種倫理</h4>
+            <table class="comparison-table">
+                <thead><tr><th style="width: 20%;">倫理</th><th>說明</th><th>強調重點</th></tr></thead>
+                <tbody>
+                    <tr><th>五倫</th><td>父子有親、君臣有義、夫婦有別、長幼有序、朋友有信</td><td>私德、傳統社會</td></tr>
+                    <tr><th>第六倫</th><td>重視個人與一般社會大眾的關係，也稱「群己倫理」</td><td>公德、現代社會</td></tr>
+                    <tr><th>環境倫理</th><td>針對人與環境之間的關係</td><td>環境保護、生態保育</td></tr>
+                    <tr><th>科技倫理</th><td>從事科技活動時，應有的行為準則</td><td>因應快速的科技變遷</td></tr>
+                </tbody>
+            </table>
+
+            <h4 style="margin-top: 2rem;">不同社會規範的效力</h4>
+            <table class="comparison-table">
+                <thead><tr><th>項目</th><th>法律 (正式規範)</th><th>風俗習慣、倫理道德、宗教信仰 (非正式規範)</th></tr></thead>
+                <tbody>
+                    <tr><th>制定</th><td>政府經一定程序制定</td><td>長時間累積形成</td></tr>
+                    <tr><th>明確性</th><td>明確規範應遵守的事項</td><td>沒有明確性的規範</td></tr>
+                    <tr><th>規範效果</th><td>1. 約束人的<strong class="highlight-text">外在行為</strong><br>2. 無法規範人的內在思想</td><td>1. 能約束人的外在行為<br>2. 也能啟發個人的<strong class="highlight-text">內在良知</strong></td></tr>
+                    <tr><th>制裁方式</th><td>以<strong class="highlight-text">公權力</strong>懲處</td><td><strong class="highlight-text">良心譴責</strong>、社會輿論批評</td></tr>
+                    <tr><th>強制力</th><td>有</td><td>無</td></tr>
+                    <tr><th>二者關係</th><td colspan="2" style="text-align: left;">法律是最低限度的行為準則，無法強迫人的內心，因此社會穩定的發展需要非正式規範的輔助與配合。</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="norms-change-section">
+            <h2 class="section-title"><i class="fas-fa-sync-alt"></i>三、社會規範的變動</h2>
+            <p>社會規範可能因文化變遷而變動，社會規範也會影響文化的發展。</p>
+            <table class="comparison-table">
+                <thead><tr><th style="width: 20%;"></th><th>說明</th><th>舉例</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <th rowspan="3">變動模式</th>
+                        <td>非正式規範成為正式規範的基礎</td>
+                        <td>社會推廣公德心，拒吸二手菸逐漸受到重視 ➡ 《菸害防制法》禁止民眾在公共場所吸菸。</td>
+                    </tr>
+                    <tr>
+                        <td>正式規範改變不合時宜的非正式規範</td>
+                        <td>《爆竹煙火管理條例》規範爆竹煙火的種類、施放時間與地點等，透過法律來約束慶典行為。</td>
+                    </tr>
+                    <tr>
+                        <td>非正式規範之間互相影響</td>
+                        <td>臺灣民眾以往過世後多採土葬方式，在環境倫理影響下，各種綠色環保殯葬應運而生。</td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">時空差異</th>
+                        <td>時間差異</td>
+                        <td>過去原住民族獵殺野生動物是違法行為，政府為保存與傳承文化，修法使其可因祭儀需要，在原住民族地區依法狩獵。</td>
+                    </tr>
+                    <tr>
+                        <td>空間差異</td>
+                        <td>瑞士病人自主安樂死的制度已經合法化，但在我國仍屬非法的行為。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="quiz-section">
+            <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(112 會考)</span></h3>
+                <div class="question">
+                    <p>三位同學看見路邊有人在虐待流浪狗，分別從不同規範的觀點出言制止，以下是他們的說法：</p>
+                    <div class="dialogue-box">
+                        <p>大強：「這種樣子很殘忍，難道你希望別人也如此對待你嗎？」</p>
+                        <p>小紅：「別欺負小狗，否則就會受因果報應，下輩子輪迴換你被欺負！」</p>
+                        <p>阿順：「你再繼續這樣做，我就要報警讓你接受刑罰的制裁。」</p>
+                    </div>
+                    <p>關於三位同學的說法，下列何項敘述最為適當？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 大強提及的社會規範內容限制了人民的權利</button>
+                    <button class="option-btn" data-correct="false">(B) 小紅提及的社會規範內容屬於道德層面的約束</button>
+                    <button class="option-btn" data-correct="true">(C) 阿順提及的社會規範內容是經由立法院三讀通過</button>
+                    <button class="option-btn" data-correct="false">(D) 三人提及的社會規範內容皆可透過公權力來約束</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span>(111 會考)</span></h3>
+                <div class="question">
+                    <p>某宮廟因擴建擴建道路及廟宇建築，涉嫌占用國土及濫墾山坡地，相關單位多次介入協調，要求廟方自行拆除，但該廟負責人認為廟地選擇及建造的決定皆為神明指示，堅決不願退讓。於此，相關單位除了開罰六萬元外，並將負責人移送法辦。上述內容可能是關於下列哪二者之間的衝突？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 環境保育與經濟發展</button>
+                    <button class="option-btn" data-correct="true">(B) 法律規範與宗教信仰</button>
+                    <button class="option-btn" data-correct="false">(C) 傳統習俗與倫理道德觀念</button>
+                    <button class="option-btn" data-correct="false">(D) 信仰宗教自由與人民財產權</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span>(110 會考)</span></h3>
+                <div class="question">
+                    <p>小毛：「老師為什麼每年學校都要送應屆考生生包子、蛋糕和粽子的餐盒？」</p>
+                    <p>老師：「因為包子、蛋糕和粽子的諧音為『包高中』，寓有對考生祝福吉利的意思。」</p>
+                    <p>上述學校作為所隱含的社會規範，其性質與下列何者最類似？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="true">(A) 除夕夜家人家戶團圓圍爐</button>
+                    <button class="option-btn" data-correct="false">(B) 遛狗時隨手清理愛犬的糞便</button>
+                    <button class="option-btn" data-correct="false">(C) 騎車時拉拉人每日都做好禮讓</button>
+                    <button class="option-btn" data-correct="false">(D) 開車時阿拉人每日都會被開罰單</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+        </section>
+        
+        <!-- Fun BG Section -->
+        <section class="fun-bg-section">
+            <h3 class="typing-effect">
+                <span id="typing-text-span"></span><span class="cursor"></span>
+            </h3>
+            <img src="image/LiyuChillGuy(W).svg" class="floating-mascot-bg" alt="Floating Mascot Background">
+        </section>
+
+    </main>
+
+    <a href="index.html" id="return-home-btn" title="返回主頁">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+    </a>
+    
+    <!-- Mascot -->
+    <div id="mascot-container">
+        <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
+        <div id="mascot-speech">公民好神！</div>
+    </div>
+
+    <footer>
+        <p>Copyright © Liyuchiutiger Gongminshen</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let typingStarted = false;
+
+            // Section fade-in animation
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
+                            typingStarted = true;
+                            startTypingLoop();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 }); 
+            sections.forEach(section => observer.observe(section));
+
+            // Quiz logic
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>社會規範大致可分為風俗習慣、宗教信仰、倫理道德與法律等四種。阿順提及的「報警」、「刑罰」是<strong class="highlight-text">法律</strong>層面，法律是經由立法院三讀，總統公布。大強的說法屬<strong class="highlight-text">倫理道德</strong>；小紅的說法屬<strong class="highlight-text">宗教信仰</strong>。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 大強提及的是倫理道德，是內在良知的約束，並非限制權利。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 小紅提及的「因果報應」、「輪迴」屬於宗教信仰的範疇，而非倫理道德。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 只有阿順提及的法律可透過公權力約束，倫理道德與宗教信仰沒有強制力。</p>`
+                },
+                quiz2: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>廟方以「神明指示」為由，此為<strong class="highlight-text">宗教信仰</strong>；而政府單位依據國土、山坡地相關法規進行開罰與移送法辦，此為<strong class="highlight-text">法律規範</strong>。因此，這是一個典型的法律規範與宗教信仰之間的衝突。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 雖然涉及山坡地，但衝突的核心是信仰與法律，而非經濟發展。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C)</strong> 題目並未提及傳統習俗或倫理道德的衝突。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 雖然涉及信仰自由，但衝突的另一方是代表國家的法律，而非人民財產權。</p>`
+                },
+                quiz3: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>學校送「包高中」餐盒，是取其諧音祝福考生，這是一種長期累積、約定俗成的<strong class="highlight-text">風俗習慣</strong>。(A)除夕夜團圓圍爐也是一種傳統的風俗習慣。 (B)和(C)屬於倫理道德（公德心），(D)是法律行為，與題幹性質不同。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 遛狗清狗便屬於公德心的展現，是倫理道德層面。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C)</strong> 騎車禮讓行人屬於倫理道德層面（公德），也是交通法規的要求。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 被開罰單是違反法律的後果，屬於法律層面。選項文字有誤，但核心概念是法律。</p>`
+                }
+            };
+            
+            const quizContainers = document.querySelectorAll('.quiz-container');
+            
+            quizContainers.forEach((container, index) => {
+                const quizId = `quiz${index + 1}`;
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
+
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        optionButtons.forEach(btn => btn.disabled = true);
+                        
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = allQuizData[quizId].correct;
+                            feedbackArea.className = 'feedback-area feedback-correct';
+                        } else {
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            const optionLetter = button.textContent.substring(1, 2);
+                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
+                            feedbackArea.className = 'feedback-area feedback-wrong';
+                        }
+                        
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
+                    });
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+
+            // Typing Effect and Mascot JS
+            const typingSentences = [
+                "公民好神！我會遵守公民神會員守則！",
+                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
+                "公民神有三力：注意力、記憶力、戰鬥力！"
+            ];
+            const typingElementSpan = document.getElementById('typing-text-span');
+
+            function startTypingLoop() {
+                if (!typingElementSpan) return;
+                let sentenceIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
+
+                function loop() {
+                    const currentSentence = typingSentences[sentenceIndex];
+                    if (isDeleting) {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex - 1);
+                        charIndex--;
+                        if (charIndex === 0) {
+                            isDeleting = false;
+                            sentenceIndex = (sentenceIndex + 1) % typingSentences.length;
+                            setTimeout(loop, 500);
+                        } else {
+                            setTimeout(loop, 50);
+                        }
+                    } else {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex + 1);
+                        charIndex++;
+                        if (charIndex === currentSentence.length) {
+                            isDeleting = true;
+                            setTimeout(loop, 2500); 
+                        } else {
+                            setTimeout(loop, 120);
+                        }
+                    }
+                }
+                loop();
+            }
+
+            const mascotContainer = document.getElementById('mascot-container');
+            const mascotImg = document.getElementById('mascot-img');
+            const speechBubble = document.getElementById('mascot-speech');
+            
+            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            let messageIndex = 0;
+            let clickTimer = null;
+            let speechTimeout = null;
+
+            mascotContainer.addEventListener('click', () => {
+                clearTimeout(clickTimer);
+                clickTimer = setTimeout(() => {
+                    speechBubble.textContent = messages[messageIndex];
+                    speechBubble.classList.add('visible');
+                    messageIndex = (messageIndex + 1) % messages.length;
+                    clearTimeout(speechTimeout);
+                    speechTimeout = setTimeout(() => speechBubble.classList.remove('visible'), 4000);
+                }, 250);
+            });
+
+            mascotContainer.addEventListener('dblclick', () => {
+                clearTimeout(clickTimer);
+                speechBubble.classList.remove('visible');
+                triggerExplosion();
+            });
+
+            function triggerExplosion() {
+                mascotImg.classList.add('enlarged');
+                const particleCount = 40;
+                const particleColors = [ 'var(--primary-glow)', 'var(--secondary-glow)', 'var(--accent-glow)', '#ffffff' ];
+
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    mascotContainer.appendChild(particle);
+                    const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+                    const angle = Math.random() * 360;
+                    const radius = Math.random() * 120 + 50;
+                    const x = Math.cos(angle * Math.PI / 180) * radius;
+                    const y = Math.sin(angle * Math.PI / 180) * radius;
+                    particle.style.background = color;
+                    requestAnimationFrame(() => {
+                        particle.style.transform = `translate(${x}px, ${y}px) scale(0)`;
+                        particle.style.opacity = '0';
+                    });
+                    setTimeout(() => particle.remove(), 1000);
+                }
+                setTimeout(() => mascotImg.classList.remove('enlarged'), 300);
+            }
+        });
+    </script>
+</body>
+</html>

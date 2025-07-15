@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重點6-1：國家</title>
+    <!-- Font Awesome script -->
+    <script src="https://kit.fontawesome.com/62a9d1d113.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
+
+        :root {
+            --primary-glow: #00f2ea; /* 亮青色 */
+            --secondary-glow: #ff00ff; /* 洋紅色 */
+            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --bg-dark: #0d1b2a;
+            --bg-dark-2: #020a12;
+            --text-color: #e0e0e0;
+            --card-bg: rgba(23, 37, 51, 0.7);
+            --correct-color: #00ff87;
+            --wrong-color: #ff2a6d;
+            --border-color: rgba(0, 242, 234, 0.3);
+            --accent-border-color: rgba(240, 225, 74, 0.5);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-2));
+            color: var(--text-color);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+
+        header {
+            text-align: center;
+            padding: 5rem 0;
+            border-bottom: 2px solid var(--border-color);
+            box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 900;
+            color: var(--text-color);
+            white-space: nowrap; /* 新增：防止標題換行 */
+            text-shadow:
+                0 0 5px #fff,
+                0 0 10px var(--accent-glow),
+                0 0 20px var(--accent-glow),
+                0 0 40px var(--accent-glow);
+            animation: flicker-orange 3s infinite alternate;
+        }
+
+        @keyframes flicker-orange {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-glow), 0 0 19px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow);
+            }
+            20%, 24%, 55% { text-shadow: none; }
+        }
+
+        header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary-glow);
+            margin-top: 1rem;
+            text-shadow: 0 0 8px var(--secondary-glow);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-8px);}
+        }
+
+        section {
+            margin-bottom: 4rem;
+            padding: 2.5rem;
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 0 30px rgba(0, 242, 234, 0.1), inset 0 0 15px rgba(0, 242, 234, 0.1);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        section.visible { opacity: 1; transform: translateY(0); }
+        
+        .highlight-text {
+            font-weight: bold;
+            color: var(--accent-glow);
+            text-shadow: 0 0 5px var(--accent-glow);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary-glow);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+        
+        .section-title i {
+            font-size: 2.2rem;
+            color: var(--accent-glow);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+        
+        h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-glow);
+            margin-bottom: 1rem;
+        }
+        h3 { font-size: 1.6rem; }
+        h4 { font-size: 1.4rem; }
+
+        .info-card {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .info-card ul { list-style: none; padding-left: 1rem; }
+        .info-card li { margin-bottom: 0.5rem; }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05));
+            padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow);
+            margin-top: 2rem;
+        }
+        
+        .comparison-table {
+            width: 100%; border-collapse: collapse; margin-top: 1.5rem;
+        }
+        .comparison-table th, .comparison-table td {
+            border: 1px solid var(--border-color); padding: 1rem; text-align: left;
+            vertical-align: top;
+        }
+        .comparison-table thead th { background-color: rgba(13, 27, 42, 0.7); color: var(--primary-glow); text-align: center; }
+        .comparison-table tbody th { font-weight: bold; color: var(--accent-glow); text-align: center; }
+        .comparison-table ul { list-style: none; padding-left: 0; }
+        
+        /* Quiz Styles */
+        .quiz-container { margin-bottom: 3rem; }
+        .quiz-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); }
+        .quiz-title i { margin-right: 0.75rem; }
+        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; }
+        #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
+        #quiz-section .diagram-description {
+            background-color: rgba(0, 242, 234, 0.08); padding: 1rem; border-radius: 10px; margin-top: 1rem; border: 1px dashed var(--border-color);
+        }
+        #quiz-section .diagram-description ul { list-style: none; padding: 0; }
+        #quiz-section .options { display: grid; gap: 1rem; }
+        .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+        .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
+        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark);}
+        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
+        
+        .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
+        .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
+        .reset-btn:hover { transform: scale(1.05); }
+
+        .matching-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .matching-item:last-child { border-bottom: none; }
+        .matching-item p { flex-grow: 1; margin: 0; }
+        .matching-select { background-color: var(--bg-dark); color: var(--text-color); border: 1px solid var(--primary-glow); border-radius: 5px; padding: 0.4rem; font-family: inherit; font-size: 1rem; cursor: pointer; }
+        .feedback-icon { font-size: 1.2rem; font-weight: 900; display: none; }
+        .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
+        .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
+        
+        /* Mascot & Typing Effect Styles */
+        .fun-bg-section {
+            position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem;
+            border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color);
+            overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem;
+        }
+        .typing-effect {
+            position: relative; z-index: 5; font-family: 'Orbitron', monospace; font-size: 1.6rem; 
+            font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            text-align: center; max-width: 100%;
+        }
+        .typing-effect .cursor {
+            display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            margin-left: 5px; width: 10px; height: 1.6rem; animation: blink-caret 0.75s step-end infinite;
+        }
+        @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
+        .floating-mascot-bg {
+            position: absolute; width: 250px; height: auto; opacity: 0.15;
+            animation: floatMascot 15s ease-in-out infinite alternate;
+            top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;
+        }
+        @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
+        #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
+        #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
+        #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
+        #mascot-img.enlarged { transform: scale(2.5) !important; }
+        #mascot-speech {
+            position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9);
+            color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px;
+            font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3);
+        }
+        #mascot-speech.visible { opacity: 1; transform: translateY(0); }
+        .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
+
+        /* Floating Home Button & Footer */
+        #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
+        #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
+        #return-home-btn:hover { transform: scale(1.1); }
+        #return-home-btn:hover svg { stroke: var(--primary-glow); filter: drop-shadow(0 0 12px var(--primary-glow)); transform: rotate(-10deg); }
+        footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            header h1 { font-size: 2.5rem; }
+            section { padding: 1.5rem; }
+            .section-title { font-size: 2rem; }
+            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
+
+            /* Adjust new elements for mobile */
+            .typing-effect { font-size: 1.2rem; }
+            .typing-effect .cursor { height: 1.2rem; }
+            #mascot-container { right: 15px; bottom: 15px; }
+            #mascot-img { width: 80px; }
+            #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>重點6-1：國家</h1>
+            <h2>邱俐瑜公民，成為公民神不再只是夢想！</h2>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section id="state-elements-section">
+            <h2 class="section-title"><i class="fas fa-landmark"></i>一、國家的組成要素</h2>
+            <table class="comparison-table">
+                <thead><tr><th style="width: 15%">要素</th><th style="width: 25%">定義</th><th>說明</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <th>人民</th><td>生活在國內的成員</td><td>主要由國民組成，而具備某國國籍，即為該國的<strong class="highlight-text">國民</strong>。</td>
+                    </tr>
+                    <tr>
+                        <th>領土</th><td>國家統治權所及的地理區域</td><td>
+                            領土的範圍包含：
+                            <ul>
+                                <li><strong>領陸：</strong>國家所有的陸地，包括大陸和所屬島嶼等。</li>
+                                <li><strong>領海：</strong>由海岸基線向外延伸<strong class="highlight-text">12</strong>浬間的海域。</li>
+                                <li><strong>領空：</strong>領陸與領海的上空。</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>政府</th><td>國家的統治機關</td><td>包括中央政府和各級地方政府，分層負責制定及執行政策，並管理公共事務。</td>
+                    </tr>
+                    <tr>
+                        <th>主權</th><td>國家的最高權力</td><td>對內具有<strong class="highlight-text">最高性</strong>，在決策與執行政策上擁有至高無上的權威。對外具有<strong class="highlight-text">獨立性</strong>，決策不受他國或國際組織之干涉。</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="highlight-box">
+                <p><i class="fas fa-exclamation-triangle"></i> <strong>注意：</strong>國家組成要素缺一不可，任一要素不存在，便不能稱為國家。</p>
+            </div>
+        </section>
+
+        <section id="concepts-comparison1-section">
+            <h2 class="section-title"><i class="fas fa-water"></i>二、觀念比較：領海、專屬經濟海域、公海</h2>
+            <table class="comparison-table">
+                <thead><tr><th>項目</th><th>領海</th><th>專屬經濟海域</th><th>公海</th></tr></thead>
+                <tbody>
+                    <tr><th>海域範圍</th><td>海岸基線向外延伸<br><strong class="highlight-text">12 浬</strong></td><td>海岸基線向外延伸<br><strong class="highlight-text">200 浬</strong></td><td>距海岸基線 <strong class="highlight-text">200 浬以外</strong></td></tr>
+                    <tr><th>歸屬</th><td>屬於領土</td><td>不屬於領土</td><td>不屬於領土</td></tr>
+                    <tr><th>說明</th><td>國家對其擁有完全的主權</td><td>國家享有天然資源勘探、開發利用、管理等權力</td><td>任何國籍的船舶均有航行權，也可捕撈漁業資源</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="state-purpose-section">
+            <h2 class="section-title"><i class="fas fa-bullseye"></i>三、國家存在的目的</h2>
+            <table class="comparison-table">
+                <thead><tr><th>目的</th><th>意涵</th><th>作為</th></tr></thead>
+                <tbody>
+                    <tr><th>保衛國家安全 (安全)</th><td>維護領土完整與主權獨立，降低敵國威脅，保衛人民生命財產的安全，免受外來侵略。</td><td>推動國防、組織軍隊、推動外交。</td></tr>
+                    <tr><th>維持社會秩序 (秩序)</th><td>以公權力除暴安良，維持社會秩序的安定。</td><td>建立警察系統。</td></tr>
+                    <tr><th>保障基本人權 (人權)</th><td>確保人民的基本權利，不受政府或他人非法侵害。</td><td>制定法律、行政機關依法行政。</td></tr>
+                    <tr><th>發展社會福利 (福利)</th><td>照顧人民的基本生活，扶助弱勢群體。</td><td>推動社會福利政策或措施（如長照政策）。</td></tr>
+                    <tr><th>伸張司法正義 (正義)</th><td>透過公正的審判，使權利受侵害的人民獲得救濟。</td><td>設置獨立的司法機關。</td></tr>
+                    <tr><th>促進經濟發展 (經濟)</th><td>提升國家的競爭力，使人民享有富裕生活。</td><td>推動經濟建設或政策（如發放振興券）。</td></tr>
+                    <tr><th>保存文化傳統 (文化)</th><td>改善教育與文化環境，維護與傳承文化資產。</td><td>制定教育與文化政策，並推動文化資產保存。</td></tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section id="state-gov-relation-section">
+            <h2 class="section-title"><i class="fas fa-link"></i>四、國家與政府的關係</h2>
+            <table class="comparison-table">
+                 <thead><tr><th>概念</th><th>國家</th><th>政府</th></tr></thead>
+                 <tbody>
+                    <tr><th>定義</th><td>指一群人在特定領土內組織政府，擁有主權的政治性團體。</td><td>泛指國家的統治機關。</td></tr>
+                    <tr><th>特性</th><td><strong class="highlight-text">較抽象</strong>：表示一個整體。</td><td><strong class="highlight-text">較具體</strong>：指統治機關及其中的公職人員。</td></tr>
+                    <tr><th>範圍</th><td><strong class="highlight-text">較廣</strong>：包括所有公共領域、制度與成員。</td><td><strong class="highlight-text">較小</strong>：僅為國家的組成的要素之一。</td></tr>
+                    <tr><th>權力</th><td>擁有<strong class="highlight-text">主權</strong>。</td><td>擁有統治權（<strong class="highlight-text">公權力</strong>）。</td></tr>
+                    <tr><th>持續性</th><td>具有<strong class="highlight-text">永久性</strong>與持續性。</td><td>可能因選舉、革命或制度變遷而<strong class="highlight-text">更替</strong>。</td></tr>
+                 </tbody>
+            </table>
+             <h4 style="margin-top:2rem;">觀念比較：主權 vs 統治權</h4>
+            <table class="comparison-table">
+                 <thead><tr><th>項目</th><th>主權</th><th>統治權</th></tr></thead>
+                 <tbody>
+                    <tr><th>目的</th><td>國家的最高權力</td><td>政府執行國家事務的權力</td></tr>
+                    <tr><th>歸屬</th><td>國民全體</td><td>政府（執政黨）</td></tr>
+                    <tr><th>是否轉移</th><td>不會因統治權變革而轉移</td><td>會因選舉或革命而轉移行使對象</td></tr>
+                 </tbody>
+            </table>
+        </section>
+
+        <section id="quiz-section">
+            <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-tasks"></i>模擬神給酷</h3>
+                <div class="info-card">
+                     <p><strong>下列各項政府施政主要是為達成哪項國家存在的目的？</strong><br>
+                     (甲) 安全 &nbsp;&nbsp; (乙) 秩序 &nbsp;&nbsp; (丙) 人權 &nbsp;&nbsp; (丁) 福利
+                     </p>
+                     <div class="matching-item" data-answer="丁"><p>1. 政府提供生活扶助，讓低所得家庭能度過難關。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="乙"><p>2. 政府禁止民眾攜帶具危害性、類似真槍之玩具槍。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="丙"><p>3. 政府制定《集會遊行法》，保障民眾的集會自由。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="甲"><p>4. 我國政府近日向美國購買66架新型的 F-16V 戰機。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                </div>
+            </div>
+
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(112 會考)</span></h3>
+                <div class="question">
+                    <p>右圖為某島國周邊範圍的示意圖，甲區為該國的土地、乙區為環繞在甲周圍的海域，而丁、戊、己區則分別為甲、乙、丙區所對應大氣層中的空中領域。根據圖中內容判斷，該國完整的領土範圍應為下列何者？</p>
+                    <div class="diagram-description">
+                        <h4>示意圖描述</h4>
+                        <ul>
+                            <li>甲：島嶼陸地</li>
+                            <li>乙：環繞甲的海域 (至12浬)</li>
+                            <li>丙：環繞乙的海域 (12至200浬)</li>
+                            <li>丁：甲上方的領空</li>
+                            <li>戊：乙上方的領空</li>
+                            <li>己：丙上方的空中領域</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 甲、丁</button>
+                    <button class="option-btn" data-correct="false">(B) 甲、乙、丁</button>
+                    <button class="option-btn" data-correct="true">(C) 甲、乙、丁、戊</button>
+                    <button class="option-btn" data-correct="false">(D) 甲、乙、丙、丁、戊</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span>(109 會考)</span></h3>
+                <div class="question">
+                    <p>自2002年起，歐盟部分會員國先後同意放棄原有的貨幣，改採「歐元」作為共同的交易媒介，希望透過經濟的合作，而後逐步達成政治上更緊密的整合。在上述歐盟經濟合作的過程中，首先受到影響的是下列何者？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="true">(A) 國家主權</button>
+                    <button class="option-btn" data-correct="false">(B) 政黨制度</button>
+                    <button class="option-btn" data-correct="false">(C) 領土範圍</button>
+                    <button class="option-btn" data-correct="false">(D) 基本人權</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+
+             <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span>(康軒模擬題)</span></h3>
+                <div class="question">
+                    <p>下列是一則針對希臘選舉結果的新聞報導：</p>
+                    <div class="info-card" style="background-color: rgba(0, 242, 234, 0.08);">
+                        希臘的國會大選於2019年7月舉行，原本執政的左翼聯盟並未取得國會過半的席次，因此將會由在野新民主黨取代執政，組成新政府。新民主黨黨魁米佐塔基斯承諾選民，希臘與北馬其頓達成國名協議，將是新政府外交工作的優先事項。
+                    </div>
+                     <p>根據內容判斷，下列四位同學針對該報導所做的敘述，何者正確？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 小新：「新政府透過選舉出後，人民的主權轉移給政府。」</button>
+                    <button class="option-btn" data-correct="true">(B) 妮妮：「新民主黨所組成的新政府具有統治權，屬於希臘的一部分。」</button>
+                    <button class="option-btn" data-correct="false">(C) 風間：「政府不論是否輪替都有權推動政策，所以具有永久存在性。」</button>
+                    <button class="option-btn" data-correct="false">(D) 正男：「新政府代表希臘推動外交，顯示國家的國際地位將會轉變。」</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+        </section>
+        
+        <!-- Fun BG Section -->
+        <section class="fun-bg-section">
+            <h3 class="typing-effect">
+                <span id="typing-text-span"></span><span class="cursor"></span>
+            </h3>
+            <img src="image/LiyuChillGuy(W).svg" class="floating-mascot-bg" alt="Floating Mascot Background">
+        </section>
+
+    </main>
+
+    <a href="index.html" id="return-home-btn" title="返回主頁">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+    </a>
+    
+    <!-- Mascot -->
+    <div id="mascot-container">
+        <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
+        <div id="mascot-speech">公民好神！</div>
+    </div>
+
+    <footer>
+        <p>Copyright © Liyuchiutiger Gongminshen</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let typingStarted = false;
+
+            // Section fade-in animation
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
+                            typingStarted = true;
+                            startTypingLoop();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 }); 
+            sections.forEach(section => observer.observe(section));
+
+             // Matching quiz logic
+            const matchingSelects = document.querySelectorAll('.matching-select');
+            matchingSelects.forEach(select => {
+                select.addEventListener('change', (e) => {
+                    const selectedValue = e.target.value;
+                    const item = e.target.closest('.matching-item');
+                    const correctAnswer = item.dataset.answer;
+                    const feedbackIcon = item.querySelector('.feedback-icon');
+                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    if (selectedValue === "請選擇") {
+                        feedbackIcon.style.display = 'none';
+                        return;
+                    }
+                    feedbackIcon.style.display = 'inline-block';
+                    if (selectedValue === correctAnswer) {
+                        feedbackIcon.classList.add('icon-correct');
+                        feedbackIcon.innerHTML = '✓';
+                    } else {
+                        feedbackIcon.classList.add('icon-wrong');
+                        feedbackIcon.innerHTML = '✗';
+                    }
+                });
+            });
+
+            // Multiple choice quiz logic
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>一個國家完整的領土範圍包括<strong class="highlight-text">領陸、領海與領空</strong>。其中領空是指領陸和領海所對應大氣層中的空中領域。所以該國領土範圍為甲(領陸)＋乙(領海)＋丁(甲的領空)＋戊(乙的領空)。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 這個選項只包含了領陸和其上方的領空，缺少了領海和領海的上空。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 這個選項包含了領陸、領海和陸地上空的領空，但缺少了領海的上空。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 這個選項多包含了丙區(專屬經濟海域)，專屬經濟海域並不屬於國家領土的一部分。</p>`
+                },
+                quiz2: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>貨幣的決定權屬於一個國家對內決策的最高權力。歐盟會員國同意<strong class="highlight-text">放棄原有的貨幣</strong>，改採共同的交易媒介「歐元」，這就影響到該國在決策與執行政策所擁有至高無上的權力，也就是<strong class="highlight-text">國家主權</strong>。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 採用共同貨幣與國內的政黨制度無直接關聯。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C)</strong> 經濟合作不涉及領土範圍的變更。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 經濟合作與基本人權的保障無直接關係。</p>`
+                },
+                quiz3: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>(A)主權屬於國民全體，不會因選舉而轉移給政府。(C)政府是短暫的、可變的，會因選舉而更替；國家才具有永久性。(D)政府的更替不影響國家在國際上的地位。因此，(B)妮妮的說法「新政府具有統治權，是國家的一部分」是正確的。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 主權屬於人民，不會轉移給政府。人民是授權政府行使「統治權」。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C)</strong> 政府是會因選舉而更替的，不具有永久性；國家才具有永久性。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 政府的更替不影響國家在國際上的地位。希臘仍然是希臘。</p>`
+                }
+            };
+            
+            const quizContainers = document.querySelectorAll('.quiz-container');
+            let mcqIndex = 0;
+            quizContainers.forEach((container, index) => {
+                if(container.querySelector('.option-btn')) { // Only process MCQs
+                    mcqIndex++;
+                    const quizId = `quiz${mcqIndex}`; 
+                    const optionButtons = container.querySelectorAll('.option-btn');
+                    const feedbackArea = container.querySelector('.feedback-area');
+                    const resetButton = container.querySelector('.reset-btn');
+
+                    optionButtons.forEach(button => {
+                        button.addEventListener('click', () => {
+                            const isCorrect = button.dataset.correct === 'true';
+                            optionButtons.forEach(btn => btn.disabled = true);
+                            
+                            if (isCorrect) {
+                                button.classList.add('correct');
+                                feedbackArea.innerHTML = allQuizData[quizId].correct;
+                                feedbackArea.className = 'feedback-area feedback-correct';
+                            } else {
+                                button.classList.add('wrong');
+                                container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                                const optionLetter = button.textContent.substring(1, 2);
+                                feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
+                                feedbackArea.className = 'feedback-area feedback-wrong';
+                            }
+                            
+                            feedbackArea.style.display = 'block';
+                            resetButton.style.display = 'block';
+                            feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        });
+                    });
+                    
+                    resetButton.addEventListener('click', () => {
+                        optionButtons.forEach(btn => {
+                            btn.disabled = false;
+                            btn.classList.remove('correct', 'wrong');
+                        });
+                        feedbackArea.style.display = 'none';
+                        resetButton.style.display = 'none';
+                        container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                }
+            });
+
+            // Typing Effect and Mascot JS
+            const typingSentences = [
+                "公民好神！我會遵守公民神會員守則！",
+                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
+                "公民神有三力：注意力、記憶力、戰鬥力！"
+            ];
+            const typingElementSpan = document.getElementById('typing-text-span');
+
+            function startTypingLoop() {
+                if (!typingElementSpan) return;
+                let sentenceIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
+
+                function loop() {
+                    const currentSentence = typingSentences[sentenceIndex];
+                    if (isDeleting) {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex - 1);
+                        charIndex--;
+                        if (charIndex === 0) {
+                            isDeleting = false;
+                            sentenceIndex = (sentenceIndex + 1) % typingSentences.length;
+                            setTimeout(loop, 500);
+                        } else {
+                            setTimeout(loop, 50);
+                        }
+                    } else {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex + 1);
+                        charIndex++;
+                        if (charIndex === currentSentence.length) {
+                            isDeleting = true;
+                            setTimeout(loop, 2500); 
+                        } else {
+                            setTimeout(loop, 120);
+                        }
+                    }
+                }
+                loop();
+            }
+
+            const mascotContainer = document.getElementById('mascot-container');
+            const mascotImg = document.getElementById('mascot-img');
+            const speechBubble = document.getElementById('mascot-speech');
+            
+            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            let messageIndex = 0;
+            let clickTimer = null;
+            let speechTimeout = null;
+
+            mascotContainer.addEventListener('click', () => {
+                clearTimeout(clickTimer);
+                clickTimer = setTimeout(() => {
+                    speechBubble.textContent = messages[messageIndex];
+                    speechBubble.classList.add('visible');
+                    messageIndex = (messageIndex + 1) % messages.length;
+                    clearTimeout(speechTimeout);
+                    speechTimeout = setTimeout(() => speechBubble.classList.remove('visible'), 4000);
+                }, 250);
+            });
+
+            mascotContainer.addEventListener('dblclick', () => {
+                clearTimeout(clickTimer);
+                speechBubble.classList.remove('visible');
+                triggerExplosion();
+            });
+
+            function triggerExplosion() {
+                mascotImg.classList.add('enlarged');
+                const particleCount = 40;
+                const particleColors = [ 'var(--primary-glow)', 'var(--secondary-glow)', 'var(--accent-glow)', '#ffffff' ];
+
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    mascotContainer.appendChild(particle);
+                    const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+                    const angle = Math.random() * 360;
+                    const radius = Math.random() * 120 + 50;
+                    const x = Math.cos(angle * Math.PI / 180) * radius;
+                    const y = Math.sin(angle * Math.PI / 180) * radius;
+                    particle.style.background = color;
+                    requestAnimationFrame(() => {
+                        particle.style.transform = `translate(${x}px, ${y}px) scale(0)`;
+                        particle.style.opacity = '0';
+                    });
+                    setTimeout(() => particle.remove(), 1000);
+                }
+                setTimeout(() => mascotImg.classList.remove('enlarged'), 300);
+            }
+        });
+    </script>
+</body>
+</html>

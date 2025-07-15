@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重點5-3：社會福利</title>
+    <!-- Font Awesome script -->
+    <script src="https://kit.fontawesome.com/62a9d1d113.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
+
+        :root {
+            --primary-glow: #00f2ea; /* 亮青色 */
+            --secondary-glow: #ff00ff; /* 洋紅色 */
+            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --bg-dark: #0d1b2a;
+            --bg-dark-2: #020a12;
+            --text-color: #e0e0e0;
+            --card-bg: rgba(23, 37, 51, 0.7);
+            --correct-color: #00ff87;
+            --wrong-color: #ff2a6d;
+            --border-color: rgba(0, 242, 234, 0.3);
+            --accent-border-color: rgba(240, 225, 74, 0.5);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-2));
+            color: var(--text-color);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+
+        header {
+            text-align: center;
+            padding: 5rem 0;
+            border-bottom: 2px solid var(--border-color);
+            box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 900;
+            color: var(--text-color);
+            white-space: nowrap; /* 新增：防止標題換行 */
+            text-shadow:
+                0 0 5px #fff,
+                0 0 10px var(--accent-glow),
+                0 0 20px var(--accent-glow),
+                0 0 40px var(--accent-glow);
+            animation: flicker-orange 3s infinite alternate;
+        }
+
+        @keyframes flicker-orange {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-glow), 0 0 19px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow);
+            }
+            20%, 24%, 55% { text-shadow: none; }
+        }
+
+        header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary-glow);
+            margin-top: 1rem;
+            text-shadow: 0 0 8px var(--secondary-glow);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-8px);}
+        }
+
+        section {
+            margin-bottom: 4rem;
+            padding: 2.5rem;
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 0 30px rgba(0, 242, 234, 0.1), inset 0 0 15px rgba(0, 242, 234, 0.1);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        section.visible { opacity: 1; transform: translateY(0); }
+        
+        .highlight-text {
+            font-weight: bold;
+            color: var(--accent-glow);
+            text-shadow: 0 0 5px var(--accent-glow);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary-glow);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+        
+        .section-title i {
+            font-size: 2.2rem;
+            color: var(--accent-glow);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+        
+        h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-glow);
+            margin-bottom: 1rem;
+        }
+        h3 { font-size: 1.6rem; }
+        h4 { font-size: 1.4rem; }
+
+        .info-card {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .info-card ul { list-style: none; padding: 0;}
+        .info-card li { position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem; }
+        .info-card li::before {
+            content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
+            position: absolute; left: 0; top: 3px; color: var(--primary-glow);
+        }
+        
+        .comparison-table {
+            width: 100%; border-collapse: collapse; margin-top: 1.5rem;
+        }
+        .comparison-table th, .comparison-table td {
+            border: 1px solid var(--border-color); padding: 1rem; text-align: left;
+            vertical-align: top;
+        }
+        .comparison-table thead th { background-color: rgba(13, 27, 42, 0.7); color: var(--primary-glow); text-align: center; }
+        .comparison-table tbody th { font-weight: bold; color: var(--accent-glow); text-align: center; }
+
+        .timeline { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1.5rem; }
+        .timeline-item { display: flex; align-items: center; gap: 1.5rem; }
+        .timeline-era {
+            background: var(--accent-glow); color: var(--bg-dark); font-weight: bold;
+            padding: 0.5rem 1rem; border-radius: 8px; flex-shrink: 0;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .timeline-content ul { list-style: none; padding: 0; }
+
+        /* Quiz Styles */
+        .quiz-container { margin-bottom: 3rem; }
+        .quiz-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); }
+        .quiz-title i { margin-right: 0.75rem; }
+        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; }
+        #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
+        #quiz-section .options { display: grid; gap: 1rem; }
+        .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+        .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
+        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark);}
+        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
+        
+        .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
+        .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
+        .reset-btn:hover { transform: scale(1.05); }
+        
+        /* Mascot & Typing Effect Styles */
+        .fun-bg-section {
+            position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem;
+            border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color);
+            overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem;
+        }
+        .typing-effect {
+            position: relative; z-index: 5; font-family: 'Orbitron', monospace; font-size: 1.6rem; 
+            font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            text-align: center; max-width: 100%;
+        }
+        .typing-effect .cursor {
+            display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            margin-left: 5px; width: 10px; height: 1.6rem; animation: blink-caret 0.75s step-end infinite;
+        }
+        @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
+        .floating-mascot-bg {
+            position: absolute; width: 250px; height: auto; opacity: 0.15;
+            animation: floatMascot 15s ease-in-out infinite alternate;
+            top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;
+        }
+        @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
+        #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
+        #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
+        #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
+        #mascot-img.enlarged { transform: scale(2.5) !important; }
+        #mascot-speech {
+            position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9);
+            color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px;
+            font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3);
+        }
+        #mascot-speech.visible { opacity: 1; transform: translateY(0); }
+        .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
+
+        /* Floating Home Button & Footer */
+        #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
+        #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
+        #return-home-btn:hover { transform: scale(1.1); }
+        #return-home-btn:hover svg { stroke: var(--primary-glow); filter: drop-shadow(0 0 12px var(--primary-glow)); transform: rotate(-10deg); }
+        footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            header h1 { font-size: 2.5rem; }
+            section { padding: 1.5rem; }
+            .section-title { font-size: 2rem; }
+            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
+
+            /* Adjust new elements for mobile */
+            .timeline-item { flex-direction: column; align-items: flex-start; }
+            .typing-effect { font-size: 1.2rem; }
+            .typing-effect .cursor { height: 1.2rem; }
+            #mascot-container { right: 15px; bottom: 15px; }
+            #mascot-img { width: 80px; }
+            #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>重點5-3：社會福利</h1>
+            <h2>邱俐瑜公民，成為公民神不再只是夢想！</h2>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section id="welfare-concepts-section">
+            <h2 class="section-title"><i class="fas fa-hand-holding-heart"></i>一、社會福利相關概念</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr><th>項目</th><th>內涵</th><th>方式/對象</th><th>目的</th></tr>
+                </thead>
+                <tbody>
+                    <tr><th>基本生活的保障</th><td>1. 基本生活指個人有能力在社會中生存、發展，吃得飽、有得住。<br>2. 疾病、失業、天災等因素，使人們無法維持基本生活。</td><td><strong class="highlight-text">社會福利</strong>可確保所有人擁有基本生活的保障。</td><td>實現基本人權，維護<strong class="highlight-text">人性尊嚴</strong>，讓個人的選擇自由受到尊重。</td></tr>
+                    <tr><th>社會福利</th><td>政府整合國家與民間資源，推動滿足全體人民生活基本需求的措施。</td><td>1. <strong class="highlight-text">弱勢群體</strong>：給予特別的待遇與保障。<br>2. <strong class="highlight-text">所有成員</strong>：滿足人民醫療、教育以及住宅等需求。</td><td>追求<strong class="highlight-text">社會正義</strong>，提升整體生活福祉。</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="welfare-development-section">
+            <h2 class="section-title"><i class="fas fa-chart-line"></i>二、社會福利的發展</h2>
+            <div class="timeline">
+                <div class="timeline-item"><div class="timeline-era">中世紀</div><div class="timeline-content">民間組織救濟貧困。缺點：難以長久持續，無法兼顧所有需要協助者。</div></div>
+                <div class="timeline-item"><div class="timeline-era">工業革命後</div><div class="timeline-content">政府保障弱勢權益。方式：制定<strong class="highlight-text">社會福利政策</strong>，協助失業勞工、貧民等。</div></div>
+                <div class="timeline-item"><div class="timeline-era">20世紀</div><div class="timeline-content">政府增進全民福祉。方式：政府承擔更多責任，滿足醫療、教育或住宅等需求，<strong class="highlight-text">增進整體生活福祉</strong>。</div></div>
+                <div class="timeline-item"><div class="timeline-era">近代</div><div class="timeline-content">政府整合社會資源。方式：整合政府、團體與個人力量，保障所有人生活權益，建構福利社會。</div></div>
+            </div>
+        </section>
+
+        <section id="welfare-measures-section">
+            <h2 class="section-title"><i class="fas fa-tasks"></i>三、社會福利措施</h2>
+            <table class="comparison-table">
+                <thead><tr><th>項目</th><th>目的</th><th>說明</th><th>具體措施</th></tr></thead>
+                <tbody>
+                    <tr><th>社會救助</th><td>滿足<strong class="highlight-text">基本生活</strong>的需求（保障生存權）</td><td>確保貧困之民眾擁有基本生活所需經濟資源</td><td>生活補助、急難救助、災害救助、以工代賑</td></tr>
+                    <tr><th>社會保險</th><td>維護民眾的經濟安全</td><td>轉移個人生活風險，由社會共同分攤</td><td>國民年金保險、全民健康保險、職業保險</td></tr>
+                    <tr><th>社會津貼</th><td>健全經濟安全的保障</td><td>彌補社會保險的不足</td><td>提供特定身分或特殊需求的民眾現金給付</td></tr>
+                    <tr><th>福利服務</th><td>滿足不同<strong class="highlight-text">群體</strong>的需求</td><td>滿足民眾因年齡、性別、身心狀況等差異產生的需求</td><td>兒童托育、老人照顧、新住民生活適應等服務</td></tr>
+                    <tr><th>醫療保健</th><td>促進全民身心健康</td><td>協助民眾獲得妥善的健康與醫療照護</td><td>巡迴醫療、傳染病通報系統、流感疫苗免費注射</td></tr>
+                    <tr><th>國民就業</th><td>維護民眾就業安全（保障<strong class="highlight-text">工作權</strong>）</td><td>協助民眾擁有工作與良好的就業環境</td><td>職業訓練、就業服務站、在職進修</td></tr>
+                    <tr><th>社會住宅</th><td>滿足民眾居住需求</td><td>協助民眾有適合居住的住宅與居住環境</td><td>提供住宅、房貸利息或租金補貼、推動社會住宅政策</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="welfare-comparison-section">
+            <h2 class="section-title"><i class="fas fa-balance-scale"></i>四、觀念比較</h2>
+            <h4>社會救助、社會保險、社會津貼</h4>
+            <table class="comparison-table">
+                <thead><tr><th>項目</th><th>社會救助</th><th>社會保險</th><th>社會津貼</th></tr></thead>
+                <tbody>
+                    <tr><th>目的</th><td>維持人民基本生活</td><td>轉移個人生活風險</td><td>彌補社會保險之不足</td></tr>
+                    <tr><th>對象</th><td>低收入戶、中低收入戶、遭受急難、災害者</td><td>被保險人（全民）</td><td>針對特定身分或有特殊需求的人民</td></tr>
+                    <tr><th>方式</th><td>金錢援助、以工代賑</td><td>被保險人按時繳保險費，再給予保險給付</td><td>政府編列預算，給予定期或一次性的現金給付</td></tr>
+                </tbody>
+            </table>
+            <h4 style="margin-top:2rem;">社會救助、福利服務</h4>
+            <table class="comparison-table">
+                 <thead><tr><th>項目</th><th>社會救助</th><th>福利服務</th></tr></thead>
+                 <tbody>
+                    <tr><th>目的</th><td>滿足基本生活的需求</td><td>提升整體人民的生活福祉</td></tr>
+                    <tr><th>對象</th><td>符合特定資格者：貧困、遭遇急難變故或重大災難的民眾</td><td>有特定需求者：兒童、少年、老人、婦女、身心障礙者、原住民、新住民等</td></tr>
+                    <tr><th>方式</th><td>提供經濟資源：金錢或其他服務</td><td>提供社會資源：各種適當的服務</td></tr>
+                 </tbody>
+            </table>
+        </section>
+
+        <section id="welfare-society-section">
+             <h2 class="section-title"><i class="fas fa-users-cog"></i>五、共構福利社會</h2>
+             <table class="comparison-table">
+                <thead><tr><th style="width: 20%">項目</th><th>說明</th></tr></thead>
+                <tbody>
+                    <tr><th>社會福利<br>現狀</th><td>1. 民眾對社會福利需求增加，財政負擔日益擴大。<br>2. 國家經費及資源有限，需整合民間團體與個人力量，共構福利社會。</td></tr>
+                    <tr><th>民間團體</th><td>可以彌補政府的不足，例如協助不符申請資格的困頓家庭。</td></tr>
+                    <tr><th>個人力量</th><td>1. 善盡對社會福利的責任，誠實納稅與繳納保費。<br>2. 建立正確使用社會福利資源的觀念，不濫用社會福利資源。</td></tr>
+                </tbody>
+             </table>
+        </section>
+
+        <section id="quiz-section">
+            <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(109 會考)</span></h3>
+                <div class="question">
+                    <p>下表為甲國人口發展趨勢的推估數據。根據表中內容判斷，政府最可能以下列哪一項政策來面對此種發展趨勢？</p>
+                    <table class="comparison-table" style="text-align: center;">
+                         <thead><tr><th>年份</th><th>14歲以下(%)</th><th>15~64歲(%)</th><th>65歲以上(%)</th></tr></thead>
+                         <tbody>
+                            <tr><td>2000</td><td>21.2</td><td>70.3</td><td>8.5</td></tr>
+                            <tr><td>2008</td><td>17.0</td><td>72.6</td><td>10.4</td></tr>
+                            <tr><td>2016</td><td>13.2</td><td>73.4</td><td>13.4</td></tr>
+                            <tr><td>2036</td><td>10.3</td><td>61.3</td><td>28.4</td></tr>
+                            <tr><td>2056</td><td>8.0</td><td>52.5</td><td>39.5</td></tr>
+                         </tbody>
+                    </table>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 增加多元入學管道</button>
+                    <button class="option-btn" data-correct="false">(B) 提高失業給付金額</button>
+                    <button class="option-btn" data-correct="false">(C) 保障性別平等權利</button>
+                    <button class="option-btn" data-correct="true">(D) 健全老人福利制度</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span>(105 會考)</span></h3>
+                <div class="question">
+                    <p>政府透過許多管道推動社會福利相關政策，例如：以公益彩券回饋金，協助經濟弱勢民眾繳納部分健保相關費用；放寬低收入戶審查門檻，協助經濟弱勢家庭獲得社會救助等。上述政府的二項作法，最主要是為了達成下列何項目標？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 確保民眾財產權利</button>
+                    <button class="option-btn" data-correct="false">(B) 縮短城鄉發展差距</button>
+                    <button class="option-btn" data-correct="true">(C) 保障人民生存權利</button>
+                    <button class="option-btn" data-correct="false">(D) 推廣志工服務活動</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span>(102 基測)</span></h3>
+                <div class="question">
+                    <p>曉芳跟爸爸觀看總統大選的電視政見發表會時，聽到候選人發表關於社會福利的政見，爸爸想知道曉芳在學校的學習成果，便問她：「妳能不能舉出一個社會福利政策的例子呢？」曉芳應回答下列何者較為適當？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 提供終身學習機會</button>
+                    <button class="option-btn" data-correct="true">(B) 推動老人照護制度</button>
+                    <button class="option-btn" data-correct="false">(C) 擴大志工參與管道</button>
+                    <button class="option-btn" data-correct="false">(D) 促進跨國人口流動</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰四 <span>(99 基測)</span></h3>
+                <div class="question">
+                    <p>下表為臺灣兩個年度的部分人口資料。近年來，政府推動多項老人福利措施，例如：發放各類生活津貼、推動國民年金制度、健康及照顧服務等，是為了因應表中何項人口資料的變化趨勢？</p>
+                     <table class="comparison-table" style="text-align: center;">
+                         <thead><tr><th>項目</th><th>人口資料</th><th>1998年</th><th>2008年</th></tr></thead>
+                         <tbody>
+                            <tr><td>甲</td><td>性別比（性別比例）</td><td>105 : 100</td><td>102 : 100</td></tr>
+                            <tr><td>乙</td><td>社會增加率</td><td>1.72‰</td><td>1.02‰</td></tr>
+                            <tr><td>丙</td><td>外籍配偶占當年結婚對數之比例</td><td>15.69%</td><td>14.03%</td></tr>
+                            <tr><td>丁</td><td>幼年及壯年人口比例合計</td><td>91.75%</td><td>89.57%</td></tr>
+                         </tbody>
+                    </table>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 甲</button>
+                    <button class="option-btn" data-correct="false">(B) 乙</button>
+                    <button class="option-btn" data-correct="false">(C) 丙</button>
+                    <button class="option-btn" data-correct="true">(D) 丁</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+        </section>
+        
+        <!-- Fun BG Section -->
+        <section class="fun-bg-section">
+            <h3 class="typing-effect">
+                <span id="typing-text-span"></span><span class="cursor"></span>
+            </h3>
+            <img src="image/LiyuChillGuy(W).svg" class="floating-mascot-bg" alt="Floating Mascot Background">
+        </section>
+
+    </main>
+
+    <a href="index.html" id="return-home-btn" title="返回主頁">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+    </a>
+    
+    <!-- Mascot -->
+    <div id="mascot-container">
+        <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
+        <div id="mascot-speech">公民好神！</div>
+    </div>
+
+    <footer>
+        <p>Copyright © Liyuchiutiger Gongminshen</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let typingStarted = false;
+
+            // Section fade-in animation
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
+                            typingStarted = true;
+                            startTypingLoop();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 }); 
+            sections.forEach(section => observer.observe(section));
+
+            // Quiz logic
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>表格資料顯示，甲國65歲以上人口佔總人口比例，從8.5%持續大幅增加至39.5%，顯示該國將邁入<strong class="highlight-text">超高齡社會</strong>。因此，政府最需要針對此趨勢，健全相關的老人福利制度。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 多元入學管道與14歲以下人口比例較相關，而此比例是下降的。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 失業給付與15~64歲的壯年工作人口相關，此比例也是下降的。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C)</strong> 保障性別平等權利與人口年齡結構無直接關係。</p>`
+                },
+                quiz2: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>社會福利是指政府整合國家與民間的資源，推動滿足全體人民生活基本需求的措施。題目中的<strong class="highlight-text">社會救助</strong>是為了滿足人們的基本生活條件，其主要目的即在(C)保障人民的生存權利。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 題目的措施是提供補助與救助，與保障私有財產權無直接關係。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 題目的對象是經濟弱勢，而非針對特定地區，無法推斷是為了縮短城鄉差距。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 題目的措施是政府的政策，與推廣民間志工服務活動不同。</p>`
+                },
+                quiz3: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>社會福利是指國家為了滿足人民的基本需求所提供的各項社會服務及政策。針對<strong class="highlight-text">老人提供適切的服務，以提升其生活品質</strong>，屬於「福利服務」中的一環，是典型的社會福利政策。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 終身學習機會屬於教育政策，非社會福利核心。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C)</strong> 擴大志工管道是促進公民參與的方式，非社會福利政策本身。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 跨國人口流動屬於人口或移民政策的範疇。</p>`
+                },
+                quiz4: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>總人口是由幼年、壯年及老年人口組成。從(丁)可看出，<strong class="highlight-text">幼年及壯年人口比例合計是下降的</strong>，這意味著老年人口的比例是<strong class="highlight-text">相對增加</strong>的。因為因應高齡化社會而產生相關的老人安養問題，政府才會推動多項老人福利措施。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 性別比的變化與老人福利措施無直接關聯。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 社會增加率是指移入減去移出的人口，與老人福利政策關聯性較低。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C)</strong> 外籍配偶比例與老人福利無直接關係。</p>`
+                }
+            };
+            
+            const quizContainers = document.querySelectorAll('.quiz-container');
+            
+            quizContainers.forEach((container, index) => {
+                const quizId = `quiz${index + 1}`;
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
+
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        optionButtons.forEach(btn => btn.disabled = true);
+                        
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = allQuizData[quizId].correct;
+                            feedbackArea.className = 'feedback-area feedback-correct';
+                        } else {
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            const optionLetter = button.textContent.substring(1, 2);
+                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
+                            feedbackArea.className = 'feedback-area feedback-wrong';
+                        }
+                        
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
+                    });
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+
+            // Typing Effect and Mascot JS
+            const typingSentences = [
+                "公民好神！我會遵守公民神會員守則！",
+                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
+                "公民神有三力：注意力、記憶力、戰鬥力！"
+            ];
+            const typingElementSpan = document.getElementById('typing-text-span');
+
+            function startTypingLoop() {
+                if (!typingElementSpan) return;
+                let sentenceIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
+
+                function loop() {
+                    const currentSentence = typingSentences[sentenceIndex];
+                    if (isDeleting) {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex - 1);
+                        charIndex--;
+                        if (charIndex === 0) {
+                            isDeleting = false;
+                            sentenceIndex = (sentenceIndex + 1) % typingSentences.length;
+                            setTimeout(loop, 500);
+                        } else {
+                            setTimeout(loop, 50);
+                        }
+                    } else {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex + 1);
+                        charIndex++;
+                        if (charIndex === currentSentence.length) {
+                            isDeleting = true;
+                            setTimeout(loop, 2500); 
+                        } else {
+                            setTimeout(loop, 120);
+                        }
+                    }
+                }
+                loop();
+            }
+
+            const mascotContainer = document.getElementById('mascot-container');
+            const mascotImg = document.getElementById('mascot-img');
+            const speechBubble = document.getElementById('mascot-speech');
+            
+            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            let messageIndex = 0;
+            let clickTimer = null;
+            let speechTimeout = null;
+
+            mascotContainer.addEventListener('click', () => {
+                clearTimeout(clickTimer);
+                clickTimer = setTimeout(() => {
+                    speechBubble.textContent = messages[messageIndex];
+                    speechBubble.classList.add('visible');
+                    messageIndex = (messageIndex + 1) % messages.length;
+                    clearTimeout(speechTimeout);
+                    speechTimeout = setTimeout(() => speechBubble.classList.remove('visible'), 4000);
+                }, 250);
+            });
+
+            mascotContainer.addEventListener('dblclick', () => {
+                clearTimeout(clickTimer);
+                speechBubble.classList.remove('visible');
+                triggerExplosion();
+            });
+
+            function triggerExplosion() {
+                mascotImg.classList.add('enlarged');
+                const particleCount = 40;
+                const particleColors = [ 'var(--primary-glow)', 'var(--secondary-glow)', 'var(--accent-glow)', '#ffffff' ];
+
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    mascotContainer.appendChild(particle);
+                    const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+                    const angle = Math.random() * 360;
+                    const radius = Math.random() * 120 + 50;
+                    const x = Math.cos(angle * Math.PI / 180) * radius;
+                    const y = Math.sin(angle * Math.PI / 180) * radius;
+                    particle.style.background = color;
+                    requestAnimationFrame(() => {
+                        particle.style.transform = `translate(${x}px, ${y}px) scale(0)`;
+                        particle.style.opacity = '0';
+                    });
+                    setTimeout(() => particle.remove(), 1000);
+                }
+                setTimeout(() => mascotImg.classList.remove('enlarged'), 300);
+            }
+        });
+    </script>
+</body>
+</html>

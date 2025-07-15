@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重點15-1：科技發展與智慧財產權</title>
+    <!-- Font Awesome script is still useful for other icons in the page -->
+    <script src="https://kit.fontawesome.com/62a9d1d113.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
+
+        :root {
+            --primary-glow: #00f2ea; /* 亮青色 */
+            --secondary-glow: #ff00ff; /* 洋紅色 */
+            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --bg-dark: #0d1b2a;
+            --bg-dark-2: #020a12;
+            --text-color: #e0e0e0;
+            --card-bg: rgba(23, 37, 51, 0.7);
+            --correct-color: #00ff87;
+            --wrong-color: #ff2a6d;
+            --border-color: rgba(0, 242, 234, 0.3);
+            --accent-border-color: rgba(240, 225, 74, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-2));
+            color: var(--text-color);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 5rem 0;
+            border-bottom: 2px solid var(--border-color);
+            box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 900;
+            color: var(--text-color);
+            white-space: nowrap; /* 新增：防止標題換行 */
+            text-shadow:
+                0 0 5px #fff,
+                0 0 10px var(--accent-glow),
+                0 0 20px var(--accent-glow),
+                0 0 40px var(--accent-glow);
+            animation: flicker-orange 3s infinite alternate;
+        }
+
+        @keyframes flicker-orange {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow:
+                0 0 4px #fff,
+                0 0 11px var(--accent-glow),
+                0 0 19px var(--accent-glow),
+                0 0 40px var(--accent-glow),
+                0 0 80px var(--accent-glow);
+            }
+            20%, 24%, 55% { text-shadow: none; }
+        }
+
+        header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary-glow);
+            margin-top: 1rem;
+            text-shadow: 0 0 8px var(--secondary-glow);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-8px);}
+        }
+
+        section {
+            margin-bottom: 4rem;
+            padding: 2.5rem;
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 0 30px rgba(0, 242, 234, 0.1), inset 0 0 15px rgba(0, 242, 234, 0.1);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .highlight-text {
+            font-weight: bold;
+            color: var(--accent-glow);
+            text-shadow: 0 0 5px var(--accent-glow);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary-glow);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+        
+        .section-title i {
+            font-size: 2.2rem;
+            color: var(--accent-glow);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .info-card {
+            background: rgba(0,0,0,0.2);
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--accent-glow);
+            box-shadow: 0 15px 30px rgba(240, 225, 74, 0.2);
+        }
+        
+        .info-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary-glow);
+            border-bottom: 3px solid var(--accent-glow);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+            flex-grow: 1;
+        }
+        .info-card li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .info-card li::before {
+            content: '\f105'; /* Font Awesome angle-right */
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--accent-glow);
+            transition: transform 0.3s;
+        }
+        .info-card:hover li::before {
+            transform: rotate(90deg);
+        }
+        
+        .info-card h4 {
+            font-size: 1.2rem;
+            color: var(--primary-glow);
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        th, td {
+            padding: 0.8rem;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+        th {
+            background-color: rgba(0, 242, 234, 0.1);
+            color: var(--primary-glow);
+            font-family: 'Orbitron', sans-serif;
+        }
+        td {
+             background-color: rgba(13, 27, 42, 0.5);
+        }
+        
+        .highlight-box { background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05)); padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow); font-size: 1.1rem; margin-top: 2rem; box-shadow: inset 0 0 10px rgba(240, 225, 74, 0.2); }
+        .highlight-box strong { color: var(--accent-glow); font-weight: 700; }
+        
+        /* --- QUIZ STYLES --- */
+        .quiz-container { margin-bottom: 3rem; }
+        .quiz-container:last-child { margin-bottom: 0; }
+        .quiz-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); }
+        .quiz-title i { margin-right: 0.75rem; }
+        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
+        #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
+        #quiz-section .options { display: grid; gap: 1rem; }
+        
+        .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+        .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
+        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark); }
+        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark); }
+        
+        .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
+        .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
+        .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        
+        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--accent-glow); }
+        
+        /* --- FUN STYLES --- */
+        .fun-bg-section {
+            position: relative;
+            min-height: 150px;
+            margin-top: 4rem;
+            margin-bottom: 2rem;
+            border-radius: 20px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        .typing-effect {
+            position: relative;
+            z-index: 5;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.6rem; 
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            text-align: center;
+            max-width: 100%;
+        }
+        .typing-effect .cursor {
+            display: inline-block;
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            margin-left: 5px;
+            width: 10px;
+            height: 1.6rem;
+            animation: blink-caret 0.75s step-end infinite;
+        }
+        @keyframes blink-caret {
+            from, to { background-color: transparent; box-shadow: none; }
+            50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); }
+        }
+        .floating-mascot-bg {
+            position: absolute;
+            width: 250px;
+            height: auto;
+            opacity: 0.15;
+            animation: floatMascot 15s ease-in-out infinite alternate;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+        @keyframes floatMascot {
+            from { transform: translate(-60%, -60%) rotate(-15deg); }
+            to { transform: translate(-40%, -40%) rotate(15deg); }
+        }
+        
+        #return-home-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            z-index: 1001;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        #return-home-btn svg {
+            width: 100%;
+            height: 100%;
+            stroke: #ffffff;
+            stroke-width: 2px;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 6px var(--primary-glow));
+        }
+        #return-home-btn:hover { transform: scale(1.1); }
+        #return-home-btn:hover svg {
+            stroke: var(--primary-glow);
+            filter: drop-shadow(0 0 12px var(--primary-glow));
+            transform: rotate(-10deg);
+        }
+
+        footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+        #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
+        #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
+        #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
+        #mascot-img.enlarged { transform: scale(2.5) !important; }
+        #mascot-speech { position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9); color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3); }
+        #mascot-speech.visible { opacity: 1; transform: translateY(0); }
+        .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            header { padding: 3rem 0; }
+            header h1 { font-size: 2.5rem; }
+            header h2 { font-size: 1.2rem; }
+            section { padding: 1.5rem; margin-bottom: 2rem; }
+            .section-title { font-size: 2rem; }
+            .content-grid { grid-template-columns: 1fr; }
+            .info-card { margin-bottom: 1.5rem; }
+            .info-card:last-child { margin-bottom: 0; }
+            .typing-effect { font-size: 1.2rem; }
+            .typing-effect .cursor { height: 1.2rem; }
+            #quiz-section .question, .option-btn { font-size: 1rem; }
+            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
+            #mascot-container { right: 15px; bottom: 15px; }
+            #mascot-img { width: 80px; }
+            #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>重點15-1：科技發展與智慧財產權</h1>
+            <h2>邱俐瑜公民，成為公民神不再只是夢想！</h2>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="tech-impact-section">
+            <h2 class="section-title"><i class="fas fa-satellite-dish"></i> 一、科技發展的影響與規範</h2>
+            <div class="info-card" style="margin-bottom: 2rem;">
+                <h3>影響—以資訊科技為例</h3>
+                <ul>
+                    <li><strong>優點</strong>：網路普及、電子商務、網路平臺增加，促進資訊傳播與國際貿易。</li>
+                    <li><strong>隱憂</strong>：
+                        <ul>
+                            <li>資訊內容真偽難辨，可能造成錯誤判斷。</li>
+                            <li>網路犯罪層出不窮，成為嚴重社會問題。</li>
+                            <li>資訊公開侵犯隱私，個人資料或財務資訊若遭濫用，將構成威脅。</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h3>規範</h3>
+                <div class="content-grid">
+                    <div>
+                        <h4>資訊倫理 (自律)</h4>
+                        <p>使用者運用科技時應自重、自律，不具強制力。</p>
+                        <ul>
+                            <li>注意資訊安全，避免個人資料外洩。</li>
+                            <li>傳遞訊息應標明來源及出處，避免散播假訊息、謠言。</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h4>完備法律規範 (他律)</h4>
+                        <p>藉由立法因應科技發展帶來的負面影響，具強制力。</p>
+                        <ul>
+                            <li>制定《<strong class="highlight-text">個人資料保護法</strong>》，規範蒐集、處理或利用個人資料的合法範圍。</li>
+                            <li>制定智慧財產權相關法律，保障當事人的智慧財產權。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ipr-section">
+            <h2 class="section-title"><i class="fas fa-brain"></i> 二、智慧財產權</h2>
+            <div class="info-card" style="margin-bottom: 2rem;">
+                <h3>定義與目的</h3>
+                <ul>
+                    <li>「智慧財產」是創作者透過構思、創作、發明而產生價值的<strong class="highlight-text">無形產物</strong>。</li>
+                    <li>「智慧財產權」是人類因智慧財產的成果而受到法律保護的權利。</li>
+                </ul>
+                <h4>目的：兼顧私益與公益</h4>
+                <ul>
+                    <li><strong>保障私益</strong>：保障創作者的權利，讓創作者自行利用其智慧財產或授權他人使用，獲得經濟或名譽上的利益，以鼓勵創作發明，促進社會發展。</li>
+                    <li><strong>兼顧公益</strong>：限制創作者的權利，規定他人在合理範圍內可以使其智慧財產，避免過度保護造成知識流通的阻礙，並透過資訊共享促進國家科技、經濟整體的進步。</li>
+                </ul>
+            </div>
+             <div class="info-card">
+                <h3>智慧財產權相關法律</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>法律</th>
+                                <th>《著作權法》</th>
+                                <th>《商標法》</th>
+                                <th>《專利法》</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>制定目的</strong></td>
+                                <td>保障著作人著作權益，調和社會公益，促進國家文化發展。</td>
+                                <td>保障商標權及消費者利益，維護市場公平競爭，促進企業正常發展。</td>
+                                <td>鼓勵、保護、利用發明、新型及設計創作，以促進產業發展。</td>
+                            </tr>
+                             <tr>
+                                <td><strong>保障權利</strong></td>
+                                <td>著作權：語文、音樂、戲劇、舞蹈、攝影、視聽、建築、電腦程式等著作。</td>
+                                <td>商標權：用以區別自己與他人商品的標誌。</td>
+                                <td>專利權：研究成果具有重要且有產業利用價值的發明。</td>
+                            </tr>
+                             <tr>
+                                <td><strong>取得方式</strong></td>
+                                <td>創作完成即享有。</td>
+                                <td>經註冊後取得。</td>
+                                <td>經申請審查核准後取得。</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="copyright-section">
+            <h2 class="section-title"><i class="fas fa-copyright"></i> 三、著作權的限制與責任</h2>
+            <div class="content-grid">
+                <div class="info-card">
+                    <h3>保障期限</h3>
+                    <p>保障著作人產生財產上利益，最常見的是<strong class="highlight-text">重製權</strong>。</p>
+                    <p>著作權保護期限為著作人完成作品至其<strong class="highlight-text">死亡後 50 年</strong>，超過此期限，任何人皆可自由利用。</p>
+                </div>
+                <div class="info-card">
+                    <h3>合理使用</h3>
+                    <p>允許利用人可未經授權，在一定範圍內利用他人著作，且不構成侵權。</p>
+                    <p>判斷基準包括：利用目的、利用比例、市場價值等。</p>
+                </div>
+            </div>
+             <div class="highlight-box">
+                <h4>侵害著作權的法律責任</h4>
+                <p><strong>民事責任</strong>：著作是財產的一種，侵害者須負賠償責任，除了金錢賠償其經濟損失，亦有下架、登報公開道歉等責任。</p>
+                <p><strong>刑事責任</strong>：因侵害的情節輕重不同，可能構成犯罪行為，須承擔有期徒刑、拘役或罰金等刑事責任。侵權物也可能被沒收。</p>
+            </div>
+        </section>
+
+        <section id="quiz-section">
+            <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(113 會考)</span></h3>
+                <div class="question">
+                    <p>小華整理客廳時發現一張舊紙張，如右圖。他拍照上傳到社群網路詢問它的功能，以下是網友的回覆：</p>
+                    <div class="highlight-box" style="padding:1rem;">
+                        <p><strong>甲：</strong>「我們稱它為高速公路回數票，以前沒有電子收費系統，經過收費站時將它拿給收費員當通行費。在收費站前減速繳交回數票常會造成塞車，現在用電子收費就沒這個問題了。」</p>
+                        <p><strong>乙：</strong>「以前忘了帶錢時，把回數票當現金，少數店家也能接受，我還曾經用它來買便當。」</p>
+                    </div>
+                    <p>關於上述高速公路回數票的說明及收費方式的變革，下列敘述何者最適當？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="true">(A) 科技發展使得交通運輸更順暢</button>
+                    <button class="option-btn" data-correct="false">(B) 高速公路回數票可在銀行兌換外幣</button>
+                    <button class="option-btn" data-correct="false">(C) 高速公路回數票具延遲支付功能</button>
+                    <button class="option-btn" data-correct="false">(D) 科技發展讓交通工具的選擇更多元</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+        </section>
+        
+        <section class="fun-bg-section">
+            <h3 class="typing-effect">
+                <span id="typing-text-span"></span><span class="cursor"></span>
+            </h3>
+            <img src="image/LiyuChillGuy(W).svg" class="floating-mascot-bg" alt="Floating Mascot Background">
+        </section>
+    </main>
+
+    <a href="index.html" id="return-home-btn" title="返回主頁">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+    </a>
+    
+    <div id="mascot-container">
+        <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
+        <div id="mascot-speech">尊重智慧，鼓勵創新！</div>
+    </div>
+
+    <footer>
+        <p>Copyright © Liyuchiutiger Gongminshen</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let typingStarted = false; 
+
+            const typingSentences = [
+                "公民好神！我會遵守公民神會員守則！",
+                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
+                "公民神有三力：注意力、記憶力、戰鬥力！"
+            ];
+            const typingElementSpan = document.getElementById('typing-text-span');
+
+            function startTypingLoop() {
+                if (!typingElementSpan) return;
+                let sentenceIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
+
+                function loop() {
+                    const currentSentence = typingSentences[sentenceIndex];
+                    if (isDeleting) {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex - 1);
+                        charIndex--;
+                        if (charIndex === 0) {
+                            isDeleting = false;
+                            sentenceIndex = (sentenceIndex + 1) % typingSentences.length;
+                            setTimeout(loop, 500);
+                        } else {
+                            setTimeout(loop, 50);
+                        }
+                    } else {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex + 1);
+                        charIndex++;
+                        if (charIndex === currentSentence.length) {
+                            isDeleting = true;
+                            setTimeout(loop, 2500); 
+                        } else {
+                            setTimeout(loop, 120);
+                        }
+                    }
+                }
+                loop();
+            }
+            
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
+                            typingStarted = true;
+                            startTypingLoop();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 }); 
+            
+            sections.forEach(section => observer.observe(section));
+
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>根據網友甲的描述，過去使用回數票「常會造成塞車」，而現在使用「電子收費就沒這個問題了」。這直接說明了科技的發展（從人工收費到電子收費）解決了交通壅塞問題，使得交通運輸更加順暢。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>回數票是國內交通使用的票券，與外幣兌換無關。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>回數票類似現金或儲值卡，是預先支付的概念，不具備信用卡那樣的「延遲支付」功能。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>文中討論的是「收費方式」的變革，並未提及交通「工具」的選擇變多。</p>`
+                }
+            };
+            
+            const quizContainers = document.querySelectorAll('.quiz-container');
+            
+            quizContainers.forEach((container, index) => {
+                const quizId = `quiz${index + 1}`;
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
+
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        
+                        optionButtons.forEach(btn => {
+                            btn.disabled = true;
+                        });
+
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = allQuizData[quizId].correct;
+                            feedbackArea.className = 'feedback-area feedback-correct';
+                        } else {
+                            const optionLetter = button.textContent.substring(1, 2);
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
+                            feedbackArea.className = 'feedback-area feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
+                    });
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+
+            const mascotContainer = document.getElementById('mascot-container');
+            const mascotImg = document.getElementById('mascot-img');
+            const speechBubble = document.getElementById('mascot-speech');
+            
+            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            let messageIndex = 0;
+            let clickTimer = null;
+            let speechTimeout = null;
+
+            mascotContainer.addEventListener('click', () => {
+                clearTimeout(clickTimer);
+                clickTimer = setTimeout(() => {
+                    speechBubble.textContent = messages[messageIndex];
+                    speechBubble.classList.add('visible');
+                    messageIndex = (messageIndex + 1) % messages.length;
+                    clearTimeout(speechTimeout);
+                    speechTimeout = setTimeout(() => speechBubble.classList.remove('visible'), 4000);
+                }, 250);
+            });
+
+            mascotContainer.addEventListener('dblclick', () => {
+                clearTimeout(clickTimer);
+                speechBubble.classList.remove('visible');
+                triggerExplosion();
+            });
+
+            function triggerExplosion() {
+                mascotImg.classList.add('enlarged');
+                const particleCount = 40;
+                const particleColors = [ 'var(--primary-glow)', 'var(--secondary-glow)', 'var(--accent-glow)', '#ffffff' ];
+
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    mascotContainer.appendChild(particle);
+                    const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+                    const angle = Math.random() * 360;
+                    const radius = Math.random() * 120 + 50;
+                    const x = Math.cos(angle * Math.PI / 180) * radius;
+                    const y = Math.sin(angle * Math.PI / 180) * radius;
+                    particle.style.background = color;
+                    requestAnimationFrame(() => {
+                        particle.style.transform = `translate(${x}px, ${y}px) scale(0)`;
+                        particle.style.opacity = '0';
+                    });
+                    setTimeout(() => particle.remove(), 1000);
+                }
+                setTimeout(() => mascotImg.classList.remove('enlarged'), 300);
+            }
+        });
+    </script>
+</body>
+</html>

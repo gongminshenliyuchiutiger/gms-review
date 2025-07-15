@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重點11-2：法律對兒少的保障</title>
+    <!-- Font Awesome script is still useful for other icons in the page -->
+    <script src="https://kit.fontawesome.com/62a9d1d113.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
+
+        :root {
+            --primary-glow: #00f2ea; /* 亮青色 */
+            --secondary-glow: #ff00ff; /* 洋紅色 */
+            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --bg-dark: #0d1b2a;
+            --bg-dark-2: #020a12;
+            --text-color: #e0e0e0;
+            --card-bg: rgba(23, 37, 51, 0.7);
+            --correct-color: #00ff87;
+            --wrong-color: #ff2a6d;
+            --border-color: rgba(0, 242, 234, 0.3);
+            --accent-border-color: rgba(240, 225, 74, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-2));
+            color: var(--text-color);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 5rem 0;
+            border-bottom: 2px solid var(--border-color);
+            box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 900;
+            color: var(--text-color);
+            white-space: nowrap; /* 新增：防止標題換行 */
+            text-shadow:
+                0 0 5px #fff,
+                0 0 10px var(--accent-glow),
+                0 0 20px var(--accent-glow),
+                0 0 40px var(--accent-glow);
+            animation: flicker-orange 3s infinite alternate;
+        }
+
+        @keyframes flicker-orange {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow:
+                0 0 4px #fff,
+                0 0 11px var(--accent-glow),
+                0 0 19px var(--accent-glow),
+                0 0 40px var(--accent-glow),
+                0 0 80px var(--accent-glow);
+            }
+            20%, 24%, 55% { text-shadow: none; }
+        }
+
+        header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary-glow);
+            margin-top: 1rem;
+            text-shadow: 0 0 8px var(--secondary-glow);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-8px);}
+        }
+
+        section {
+            margin-bottom: 4rem;
+            padding: 2.5rem;
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 0 30px rgba(0, 242, 234, 0.1), inset 0 0 15px rgba(0, 242, 234, 0.1);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .highlight-text {
+            font-weight: bold;
+            color: var(--accent-glow);
+            text-shadow: 0 0 5px var(--accent-glow);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary-glow);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+        
+        .section-title i {
+            font-size: 2.2rem;
+            color: var(--accent-glow);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .info-card {
+            background: rgba(0,0,0,0.2);
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--accent-glow);
+            box-shadow: 0 15px 30px rgba(240, 225, 74, 0.2);
+        }
+        
+        .info-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary-glow);
+            border-bottom: 3px solid var(--accent-glow);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+            flex-grow: 1;
+        }
+        .info-card li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .info-card li::before {
+            content: '\f105'; /* Font Awesome angle-right */
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--accent-glow);
+            transition: transform 0.3s;
+        }
+        .info-card:hover li::before {
+            transform: rotate(90deg);
+        }
+        
+        .info-card h4 {
+            font-size: 1.2rem;
+            color: var(--primary-glow);
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        th, td {
+            padding: 0.8rem;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+        th {
+            background-color: rgba(0, 242, 234, 0.1);
+            color: var(--primary-glow);
+            font-family: 'Orbitron', sans-serif;
+        }
+        td {
+             background-color: rgba(13, 27, 42, 0.5);
+        }
+
+        .highlight-box { background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05)); padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow); font-size: 1.1rem; margin-top: 2rem; box-shadow: inset 0 0 10px rgba(240, 225, 74, 0.2); }
+        .highlight-box strong { color: var(--accent-glow); font-weight: 700; }
+        
+        /* --- QUIZ STYLES --- */
+        .quiz-container { margin-bottom: 3rem; }
+        .quiz-container:last-child { margin-bottom: 0; }
+        .quiz-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); }
+        .quiz-title i { margin-right: 0.75rem; }
+        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
+        #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
+        #quiz-section .options { display: grid; gap: 1rem; }
+        
+        .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+        .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
+        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark); }
+        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark); }
+        
+        .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
+        .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
+        .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        
+        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--accent-glow); }
+        
+        /* --- FUN STYLES --- */
+        .fun-bg-section {
+            position: relative;
+            min-height: 150px;
+            margin-top: 4rem;
+            margin-bottom: 2rem;
+            border-radius: 20px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        .typing-effect {
+            position: relative;
+            z-index: 5;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.6rem; 
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            text-align: center;
+            max-width: 100%;
+        }
+        .typing-effect .cursor {
+            display: inline-block;
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            margin-left: 5px;
+            width: 10px;
+            height: 1.6rem;
+            animation: blink-caret 0.75s step-end infinite;
+        }
+        @keyframes blink-caret {
+            from, to { background-color: transparent; box-shadow: none; }
+            50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); }
+        }
+        .floating-mascot-bg {
+            position: absolute;
+            width: 250px;
+            height: auto;
+            opacity: 0.15;
+            animation: floatMascot 15s ease-in-out infinite alternate;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+        @keyframes floatMascot {
+            from { transform: translate(-60%, -60%) rotate(-15deg); }
+            to { transform: translate(-40%, -40%) rotate(15deg); }
+        }
+        
+        #return-home-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            z-index: 1001;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        #return-home-btn svg {
+            width: 100%;
+            height: 100%;
+            stroke: #ffffff;
+            stroke-width: 2px;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 6px var(--primary-glow));
+        }
+        #return-home-btn:hover { transform: scale(1.1); }
+        #return-home-btn:hover svg {
+            stroke: var(--primary-glow);
+            filter: drop-shadow(0 0 12px var(--primary-glow));
+            transform: rotate(-10deg);
+        }
+
+        footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+        #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
+        #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
+        #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
+        #mascot-img.enlarged { transform: scale(2.5) !important; }
+        #mascot-speech { position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9); color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3); }
+        #mascot-speech.visible { opacity: 1; transform: translateY(0); }
+        .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            header { padding: 3rem 0; }
+            header h1 { font-size: 2.5rem; }
+            header h2 { font-size: 1.2rem; }
+            section { padding: 1.5rem; margin-bottom: 2rem; }
+            .section-title { font-size: 2rem; }
+            .content-grid { grid-template-columns: 1fr; }
+            .info-card { margin-bottom: 1.5rem; }
+            .info-card:last-child { margin-bottom: 0; }
+            .typing-effect { font-size: 1.2rem; }
+            .typing-effect .cursor { height: 1.2rem; }
+            #quiz-section .question, .option-btn { font-size: 1rem; }
+            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
+            #mascot-container { right: 15px; bottom: 15px; }
+            #mascot-img { width: 80px; }
+            #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>重點11-2：法律對兒少的保障</h1>
+            <h2>邱俐瑜公民，成為公民神不再只是夢想！</h2>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="international-law-section">
+            <h2 class="section-title"><i class="fas fa-globe-americas"></i> 一、保護兒少的國際與國內法律</h2>
+            <p>兒童因身心尚未成熟，因此其出生前與出生後均需獲得特別的保護及照顧。了解相關法律，不僅能維護自身權益，也能避免違法行為的發生。</p>
+            <div class="highlight-box">
+                <h4>觀念比較：兒童權利宣言、公約、施行法</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>項目</th>
+                            <th>《兒童權利宣言》</th>
+                            <th>《兒童權利公約》</th>
+                            <th>《兒童權利公約施行法》</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>制定者</strong></td>
+                            <td>聯合國</td>
+                            <td>聯合國</td>
+                            <td>中華民國</td>
+                        </tr>
+                        <tr>
+                            <td><strong>性質</strong></td>
+                            <td>國際宣言</td>
+                            <td>國際公約</td>
+                            <td>國內法律</td>
+                        </tr>
+                        <tr>
+                            <td><strong>法律約束力</strong></td>
+                            <td>無，僅有宣示作用</td>
+                            <td>有 (對簽署國)</td>
+                            <td>有 (對我國政府)</td>
+                        </tr>
+                         <tr>
+                            <td><strong>共通點</strong></td>
+                            <td colspan="3">三者皆致力於保障兒少的權益</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="child-welfare-section">
+            <h2 class="section-title"><i class="fas fa-child"></i> 二、兒童及少年福利與權益保障法</h2>
+            <p><strong>立法目的</strong>：促進兒少身心健全發展、增進成年人對兒少的照顧責任。</p>
+            <div class="info-card">
+                <h3>保護對象</h3>
+                <ul>
+                    <li><strong>兒童</strong>：未滿 12 歲之人。</li>
+                    <li><strong>少年</strong>：12 歲以上，未滿 18 歲之人。</li>
+                </ul>
+                <h3>相關規定</h3>
+                 <ul>
+                    <li><strong>福利措施</strong>：提供親職教育、休閒活動等，以促進兒少福祉。</li>
+                    <li><strong>保護措施</strong>：禁止任何人讓兒少吸菸、喝酒、嚼檳榔、出入不良場所、超過合理時間使用電子類產品等，以避免兒少身心虐待與疏忽。</li>
+                </ul>
+                <h3>法律責任</h3>
+                <p>父母未盡保護之責，或其他人違反規定，將處以<strong class="highlight-text">罰鍰</strong>、接受<strong class="highlight-text">親職教育輔導</strong>或<strong class="highlight-text">公布姓名</strong>等行政責任。</p>
+            </div>
+        </section>
+
+        <section id="exploitation-section">
+            <h2 class="section-title"><i class="fas fa-user-secret"></i> 三、兒童及少年性剝削防制條例</h2>
+            <p><strong>立法目的</strong>：防制兒少遭受任何形式的性剝削，維護其身心健全發展。</p>
+            <div class="content-grid">
+                <div class="info-card">
+                    <h3>性剝削定義</h3>
+                    <ul>
+                        <li>使兒少為有對價的性交或猥褻行為。</li>
+                        <li>利用兒少為性交、猥褻行為，以供人觀覽。</li>
+                        <li>拍攝、製造、散布、販賣、持有兒少性影像等。</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h3>保護措施</h3>
+                    <ul>
+                        <li><strong>即時通報</strong>：任何人對疑似或已遭性剝削的兒少，應於24小時內通報主管機關 (或撥打113)。</li>
+                        <li><strong>保護、安置</strong>：政府須對受害兒少緊急短期收容安置。</li>
+                        <li><strong>教育與輔導</strong>：對受害兒少提供心理輔導、行為改變、就學或就業輔導等服務。</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section id="labor-law-section">
+            <h2 class="section-title"><i class="fas fa-briefcase"></i> 四、勞動基準法</h2>
+            <p><strong>立法目的</strong>：避免雇主不當剝削兒少，對「童工」的工作條件給予明文保障。</p>
+            <div class="info-card">
+                <h3>相關規定</h3>
+                <ul>
+                    <li><strong>童工定義</strong>：年滿 15 歲，未滿 16 歲而受僱從事工作者。</li>
+                    <li><strong>僱用條件</strong>：原則上不可僱用未滿15歲者。僱用童工須經法定代理人同意。</li>
+                    <li><strong>工作性質</strong>：不可令童工從事繁重及危險工作。</li>
+                    <li><strong>工作時間</strong>：每日工作不得超過 <strong class="highlight-text">8 小時</strong>，例假日、午後8時至隔日凌晨6時之間均不得工作。</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="juvenile-law-section">
+            <h2 class="section-title"><i class="fas fa-balance-scale"></i> 五、少年事件處理法</h2>
+            <p><strong>立法目的</strong>：因少年的身心發展尚未成熟，易誤觸法網，不適合用一般刑事案件處理。本法以「<strong class="highlight-text">保護代替監禁，以教育代替懲罰</strong>」為原則。</p>
+            <div class="info-card">
+                <h3>適用對象</h3>
+                <p>12 歲以上，未滿 18 歲的少年。</p>
+                <h3>事件分類與處置</h3>
+                <ul>
+                    <li><strong>少年保護事件</strong>：犯罪情節輕微，或犯罪時未滿14歲。由<strong class="highlight-text">少年法庭(院)法官</strong>審理後，依情形處以<strong class="highlight-text">保護處分</strong>。</li>
+                    <li><strong>少年刑事案件</strong>：犯罪情節重大（最輕本刑為5年以上有期徒刑），且犯罪時已滿14歲。由<strong class="highlight-text">檢察官偵查、起訴</strong>後，由少年法庭(院)法官審理並處以<strong class="highlight-text">刑罰</strong>。</li>
+                </ul>
+                <h4>保護處分種類</h4>
+                <p>訓誡、假日生活輔導、保護管束、安置輔導、感化教育等。</p>
+            </div>
+        </section>
+
+        <section id="quiz-section">
+            <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(111 會考)</span></h3>
+                <div class="question">
+                    <p>咖啡幾乎是南韓日常生活中不可缺少的一部分，但攝取過量咖啡因可能不利於青少年神經及心血管系統的發育。南韓政府擔心校園內飲用咖啡的風氣，對於未來整體國民健康、醫療資源產生負面影響，因此修法規定自2018年9月起，全面禁止在高中以下校園內販售含有咖啡因的飲料。文中南韓政府修改法律的目的，與下列我國的何項作法最類似？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 受監護宣告者自行訂定契約不具效力</button>
+                    <button class="option-btn" data-correct="false">(B) 雇主不得因性別因素而對員工有差別待遇</button>
+                    <button class="option-btn" data-correct="true">(C) 國小學童不得出入有害身心發展的不良場所</button>
+                    <button class="option-btn" data-correct="false">(D) 家庭暴力受害者可聲請保護令以避免受到傷害</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span>(110 會考)</span></h3>
+                <div class="question">
+                    <p>在咖啡廳打工的大牛，自從年齡不受《勞動基準法》童工規定的保護後，老闆開始要求他每週五加班到凌晨。某日，大牛與客人發生衝突，因而被移送少年法庭審理。根據上述內容判斷，下列關於大牛的敘述何者最逼當？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 屬於無責任能力人</button>
+                    <button class="option-btn" data-correct="false">(B) 屬於完全行為能力人</button>
+                    <button class="option-btn" data-correct="true">(C) 可能受到保護管束處分</button>
+                    <button class="option-btn" data-correct="false">(D) 可能被處以十五萬元罰鍰</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+        </section>
+        
+        <section class="fun-bg-section">
+            <h3 class="typing-effect">
+                <span id="typing-text-span"></span><span class="cursor"></span>
+            </h3>
+            <img src="image/LiyuChillGuy(W).svg" class="floating-mascot-bg" alt="Floating Mascot Background">
+        </section>
+    </main>
+
+    <a href="index.html" id="return-home-btn" title="返回主頁">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+    </a>
+    
+    <div id="mascot-container">
+        <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
+        <div id="mascot-speech">保護兒少，你我有責！</div>
+    </div>
+
+    <footer>
+        <p>Copyright © Liyuchiutiger Gongminshen</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let typingStarted = false; 
+
+            const typingSentences = [
+                "公民好神！我會遵守公民神會員守則！",
+                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
+                "公民神有三力：注意力、記憶力、戰鬥力！"
+            ];
+            const typingElementSpan = document.getElementById('typing-text-span');
+
+            function startTypingLoop() {
+                if (!typingElementSpan) return;
+                let sentenceIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
+
+                function loop() {
+                    const currentSentence = typingSentences[sentenceIndex];
+                    if (isDeleting) {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex - 1);
+                        charIndex--;
+                        if (charIndex === 0) {
+                            isDeleting = false;
+                            sentenceIndex = (sentenceIndex + 1) % typingSentences.length;
+                            setTimeout(loop, 500);
+                        } else {
+                            setTimeout(loop, 50);
+                        }
+                    } else {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex + 1);
+                        charIndex++;
+                        if (charIndex === currentSentence.length) {
+                            isDeleting = true;
+                            setTimeout(loop, 2500); 
+                        } else {
+                            setTimeout(loop, 120);
+                        }
+                    }
+                }
+                loop();
+            }
+            
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
+                            typingStarted = true;
+                            startTypingLoop();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 }); 
+            
+            sections.forEach(section => observer.observe(section));
+
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>南韓政府為了避免咖啡因對青少年發育造成危害而修法，其目的在於「保障未成年人的身心健康發展」。我國《兒童及少年福利與權益保障法》中規定，學童不得出入有害身心發展的不良場所，其立法目的與南韓政府的作法最為相似，都是為了保護未成年人。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 這是《民法》中對無行為能力人的保護，與保障身心健康發展的目的不同。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 這是《性別平等工作法》的規定，旨在促進職場的性別平權。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 這是《家庭暴力防治法》的規定，旨在保護人民免受家庭成員的暴力侵害。</p>`
+                },
+                quiz2: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>1. 大牛不受《勞基法》童工（15-16歲）保護，可知他已滿16歲。 2. 他被移送「少年法庭」，可知他未滿18歲。因此，大牛的年齡在16~18歲之間。這個年齡的少年觸法，會被視為「少年保護事件」，由少年法庭審理後，可能裁定<strong class="highlight-text">保護管束</strong>等保護處分。(A) 他已滿14歲，非無責任能力人。(B) 他未滿18歲，非完全行為能力人。(D) 罰鍰是行政罰，非少年保護處分。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>無責任能力人是未滿14歲，大牛已滿16歲。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>完全行為能力人是年滿18歲，大牛被移送少年法庭，可知他未滿18歲。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>罰鍰是行政罰，而少年法庭審理的是觸犯刑罰法律的行為，會裁定的是保護處分或刑罰。</p>`
+                }
+            };
+            
+            const quizContainers = document.querySelectorAll('.quiz-container');
+            
+            quizContainers.forEach((container, index) => {
+                const quizId = `quiz${index + 1}`;
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
+
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        
+                        optionButtons.forEach(btn => {
+                            btn.disabled = true;
+                        });
+
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = allQuizData[quizId].correct;
+                            feedbackArea.className = 'feedback-area feedback-correct';
+                        } else {
+                            const optionLetter = button.textContent.substring(1, 2);
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
+                            feedbackArea.className = 'feedback-area feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
+                    });
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+
+            const mascotContainer = document.getElementById('mascot-container');
+            const mascotImg = document.getElementById('mascot-img');
+            const speechBubble = document.getElementById('mascot-speech');
+            
+            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            let messageIndex = 0;
+            let clickTimer = null;
+            let speechTimeout = null;
+
+            mascotContainer.addEventListener('click', () => {
+                clearTimeout(clickTimer);
+                clickTimer = setTimeout(() => {
+                    speechBubble.textContent = messages[messageIndex];
+                    speechBubble.classList.add('visible');
+                    messageIndex = (messageIndex + 1) % messages.length;
+                    clearTimeout(speechTimeout);
+                    speechTimeout = setTimeout(() => speechBubble.classList.remove('visible'), 4000);
+                }, 250);
+            });
+
+            mascotContainer.addEventListener('dblclick', () => {
+                clearTimeout(clickTimer);
+                speechBubble.classList.remove('visible');
+                triggerExplosion();
+            });
+
+            function triggerExplosion() {
+                mascotImg.classList.add('enlarged');
+                const particleCount = 40;
+                const particleColors = [ 'var(--primary-glow)', 'var(--secondary-glow)', 'var(--accent-glow)', '#ffffff' ];
+
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    mascotContainer.appendChild(particle);
+                    const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+                    const angle = Math.random() * 360;
+                    const radius = Math.random() * 120 + 50;
+                    const x = Math.cos(angle * Math.PI / 180) * radius;
+                    const y = Math.sin(angle * Math.PI / 180) * radius;
+                    particle.style.background = color;
+                    requestAnimationFrame(() => {
+                        particle.style.transform = `translate(${x}px, ${y}px) scale(0)`;
+                        particle.style.opacity = '0';
+                    });
+                    setTimeout(() => particle.remove(), 1000);
+                }
+                setTimeout(() => mascotImg.classList.remove('enlarged'), 300);
+            }
+        });
+    </script>
+</body>
+</html>

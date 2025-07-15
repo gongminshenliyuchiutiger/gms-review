@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重點3-2：社區與部落</title>
+    <!-- Font Awesome script -->
+    <script src="https://kit.fontawesome.com/62a9d1d113.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
+
+        :root {
+            --primary-glow: #00f2ea; /* 亮青色 */
+            --secondary-glow: #ff00ff; /* 洋紅色 */
+            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --bg-dark: #0d1b2a;
+            --bg-dark-2: #020a12;
+            --text-color: #e0e0e0;
+            --card-bg: rgba(23, 37, 51, 0.7);
+            --correct-color: #00ff87;
+            --wrong-color: #ff2a6d;
+            --border-color: rgba(0, 242, 234, 0.3);
+            --accent-border-color: rgba(240, 225, 74, 0.5);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-2));
+            color: var(--text-color);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+
+        header {
+            text-align: center;
+            padding: 5rem 0;
+            border-bottom: 2px solid var(--border-color);
+            box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 900;
+            color: var(--text-color);
+            white-space: nowrap; /* 新增：防止標題換行 */
+            text-shadow:
+                0 0 5px #fff,
+                0 0 10px var(--accent-glow),
+                0 0 20px var(--accent-glow),
+                0 0 40px var(--accent-glow);
+            animation: flicker-orange 3s infinite alternate;
+        }
+
+        @keyframes flicker-orange {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-glow), 0 0 19px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow);
+            }
+            20%, 24%, 55% { text-shadow: none; }
+        }
+
+        header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary-glow);
+            margin-top: 1rem;
+            text-shadow: 0 0 8px var(--secondary-glow);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-8px);}
+        }
+
+        section {
+            margin-bottom: 4rem;
+            padding: 2.5rem;
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 0 30px rgba(0, 242, 234, 0.1), inset 0 0 15px rgba(0, 242, 234, 0.1);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        section.visible { opacity: 1; transform: translateY(0); }
+        
+        .highlight-text {
+            font-weight: bold;
+            color: var(--accent-glow);
+            text-shadow: 0 0 5px var(--accent-glow);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary-glow);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+        
+        .section-title i {
+            font-size: 2.2rem;
+            color: var(--accent-glow);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+        
+        h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-glow);
+            margin-bottom: 1rem;
+        }
+        h3 { font-size: 1.6rem; }
+        h4 { font-size: 1.4rem; }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .info-card {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .info-card h4 {
+            margin-top: 0;
+            border-bottom: 2px solid var(--accent-border-color);
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .info-card ul { list-style: none; padding: 0;}
+        .info-card li { position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem; }
+        .info-card li::before {
+            content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
+            position: absolute; left: 0; top: 3px; color: var(--primary-glow);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05));
+            padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow);
+            margin-top: 2rem;
+        }
+        
+        .comparison-table {
+            width: 100%; border-collapse: collapse; margin-top: 1.5rem;
+        }
+        .comparison-table th, .comparison-table td {
+            border: 1px solid var(--border-color); padding: 1rem; text-align: left;
+            vertical-align: top;
+        }
+        .comparison-table thead th { background-color: rgba(13, 27, 42, 0.7); color: var(--primary-glow); text-align: center; }
+        .comparison-table tbody th { font-weight: bold; color: var(--accent-glow); text-align: center; }
+
+        /* Quiz Styles */
+        .quiz-container { margin-bottom: 3rem; }
+        .quiz-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); }
+        .quiz-title i { margin-right: 0.75rem; }
+        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; }
+        #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
+        
+        /* NEW: Style for the text-based law quote */
+        .law-quote-box {
+            background-color: rgba(0, 242, 234, 0.08);
+            border: 2px dashed var(--primary-glow);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            line-height: 2;
+        }
+        .law-quote-box p { margin-bottom: 0.5rem; }
+        .law-quote-box ul { list-style-type: none; padding-left: 1rem; }
+        .law-quote-box h4 {
+            text-align: center; color: var(--primary-glow); margin-bottom: 1rem; font-size: 1.2rem;
+            border-bottom: none; padding-bottom: 0;
+        }
+
+        #quiz-section .options { display: grid; gap: 1rem; }
+        .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+        .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
+        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark);}
+        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
+        
+        .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
+        .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
+        .reset-btn:hover { transform: scale(1.05); }
+
+        /* Mascot & Typing Effect Styles */
+        .fun-bg-section {
+            position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem;
+            border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color);
+            overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem;
+        }
+        .typing-effect {
+            position: relative; z-index: 5; font-family: 'Orbitron', monospace; font-size: 1.6rem; 
+            font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            text-align: center; max-width: 100%;
+        }
+        .typing-effect .cursor {
+            display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            margin-left: 5px; width: 10px; height: 1.6rem; animation: blink-caret 0.75s step-end infinite;
+        }
+        @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
+        .floating-mascot-bg {
+            position: absolute; width: 250px; height: auto; opacity: 0.15;
+            animation: floatMascot 15s ease-in-out infinite alternate;
+            top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;
+        }
+        @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
+        #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
+        #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
+        #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
+        #mascot-img.enlarged { transform: scale(2.5) !important; }
+        #mascot-speech {
+            position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9);
+            color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px;
+            font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3);
+        }
+        #mascot-speech.visible { opacity: 1; transform: translateY(0); }
+        .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
+
+        /* Floating Home Button & Footer */
+        #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
+        #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
+        #return-home-btn:hover { transform: scale(1.1); }
+        #return-home-btn:hover svg { stroke: var(--primary-glow); filter: drop-shadow(0 0 12px var(--primary-glow)); transform: rotate(-10deg); }
+        footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            header h1 { font-size: 2.5rem; }
+            section { padding: 1.5rem; }
+            .section-title { font-size: 2rem; }
+            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
+
+            /* Adjust new elements for mobile */
+            .typing-effect { font-size: 1.2rem; }
+            .typing-effect .cursor { height: 1.2rem; }
+            #mascot-container { right: 15px; bottom: 15px; }
+            #mascot-img { width: 80px; }
+            #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>重點3-2：社區與部落</h1>
+            <h2>邱俐瑜公民，成為公民神不再只是夢想！</h2>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section id="community-section">
+            <h2 class="section-title"><i class="fas fa-users"></i>一、社區與社區參與</h2>
+            <h3>(一) 社區</h3>
+            <div class="info-card">
+                <ul>
+                    <li><strong>意義：</strong>居住在某特定<strong class="highlight-text">地區</strong>的一群人，因經常往來接觸且生活相關所形成的公共生活領域。</li>
+                    <li><strong>成立：</strong><strong class="highlight-text">自然形成</strong>，非政府劃定的行政區，也無須經政府核定。</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h4><i class="fas fa-sitemap"></i>組成要素</h4>
+                <div class="info-grid">
+                    <div><strong>居民：</strong>居住在特定區域的一群人。</div>
+                    <div><strong>地區：</strong>社區範圍，大小不一。</div>
+                    <div><strong>共同關係：</strong>生活中具共同的利益、問題與需要。</div>
+                    <div><strong>社區意識：</strong>居民在心理上對社區的<strong class="highlight-text">認同感與歸屬感</strong>。</div>
+                    <div><strong>社區組織：</strong>推動社區事務的組織。</div>
+                </div>
+            </div>
+            <h3>(二) 社區參與</h3>
+            <div class="info-card">
+                <ul>
+                    <li><strong>意義：</strong>居民採取<strong class="highlight-text">行動</strong>處理社區公共事務的過程。</li>
+                    <li><strong>態度：</strong><br>
+                        - 消極：「各人自掃門前雪，休管他人瓦上霜」➡ 最後可能自身受害。<br>
+                        - 積極：以「經營自己家」的態度，參與社區事務 ➡ 改善社區環境，共創永續社區。</li>
+                    <li><strong>目的：</strong>喚起居民自主的意識，積極投入社區，以提升生活品質。</li>
+                </ul>
+            </div>
+            <div class="highlight-box">
+                <p><i class="fas fa-exclamation-triangle"></i> <strong>注意：</strong>社區<strong class="highlight-text">意識</strong>是心理情感，社區<strong class="highlight-text">參與</strong>是具體行動。</p>
+            </div>
+        </section>
+
+        <section id="tribe-section">
+            <h2 class="section-title"><i class="fas fa-feather-alt"></i>二、部落的挑戰與發展</h2>
+            <h3>(一) 部落</h3>
+            <div class="info-card">
+                 <ul>
+                    <li><strong>意義：</strong>依<strong class="highlight-text">《原住民族基本法》</strong>，部落是原住民族於原住民族地區一定區域內，依其傳統規範共同生活而成之團體。</li>
+                    <li><strong>成立：</strong>須經中央原住民族主管機關（<strong class="highlight-text">原住民族委員會</strong>）核定。</li>
+                    <li><strong>組成：</strong>由擁有共通的文化、宗教、語言及價值觀的部落居民組成。</li>
+                </ul>
+            </div>
+             <div class="info-card">
+                <h4><i class="fas fa-star-of-david"></i>重要性</h4>
+                <ul>
+                    <li><strong>傳統信仰重⼼：</strong>祖靈是多數原住民族的信仰，凝聚族人情感，也對族人產生規範。</li>
+                    <li><strong>語⾔⽂化傳承：</strong>部落的歲時祭儀，是部落傳承文化與教育的基石。</li>
+                    <li><strong>基本政治組織：</strong>原住民族以部落為自治基礎，由部落領袖帶領族人管理各族共同事務，並設置<strong class="highlight-text">部落會議</strong>決定部落事務。</li>
+                    <li><strong>⽣產分配中⼼：</strong>重視與大自然和諧共存的精神，發展出重視生態平衡及共享的互助機制。</li>
+                </ul>
+            </div>
+            <h3>(二) 部落參與及政府措施</h3>
+            <div class="info-card">
+                <ul>
+                    <li><strong>爭取權益：</strong>以<strong class="highlight-text">原住民族運動</strong>爭取權益，如各部落發起「還我土地」等運動，訴求民族自治。</li>
+                    <li><strong>永續發展：</strong>推動<strong class="highlight-text">部落營造</strong>，創造部落的永續發展。</li>
+                </ul>
+            </div>
+             <div class="info-card">
+                <h4><i class="fas fa-gavel"></i>政府回應訴求</h4>
+                 <ul>
+                    <li><strong>措施一：</strong>將「山胞」正名為「<strong class="highlight-text">原住民族</strong>」。</li>
+                    <li><strong>措施二：</strong>成立<strong class="highlight-text">原住民族委員會</strong>，處理與原住民族權益相關的事務。</li>
+                    <li><strong>措施三：</strong>透過<strong class="highlight-text">《原住民族基本法》</strong>保障原住民族的自治權；透過<strong class="highlight-text">《國家語言發展法》</strong>，使面臨傳承危機的原住民族語言得以保存。</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="comparison-section">
+            <h2 class="section-title"><i class="fas fa-exchange-alt"></i>三、社區與部落比較</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr><th>概念</th><th>社區</th><th>部落</th></tr>
+                </thead>
+                <tbody>
+                    <tr><th>成立方式</th><td>自然形成，不須經政府核定</td><td>經中央原住民族主管機關核定</td></tr>
+                    <tr><th>成員特性</th><td>宗教、語言及價值觀不一定相同</td><td>大多擁有共通的文化、宗教、語言及價值觀</td></tr>
+                    <tr><th>共通點</th>
+                        <td colspan="2" style="text-align: left; padding-left: 2rem;">
+                            1. 都由特定區域內的一群人所組成。<br>
+                            2. 居民的參與對於社區、部落的發展，都具有相當的重要性。
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="quiz-section">
+            <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(112 會考)</span></h3>
+                <div class="question">
+                    <p>某日，小晴沒來上課，班上同學們問了老師才知道，因為小晴是太魯閣族的原住民，所以他今天放假和家人一起返回部落參與感恩祭。老師也藉機以下方框中的法律規範，向同學們說明小晴可以放假的依據。根據上述內容判斷，主管機關將原住民族的傳統祭儀納入法律規範的原因，其主要考量最可能是下列何者？</p>
+                    <div class="law-quote-box">
+                        <h4>《紀念日及節日實施辦法》</h4>
+                        <p><strong>第 4 條：</strong>下列民俗節日，除春節放假三日外，其餘均放假一日：</p>
+                        <ul>
+                            <li>一、春節。</li>
+                            <li>......</li>
+                            <li>六、原住民族歲時祭儀：各該原住民族放假日期，由行政院原住民族委員會參酌各該原住民族習俗公告，並刊登政府公報。</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 落實部落自治，提升地方行政效率</button>
+                    <button class="option-btn" data-correct="false">(B) 推動觀光發展，增加青年工作機會</button>
+                    <button class="option-btn" data-correct="false">(C) 凝聚居民認同，改善社區生活環境</button>
+                    <button class="option-btn" data-correct="true">(D) 尊重多元文化，促進部落文化傳承</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span>(111 會考)</span></h3>
+                <div class="question">
+                    <p>和平社區的居民想藉由提升民眾活動中心使用率的方式，爭取成為模範社區，於是決定募款購置電腦網路設備，作為社區青少年休閒的場所，並開辦各項有助聯繫情感的活動，以提升居民的歸屬感。上述居民的作法最能表現出哪一種概念？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 加強社區規範</button>
+                    <button class="option-btn" data-correct="false">(B) 維持社會秩序</button>
+                    <button class="option-btn" data-correct="true">(C) 凝聚社區意識</button>
+                    <button class="option-btn" data-correct="false">(D) 增加社會福利</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+        </section>
+
+        <!-- Fun BG Section -->
+        <section class="fun-bg-section">
+            <h3 class="typing-effect">
+                <span id="typing-text-span"></span><span class="cursor"></span>
+            </h3>
+            <img src="image/LiyuChillGuy(W).svg" class="floating-mascot-bg" alt="Floating Mascot Background">
+        </section>
+
+    </main>
+
+    <a href="index.html" id="return-home-btn" title="返回主頁">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+    </a>
+    
+    <!-- Mascot -->
+    <div id="mascot-container">
+        <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
+        <div id="mascot-speech">公民好神！</div>
+    </div>
+
+    <footer>
+        <p>Copyright © Liyuchiutiger Gongminshen</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let typingStarted = false;
+
+            // Section fade-in animation
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
+                            typingStarted = true;
+                            startTypingLoop();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 }); 
+            sections.forEach(section => observer.observe(section));
+
+            // Multiple choice quiz logic
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>原住民族的歲時祭儀是其重要的文化活動與傳承基石。政府將原住民族的傳統祭儀納入《紀念日及節日實施辦法》，讓族人可以放假參與，主要目的是<strong class="highlight-text">尊重其獨特的多元文化，並促進部落文化的延續與傳承</strong>。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 落實部落自治</strong>：這通常與部落會議、土地管理等權力有關，與祭儀放假雖有間接關聯，但非主要考量。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 推動觀光發展</strong>：雖然文化活動可能帶動觀光，但將祭儀法定化的主要目的並非經濟或觀光，而是文化保存。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 凝聚居民認同</strong>：這是「社區」發展的用語，題目討論的是「部落」，且核心在於文化，而非僅是改善環境。</p>`
+                },
+                quiz2: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>題目中提到，社區居民的行動是為了「提升居民的歸屬感」，這正是<strong class="highlight-text">「社區意識」</strong>的核心內涵。居民透過共同參與公共事務（募款、辦活動），來強化彼此的連結與對社區的認同感，進而凝聚社區意識。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 加強社區規範</strong>：題目並未提及制定或加強任何規定，而是透過活動聯繫情感。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 維持社會秩序</strong>：居民的行動是積極建設，而非僅是維持既有秩序。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 增加社會福利</strong>：雖然購置設備可視為一種福利，但題目強調的動機是「提升歸屬感」，因此核心概念是凝聚社區意識，而非單純的福利增加。</p>`
+                }
+            };
+            
+            const quizContainers = document.querySelectorAll('.quiz-container');
+            
+            quizContainers.forEach((container, index) => {
+                const quizId = `quiz${index + 1}`;
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
+
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        optionButtons.forEach(btn => btn.disabled = true);
+                        
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = allQuizData[quizId].correct;
+                            feedbackArea.className = 'feedback-area feedback-correct';
+                        } else {
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            const optionLetter = button.textContent.substring(1, 2);
+                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
+                            feedbackArea.className = 'feedback-area feedback-wrong';
+                        }
+                        
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
+                    });
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+
+            // Typing Effect and Mascot JS
+            const typingSentences = [
+                "公民好神！我會遵守公民神會員守則！",
+                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
+                "公民神有三力：注意力、記憶力、戰鬥力！"
+            ];
+            const typingElementSpan = document.getElementById('typing-text-span');
+
+            function startTypingLoop() {
+                if (!typingElementSpan) return;
+                let sentenceIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
+
+                function loop() {
+                    const currentSentence = typingSentences[sentenceIndex];
+                    if (isDeleting) {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex - 1);
+                        charIndex--;
+                        if (charIndex === 0) {
+                            isDeleting = false;
+                            sentenceIndex = (sentenceIndex + 1) % typingSentences.length;
+                            setTimeout(loop, 500);
+                        } else {
+                            setTimeout(loop, 50);
+                        }
+                    } else {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex + 1);
+                        charIndex++;
+                        if (charIndex === currentSentence.length) {
+                            isDeleting = true;
+                            setTimeout(loop, 2500); 
+                        } else {
+                            setTimeout(loop, 120);
+                        }
+                    }
+                }
+                loop();
+            }
+
+            const mascotContainer = document.getElementById('mascot-container');
+            const mascotImg = document.getElementById('mascot-img');
+            const speechBubble = document.getElementById('mascot-speech');
+            
+            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            let messageIndex = 0;
+            let clickTimer = null;
+            let speechTimeout = null;
+
+            mascotContainer.addEventListener('click', () => {
+                clearTimeout(clickTimer);
+                clickTimer = setTimeout(() => {
+                    speechBubble.textContent = messages[messageIndex];
+                    speechBubble.classList.add('visible');
+                    messageIndex = (messageIndex + 1) % messages.length;
+                    clearTimeout(speechTimeout);
+                    speechTimeout = setTimeout(() => speechBubble.classList.remove('visible'), 4000);
+                }, 250);
+            });
+
+            mascotContainer.addEventListener('dblclick', () => {
+                clearTimeout(clickTimer);
+                speechBubble.classList.remove('visible');
+                triggerExplosion();
+            });
+
+            function triggerExplosion() {
+                mascotImg.classList.add('enlarged');
+                const particleCount = 40;
+                const particleColors = [ 'var(--primary-glow)', 'var(--secondary-glow)', 'var(--accent-glow)', '#ffffff' ];
+
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    mascotContainer.appendChild(particle);
+                    const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+                    const angle = Math.random() * 360;
+                    const radius = Math.random() * 120 + 50;
+                    const x = Math.cos(angle * Math.PI / 180) * radius;
+                    const y = Math.sin(angle * Math.PI / 180) * radius;
+                    particle.style.background = color;
+                    requestAnimationFrame(() => {
+                        particle.style.transform = `translate(${x}px, ${y}px) scale(0)`;
+                        particle.style.opacity = '0';
+                    });
+                    setTimeout(() => particle.remove(), 1000);
+                }
+                setTimeout(() => mascotImg.classList.remove('enlarged'), 300);
+            }
+        });
+    </script>
+</body>
+</html>

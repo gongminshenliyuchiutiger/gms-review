@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重點3-1：學校生活</title>
+    <!-- Font Awesome script -->
+    <script src="https://kit.fontawesome.com/62a9d1d113.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
+
+        :root {
+            --primary-glow: #00f2ea; /* 亮青色 */
+            --secondary-glow: #ff00ff; /* 洋紅色 */
+            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --bg-dark: #0d1b2a;
+            --bg-dark-2: #020a12;
+            --text-color: #e0e0e0;
+            --card-bg: rgba(23, 37, 51, 0.7);
+            --correct-color: #00ff87;
+            --wrong-color: #ff2a6d;
+            --border-color: rgba(0, 242, 234, 0.3);
+            --accent-border-color: rgba(240, 225, 74, 0.5);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-2));
+            color: var(--text-color);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+
+        header {
+            text-align: center;
+            padding: 5rem 0;
+            border-bottom: 2px solid var(--border-color);
+            box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 900;
+            color: var(--text-color);
+            white-space: nowrap; /* 新增：防止標題換行 */
+            text-shadow:
+                0 0 5px #fff,
+                0 0 10px var(--accent-glow),
+                0 0 20px var(--accent-glow),
+                0 0 40px var(--accent-glow);
+            animation: flicker-orange 3s infinite alternate;
+        }
+
+        @keyframes flicker-orange {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-glow), 0 0 19px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow);
+            }
+            20%, 24%, 55% { text-shadow: none; }
+        }
+
+        header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary-glow);
+            margin-top: 1rem;
+            text-shadow: 0 0 8px var(--secondary-glow);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-8px);}
+        }
+
+        section {
+            margin-bottom: 4rem;
+            padding: 2.5rem;
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 0 30px rgba(0, 242, 234, 0.1), inset 0 0 15px rgba(0, 242, 234, 0.1);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        section.visible { opacity: 1; transform: translateY(0); }
+        
+        .highlight-text {
+            font-weight: bold;
+            color: var(--accent-glow);
+            text-shadow: 0 0 5px var(--accent-glow);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary-glow);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+        
+        .section-title i {
+            font-size: 2.2rem;
+            color: var(--accent-glow);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+        
+        h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-glow);
+            margin-bottom: 1rem;
+        }
+        h3 { font-size: 1.6rem; }
+        h4 { font-size: 1.4rem; }
+
+        .rights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+        .rights-card {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+        }
+        .rights-card h4 {
+            margin-top: 0;
+            border-bottom: 2px solid var(--accent-border-color);
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .rights-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .content-box h5 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .content-box.right h5 { color: var(--correct-color); }
+        .content-box.duty h5 { color: var(--wrong-color); }
+        .content-box ul { list-style: none; padding-left: 0; font-size: 0.95rem; }
+        .content-box li { position: relative; padding-left: 1.2rem; margin-bottom: 0.3rem;}
+        .content-box li::before {
+            content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
+            position: absolute; left: 0; top: 3px;
+        }
+        .right li::before { color: var(--correct-color); }
+        .duty li::before { color: var(--wrong-color); }
+
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05));
+            padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow);
+            margin-top: 2rem;
+        }
+        .highlight-box h4 {
+            color: var(--accent-glow); margin: 0 0 1rem 0; display: flex; align-items: center; gap: 0.75rem;
+        }
+        
+        .flow-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .flow-item {
+            background: var(--bg-dark);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            font-weight: bold;
+        }
+        .flow-arrow {
+            font-size: 2rem;
+            color: var(--accent-glow);
+        }
+
+        .comparison-table {
+            width: 100%; border-collapse: collapse; margin-top: 1.5rem;
+        }
+        .comparison-table th, .comparison-table td {
+            border: 1px solid var(--border-color); padding: 1rem; text-align: left;
+        }
+        .comparison-table thead th { background-color: rgba(13, 27, 42, 0.7); color: var(--primary-glow); text-align: center; }
+        .comparison-table td:first-child { font-weight: bold; color: var(--accent-glow); }
+        
+        /* Quiz Styles */
+        .quiz-container { margin-bottom: 3rem; }
+        .quiz-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); }
+        .quiz-title i { margin-right: 0.75rem; }
+        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
+        #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
+        #quiz-section .options { display: grid; gap: 1rem; }
+        .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+        .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
+        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark);}
+        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
+        
+        .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
+        .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
+        .reset-btn:hover { transform: scale(1.05); }
+
+        .matching-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .matching-item:last-child { border-bottom: none; }
+        .matching-item p { flex-grow: 1; margin: 0; }
+        .matching-select { background-color: var(--bg-dark); color: var(--text-color); border: 1px solid var(--primary-glow); border-radius: 5px; padding: 0.4rem; font-family: inherit; font-size: 1rem; cursor: pointer; }
+        .feedback-icon { font-size: 1.2rem; font-weight: 900; display: none; }
+        .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
+        .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
+
+        .meeting-flowchart {
+            background: rgba(13, 27, 42, 0.5);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        .flow-step {
+            background: var(--bg-dark);
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: bold;
+            width: 80%;
+            text-align: center;
+        }
+        .main-agenda {
+            border: 2px dashed var(--accent-border-color);
+            padding: 1rem;
+            width: 100%;
+            border-radius: 10px;
+        }
+        .agenda-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .agenda-option {
+            background-color: var(--card-bg);
+            padding: 0.5rem;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .dialogue-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .dialogue-box {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            background: rgba(13, 27, 42, 0.5);
+            padding: 1rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-glow);
+        }
+        .dialogue-box .character {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: var(--accent-glow);
+            background-color: var(--bg-dark);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        .dialogue-box .speech { margin: 0; }
+        
+        /* Mascot & Typing Effect Styles */
+        .fun-bg-section {
+            position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem;
+            border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color);
+            overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem;
+        }
+        .typing-effect {
+            position: relative; z-index: 5; font-family: 'Orbitron', monospace; font-size: 1.6rem; 
+            font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            text-align: center; max-width: 100%;
+        }
+        .typing-effect .cursor {
+            display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            margin-left: 5px; width: 10px; height: 1.6rem; animation: blink-caret 0.75s step-end infinite;
+        }
+        @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
+        .floating-mascot-bg {
+            position: absolute; width: 250px; height: auto; opacity: 0.15;
+            animation: floatMascot 15s ease-in-out infinite alternate;
+            top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;
+        }
+        @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
+        #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
+        #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
+        #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
+        #mascot-img.enlarged { transform: scale(2.5) !important; }
+        #mascot-speech {
+            position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9);
+            color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px;
+            font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3);
+        }
+        #mascot-speech.visible { opacity: 1; transform: translateY(0); }
+        .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
+
+        /* Floating Home Button & Footer */
+        #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
+        #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
+        #return-home-btn:hover { transform: scale(1.1); }
+        #return-home-btn:hover svg { stroke: var(--primary-glow); filter: drop-shadow(0 0 12px var(--primary-glow)); transform: rotate(-10deg); }
+        footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            header h1 { font-size: 2.5rem; }
+            section { padding: 1.5rem; }
+            .section-title { font-size: 2rem; }
+            .rights-grid, .rights-content { grid-template-columns: 1fr; }
+            .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+            .flow-container, .agenda-options { flex-direction: column; }
+            .dialogue-box { flex-direction: column; text-align: center; }
+            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
+
+            /* Adjust new elements for mobile */
+            .typing-effect { font-size: 1.2rem; }
+            .typing-effect .cursor { height: 1.2rem; }
+            #mascot-container { right: 15px; bottom: 15px; }
+            #mascot-img { width: 80px; }
+            #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>重點3-1：學校生活</h1>
+            <h2>邱俐瑜公民，成為公民神不再只是夢想！</h2>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section id="rights-responsibilities-section">
+            <h2 class="section-title"><i class="fas fa-user-graduate"></i>一、學生的權利與責任</h2>
+            <div class="rights-grid">
+                <div class="rights-card">
+                    <h4><i class="fas fa-book"></i>學習</h4>
+                    <div class="rights-content">
+                        <div class="content-box right"><h5><i class="fas fa-check-circle"></i>權利</h5>
+                            <ul>
+                                <li>受國民教育的權利 (<strong class="highlight-text">《憲法》</strong>)。</li>
+                                <li>學習權應受尊重與保障。</li>
+                            </ul>
+                        </div>
+                        <div class="content-box duty"><h5><i class="fas fa-times-circle"></i>責任</h5>
+                            <ul>
+                                <li>上課時不得發出噪音。</li>
+                                <li>干擾其他同學學習權。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="rights-card">
+                    <h4><i class="fas fa-child"></i>身體自主</h4>
+                    <div class="rights-content">
+                        <div class="content-box right"><h5><i class="fas fa-check-circle"></i>權利</h5>
+                            <ul>
+                                <li>身體自主權受國家保障 (<strong class="highlight-text">《教育基本法》</strong>)。</li>
+                                <li>不受任何體罰或霸凌。</li>
+                            </ul>
+                        </div>
+                        <div class="content-box duty"><h5><i class="fas fa-times-circle"></i>責任</h5>
+                             <ul>
+                                <li>不得有霸凌行為。</li>
+                                <li>如肢體、關係、網路霸凌。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="rights-card">
+                    <h4><i class="fas fa-user-secret"></i>名譽與隱私</h4>
+                    <div class="rights-content">
+                        <div class="content-box right"><h5><i class="fas fa-check-circle"></i>權利</h5>
+                            <ul>
+                                <li>擁有名譽及保有隱私等權利 (<strong class="highlight-text">《教師法》</strong>)。</li>
+                                <li>發展健全人格。</li>
+                            </ul>
+                        </div>
+                        <div class="content-box duty"><h5><i class="fas fa-times-circle"></i>責任</h5>
+                             <ul>
+                                <li>不應惡意傷害他人。</li>
+                                <li>不宜翻動他人書包或信件。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="rights-card">
+                    <h4><i class="fas fa-wallet"></i>財產</h4>
+                    <div class="rights-content">
+                        <div class="content-box right"><h5><i class="fas fa-check-circle"></i>權利</h5>
+                            <ul>
+                                <li>自由使用自己物品的權利 (<strong class="highlight-text">《民法》</strong>)。</li>
+                                <li>財產權不得任意被侵害。</li>
+                            </ul>
+                        </div>
+                        <div class="content-box duty"><h5><i class="fas fa-times-circle"></i>責任</h5>
+                             <ul>
+                                <li>不應攜帶妨害學習的物品。</li>
+                                <li>教師可依法暫代保管後交還。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="quiz-matching">
+             <h2 class="section-title"><i class="fas fa-tasks"></i>公民神挑戰！</h2>
+             <div class="rights-card">
+                 <p><strong>下列校園情境中，主要是哪種面向的權利受到侵害？</strong></p>
+                 <div class="matching-item" data-answer="丙"><p>1. 雨萱遭到男同學勾肩搭背而感到不舒服。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲. 學習</option><option value="乙">乙. 名譽與隱私</option><option value="丙">丙. 身體自主</option><option value="丁">丁. 財產</option></select><i class="feedback-icon"></i></div>
+                 <div class="matching-item" data-answer="乙"><p>2. 俊傑在網路上被同學辱罵是孬種、娘娘腔。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲. 學習</option><option value="乙">乙. 名譽與隱私</option><option value="丙">丙. 身體自主</option><option value="丁">丁. 財產</option></select><i class="feedback-icon"></i></div>
+                 <div class="matching-item" data-answer="丁"><p>3. 銓勝的鉛筆在未經允許下，被同學拿去使用。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲. 學習</option><option value="乙">乙. 名譽與隱私</option><option value="丙">丙. 身體自主</option><option value="丁">丁. 財產</option></select><i class="feedback-icon"></i></div>
+                 <div class="matching-item" data-answer="甲"><p>4. 韻如因為同學一直發出噪音而聽不清楚老師講課。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲. 學習</option><option value="乙">乙. 名譽與隱私</option><option value="丙">丙. 身體自主</option><option value="丁">丁. 財產</option></select><i class="feedback-icon"></i></div>
+            </div>
+            <div class="highlight-box">
+                <h4><i class="fas fa-key"></i>解題關鍵</h4>
+                <p>• <strong class="highlight-text">學習權</strong>：主要受到「噪音干擾」影響。<br>
+                • <strong class="highlight-text">名譽與隱私權</strong>：主要受到「辱罵、精神」層面侵害。<br>
+                • <strong class="highlight-text">身體自主權</strong>：主要受到「身體」層面侵害。<br>
+                • <strong class="highlight-text">財產權</strong>：主要受到「個人物品」層面侵害。
+                </p>
+            </div>
+        </section>
+
+        <section id="student-governance-section">
+            <h2 class="section-title"><i class="fas fa-users-cog"></i>二、校園公共事務與學生自治</h2>
+            <h3>學生自治</h3>
+            <p>由學生自己管理與學校生活相關的公共事務，其前提是<strong class="highlight-text">遵守學校規定與社會規範</strong>。</p>
+            <div class="flow-container">
+                <div class="flow-item">成立自治組織<br><small>(班會、社團、學生會)</small></div>
+                <div class="flow-arrow"><i class="fas fa-long-arrow-alt-right"></i></div>
+                <div class="flow-item">訂定自治規範<br><small>(班級公約、社團章程)</small></div>
+                <div class="flow-arrow"><i class="fas fa-long-arrow-alt-right"></i></div>
+                <div class="flow-item">推展自治活動<br><small>(討論班服、園遊會)</small></div>
+            </div>
+            <h3 style="margin-top: 2rem;">開會程序 (依據《會議規範》)</h3>
+            <p>開會是實踐學生自治的重要方式，依循議事規則能讓會議順利進行。表決時應採<strong class="highlight-text">多數決原則</strong>，少數服從多數，多數尊重少數。</p>
+            <h4 style="margin-top: 2rem;">觀念比較：權宜問題 vs 秩序問題</h4>
+             <table class="comparison-table">
+                <thead>
+                    <tr><th>項目</th><th>權宜問題 (Point of Privilege)</th><th>秩序問題 (Point of Order)</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>提出時機</td><td>議場內發生<strong class="highlight-text">干擾個人或全體</strong>的突發事件。</td><td>議事<strong class="highlight-text">程序出現錯誤</strong>，或發言離題。</td></tr>
+                    <tr><td>功能</td><td>維護議事環境的<strong class="highlight-text">秩序與舒適</strong>。</td><td>節省開會時間、<strong class="highlight-text">糾正程序錯誤</strong>。</td></tr>
+                    <tr><td>舉例</td><td>有人喧嘩、鼓譟；冷氣太冷；發生地震、有人昏倒等緊急事件。</td><td>處理表決的先後規定不合；不應提出動議而提出等。</td></tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section id="quiz-section">
+            <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(112 會考)</span></h3>
+                <div class="question">
+                    <p>在班會進行中，小華突然提出了秩序問題，下列何者最可能是他提出該要求的原因？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 走廊的消防警鈴大作影響會議秩序</button>
+                    <button class="option-btn" data-correct="false">(B) 小華想提出新議案讓班上同學討論</button>
+                    <button class="option-btn" data-correct="false">(C) 隔壁同學吵鬧使小華聽不清楚發言內容</button>
+                    <button class="option-btn" data-correct="true">(D) 主席未依正確的議事程序進行班會流程</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span>(111 會考)</span></h3>
+                <div class="question">
+                    <p>開班會時，有些同學在玩牌、有些同學在吃東西，阿德認為吵雜聲使他聽不清楚其他人的發言內容，影響到他參與會議的權利。根據下方班會流程，阿德應是在哪一階段要求主席處理上述問題？</p>
+                    <div class="meeting-flowchart">
+                        <div class="flow-step">主席宣布開會</div>
+                        <i class="fas fa-arrow-down flow-arrow" style="font-size: 1.5rem;"></i>
+                        <div class="flow-step">班級幹部報告</div>
+                        <i class="fas fa-arrow-down flow-arrow" style="font-size: 1.5rem;"></i>
+                        <div class="main-agenda">
+                            <h4>主要議程</h4>
+                             <div class="agenda-options">
+                                <div class="agenda-option">(甲) 權宜問題</div>
+                                <div class="agenda-option">(乙) 提案討論</div>
+                                <div class="agenda-option">(丙) 秩序問題</div>
+                                <div class="agenda-option">(丁) 臨時動議</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="true">(A) 甲</button>
+                    <button class="option-btn" data-correct="false">(B) 乙</button>
+                    <button class="option-btn" data-correct="false">(C) 丙</button>
+                    <button class="option-btn" data-correct="false">(D) 丁</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span>(107 會考)</span></h3>
+                <div class="question">
+                    <p>在會議中，甲、乙、丙、丁四位同學的發言如下。根據《會議規範》，哪兩位同學的發言是合乎規定的？</p>
+                     <div class="dialogue-container">
+                        <div class="dialogue-box">
+                            <div class="character">甲</div>
+                            <p class="speech">我要提權宜問題，我們應該要先提臨時動議。</p>
+                        </div>
+                         <div class="dialogue-box">
+                            <div class="character">乙</div>
+                            <p class="speech">我要提權宜問題，應該處理場內喧嘩情況。</p>
+                        </div>
+                         <div class="dialogue-box">
+                            <div class="character">丙</div>
+                            <p class="speech">我要提秩序問題，應該處理目前議程順序不對的問題。</p>
+                        </div>
+                         <div class="dialogue-box">
+                            <div class="character">丁</div>
+                            <p class="speech">我要提秩序問題，應該處理場內喧嘩情況。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 甲、丙</button>
+                    <button class="option-btn" data-correct="true">(B) 乙、丙</button>
+                    <button class="option-btn" data-correct="false">(C) 乙、丁</button>
+                    <button class="option-btn" data-correct="false">(D) 甲、丁</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+        </section>
+
+        <!-- Fun BG Section -->
+        <section class="fun-bg-section">
+            <h3 class="typing-effect">
+                <span id="typing-text-span"></span><span class="cursor"></span>
+            </h3>
+            <img src="image/LiyuChillGuy(W).svg" class="floating-mascot-bg" alt="Floating Mascot Background">
+        </section>
+
+    </main>
+
+    <a href="index.html" id="return-home-btn" title="返回主頁">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+    </a>
+    
+    <!-- Mascot -->
+    <div id="mascot-container">
+        <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
+        <div id="mascot-speech">公民好神！</div>
+    </div>
+
+    <footer>
+        <p>Copyright © Liyuchiutiger Gongminshen</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let typingStarted = false;
+
+            // Section fade-in animation
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
+                            typingStarted = true;
+                            startTypingLoop();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 }); 
+            sections.forEach(section => observer.observe(section));
+
+            // Matching quiz logic
+            const matchingSelects = document.querySelectorAll('.matching-select');
+            matchingSelects.forEach(select => {
+                select.addEventListener('change', (e) => {
+                    const selectedValue = e.target.value;
+                    const item = e.target.closest('.matching-item');
+                    const correctAnswer = item.dataset.answer;
+                    const feedbackIcon = item.querySelector('.feedback-icon');
+                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    if (selectedValue === "請選擇") {
+                        feedbackIcon.style.display = 'none';
+                        return;
+                    }
+                    feedbackIcon.style.display = 'inline-block';
+                    if (selectedValue === correctAnswer) {
+                        feedbackIcon.classList.add('icon-correct');
+                        feedbackIcon.innerHTML = '✓';
+                    } else {
+                        feedbackIcon.classList.add('icon-wrong');
+                        feedbackIcon.innerHTML = '✗';
+                    }
+                });
+            });
+
+            // Multiple choice quiz logic
+            const allQuizData = {
+                quiz1: {
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 消防警鈴大作</strong>屬於影響環境舒適與安全的突發事件，應提出「權宜問題」。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 提出新議案</strong>需依正常程序（提案或動議），不能以秩序問題提出。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 同學吵鬧</strong>影響個人權益，應提出「權宜問題」。</p>`,
+                    D: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>「秩序問題」是用來糾正<strong class="highlight-text">議事程序上的錯誤</strong>。當主席未依正確程序主持會議時，與會者可提出秩序問題要求主席改正，以維護會議程序的正確性。</p>`
+                },
+                quiz2: {
+                    A: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>阿德因「吵雜聲影響到他參與會議的權利」，此情況屬於議場發生干擾個人或全體的突發事件，應提出<strong class="highlight-text">「權宜問題」</strong>。權宜問題的處理優先於其他議案，因此可以在任何時候提出，故(甲)階段是正確的。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(乙) 提案討論</strong>是會議的核心議程，若此時被打斷，需有更高優先權的事由，例如權宜問題。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(丙) 秩序問題</strong>是用來糾正「程序錯誤」，阿德遇到的問題是「環境干擾」，應提權宜問題。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(丁) 臨時動議</strong>是在主要議程結束後才提出，阿德的問題需即時處理，不能等到最後。</p>`
+                },
+                quiz3: {
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(甲)同學</strong>的發言「我要提權宜問題，應該要先提臨時動議」，這是錯誤的用法，權宜問題是用來處理突發狀況，與臨時動議無關。</p>`,
+                    B: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong><br>• <strong class="highlight-text">(乙)同學</strong>說「我要提權宜問題，應該處理場內喧嘩情況」，這是正確的，因為喧嘩屬於干擾會議的突發事件。<br>• <strong class="highlight-text">(丙)同學</strong>說「我要提秩序問題，應該處理目前議程順序」，這是正確的，因為議程順序屬於議事程序的一環，若有錯誤可用秩序問題糾正。<br>• (甲)和(丁)的用法皆不正確。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(丁)同學</strong>的發言「我要提秩序問題，應該處理場內喧嘩情況」，這是錯誤的用法，處理喧嘩應提出「權宜問題」，而非秩序問題。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(甲)同學</strong>和<strong>(丁)同學</strong>的發言都混淆了權宜問題與秩序問題的用法，不符合《會議規範》。</p>`
+                }
+            };
+            
+            const quizContainers = document.querySelectorAll('.quiz-container');
+            
+            quizContainers.forEach((container, index) => {
+                const quizId = `quiz${index + 1}`;
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
+
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        optionButtons.forEach(btn => btn.disabled = true);
+                        
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            const optionLetter = button.textContent.substring(1, 2);
+                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
+                            feedbackArea.className = 'feedback-area feedback-correct';
+                        } else {
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            const optionLetter = button.textContent.substring(1, 2);
+                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
+                            feedbackArea.className = 'feedback-area feedback-wrong';
+                        }
+                        
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
+                    });
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+            
+            // Typing Effect and Mascot JS
+            const typingSentences = [
+                "公民好神！我會遵守公民神會員守則！",
+                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
+                "公民神有三力：注意力、記憶力、戰鬥力！"
+            ];
+            const typingElementSpan = document.getElementById('typing-text-span');
+
+            function startTypingLoop() {
+                if (!typingElementSpan) return;
+                let sentenceIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
+
+                function loop() {
+                    const currentSentence = typingSentences[sentenceIndex];
+                    if (isDeleting) {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex - 1);
+                        charIndex--;
+                        if (charIndex === 0) {
+                            isDeleting = false;
+                            sentenceIndex = (sentenceIndex + 1) % typingSentences.length;
+                            setTimeout(loop, 500);
+                        } else {
+                            setTimeout(loop, 50);
+                        }
+                    } else {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex + 1);
+                        charIndex++;
+                        if (charIndex === currentSentence.length) {
+                            isDeleting = true;
+                            setTimeout(loop, 2500); 
+                        } else {
+                            setTimeout(loop, 120);
+                        }
+                    }
+                }
+                loop();
+            }
+
+            const mascotContainer = document.getElementById('mascot-container');
+            const mascotImg = document.getElementById('mascot-img');
+            const speechBubble = document.getElementById('mascot-speech');
+            
+            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            let messageIndex = 0;
+            let clickTimer = null;
+            let speechTimeout = null;
+
+            mascotContainer.addEventListener('click', () => {
+                clearTimeout(clickTimer);
+                clickTimer = setTimeout(() => {
+                    speechBubble.textContent = messages[messageIndex];
+                    speechBubble.classList.add('visible');
+                    messageIndex = (messageIndex + 1) % messages.length;
+                    clearTimeout(speechTimeout);
+                    speechTimeout = setTimeout(() => speechBubble.classList.remove('visible'), 4000);
+                }, 250);
+            });
+
+            mascotContainer.addEventListener('dblclick', () => {
+                clearTimeout(clickTimer);
+                speechBubble.classList.remove('visible');
+                triggerExplosion();
+            });
+
+            function triggerExplosion() {
+                mascotImg.classList.add('enlarged');
+                const particleCount = 40;
+                const particleColors = [ 'var(--primary-glow)', 'var(--secondary-glow)', 'var(--accent-glow)', '#ffffff' ];
+
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    mascotContainer.appendChild(particle);
+                    const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+                    const angle = Math.random() * 360;
+                    const radius = Math.random() * 120 + 50;
+                    const x = Math.cos(angle * Math.PI / 180) * radius;
+                    const y = Math.sin(angle * Math.PI / 180) * radius;
+                    particle.style.background = color;
+                    requestAnimationFrame(() => {
+                        particle.style.transform = `translate(${x}px, ${y}px) scale(0)`;
+                        particle.style.opacity = '0';
+                    });
+                    setTimeout(() => particle.remove(), 1000);
+                }
+                setTimeout(() => mascotImg.classList.remove('enlarged'), 300);
+            }
+        });
+    </script>
+</body>
+</html>

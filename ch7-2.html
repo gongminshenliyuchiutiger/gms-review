@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重點7-2：我國中央政府</title>
+    <!-- Font Awesome script -->
+    <script src="https://kit.fontawesome.com/62a9d1d113.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
+
+        :root {
+            --primary-glow: #00f2ea; /* 亮青色 */
+            --secondary-glow: #ff00ff; /* 洋紅色 */
+            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --bg-dark: #0d1b2a;
+            --bg-dark-2: #020a12;
+            --text-color: #e0e0e0;
+            --card-bg: rgba(23, 37, 51, 0.7);
+            --correct-color: #00ff87;
+            --wrong-color: #ff2a6d;
+            --border-color: rgba(0, 242, 234, 0.3);
+            --accent-border-color: rgba(240, 225, 74, 0.5);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-2));
+            color: var(--text-color);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+
+        header {
+            text-align: center;
+            padding: 5rem 0;
+            border-bottom: 2px solid var(--border-color);
+            box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 900;
+            color: var(--text-color);
+            white-space: nowrap; /* 新增：防止標題換行 */
+            text-shadow:
+                0 0 5px #fff,
+                0 0 10px var(--accent-glow),
+                0 0 20px var(--accent-glow),
+                0 0 40px var(--accent-glow);
+            animation: flicker-orange 3s infinite alternate;
+        }
+
+        @keyframes flicker-orange {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-glow), 0 0 19px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow);
+            }
+            20%, 24%, 55% { text-shadow: none; }
+        }
+
+        header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary-glow);
+            margin-top: 1rem;
+            text-shadow: 0 0 8px var(--secondary-glow);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-8px);}
+        }
+
+        section {
+            margin-bottom: 4rem;
+            padding: 2.5rem;
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 0 30px rgba(0, 242, 234, 0.1), inset 0 0 15px rgba(0, 242, 234, 0.1);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        section.visible { opacity: 1; transform: translateY(0); }
+        
+        .highlight-text {
+            font-weight: bold;
+            color: var(--accent-glow);
+            text-shadow: 0 0 5px var(--accent-glow);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary-glow);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+        
+        .section-title i {
+            font-size: 2.2rem;
+            color: var(--accent-glow);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+        
+        h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-glow);
+            margin-bottom: 1rem;
+        }
+        h3 { font-size: 1.6rem; }
+        h4 { font-size: 1.4rem; }
+
+        .info-card {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .info-card ul { list-style: none; padding: 0;}
+        .info-card li { margin-bottom: 0.5rem; }
+        
+        .comparison-table {
+            width: 100%; border-collapse: collapse; margin-top: 1.5rem;
+        }
+        .comparison-table th, .comparison-table td {
+            border: 1px solid var(--border-color); padding: 1rem; text-align: left;
+            vertical-align: top;
+        }
+        .comparison-table thead th { background-color: rgba(13, 27, 42, 0.7); color: var(--primary-glow); text-align: center; }
+        .comparison-table tbody th { font-weight: bold; color: var(--accent-glow); text-align: center; }
+        .comparison-table ul { list-style: none; padding-left: 0; }
+        .comparison-table ul li { position: relative; padding-left: 1.2rem; }
+        .comparison-table ul li::before {
+            content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
+            position: absolute; left: 0; top: 4px; font-size: 0.9em;
+        }
+
+        /* Quiz Styles */
+        .quiz-container { margin-bottom: 3rem; }
+        .quiz-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); }
+        .quiz-title i { margin-right: 0.75rem; }
+        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; }
+        #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
+        #quiz-section .question img { max-width: 100%; border-radius: 10px; margin-top: 1rem; }
+        #quiz-section .options { display: grid; gap: 1rem; }
+        .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+        .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
+        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark);}
+        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
+        
+        .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
+        .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
+        .reset-btn:hover { transform: scale(1.05); }
+        
+        /* Mascot & Typing Effect Styles */
+        .fun-bg-section {
+            position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem;
+            border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color);
+            overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem;
+        }
+        .typing-effect {
+            position: relative; z-index: 5; font-family: 'Orbitron', monospace; font-size: 1.6rem; 
+            font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            text-align: center; max-width: 100%;
+        }
+        .typing-effect .cursor {
+            display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            margin-left: 5px; width: 10px; height: 1.6rem; animation: blink-caret 0.75s step-end infinite;
+        }
+        @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
+        .floating-mascot-bg {
+            position: absolute; width: 250px; height: auto; opacity: 0.15;
+            animation: floatMascot 15s ease-in-out infinite alternate;
+            top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;
+        }
+        @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
+        #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
+        #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
+        #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
+        #mascot-img.enlarged { transform: scale(2.5) !important; }
+        #mascot-speech {
+            position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9);
+            color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px;
+            font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3);
+        }
+        #mascot-speech.visible { opacity: 1; transform: translateY(0); }
+        .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
+
+        /* Floating Home Button & Footer */
+        #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
+        #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
+        #return-home-btn:hover { transform: scale(1.1); }
+        #return-home-btn:hover svg { stroke: var(--primary-glow); filter: drop-shadow(0 0 12px var(--primary-glow)); transform: rotate(-10deg); }
+        footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            header h1 { font-size: 2.5rem; }
+            section { padding: 1.5rem; }
+            .section-title { font-size: 2rem; }
+            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
+
+            /* Adjust new elements for mobile */
+            .typing-effect { font-size: 1.2rem; }
+            .typing-effect .cursor { height: 1.2rem; }
+            #mascot-container { right: 15px; bottom: 15px; }
+            #mascot-img { width: 80px; }
+            #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>重點7-2：我國中央政府</h1>
+            <h2>邱俐瑜公民，成為公民神不再只是夢想！</h2>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section id="president-executive-section">
+            <h2 class="section-title"><i class="fas fa-university"></i>一、總統與行政院</h2>
+            <table class="comparison-table">
+                <thead><tr><th style="width:15%">機關</th><th style="width:42.5%">總統</th><th style="width:42.5%">行政院</th></tr></thead>
+                <tbody>
+                    <tr><th>權力</th><td>行政權：組織和管理內政、外交等行政事務的權力。</td><td rowspan="2">最高行政機關（內閣）</td></tr>
+                    <tr><th>角色</th><td>國家元首、三軍統帥</td></tr>
+                    <tr><th>產生方式</th><td>人民直接選舉產生，任期四年，連選得連任一次。</td><td>1. 院長：總統直接任命。<br>2. 副院長及各部會首長：行政院院長提請總統任命。</td></tr>
+                    <tr>
+                        <th>職責</th>
+                        <td><ul><li><strong>外交、國防及內政：</strong>對外代表中華民國、國防、外交的實際決策權、統率全國陸海空軍、決定國家安全大政方針。</li><li><strong>法律面向：</strong>公布法律、發布命令、發布<strong class="highlight-text">緊急命令</strong>。</li><li><strong>人事任命權：</strong>直接任命行政院院長；提名司法院、考試院、監察院相關人員，經立法院同意後任命。</li></ul></td>
+                        <td><ul><li><strong>外交、國防及內政：</strong>規畫相關政策並加以執行；有向<strong class="highlight-text">立法院</strong>提出施政方針及施政報告之責。</li><li><strong>法律面向：</strong>規畫與執行法律；向立法院通過的決議案提出<strong class="highlight-text">覆議</strong>。</li><li><strong>提案權：</strong>法律案、預算案、決算案。</li><li><strong>人事提名權：</strong>提名行政院副院長及各部會首長、省主席及省諮議會議長。</li></ul></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="legislative-section">
+            <h2 class="section-title"><i class="fas fa-landmark"></i>二、立法院</h2>
+            <table class="comparison-table">
+                <tbody>
+                    <tr><th>權力</th><td colspan="2">立法權：指制定法律與監督政府的權力。</td></tr>
+                    <tr><th>角色</th><td colspan="2">最高立法機關（國會）。</td></tr>
+                    <tr><th>產生方式</th><td colspan="2">1. 正副院長：<strong class="highlight-text">立法委員互選</strong>產生。<br>2. 立法委員：公民直選。</td></tr>
+                    <tr>
+                        <th rowspan="2">職責</th>
+                        <td colspan="2">
+                           <ul>
+                                <li><strong>立法權：</strong>負責制定法律，審查五院提出的法律案。</li>
+                                <li><strong>預算審查權：</strong>審查中央政府總預算案。</li>
+                                <li><strong>監督、質詢權：</strong>監督行政院，質詢行政院政府官員。</li>
+                                <li><strong>人事同意權：</strong>對總統提名的人員行使同意權。</li>
+                                <li><strong>倒閣權：</strong>對行政院院長施政不滿意時，提出<strong class="highlight-text">不信任案</strong>。</li>
+                                <li><strong>提案權：</strong>正副總統彈劾案、罷免案，憲法修正案、領土變更案。</li>
+                           </ul>
+                        </td>
+                    </tr>
+                    <tr><th>法律制訂流程圖</th><td>行政院、立法委員、司法院、考試院、監察院，五院皆可提案 ➡ 立法院審查法案、三讀通過 ➡ 總統公布法律。</td></tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section id="judicial-etc-section">
+            <h2 class="section-title"><i class="fas fa-balance-scale-right"></i>三、司法院、考試院、監察院</h2>
+            <table class="comparison-table">
+                 <thead><tr><th>機關</th><th>司法院</th><th>考試院</th><th>監察院</th></tr></thead>
+                 <tbody>
+                    <tr><th>權力</th><td>解釋、審判及懲戒權等權力。</td><td>政府選拔、任用優秀人才的權力。</td><td>監督官員施政及經費運用之權力。</td></tr>
+                    <tr><th>角色</th><td>最高司法機關</td><td>最高考試機關</td><td>最高監察機關</td></tr>
+                    <tr><th>產生方式</th><td colspan="3">正、副院長、大法官、考試委員、監察委員、審計長，皆由<strong class="highlight-text">總統提名</strong>，經<strong class="highlight-text">立法院同意</strong>後，由<strong class="highlight-text">總統任命</strong>。</td></tr>
+                    <tr>
+                        <th>職責</th>
+                        <td><ul>
+                            <li><strong>解釋權：</strong>由大法官組成憲法法庭，以法庭裁判的方式解釋《憲法》。</li>
+                            <li><strong>審判權：</strong>大法官組成憲法法庭，審理正副總統彈劾案及政黨違憲解散案件；法院審理各類訴訟案件的審判。</li>
+                            <li><strong>懲戒權：</strong>懲戒法院審理公務員的懲戒事務。</li>
+                        </ul></td>
+                        <td><ul>
+                            <li><strong>考選部：</strong>掌理各類公務人員考試（高、普考）、專門職業及技術人員考試（國家證照考試）。</li>
+                            <li><strong>銓敘部：</strong>掌理公務人員的銓敘、保障、撫卹、退休及任免等事項。</li>
+                        </ul></td>
+                        <td><ul>
+                            <li><strong>糾正權：</strong>針對<strong class="highlight-text">行政機關</strong>的不當施政提出糾正。</li>
+                            <li><strong>糾舉權：</strong>糾舉違法或失職的公務人員。</li>
+                            <li><strong>彈劾權：</strong>彈劾違法或失職的公務人員，移送懲戒法院。</li>
+                            <li><strong>審計部：</strong>負責審核政府的決算。</li>
+                        </ul></td>
+                    </tr>
+                 </tbody>
+            </table>
+        </section>
+
+        <section id="concepts-comparison-section">
+            <h2 class="section-title"><i class="fas fa-exchange-alt"></i>四、觀念比較</h2>
+            <h4>覆議、不信任案</h4>
+            <table class="comparison-table">
+                <thead><tr><th>項目</th><th>覆議</th><th>不信任案</th></tr></thead>
+                <tbody>
+                    <tr><th>提出者</th><td>行政院</td><td>立法院</td></tr>
+                    <tr><th>時機</th><td>行政院對立法院決議的法律案、預算案、條約案，認為有窒礙難行時。</td><td>立法院對行政院的施政不滿意時。</td></tr>
+                    <tr><th>對象</th><td>立法院的議案</td><td>行政院院長</td></tr>
+                    <tr><th>結果</th><td>1. 通過：否決原法律案、預算案、條約案決議。<br>2. 未通過：行政院接受原決議。</td><td>1. 通過：行政院院長辭職下臺。<br>2. 未通過：一年內不得再對同一行政院院長提不信任案。</td></tr>
+                </tbody>
+            </table>
+            <h4 style="margin-top:2rem;">糾正、糾舉、彈劾</h4>
+            <table class="comparison-table">
+                <thead><tr><th>區分</th><th>糾正</th><th>糾舉</th><th>彈劾</th></tr></thead>
+                <tbody>
+                    <tr><th>行使對象</th><td><strong class="highlight-text">對機關</strong>：行政院及其所屬機關</td><td><strong class="highlight-text">對人</strong>：中央及地方公務人員</td><td><strong class="highlight-text">對人</strong>：中央及地方公務人員</td></tr>
+                    <tr><th>行使原因</th><td>各機關的工作及設施有違法或失職情事</td><td>公務人員有違法或失職行為</td><td>公務人員有違法或失職行為</td></tr>
+                    <tr><th>提出與受理機關</th><td>監察院向「行政院或有關部會」提出</td><td>監察院向公務人員之「主管長官或上級長官」提出</td><td>監察院向「懲戒法院」提出</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="quiz-section">
+            <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(112 會考)</span></h3>
+                <div class="question">
+                    <p>某監察委員看見電視上新聞報導遊行抗議的事件後，便主動申請調查此案，並表示若調查後確認民眾抗議的內容屬實，將依法對布條上抗議對象提出糾正案。下列何者最可能是該委員在新聞中所看見的抗議事件標語？</p>
+                    
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 抗議「鵬縣縣長官商勾結」</button>
+                    <button class="option-btn" data-correct="true">(B) 抗議「財政機關政策失當」</button>
+                    <button class="option-btn" data-correct="false">(C) 抗議「行政官員接受關說」</button>
+                    <button class="option-btn" data-correct="false">(D) 抗議「《集會遊行法》違憲」</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span>(111 會考)</span></h3>
+                <div class="question">
+                    <p>某日阿蔚透過網路觀看立法院的議事實況轉播，根據我國現行法律規定，他最可能看見下列何者的轉播情況？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 審理總統、副總統彈劾案</button>
+                    <button class="option-btn" data-correct="false">(B) 表決對行政院的糾正提案</button>
+                    <button class="option-btn" data-correct="false">(C) 召開行政院會議規畫施政方針</button>
+                    <button class="option-btn" data-correct="true">(D) 行政院部會首長進行施政報告</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span>(111 會考)</span></h3>
+                <div class="question">
+                    <p>我國立法院、監察院二院分別與司法院於特定事項的處理上有先後順序，當立法院與監察院做出某些決定後，即交由司法院接續下一步的工作。下表為立法院與監察院的部分職權內容，其中哪些職權的行使符合上述關係？</p>
+                    <table class="comparison-table">
+                        <thead><tr><th>中央機關</th><th>職權內容</th></tr></thead>
+                        <tbody>
+                            <tr><td rowspan="2">立法院</td><td>(甲) 提出《憲法》修正案</td></tr>
+                            <tr><td>(乙) 提出總統、副總統彈劾案</td></tr>
+                            <tr><td rowspan="2">監察院</td><td>(丙) 糾正行政機關不當施政</td></tr>
+                            <tr><td>(丁) 彈劾違法公務人員</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 甲、丙</button>
+                    <button class="option-btn" data-correct="false">(B) 甲、丁</button>
+                    <button class="option-btn" data-correct="false">(C) 乙、丙</button>
+                    <button class="option-btn" data-correct="true">(D) 乙、丁</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+        </section>
+        
+        <!-- Fun BG Section -->
+        <section class="fun-bg-section">
+            <h3 class="typing-effect">
+                <span id="typing-text-span"></span><span class="cursor"></span>
+            </h3>
+            <img src="image/LiyuChillGuy(W).svg" class="floating-mascot-bg" alt="Floating Mascot Background">
+        </section>
+
+    </main>
+
+    <a href="index.html" id="return-home-btn" title="返回主頁">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+    </a>
+    
+    <!-- Mascot -->
+    <div id="mascot-container">
+        <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
+        <div id="mascot-speech">公民好神！</div>
+    </div>
+
+    <footer>
+        <p>Copyright © Liyuchiutiger Gongminshen</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let typingStarted = false;
+
+            // Section fade-in animation
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
+                            typingStarted = true;
+                            startTypingLoop();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 }); 
+            sections.forEach(section => observer.observe(section));
+
+            // Quiz logic
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>監察院的<strong class="highlight-text">糾正權</strong>是針對「行政院及其所屬各級機關」的不當施政。因此，(B)「財政機關政策失當」是監察院可以提出糾正的對象與事由。其他選項的對象為個人或法律本身，不適用糾正權。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 官商勾結是對「人」的指控，應使用彈劾或糾舉權。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C)</strong> 接受關說是對「人」的指控，應使用彈劾或糾舉權。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 法律違憲是由司法院大法官審理，非監察院職權。</p>`
+                },
+                quiz2: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>立法院是我國的國會，其主要職責之一是監督政府。行政院院長及各部會首長有義務至<strong class="highlight-text">立法院</strong>進行施政報告並備詢，這是最常見的議事實況轉播內容。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 總統、副總統彈劾案是由<strong class="highlight-text">司法院大法官</strong>組成的憲法法庭審理。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 糾正案是由<strong class="highlight-text">監察院</strong>提出，送至行政院。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C)</strong> 行政院會議是<strong class="highlight-text">行政院</strong>內部會議，非立法院議事。</p>`
+                },
+                quiz3: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>題目要求找出由「立法院或監察院」提出，再交由「司法院」處理的關係。<br>• (乙) 立法院提出總統、副總統彈劾案後，交由<strong class="highlight-text">司法院大法官</strong>組成的憲法法庭審理。<br>• (丁) 監察院彈劾違法公務人員後，交由<strong class="highlight-text">司法院懲戒法院</strong>審理。<br>故 (乙)、(丁) 符合題意。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(甲)</strong> 憲法修正案由立法院提出後，是交由<strong class="highlight-text">公民複決</strong>，非司法院。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(甲)</strong> 憲法修正案是交由公民複決；<strong>(丁)</strong> 符合關係。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(乙)</strong> 符合關係；<strong>(丙)</strong> 糾正案是監察院送至<strong class="highlight-text">行政院</strong>，非司法院。</p>`
+                }
+            };
+            
+            const quizContainers = document.querySelectorAll('.quiz-container');
+            
+            quizContainers.forEach((container, index) => {
+                const quizId = `quiz${index + 1}`;
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
+
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        optionButtons.forEach(btn => btn.disabled = true);
+                        
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = allQuizData[quizId].correct;
+                            feedbackArea.className = 'feedback-area feedback-correct';
+                        } else {
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            const optionLetter = button.textContent.substring(1, 2);
+                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
+                            feedbackArea.className = 'feedback-area feedback-wrong';
+                        }
+                        
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
+                    });
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+
+            // Typing Effect and Mascot JS
+            const typingSentences = [
+                "公民好神！我會遵守公民神會員守則！",
+                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
+                "公民神有三力：注意力、記憶力、戰鬥力！"
+            ];
+            const typingElementSpan = document.getElementById('typing-text-span');
+
+            function startTypingLoop() {
+                if (!typingElementSpan) return;
+                let sentenceIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
+
+                function loop() {
+                    const currentSentence = typingSentences[sentenceIndex];
+                    if (isDeleting) {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex - 1);
+                        charIndex--;
+                        if (charIndex === 0) {
+                            isDeleting = false;
+                            sentenceIndex = (sentenceIndex + 1) % typingSentences.length;
+                            setTimeout(loop, 500);
+                        } else {
+                            setTimeout(loop, 50);
+                        }
+                    } else {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex + 1);
+                        charIndex++;
+                        if (charIndex === currentSentence.length) {
+                            isDeleting = true;
+                            setTimeout(loop, 2500); 
+                        } else {
+                            setTimeout(loop, 120);
+                        }
+                    }
+                }
+                loop();
+            }
+
+            const mascotContainer = document.getElementById('mascot-container');
+            const mascotImg = document.getElementById('mascot-img');
+            const speechBubble = document.getElementById('mascot-speech');
+            
+            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            let messageIndex = 0;
+            let clickTimer = null;
+            let speechTimeout = null;
+
+            mascotContainer.addEventListener('click', () => {
+                clearTimeout(clickTimer);
+                clickTimer = setTimeout(() => {
+                    speechBubble.textContent = messages[messageIndex];
+                    speechBubble.classList.add('visible');
+                    messageIndex = (messageIndex + 1) % messages.length;
+                    clearTimeout(speechTimeout);
+                    speechTimeout = setTimeout(() => speechBubble.classList.remove('visible'), 4000);
+                }, 250);
+            });
+
+            mascotContainer.addEventListener('dblclick', () => {
+                clearTimeout(clickTimer);
+                speechBubble.classList.remove('visible');
+                triggerExplosion();
+            });
+
+            function triggerExplosion() {
+                mascotImg.classList.add('enlarged');
+                const particleCount = 40;
+                const particleColors = [ 'var(--primary-glow)', 'var(--secondary-glow)', 'var(--accent-glow)', '#ffffff' ];
+
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    mascotContainer.appendChild(particle);
+                    const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+                    const angle = Math.random() * 360;
+                    const radius = Math.random() * 120 + 50;
+                    const x = Math.cos(angle * Math.PI / 180) * radius;
+                    const y = Math.sin(angle * Math.PI / 180) * radius;
+                    particle.style.background = color;
+                    requestAnimationFrame(() => {
+                        particle.style.transform = `translate(${x}px, ${y}px) scale(0)`;
+                        particle.style.opacity = '0';
+                    });
+                    setTimeout(() => particle.remove(), 1000);
+                }
+                setTimeout(() => mascotImg.classList.remove('enlarged'), 300);
+            }
+        });
+    </script>
+</body>
+</html>
