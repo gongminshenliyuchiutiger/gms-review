@@ -42,12 +42,13 @@
             box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
         }
 
-header h1 {
+        header h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3.8rem;
+            /* 修改：使用 clamp() 實現響應式字體 */
+            font-size: clamp(2.5rem, 5vw + 1rem, 3.8rem);
             font-weight: 900;
             color: var(--text-color);
-            white-space: nowrap; /* 新增：防止標題換行 */
+            white-space: nowrap;
             text-shadow:
                 0 0 5px #fff,
                 0 0 10px var(--accent-glow),
@@ -65,10 +66,12 @@ header h1 {
 
         header h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            /* 修改：使用 clamp() 實現響應式字體 */
+            font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
             font-weight: 700;
             color: var(--secondary-glow);
             margin-top: 1rem;
+            white-space: nowrap;
             text-shadow: 0 0 8px var(--secondary-glow);
             animation: bounce 2s infinite;
         }
@@ -102,7 +105,8 @@ header h1 {
 
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
+            /* 修改：使用 clamp() 實現響應式字體 */
+            font-size: clamp(1.8rem, 3vw + 0.5rem, 2.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
             color: var(--primary-glow);
@@ -110,6 +114,7 @@ header h1 {
             align-items: center;
             gap: 1rem;
             text-shadow: 0 0 10px var(--primary-glow);
+            white-space: nowrap;
         }
         
         .section-title i {
@@ -196,9 +201,19 @@ header h1 {
 
         /* Quiz Styles */
         .quiz-container { margin-bottom: 3rem; }
-        .quiz-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); }
+        .quiz-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
+            color: var(--accent-glow);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            display: flex;
+            align-items: baseline;
+            flex-wrap: nowrap;
+        }
         .quiz-title i { margin-right: 0.75rem; }
-        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; }
+        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;}
         #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
         #quiz-section .options { display: grid; gap: 1rem; }
         .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
@@ -219,14 +234,16 @@ header h1 {
             overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem;
         }
         .typing-effect {
-            position: relative; z-index: 5; font-family: 'Orbitron', monospace; font-size: 1.6rem; 
+            position: relative; z-index: 5; font-family: 'Orbitron', monospace;
+            font-size: clamp(1.2rem, 2vw + 0.5rem, 1.6rem);
             font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
             text-align: center; max-width: 100%;
-            border-bottom: none; /* <--- FIXED: Explicitly remove the border for this element */
+            border-bottom: none; /* 修正：移除繼承自 h3 的底線 */
+            padding-bottom: 0;
         }
         .typing-effect .cursor {
             display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            margin-left: 5px; width: 10px; height: 1.6rem; animation: blink-caret 0.75s step-end infinite;
+            margin-left: 5px; width: 10px; height: 1em; animation: blink-caret 0.75s step-end infinite;
         }
         @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
         .floating-mascot-bg {
@@ -248,8 +265,6 @@ header h1 {
         #mascot-speech.visible { opacity: 1; transform: translateY(0); }
         .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
 
-
-        /* Floating Home Button & Footer */
         #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
         #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
         #return-home-btn:hover { transform: scale(1.1); }
@@ -258,15 +273,10 @@ header h1 {
 
         @media (max-width: 768px) {
             .container { padding: 1rem; }
-            header h1 { font-size: 2.5rem; }
             section { padding: 1.5rem; }
-            .section-title { font-size: 2rem; }
             .law-comparison-grid { grid-template-columns: 1fr; }
             #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
 
-            /* Adjust new elements for mobile */
-            .typing-effect { font-size: 1.2rem; }
-            .typing-effect .cursor { height: 1.2rem; }
             #mascot-container { right: 15px; bottom: 15px; }
             #mascot-img { width: 80px; }
             #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
@@ -371,7 +381,7 @@ header h1 {
 
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
-            <div class="quiz-container">
+            <div class="quiz-container" id="quiz1">
                 <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(112 會考)</span></h3>
                 <div class="question">
                     <p>甲國女性的就業率，長期以來大幅低於全國平均值，因此該國政府調查女性勞動人口中未就業者的原因，下表是調查結果中的部分統計資料。關於此資料的解讀，下列何者最適當？</p>
@@ -398,7 +408,7 @@ header h1 {
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
 
-            <div class="quiz-container">
+            <div class="quiz-container" id="quiz2">
                 <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span>(99 基測)</span></h3>
                 <div class="question">
                     <p>右表為甲國已婚者處理家事時間的調查結果，根據表中內容判斷，該國最應宣導下列哪一種觀念？</p>
@@ -455,7 +465,6 @@ header h1 {
         document.addEventListener('DOMContentLoaded', () => {
             let typingStarted = false;
 
-            // Section fade-in animation
             const sections = document.querySelectorAll('section');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -470,7 +479,6 @@ header h1 {
             }, { threshold: 0.1 }); 
             sections.forEach(section => observer.observe(section));
 
-            // Quiz logic
             const allQuizData = {
                 quiz1: {
                     correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>表格顯示，甲國女性未就業的主因是「需照顧未滿12歲子女」及「負責打理家務」，這些皆屬於傳統家庭勞務。這反映出社會上仍普遍認為<strong class="highlight-text">女性應承擔主要的家庭照顧責任</strong>，這正是家庭平權觀念不足的體現，故答案為(C)。</p>`,
@@ -486,10 +494,14 @@ header h1 {
                 }
             };
             
-            const quizContainers = document.querySelectorAll('.quiz-container');
+            // 修正：使用ID來選擇Quiz容器，確保邏輯正確
+            const quizContainers = document.querySelectorAll('.quiz-container[id]');
             
-            quizContainers.forEach((container, index) => {
-                const quizId = `quiz${index + 1}`;
+            quizContainers.forEach(container => {
+                const quizId = container.id;
+                const quizData = allQuizData[quizId];
+                if (!quizData) return; // 如果找不到對應的答案資料，就跳過
+
                 const optionButtons = container.querySelectorAll('.option-btn');
                 const feedbackArea = container.querySelector('.feedback-area');
                 const resetButton = container.querySelector('.reset-btn');
@@ -501,16 +513,15 @@ header h1 {
                         
                         if (isCorrect) {
                             button.classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId].correct;
-                            feedbackArea.className = 'feedback-area feedback-correct';
+                            feedbackArea.innerHTML = quizData.correct;
                         } else {
                             button.classList.add('wrong');
                             container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
                             const optionLetter = button.textContent.substring(1, 2);
-                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
-                            feedbackArea.className = 'feedback-area feedback-wrong';
+                            feedbackArea.innerHTML = quizData[optionLetter];
                         }
                         
+                        feedbackArea.className = 'feedback-area ' + (isCorrect ? 'feedback-correct' : 'feedback-wrong');
                         feedbackArea.style.display = 'block';
                         resetButton.style.display = 'block';
                         feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -524,7 +535,7 @@ header h1 {
                     });
                     feedbackArea.style.display = 'none';
                     resetButton.style.display = 'none';
-                    container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
                 });
             });
 

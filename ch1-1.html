@@ -56,10 +56,11 @@
 
         header h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3.8rem;
+            /* 修改：使用 clamp() 實現響應式字體，確保單行顯示並自動縮放 */
+            font-size: clamp(1.6rem, 4vw + 0.5rem, 3.8rem);
             font-weight: 900;
             color: var(--text-color);
-            white-space: nowrap; /* 新增：防止標題換行 */
+            white-space: nowrap; /* 防止標題換行 */
             text-shadow:
                 0 0 5px #fff,
                 0 0 10px var(--accent-glow),
@@ -82,11 +83,12 @@
 
         header h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            /* 修改：使用 clamp() 實現響應式字體，確保單行顯示並自動縮放 */
+            font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
             font-weight: 700;
             color: var(--secondary-glow);
             margin-top: 1rem;
-            white-space: nowrap; /* 新增：防止副標題換行 */
+            white-space: nowrap; /* 防止副標題換行 */
             text-shadow: 0 0 8px var(--secondary-glow);
             animation: bounce 2s infinite;
         }
@@ -123,7 +125,8 @@
 
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
+            /* 修改：使用 clamp() 實現響應式字體 */
+            font-size: clamp(1.8rem, 3vw + 0.5rem, 2.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
             color: var(--primary-glow);
@@ -131,6 +134,7 @@
             align-items: center;
             gap: 1rem;
             text-shadow: 0 0 10px var(--primary-glow);
+            white-space: nowrap; /* 新增：確保標題維持在同一行 */
         }
         
         .section-title i {
@@ -191,7 +195,19 @@
         /* --- UNIFIED QUIZ STYLES (from ch2-1.html) --- */
         .quiz-container { margin-bottom: 3rem; }
         .quiz-container:last-child { margin-bottom: 0; }
-        .quiz-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); }
+        .quiz-title {
+            font-family: 'Orbitron', sans-serif;
+            /* 修改：使用 clamp() 實現響應式字體 */
+            font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
+            color: var(--accent-glow);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            /* 新增：使用 flexbox 確保標題和括號內容不換行 */
+            display: flex;
+            align-items: baseline;
+            flex-wrap: nowrap;
+        }
         .quiz-title i { margin-right: 0.75rem; }
         .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
         #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
@@ -230,7 +246,8 @@
             position: relative;
             z-index: 5;
             font-family: 'Orbitron', monospace;
-            font-size: 1.6rem; 
+            /* 修改：使用 clamp() 實現響應式字體 */
+            font-size: clamp(1.0rem, 2vw + 0.5rem, 1.6rem);
             font-weight: 700;
             color: #fff;
             text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
@@ -244,7 +261,8 @@
             box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
             margin-left: 5px;
             width: 10px;
-            height: 1.6rem;
+            /* 修改：使用 em 單位，讓游標高度自動跟隨字體大小變化 */
+            height: 1em;
             animation: blink-caret 0.75s step-end infinite;
         }
 
@@ -323,27 +341,13 @@
             header {
                 padding: 3rem 0;
             }
-             header h1 {
-                font-size: 2.5rem; /* 調整字體大小 */
-            }
-            header h2 {
-                font-size: 1.2rem; /* 調整字體大小 */
-            }
+            /* 相關字體大小已改用 clamp() 實現，故移除此處的固定大小設定 */
             section {
                 padding: 1.5rem;
                 margin-bottom: 2rem;
             }
-            .section-title {
-                font-size: 2rem;
-            }
             .dignity-grid {
                 grid-template-columns: 1fr;
-            }
-            .typing-effect {
-                font-size: 1.2rem;
-            }
-            .typing-effect .cursor {
-                height: 1.2rem;
             }
             #quiz-section .question, .option-btn {
                 font-size: 1rem;
@@ -368,14 +372,8 @@
                 bottom: 90px;
             }
         }
-  @media (max-width: 480px) {
-            header h1 {
-                font-size: 1.6rem;
-            }
-            header h2 {
-                font-size: 0.8rem;
-            }
-        }
+        
+        /* 移除了 max-width: 480px 的媒體查詢，因為相關設定已整合至 clamp() 中 */
 
     </style>
 </head>
