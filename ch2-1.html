@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重點2-1：家庭組成</title>
+    <!-- Font Awesome script -->
+    <script src="https://kit.fontawesome.com/62a9d1d113.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
+
+        :root {
+            --primary-glow: #00f2ea; /* 亮青色 */
+            --secondary-glow: #ff00ff; /* 洋紅色 */
+            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --bg-dark: #0d1b2a;
+            --bg-dark-2: #020a12;
+            --text-color: #e0e0e0;
+            --card-bg: rgba(23, 37, 51, 0.7);
+            --correct-color: #00ff87;
+            --wrong-color: #ff2a6d;
+            --border-color: rgba(0, 242, 234, 0.3);
+            --accent-border-color: rgba(240, 225, 74, 0.5);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-2));
+            color: var(--text-color);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+
+        header {
+            text-align: center;
+            padding: 5rem 1rem;
+            border-bottom: 2px solid var(--border-color);
+            box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+            overflow: hidden;
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 5vw + 1rem, 3.8rem);
+            font-weight: 900;
+            color: var(--text-color);
+            text-shadow:
+                0 0 5px #fff,
+                0 0 10px var(--accent-glow),
+                0 0 20px var(--accent-glow),
+                0 0 40px var(--accent-glow);
+            animation: flicker-orange 3s infinite alternate;
+        }
+
+        @keyframes flicker-orange {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-glow), 0 0 19px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow);
+            }
+            20%, 24%, 55% { text-shadow: none; }
+        }
+
+        header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
+            font-weight: 700;
+            color: var(--secondary-glow);
+            margin-top: 1rem;
+            text-shadow: 0 0 8px var(--secondary-glow);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-8px);}
+        }
+
+        section {
+            margin-bottom: 4rem;
+            padding: 2.5rem;
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 0 30px rgba(0, 242, 234, 0.1), inset 0 0 15px rgba(0, 242, 234, 0.1);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        section.visible { opacity: 1; transform: translateY(0); }
+        
+        .highlight-text { font-weight: bold; color: var(--accent-glow); text-shadow: 0 0 5px var(--accent-glow); }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary-glow);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-shadow: 0 0 10px var(--primary-glow);
+            flex-wrap: wrap;
+        }
+        .section-title i {
+            font-size: clamp(1.6rem, 4.5vw, 2.2rem);
+            color: var(--accent-glow);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 1.8rem);
+            color: var(--primary-glow);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+        }
+        h3:first-of-type {
+            margin-top: 0;
+        }
+
+        .info-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 1.5rem;
+            align-items: stretch;
+            margin-top: 1.5rem;
+        }
+        
+        /* --- 優化：新增強制三欄的 class --- */
+        .grid-3-col {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .info-card { 
+            background: rgba(0,0,0,0.2); 
+            border: 1px solid var(--border-color); 
+            border-radius: 15px; 
+            padding: 1.5rem; 
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .info-card h4 { 
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            color: var(--primary-glow);
+            margin: 0 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .info-card p, .info-card ul {
+            font-size: 1.05rem;
+        }
+
+        .info-card ul { list-style: none; padding-left: 0; }
+        .info-card li { position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem; }
+        .info-card li::before { 
+            content: '\f105'; 
+            font-family: 'Font Awesome 5 Free'; 
+            font-weight: 900; 
+            position: absolute; 
+            left: 0; 
+            top: 2px; 
+            color: var(--primary-glow); 
+        }
+        
+        .css-diagram { display: flex; justify-content: center; align-items: center; gap: 1rem; font-size: 2.2rem; padding: 1.5rem 0; color: var(--text-color); flex-wrap: wrap; margin-top: auto; }
+        .css-diagram .person-group { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; }
+        .css-diagram .couple { display: flex; gap: 0.5rem; }
+        .css-diagram i { text-shadow: 0 0 8px var(--primary-glow); }
+        .css-diagram .op { font-size: 1.8rem; font-weight: bold; color: var(--accent-glow); align-self: center; }
+        .css-diagram small { font-size: 0.9rem; font-family: 'Noto Sans TC', sans-serif; color: var(--text-color); opacity: 0.8; margin-top: 0.2rem; }
+        .css-diagram .lineage-arrow { font-size: 1.5rem; margin: 0.2rem 0; color: var(--primary-glow); opacity: 0.6; }
+
+        .highlight-box { background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05)); padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow); margin-top: 2rem; }
+        .highlight-box h4 { font-family: 'Orbitron', sans-serif; color: var(--accent-glow); margin: 0 0 1rem 0; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .highlight-box ul { list-style: none; padding-left: 0; }
+        .highlight-box li { position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem; }
+        .highlight-box li::before { content: '\f054'; font-family: 'Font Awesome 5 Free'; font-weight: 900; position: absolute; left: 0; top: 5px; color: var(--accent-glow); font-size: 0.8em; }
+        
+        .table-container { overflow-x: auto; margin-top: 1rem; }
+        .comparison-table { width: 100%; border-collapse: collapse; }
+        .comparison-table th, .comparison-table td { border: 1px solid var(--border-color); padding: 1rem; text-align: left; vertical-align: top; min-width: 120px; }
+        .comparison-table thead th { background-color: rgba(13, 27, 42, 0.7); color: var(--primary-glow); text-align: center; }
+        .comparison-table td:first-child { font-weight: bold; color: var(--accent-glow); width: 15%; text-align: center; }
+        
+        .quiz-container { margin-bottom: 3rem; }
+        .quiz-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
+            color: var(--accent-glow);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+        }
+        .quiz-title i { margin-right: 0.75rem; }
+        .quiz-title .quiz-source { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
+        #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
+        #quiz-section .options { display: grid; gap: 1rem; }
+        .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+        .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
+        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark); }
+        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark); }
+        
+        .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
+        .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
+        .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--accent-glow);}
+
+        .matching-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .matching-item:last-child { border-bottom: none; }
+        .matching-item p { flex-grow: 1; margin: 0; }
+        .matching-select { background-color: var(--bg-dark); color: var(--text-color); border: 1px solid var(--primary-glow); border-radius: 5px; padding: 0.4rem; font-family: inherit; font-size: 1rem; cursor: pointer; }
+        .feedback-icon { font-size: 1.2rem; font-weight: 900; display: none; }
+        .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
+        .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
+
+        .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
+        .fun-bg-section .typing-effect {
+            position: relative; z-index: 5; font-family: 'Orbitron', monospace; 
+            font-size: clamp(1.0rem, 2vw + 0.5rem, 1.6rem);
+            font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            text-align: center; max-width: 100%;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+        .typing-effect .cursor { display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); margin-left: 5px; width: 10px; height: 1em; animation: blink-caret 0.75s step-end infinite; }
+        @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
+        .floating-mascot-bg { position: absolute; width: 250px; height: auto; opacity: 0.15; animation: floatMascot 15s ease-in-out infinite alternate; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; }
+        @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
+        
+        #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
+        #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
+        #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
+        #mascot-img.enlarged { transform: scale(2.5) !important; }
+        #mascot-speech { position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9); color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3); }
+        #mascot-speech.visible { opacity: 1; transform: translateY(0); }
+        .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
+
+        #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
+        #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
+        #return-home-btn:hover { transform: scale(1.1); }
+        #return-home-btn:hover svg { stroke: var(--primary-glow); filter: drop-shadow(0 0 12px var(--primary-glow)); transform: rotate(-10deg); }
+        footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            section { padding: 1.5rem; }
+            .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+            
+            /* --- 優化：強制三欄的 class 在手機版變回單欄 --- */
+            .grid-3-col {
+                grid-template-columns: 1fr;
+            }
+
+            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
+            #mascot-container { right: 15px; bottom: 15px; }
+            #mascot-img { width: 80px; }
+            #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>重點2-1：家庭組成</h1>
+            <h2>邱俐瑜公民，成為公民神不再只是夢想！</h2>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="kinship-foundation">
+            <h2 class="section-title"><i class="fas fa-sitemap"></i>一、親屬關係的基礎</h2>
+            <div class="info-card">
+                <h4><i class="fas fa-home"></i>家庭的定義</h4>
+                <p>指由<strong class="highlight-text">婚姻、血緣或收養</strong>等親屬關係者所組成的親屬團體。家庭是個人最早接觸的團體，也是最基本的社會單位。</p>
+            </div>
+            <div class="highlight-box">
+                <h4><i class="fas fa-link"></i>親屬關係的形成</h4>
+                <p>根據我國《民法》規定，親屬關係主要透過以下三種方式產生：</p>
+                <ul>
+                    <li><strong>血親：</strong>因血緣關係而產生。</li>
+                    <li><strong>姻親：</strong>因婚姻關係而產生。</li>
+                    <li><strong>配偶：</strong>因結婚而互為配偶，是獨立的親屬關係。</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="blood-kinship">
+            <h2 class="section-title"><i class="fas fa-dna"></i>二、血親 (Blood Kinship)</h2>
+            <p>因具有血緣關係而產生的親屬關係，可分為「自然血親」與「法定血親」。</p>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4><i class="fas fa-baby"></i>自然血親</h4>
+                    <ul>
+                        <li><strong class="highlight-text">直系血親：</strong>指有直接生育關係的親屬，如祖父母、父母、子女。</li>
+                        <li><strong class="highlight-text">旁系血親：</strong>指非直系，但源於同一祖先的親屬，如兄弟姊妹、叔伯姑、姨舅。</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4><i class="fas fa-gavel"></i>法定血親</h4>
+                    <p>又稱「擬制血親」，指透過<strong class="highlight-text">收養</strong>程序，依法律規定而成立的親屬關係。</p>
+                    <ul>
+                        <li><strong class="highlight-text">法律效力：</strong>在法律上的權利義務關係，與自然血親完全相同。</li>
+                        <li>養父母與養子女為<strong class="highlight-text">直系血親</strong>。</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="affinity-kinship">
+            <h2 class="section-title"><i class="fas fa-ring"></i>三、姻親 (In-laws)</h2>
+            <p>因婚姻關係而產生的親屬，主要有三種類型：</p>
+            <!-- 優化：使用 grid-3-col 來強制三欄 -->
+            <div class="info-grid grid-3-col">
+                <div class="info-card"><h4><i class="fas fa-user-friends"></i>血親之配偶</h4><p>自己血親的另一半。例如：嫂嫂、姊夫、嬸嬸、姑丈。</p></div>
+                <div class="info-card"><h4><i class="fas fa-users"></i>配偶之血親</h4><p>自己另一半的血親。例如：公婆、岳父母、配偶的兄弟姊妹。</p></div>
+                <div class="info-card"><h4><i class="fas fa-people-arrows"></i>配偶之血親之配偶</h4><p>自己另一半的血親的另一半。例如：妯娌、連襟。</p></div>
+            </div>
+            <div class="highlight-box">
+                <h4><i class="fas fa-exclamation-triangle"></i>注意！法律上的陌生人</h4>
+                <p>「血親之配偶之血親」在法律上<strong class="highlight-text">不具親屬關係</strong>。例如：姊夫的爸爸、嫂嫂的媽媽。</p>
+            </div>
+        </section>
+        
+        <section id="family-types-section">
+            <h2 class="section-title"><i class="fas fa-home"></i>五、家庭的型態</h2>
+             <h3>基本型態</h3>
+            <!-- 優化：使用 grid-3-col 來強制三欄 -->
+            <div class="info-grid grid-3-col">
+                <div class="info-card">
+                    <h4><i class="fas fa-users"></i>小家庭 (核心家庭)</h4>
+                    <p>由<strong class="highlight-text">夫妻+未婚子女</strong>組成。</p>
+                    <div class="css-diagram">
+                        <div class="person-group">
+                            <div class="couple"><i class="fas fa-user-tie"></i><i class="fas fa-female"></i></div>
+                            <small>父母</small>
+                            <i class="fas fa-long-arrow-alt-down lineage-arrow"></i>
+                            <div class="couple"><i class="fas fa-child"></i></div>
+                            <small>子女</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <h4><i class="fas fa-layer-group"></i>折衷家庭 (三代家庭)</h4>
+                    <p>由<strong class="highlight-text">夫妻+未婚子女+夫妻的直系血親長輩</strong>組成。</p>
+                    <div class="css-diagram">
+                        <div class="person-group">
+                            <div class="couple"><i class="fas fa-male"></i><i class="fas fa-female"></i></div>
+                            <small>祖父母輩</small>
+                            <i class="fas fa-long-arrow-alt-down lineage-arrow"></i>
+                            <div class="couple"><i class="fas fa-user-tie"></i><i class="fas fa-female"></i></div>
+                            <small>父母輩</small>
+                            <i class="fas fa-long-arrow-alt-down lineage-arrow"></i>
+                            <div class="couple"><i class="fas fa-child"></i></div>
+                            <small>子女輩</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <h4><i class="fas fa-project-diagram"></i>大家庭 (聯合家庭)</h4>
+                    <p>由<strong class="highlight-text">數個具血緣關係的小家庭</strong>組成。</p>
+                    <div class="css-diagram">
+                        <div class="person-group">
+                            <div class="couple"><i class="fas fa-user-tie"></i><i class="fas fa-female"></i></div>
+                            <div class="couple"><i class="fas fa-child"></i></div>
+                            <small>家庭A</small>
+                        </div>
+                        <span class="op">+</span>
+                        <div class="person-group">
+                            <div class="couple"><i class="fas fa-user-tie"></i><i class="fas fa-female"></i></div>
+                            <div class="couple"><i class="fas fa-child"></i><i class="fas fa-child"></i></div>
+                            <small>家庭B</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h3>多元化模式</h3>
+            <div class="info-grid">
+                <div class="info-card"><h4><i class="fas fa-briefcase"></i>雙薪家庭</h4><p>夫妻雙方都有就業。其中不生育子女的稱為「頂客家庭」。</p></div>
+                <div class="info-card"><h4><i class="fas fa-user"></i>單親家庭</h4><p>因父母離婚或一方死亡等原因，家中只有父或母與未婚子女。</p></div>
+                <div class="info-card"><h4><i class="fas fa-people-arrows"></i>重組家庭</h4><p>父母一方或雙方，帶著前次婚姻的小孩共組的家庭（繼親家庭）。</p></div>
+                <div class="info-card"><h4><i class="fas fa-child"></i>隔代教養家庭</h4><p>父母因工作或其他原因，將子女託付給祖父母照顧（祖孫家庭）。</p></div>
+                <div class="info-card"><h4><i class="fas fa-route"></i>兩地家庭</h4><p>因工作或其他原因，夫妻或家人未同住，放假時以通勤方式團聚。</p></div>
+                <div class="info-card"><h4><i class="fas fa-globe-asia"></i>跨國婚姻家庭</h4><p>本國人士與外籍人士結婚組成的家庭（新住民家庭）。</p></div>
+            </div>
+        </section>
+
+        <section id="functions-section">
+            <h2 class="section-title"><i class="fas fa-cogs"></i>六、家庭的功能與轉變</h2>
+            <div class="table-container">
+                <table class="comparison-table">
+                     <thead><tr><th>功能</th><th>傳統社會</th><th>現代社會</th></tr></thead>
+                     <tbody>
+                        <tr><td>生育</td><td>強調生兒育女，延續家庭血脈。</td><td>少生或不生，家庭子女人數減少。接受透過<strong class="highlight-text">收養</strong>來延續家庭的傳承。</td></tr>
+                        <tr><td>教育</td><td>個人言行舉止、習慣與價值觀念，受家庭影響甚深。</td><td>傳播媒體及<strong class="highlight-text">教育機構</strong>普及，取代部分教育功能。</td></tr>
+                        <tr><td>經濟</td><td>家庭是生產的基本單位，自給自足。</td><td>生產功能由工廠及商店取代。透過<strong class="highlight-text">市場消費</strong>滿足需求。</td></tr>
+                        <tr><td>保護與照顧</td><td>親屬間比鄰而居，提供生理與心理支持。</td><td>家庭照顧人力減少，由各類<strong class="highlight-text">幼兒托育、老人安養機構</strong>，彌補照顧功能。</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <section id="quiz-section">
+            <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
+
+            <div class="quiz-container" id="quiz1">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(111 會考)</span></h3>
+                <div class="question">
+                    <p>我國開放部分小規模經營的乳牛業者可僱用外籍移工…<strong class="highlight-text">雇主本人、雇主的配偶、雇主的直系血親、雇主丈夫的父母、雇主兒子的配偶</strong>，只要符合相關規定者，皆可放寬認定計入本國籍勞工數。根據上述內容判斷，下列雇主的哪一位親屬最可能符合放寬認定的資格？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 伯父</button>
+                    <button class="option-btn" data-correct="true">(B) 養母</button>
+                    <button class="option-btn" data-correct="false">(C) 哥哥</button>
+                    <button class="option-btn" data-correct="false">(D) 姑姑</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+
+            <div class="quiz-container" id="quiz2">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(概念題)</span></h3>
+                <div class="question">
+                    <p>根據我國《民法》的規定，下列哪一位朋友的描述，其提到的兩人之間屬於「姻親」關係？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 小華：「我跟我親姊姊感情最好。」</button>
+                    <button class="option-btn" data-correct="false">(B) 小英：「我外公最疼我了。」</button>
+                    <button class="option-btn" data-correct="true">(C) 大雄：「我太太的哥哥下週要來家裡作客。」</button>
+                    <button class="option-btn" data-correct="false">(D) 靜香：「我爸爸去年合法收養了一個妹妹。」</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-tasks"></i>挑戰三 <span class="quiz-source">(模擬神給酷)</span></h3>
+                <div class="info-card">
+                     <p><strong>請判斷下列各種家庭屬於何種類型？</strong><br>
+                        (甲) 祖孫家庭 (乙) 折衷家庭 (丙) 單親家庭 (丁) 重組家庭 (戊) 頂客家庭 (己) 聯合家庭
+                     </p>
+                     <div class="matching-item" data-answer="甲"><p>1. 昭廣在佐賀的超級阿嬤之單獨撫養下長大成人。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option><option value="戊">戊</option><option value="己">己</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="丁"><p>2. 海潮的妻子早逝，多年後帶著女兒與賀梅結婚。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option><option value="戊">戊</option><option value="己">己</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="乙"><p>3. 小丸子與爸爸、媽媽、爺爺、奶奶、姐姐同住。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option><option value="戊">戊</option><option value="己">己</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="丙"><p>4. 凌霄的父母因經常口角而選擇離婚，並由父親扶養。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option><option value="戊">戊</option><option value="己">己</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="戊"><p>5. 宛青與老公都在工作，結婚多年仍不打算生小孩。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option><option value="戊">戊</option><option value="己">己</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="己"><p>6. 小志家有三代親屬同住，包括第一代的爺爺奶奶、第二代的爸媽、叔嬸，以及第三代的小志。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option><option value="戊">戊</option><option value="己">己</option></select><i class="feedback-icon"></i></div>
+                </div>
+                <div class="highlight-box">
+                    <h4><i class="fas fa-key"></i>解題關鍵</h4>
+                    <ul>
+                        <li>祖孫家庭: 隔代教養家庭</li><li>折衷家庭: 三代家庭</li><li>單親家庭</li><li>重組家庭: 繼親家庭</li>
+                        <li>頂客家庭: 雙薪無子女</li><li>聯合家庭: 大家庭</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="quiz-container" id="quiz4">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰四 <span class="quiz-source">(110 會考)</span></h3>
+                <div class="question">
+                    <p>小皇為了繳交某一主題的課堂報告，蒐集了三則新聞報導，內容分別提及「安親班與補習班興起」、「政府推動長照福利措施」、「國內寵物數量比嬰幼兒多」。<strong>這篇報告所要探討的主題與下列何者最相關？</strong></p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="true">(A) 家庭功能的變化</button>
+                    <button class="option-btn" data-correct="false">(B) 家庭成員的改變</button>
+                    <button class="option-btn" data-correct="false">(C) 社會教育的重要性</button>
+                    <button class="option-btn" data-correct="false">(D) 社會救助的迫切性</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+        </section>
+
+        <section class="fun-bg-section">
+            <h3 class="typing-effect">
+                <span id="typing-text-span"></span><span class="cursor"></span>
+            </h3>
+            <img src="image/LiyuChillGuy(W).svg" class="floating-mascot-bg" alt="Floating Mascot Background">
+        </section>
+
+    </main>
+
+    <a href="index.html" id="return-home-btn" title="返回主頁">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+    </a>
+
+    <div id="mascot-container">
+        <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
+        <div id="mascot-speech">公民好神！</div>
+    </div>
+    
+    <footer>
+        <p>Copyright © Liyuchiutiger Gongminshen</p>
+    </footer>
+
+    <script>
+        // JavaScript 程式碼保持不變
+        document.addEventListener('DOMContentLoaded', () => {
+            let typingStarted = false; 
+
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
+                            typingStarted = true;
+                            startTypingLoop();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 }); 
+            sections.forEach(section => observer.observe(section));
+
+            const matchingSelects = document.querySelectorAll('.matching-select');
+            matchingSelects.forEach(select => {
+                select.addEventListener('change', (e) => {
+                    const selectedValue = e.target.value;
+                    const item = e.target.closest('.matching-item');
+                    const correctAnswer = item.dataset.answer;
+                    const feedbackIcon = item.querySelector('.feedback-icon');
+                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    feedbackIcon.innerHTML = '';
+                    if (selectedValue === "請選擇") {
+                        feedbackIcon.style.display = 'none';
+                        return;
+                    }
+                    feedbackIcon.style.display = 'inline-block';
+                    if (selectedValue === correctAnswer) {
+                        feedbackIcon.classList.add('icon-correct');
+                        feedbackIcon.innerHTML = '✓';
+                    } else {
+                        feedbackIcon.classList.add('icon-wrong');
+                        feedbackIcon.innerHTML = '✗';
+                    }
+                });
+            });
+
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！</h3><p><strong>解題關鍵：</strong>題目放寬認定的資格包含「<strong class="highlight-text">雇主的直系血親</strong>」。根據《民法》，透過收養成立的「法定血親」與「自然血親」權利義務相同。因此，<strong class="highlight-text">(B) 養母</strong> 屬於雇主的法定直系血親，符合資格。而 (A)伯父、(C)哥哥、(D)姑姑 皆為「旁系血親」，不符合資格。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 伯父</strong> 是父親的哥哥，屬於「旁系血親」，不符合題目要求的「直系血親」資格。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 哥哥</strong> 是與自己同源的兄弟，屬於「旁系血親」，不符合題目要求的「直系血親」資格。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 姑姑</strong> 是父親的姊妹，屬於「旁系血親」，不符合題目要求的「直系血親」資格。</p>`
+                },
+                quiz2: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！</h3><p><strong>解題關鍵：</strong>「姻親」是因婚姻而產生的親屬關係。<br><strong>(C) 我太太的哥哥</strong>，屬於「配偶之血親」，是標準的姻親關係。<br><strong>(A)</strong> 我與姊姊是旁系血親。<br><strong>(B)</strong> 我與外公是直系血親。<br><strong>(D)</strong> 我與被收養的妹妹是法定旁系血親。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 我與親姊姊：</strong>這是「旁系血親」關係，源於同一對父母。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 我與外公：</strong>外公是媽媽的爸爸，這是「直系血親」關係。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 我與被收養的妹妹：</strong>這是透過收養成立的「法定血親」（旁系）關係，不是姻親。</p>`
+                },
+                quiz4: { 
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！</h3><p><strong>解題關鍵：</strong>三則新聞分別對應了家庭功能的轉變：<br> • 新聞一：親子互動減少，安親班/補習班興起 → <strong class="highlight-text">教育功能</strong>由外部機構取代。<br> • 新聞二：政府推動長照福利 → <strong class="highlight-text">保護與照顧功能</strong>由社會福利補充。<br> • 新聞三：單身/頂客家庭增加、寵物多於嬰兒 → <strong class="highlight-text">生育功能</strong>下降。<br>綜合來看，報告主題正是探討「家庭功能的變化」。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 家庭成員的改變：</strong>雖然新聞三提到單身/頂客家庭，但新聞一、二的核心是「功能」的轉移，而非成員結構。因此(A)更全面。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 社會教育的重要性：</strong>安親班、補習班屬於教育機構，但這只是其中一環。報告還涉及了長照與生育，因此這個選項太狹隘。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 社會救助的迫切性：</strong>社會救助通常指對經濟弱勢者的金錢或實物幫助。新聞二的長照福利雖屬社會福利，但報告主題更廣泛，不只局限於救助。</p>`
+                }
+            };
+            
+            const mcqContainers = document.querySelectorAll('.quiz-container[id]');
+            
+            mcqContainers.forEach((container) => {
+                const quizId = container.id;
+                const quizData = allQuizData[quizId];
+                if (!quizData) return; 
+
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
+
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        optionButtons.forEach(btn => btn.disabled = true);
+                        
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = quizData.correct;
+                        } else {
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            const optionLetter = button.textContent.substring(1, 2);
+                            feedbackArea.innerHTML = quizData[optionLetter];
+                        }
+                        feedbackArea.className = 'feedback-area ' + (isCorrect ? 'feedback-correct' : 'feedback-wrong');
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
+                    });
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+
+            // Typing Effect and Mascot JS
+            const typingSentences = [
+                "公民好神！我會遵守公民神會員守則！",
+                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
+                "公民神有三力：注意力、記憶力、戰鬥力！"
+            ];
+            const typingElementSpan = document.getElementById('typing-text-span');
+
+            function startTypingLoop() {
+                if (!typingElementSpan) return;
+                let sentenceIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
+
+                function loop() {
+                    const currentSentence = typingSentences[sentenceIndex];
+                    if (isDeleting) {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex - 1);
+                        charIndex--;
+                        if (charIndex === 0) {
+                            isDeleting = false;
+                            sentenceIndex = (sentenceIndex + 1) % typingSentences.length;
+                            setTimeout(loop, 500);
+                        } else {
+                            setTimeout(loop, 50);
+                        }
+                    } else {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex + 1);
+                        charIndex++;
+                        if (charIndex === currentSentence.length) {
+                            isDeleting = true;
+                            setTimeout(loop, 2500); 
+                        } else {
+                            setTimeout(loop, 120);
+                        }
+                    }
+                }
+                loop();
+            }
+
+            const mascotContainer = document.getElementById('mascot-container');
+            const mascotImg = document.getElementById('mascot-img');
+            const speechBubble = document.getElementById('mascot-speech');
+            
+            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            let messageIndex = 0;
+            let clickTimer = null;
+            let speechTimeout = null;
+
+            mascotContainer.addEventListener('click', () => {
+                clearTimeout(clickTimer);
+                clickTimer = setTimeout(() => {
+                    speechBubble.textContent = messages[messageIndex];
+                    speechBubble.classList.add('visible');
+                    messageIndex = (messageIndex + 1) % messages.length;
+                    clearTimeout(speechTimeout);
+                    speechTimeout = setTimeout(() => speechBubble.classList.remove('visible'), 4000);
+                }, 250);
+            });
+
+            mascotContainer.addEventListener('dblclick', () => {
+                clearTimeout(clickTimer);
+                speechBubble.classList.remove('visible');
+                triggerExplosion();
+            });
+
+            function triggerExplosion() {
+                mascotImg.classList.add('enlarged');
+                const particleCount = 40;
+                const particleColors = [ 'var(--primary-glow)', 'var(--secondary-glow)', 'var(--accent-glow)', '#ffffff' ];
+
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    mascotContainer.appendChild(particle);
+                    const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+                    const angle = Math.random() * 360;
+                    const radius = Math.random() * 120 + 50;
+                    const x = Math.cos(angle * Math.PI / 180) * radius;
+                    const y = Math.sin(angle * Math.PI / 180) * radius;
+                    particle.style.background = color;
+                    requestAnimationFrame(() => {
+                        particle.style.transform = `translate(${x}px, ${y}px) scale(0)`;
+                        particle.style.opacity = '0';
+                    });
+                    setTimeout(() => particle.remove(), 1000);
+                }
+                setTimeout(() => mascotImg.classList.remove('enlarged'), 300);
+            }
+
+        });
+    </script>
+</body>
+</html>

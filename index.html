@@ -33,7 +33,7 @@
 
         body {
             font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
-            background-color: var(--bg-dark-2); /* Solid dark background for canvas */
+            background-color: var(--bg-dark-2);
             color: var(--text-color);
             line-height: 1.8;
             overflow-x: hidden;
@@ -45,7 +45,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1; /* Place canvas behind all content */
+            z-index: -1;
         }
 
         .container {
@@ -63,13 +63,21 @@
             box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
             position: relative;
             overflow: hidden;
-            background: linear-gradient(135deg, rgba(13, 27, 42, 0.5), rgba(2, 10, 18, 0.5));
+            background: linear-gradient(135deg, rgba(13, 27, 42, 0.8), rgba(2, 10, 18, 0.8), rgba(255, 0, 255, 0.1), rgba(0, 242, 234, 0.1));
+            background-size: 300% 300%;
+            animation: gradient-pan 15s ease infinite;
             backdrop-filter: blur(5px);
+        }
+
+        @keyframes gradient-pan {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         header h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 4.5rem;
+            font-size: clamp(2.5rem, 10vw, 4.5rem);
             font-weight: 900;
             color: var(--text-color);
             text-shadow:
@@ -96,7 +104,7 @@
 
         header h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
+            font-size: clamp(1.2rem, 5vw, 1.8rem);
             font-weight: 700;
             color: var(--secondary-glow);
             margin-top: 1rem;
@@ -131,13 +139,19 @@
             transition: all 0.3s ease;
             opacity: 0.8;
             font-weight: 500;
+            border-radius: 5px;
+            padding: 5px;
+            margin: -5px;
         }
 
-        .header-links a:hover {
+        .header-links a:hover,
+        .header-links a:focus-visible {
             color: var(--accent-glow);
             text-shadow: 0 0 10px var(--accent-glow);
             transform: scale(1.1);
             opacity: 1;
+            outline: 2px solid var(--accent-glow);
+            outline-offset: 2px;
         }
 
         .header-links i {
@@ -148,11 +162,78 @@
             text-align: center;
         }
 
-        .header-links a:hover i {
+        .header-links a:hover i,
+        .header-links a:focus-visible i {
             color: var(--accent-glow);
             transform: rotate(-15deg);
         }
 
+        /* --- MODIFICATION START: Search Box Styles --- */
+        .search-container {
+            position: relative;
+            max-width: 500px;
+            margin: 2.5rem auto 0;
+        }
+        #search-input {
+            width: 100%;
+            padding: 12px 20px 12px 45px;
+            font-size: 1rem;
+            color: var(--text-color);
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
+        }
+        #search-input:focus {
+            border-color: var(--primary-glow);
+            box-shadow: 0 0 15px rgba(0, 242, 234, 0.5);
+        }
+        #search-input::placeholder {
+            color: rgba(224, 224, 224, 0.5);
+        }
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-glow);
+            pointer-events: none; /* Make icon unclickable */
+        }
+        #clear-search-btn {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            display: none; /* Initially hidden */
+        }
+        #clear-search-btn:hover {
+            color: var(--accent-glow);
+            opacity: 1;
+            transform: translateY(-50%) scale(1.2);
+        }
+        /* --- MODIFICATION END --- */
+
+        /* --- MODIFICATION START: No Results Message Style --- */
+        #no-results-message {
+            display: none; /* Initially hidden */
+            text-align: center;
+            font-size: 1.5rem;
+            color: var(--secondary-glow);
+            text-shadow: 0 0 8px var(--secondary-glow);
+            padding: 3rem 0;
+            font-family: 'Orbitron', sans-serif;
+        }
+        /* --- MODIFICATION END --- */
+        
         section {
             margin-bottom: 4rem;
             padding: 2.5rem;
@@ -163,7 +244,7 @@
             backdrop-filter: blur(10px);
             opacity: 0;
             transform: translateY(40px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out, display 0.3s;
         }
         
         section.visible {
@@ -173,7 +254,7 @@
 
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.8rem;
+            font-size: clamp(2rem, 7vw, 2.8rem);
             font-weight: 700;
             margin-bottom: 2rem;
             color: var(--primary-glow);
@@ -186,7 +267,7 @@
         }
         
         .section-title i {
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 6vw, 2.5rem);
             color: var(--accent-glow);
             text-shadow: 0 0 10px var(--accent-glow);
         }
@@ -207,17 +288,19 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s, background-color 0.3s;
             text-decoration: none;
             color: var(--text-color);
             min-height: 120px;
         }
 
-        .link-card:hover {
+        .link-card:hover,
+        .link-card:focus-visible {
             transform: translateY(-10px) scale(1.03);
             border-color: var(--accent-glow);
             box-shadow: 0 15px 30px rgba(240, 225, 74, 0.2);
             background-color: rgba(240, 225, 74, 0.1);
+            outline: none;
         }
 
         .link-card .chapter-number {
@@ -235,10 +318,11 @@
             font-weight: 600;
         }
 
-        /* Mascot Styles */
-        #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
-        #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
-        #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
+        #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; user-select: none; }
+        #mascot-btn { background: none; border: none; padding: 0; cursor: pointer; border-radius: 50%; }
+        #mascot-btn:focus-visible { outline: 3px solid var(--primary-glow); outline-offset: 2px; }
+        #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; display: block; }
+        #mascot-btn:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
         #mascot-img.enlarged { transform: scale(2.5) !important; }
         #mascot-speech { position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9); color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3); }
         #mascot-speech.visible { opacity: 1; transform: translateY(0); }
@@ -246,46 +330,40 @@
 
         footer {
             text-align: center;
-            padding: 2rem;
-            margin-top: 2rem;
-            color: #777;
+            padding: 2.5rem 1rem;
+            margin-top: 4rem;
+            color: rgba(224, 224, 224, 0.6);
             font-size: 0.9rem;
             border-top: 1px solid var(--border-color);
+            background: linear-gradient(to top, rgba(13, 27, 42, 0.5), transparent);
         }
+        footer p {
+            text-shadow: 0 0 5px rgba(0, 242, 234, 0.2);
+        }
+        
 
         @media (max-width: 768px) {
             .container { padding: 1rem; }
-            header { padding: 4rem 1rem; /* Add horizontal padding to prevent overflow */ }
-
-            /* MODIFICATION: Use clamp() for fluid typography */
-            header h1 { 
-                white-space: nowrap;
-                font-size: clamp(1.8rem, 8vw, 2.5rem);
-            }
-            header h2 { 
-                white-space: nowrap;
-                font-size: clamp(0.9rem, 4vw, 1.3rem);
-            }
-            .section-title { 
-                white-space: nowrap;
-                font-size: clamp(1.4rem, 6vw, 2rem);
-                gap: 0.8rem; /* Reduce gap on small screens */
-            }
-            .section-title i {
-                 font-size: clamp(1.5rem, 5vw, 2rem); /* Also shrink the icon */
-            }
-
+            header { padding: 4rem 1rem; }
             .header-links { 
-                gap: 1rem; 
+                gap: 1.5rem; 
                 flex-direction: column;
-                align-items: center; /* Center links when stacked */
+                align-items: center; 
             }
-            .header-links a { font-size: 0.9rem; }
-            .header-links i { font-size: 1.1rem; }
+            .header-links a { font-size: 1rem; }
+            .header-links i { font-size: 1.2rem; }
             section { padding: 1.5rem; }
             .chapter-grid { grid-template-columns: 1fr; }
             #mascot-img { width: 80px; }
             #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
+            /* --- MODIFICATION START: Responsive search box --- */
+            .search-container {
+                margin-top: 2rem;
+            }
+            #search-input {
+                padding: 10px 15px 10px 40px;
+            }
+            /* --- MODIFICATION END --- */
         }
 
     </style>
@@ -301,63 +379,39 @@
             <div class="header-links">
                 <!-- Header links will be inserted here by JS -->
             </div>
+            
+            <!-- MODIFICATION START: Search Box HTML -->
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="search-input" placeholder="搜尋章節關鍵字 (例如: 民法, 10-1)..." autocomplete="off">
+                <button id="clear-search-btn" aria-label="清除搜尋">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <!-- MODIFICATION END -->
         </div>
     </header>
 
     <main class="container">
+        <!-- Sections will be populated by JS -->
+        <section id="book1" data-book="1"><h2 class="section-title"><i class="fas fa-child"></i> 第一冊・自我、家庭與社區</h2><div class="chapter-grid" id="book1-grid"></div></section>
+        <section id="book2" data-book="2"><h2 class="section-title"><i class="fas fa-hands-helping"></i> 第二冊・社會生活與公民德性</h2><div class="chapter-grid" id="book2-grid"></div></section>
+        <section id="book3" data-book="3"><h2 class="section-title"><i class="fas fa-landmark"></i> 第三冊・政府、民主與政治參與</h2><div class="chapter-grid" id="book3-grid"></div></section>
+        <section id="book4" data-book="4"><h2 class="section-title"><i class="fas fa-gavel"></i> 第四冊・憲法、人權與法律</h2><div class="chapter-grid" id="book4-grid"></div></section>
+        <section id="book5" data-book="5"><h2 class="section-title"><i class="fas fa-chart-line"></i> 第五冊・經濟選擇與市場</h2><div class="chapter-grid" id="book5-grid"></div></section>
+        <section id="book6" data-book="6"><h2 class="section-title"><i class="fas fa-globe-asia"></i> 第六冊・科技、媒體與全球化</h2><div class="chapter-grid" id="book6-grid"></div></section>
 
-        <!-- Book 1 (Ch 1-3) -->
-        <section id="book1">
-            <h2 class="section-title"><i class="fas fa-child"></i> 第一冊・自我、家庭與社區</h2>
-            <div class="chapter-grid" id="book1-grid">
-                <!-- Chapter links will be inserted here by JS -->
-            </div>
-        </section>
-
-        <!-- Book 2 (Ch 4-5) -->
-        <section id="book2">
-            <h2 class="section-title"><i class="fas fa-hands-helping"></i> 第二冊・社會生活與公民德性</h2>
-            <div class="chapter-grid" id="book2-grid">
-                <!-- Chapter links will be inserted here by JS -->
-            </div>
-        </section>
-
-        <!-- Book 3 (Ch 6-8) -->
-        <section id="book3">
-            <h2 class="section-title"><i class="fas fa-landmark"></i> 第三冊・政府、民主與政治參與</h2>
-            <div class="chapter-grid" id="book3-grid">
-                <!-- Chapter links will be inserted here by JS -->
-            </div>
-        </section>
-
-        <!-- Book 4 (Ch 9-11) -->
-        <section id="book4">
-            <h2 class="section-title"><i class="fas fa-gavel"></i> 第四冊・憲法、人權與法律</h2>
-            <div class="chapter-grid" id="book4-grid">
-                <!-- Chapter links will be inserted here by JS -->
-            </div>
-        </section>
-        
-        <!-- Book 5 (Ch 12-14) -->
-        <section id="book5">
-            <h2 class="section-title"><i class="fas fa-chart-line"></i> 第五冊・經濟選擇與市場</h2>
-            <div class="chapter-grid" id="book5-grid">
-                <!-- Chapter links will be inserted here by JS -->
-            </div>
-        </section>
-
-        <!-- Book 6 (Ch 15-16) -->
-        <section id="book6">
-            <h2 class="section-title"><i class="fas fa-globe-asia"></i> 第六冊・科技、媒體與全球化</h2>
-            <div class="chapter-grid" id="book6-grid">
-                <!-- Chapter links will be inserted here by JS -->
-            </div>
-        </section>
-        
+        <!-- MODIFICATION START: No Results Message HTML -->
+        <div id="no-results-message">
+            <i class="fas fa-ghost"></i> 找不到符合的章節...
+        </div>
+        <!-- MODIFICATION END -->
     </main>
     
     <div id="mascot-container">
-        <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
+        <button id="mascot-btn" aria-label="與吉祥物互動">
+            <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
+        </button>
         <div id="mascot-speech">公民好神！</div>
     </div>
 
@@ -367,7 +421,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Galaxy Background ---
+            // --- Galaxy Background (No changes) ---
             const canvas = document.getElementById('starry-sky');
             const ctx = canvas.getContext('2d');
             let width, height, stars = [];
@@ -420,9 +474,10 @@
             init();
             draw();
 
-            // --- Dynamic Link Generation ---
+            // --- Dynamic Link Generation (No changes) ---
             const chapters = [
-                // Book 1 (1-3)
+                // ... (chapter data remains the same)
+                 // Book 1 (1-3)
                 { file: 'ch1-1.html', title: '人性尊嚴與普世人權', chapter: '1-1' },
                 { file: 'ch1-2.html', title: '性別', chapter: '1-2' },
                 { file: 'ch2-1.html', title: '家庭組成', chapter: '2-1' },
@@ -473,49 +528,28 @@
                 { url: 'https://www.instagram.com/gongminshen/', text: 'IG粉專', icon: 'fab fa-instagram' }
             ];
 
-            const book1Grid = document.getElementById('book1-grid');
-            const book2Grid = document.getElementById('book2-grid');
-            const book3Grid = document.getElementById('book3-grid');
-            const book4Grid = document.getElementById('book4-grid');
-            const book5Grid = document.getElementById('book5-grid');
-            const book6Grid = document.getElementById('book6-grid');
-            const headerLinksContainer = document.querySelector('.header-links');
+            const bookGrids = {
+                'book1-grid': (num) => num <= 3, 'book2-grid': (num) => num > 3 && num <= 5, 'book3-grid': (num) => num > 5 && num <= 8, 'book4-grid': (num) => num > 8 && num <= 11, 'book5-grid': (num) => num > 11 && num <= 14, 'book6-grid': (num) => num > 14
+            };
 
             chapters.forEach(c => {
                 const chapterNum = parseInt(c.chapter.split('-')[0]);
-                const cardHTML = `
-                    <a href="${c.file}" class="link-card">
-                        <div class="chapter-number">${c.chapter}</div>
-                        <div class="chapter-title">${c.title}</div>
-                    </a>
-                `;
-                
-                if (chapterNum <= 3) {
-                    book1Grid.innerHTML += cardHTML;
-                } else if (chapterNum <= 5) {
-                    book2Grid.innerHTML += cardHTML;
-                } else if (chapterNum <= 8) {
-                    book3Grid.innerHTML += cardHTML;
-                } else if (chapterNum <= 11) {
-                    book4Grid.innerHTML += cardHTML;
-                } else if (chapterNum <= 14) {
-                    book5Grid.innerHTML += cardHTML;
-                } else {
-                    book6Grid.innerHTML += cardHTML;
+                const cardHTML = `<a href="${c.file}" class="link-card"><div class="chapter-number">${c.chapter}</div><div class="chapter-title">${c.title}</div></a>`;
+                for (const gridId in bookGrids) {
+                    if (bookGrids[gridId](chapterNum)) {
+                        document.getElementById(gridId).innerHTML += cardHTML;
+                        break;
+                    }
                 }
             });
             
+            const headerLinksContainer = document.querySelector('.header-links');
             externalLinks.forEach(link => {
-                const linkHTML = `
-                    <a href="${link.url}" target="_blank" rel="noopener noreferrer">
-                        <i class="${link.icon}"></i><span>${link.text}</span>
-                    </a>
-                `;
-                headerLinksContainer.innerHTML += linkHTML;
+                headerLinksContainer.innerHTML += `<a href="${link.url}" target="_blank" rel="noopener noreferrer"><i class="${link.icon}"></i><span>${link.text}</span></a>`;
             });
 
-            // Section fade-in animation
-            const sections = document.querySelectorAll('section');
+            // Section fade-in animation (No changes)
+            const allSections = document.querySelectorAll('section');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -523,23 +557,16 @@
                     }
                 });
             }, { threshold: 0.1 }); 
-            sections.forEach(section => observer.observe(section));
+            allSections.forEach(section => observer.observe(section));
 
-            // Mascot JS
+            // Mascot JS (No changes)
             const mascotContainer = document.getElementById('mascot-container');
+            const mascotBtn = document.getElementById('mascot-btn');
             const mascotImg = document.getElementById('mascot-img');
             const speechBubble = document.getElementById('mascot-speech');
-            
-            const messages = [
-                "公民好神！我會遵守公民神會員守則！",
-                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
-                "公民神有三力：注意力、記憶力、戰鬥力！"
-            ];
-            let messageIndex = 0;
-            let clickTimer = null;
-            let speechTimeout = null;
-
-            mascotContainer.addEventListener('click', () => {
+            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            let messageIndex = 0; let clickTimer = null; let speechTimeout = null;
+            mascotBtn.addEventListener('click', () => {
                 clearTimeout(clickTimer);
                 clickTimer = setTimeout(() => {
                     speechBubble.textContent = messages[messageIndex];
@@ -549,36 +576,73 @@
                     speechTimeout = setTimeout(() => speechBubble.classList.remove('visible'), 4000);
                 }, 250);
             });
-
-            mascotContainer.addEventListener('dblclick', () => {
+            mascotBtn.addEventListener('dblclick', () => {
                 clearTimeout(clickTimer);
                 speechBubble.classList.remove('visible');
                 triggerExplosion();
             });
-
             function triggerExplosion() {
                 mascotImg.classList.add('enlarged');
-                const particleCount = 40;
-                const particleColors = [ 'var(--primary-glow)', 'var(--secondary-glow)', 'var(--accent-glow)', '#ffffff' ];
-
+                const particleCount = 40; const particleColors = [ 'var(--primary-glow)', 'var(--secondary-glow)', 'var(--accent-glow)', '#ffffff' ];
                 for (let i = 0; i < particleCount; i++) {
-                    const particle = document.createElement('div');
-                    particle.classList.add('particle');
-                    mascotContainer.appendChild(particle);
+                    const particle = document.createElement('div'); particle.classList.add('particle'); mascotContainer.appendChild(particle);
                     const color = particleColors[Math.floor(Math.random() * particleColors.length)];
-                    const angle = Math.random() * 360;
-                    const radius = Math.random() * 120 + 50;
-                    const x = Math.cos(angle * Math.PI / 180) * radius;
-                    const y = Math.sin(angle * Math.PI / 180) * radius;
+                    const angle = Math.random() * 360; const radius = Math.random() * 120 + 50;
+                    const x = Math.cos(angle * Math.PI / 180) * radius; const y = Math.sin(angle * Math.PI / 180) * radius;
                     particle.style.background = color;
-                    requestAnimationFrame(() => {
-                        particle.style.transform = `translate(${x}px, ${y}px) scale(0)`;
-                        particle.style.opacity = '0';
-                    });
+                    requestAnimationFrame(() => { particle.style.transform = `translate(${x}px, ${y}px) scale(0)`; particle.style.opacity = '0'; });
                     setTimeout(() => particle.remove(), 1000);
                 }
                 setTimeout(() => mascotImg.classList.remove('enlarged'), 300);
             }
+            
+
+            /* --- MODIFICATION START: Search Functionality --- */
+            const searchInput = document.getElementById('search-input');
+            const clearSearchBtn = document.getElementById('clear-search-btn');
+            const noResultsMessage = document.getElementById('no-results-message');
+            const allLinkCards = document.querySelectorAll('.link-card');
+
+            function filterChapters() {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                let visibleCardsCount = 0;
+
+                // Show/hide clear button
+                clearSearchBtn.style.display = searchTerm ? 'block' : 'none';
+
+                // Filter link cards
+                allLinkCards.forEach(card => {
+                    const cardText = card.textContent.toLowerCase();
+                    const isVisible = cardText.includes(searchTerm);
+                    card.style.display = isVisible ? 'flex' : 'none';
+                    if (isVisible) {
+                        visibleCardsCount++;
+                    }
+                });
+
+                // Show/hide sections based on whether they contain visible cards
+                allSections.forEach(section => {
+                    const visibleCardsInSection = section.querySelectorAll('.link-card[style*="display: flex"]');
+                    section.style.display = visibleCardsInSection.length > 0 ? 'block' : 'none';
+                });
+
+                // Show/hide "no results" message
+                if (visibleCardsCount === 0 && searchTerm) {
+                    noResultsMessage.style.display = 'block';
+                } else {
+                    noResultsMessage.style.display = 'none';
+                }
+            }
+
+            searchInput.addEventListener('input', filterChapters);
+
+            clearSearchBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                // Manually trigger the input event to reset the view
+                searchInput.dispatchEvent(new Event('input'));
+                searchInput.focus();
+            });
+            /* --- MODIFICATION END --- */
         });
     </script>
 </body>
