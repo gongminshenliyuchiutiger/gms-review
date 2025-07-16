@@ -55,11 +55,10 @@
 
          header h1 {
             font-family: 'Orbitron', sans-serif;
-            /* 修改：使用 clamp() 實現響應式字體，確保單行顯示並自動縮放 */
             font-size: clamp(2.5rem, 5vw + 1rem, 3.8rem);
             font-weight: 900;
             color: var(--text-color);
-            white-space: nowrap; /* 防止標題換行 */
+            white-space: nowrap;
             text-shadow:
                 0 0 5px #fff,
                 0 0 10px var(--accent-glow),
@@ -82,12 +81,11 @@
 
         header h2 {
             font-family: 'Orbitron', sans-serif;
-            /* 修改：使用 clamp() 實現響應式字體，確保單行顯示並自動縮放 */
             font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
             font-weight: 700;
             color: var(--secondary-glow);
             margin-top: 1rem;
-            white-space: nowrap; /* 防止副標題換行 */
+            white-space: nowrap;
             text-shadow: 0 0 8px var(--secondary-glow);
             animation: bounce 2s infinite;
         }
@@ -116,15 +114,17 @@
             transform: translateY(0);
         }
         
+        /* 修正：讓h3, h4標題也具有響應式與不換行特性 */
         h3, h4 {
             font-family: 'Orbitron', sans-serif;
             color: var(--primary-glow);
             margin-top: 1.5rem;
             margin-bottom: 1rem;
+            white-space: nowrap;
         }
         
-        h3 { font-size: 1.8rem; }
-        h4 { font-size: 1.4rem; }
+        h3 { font-size: clamp(1.4rem, 2.5vw + 0.5rem, 1.8rem); }
+        h4 { font-size: clamp(1.2rem, 2vw + 0.5rem, 1.4rem); }
 
         .highlight-text {
             font-weight: bold;
@@ -134,7 +134,6 @@
 
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            /* 修改：使用 clamp() 實現響應式字體 */
             font-size: clamp(1.8rem, 3vw + 0.5rem, 2.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
@@ -143,7 +142,7 @@
             align-items: center;
             gap: 1rem;
             text-shadow: 0 0 10px var(--primary-glow);
-            white-space: nowrap; /* 新增：確保標題維持在同一行 */
+            white-space: nowrap;
         }
         
         .section-title i {
@@ -251,18 +250,15 @@
         .law-table .label { font-weight: bold; color: var(--accent-glow); text-align: right; }
         .law-table .content { border-left: 2px solid var(--border-color); padding-left: 1rem; }
 
-        /* --- UNIFIED QUIZ STYLES --- */
         .quiz-container { margin-bottom: 3rem; }
         .quiz-container:last-child { margin-bottom: 0; }
         .quiz-title {
             font-family: 'Orbitron', sans-serif;
-            /* 修改：使用 clamp() 實現響應式字體 */
             font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
             color: var(--accent-glow);
             margin-bottom: 1.5rem;
             padding-bottom: 0.5rem;
             border-bottom: 2px solid var(--accent-border-color);
-            /* 新增：使用 flexbox 確保標題和括號內容不換行 */
             display: flex;
             align-items: baseline;
             flex-wrap: nowrap;
@@ -430,7 +426,6 @@
             position: relative;
             z-index: 5;
             font-family: 'Orbitron', monospace;
-            /* 修改：使用 clamp() 實現響應式字體 */
             font-size: clamp(1.0rem, 2vw + 0.5rem, 1.6rem);
             font-weight: 700;
             color: #fff;
@@ -444,7 +439,6 @@
             box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
             margin-left: 5px;
             width: 10px;
-            /* 修改：使用 em 單位，讓游標高度自動跟隨字體大小變化 */
             height: 1em;
             animation: blink-caret 0.75s step-end infinite;
         }
@@ -471,10 +465,7 @@
         @media (max-width: 768px) {
             .container { padding: 1rem; }
             header { padding: 3rem 0; }
-            /* 相關字體大小已改用 clamp() 實現，故移除此處的固定大小設定 */
             section { padding: 1.5rem; margin-bottom: 2rem; }
-            h3 { font-size: 1.6rem; }
-            h4 { font-size: 1.3rem; }
             .principle-comparison { grid-template-columns: 1fr; }
             .comparison-grid { grid-template-columns: 1fr; gap: 1rem; }
             .law-table { grid-template-columns: 80px 1fr; padding: 1rem; }
@@ -490,8 +481,6 @@
                 bottom: 90px;
             }
         }
-        /* 移除了 max-width: 480px 的媒體查詢，因為相關設定已整合至 clamp() 中 */
-
     </style>
 </head>
 <body>
@@ -695,7 +684,7 @@
                 </div>
             </div>
 
-            <div class="quiz-container">
+            <div class="quiz-container" id="quiz1">
                 <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(112會考)</span></h3>
                 <div class="question">
                     <p>若小銘在某次報告中提出自己的觀點，並以下表內容加以佐證，則他的觀點最可能是要凸顯下列何項議題的重要性？</p>
@@ -732,7 +721,7 @@
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
 
-            <div class="quiz-container">
+            <div class="quiz-container" id="quiz2">
                 <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(111會考)</span></h3>
                 <div class="question">
                     <p>小華將日常生活中看見的違規情形，與其可能違反的相關法律，整理如下表。根據表中內容判斷，小華所列出的配對項目何者最為適當？</p>
@@ -758,7 +747,7 @@
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
 
-            <div class="quiz-container">
+            <div class="quiz-container" id="quiz3">
                 <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(110會考)</span></h3>
                 <div class="question">
                     <p>世界新生兒性別比為106，右圖是同年甲、乙、丙三國國家新生兒性別比的數據。根據圖中資料判斷，下列何者最可能是甲國社會現況的敘述？</p>
@@ -787,7 +776,7 @@
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
             
-            <div class="quiz-container">
+            <div class="quiz-container" id="quiz4">
                  <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰四 <span class="quiz-source">(109會考)</span></h3>
                 <div class="question">
                     <p>曉軒產後向公司申請育嬰留職停薪，但主管拒絕她的申請，甚至在工作上對她百般刁難。曉軒深感職場對家有幼兒的父母十分不友善，向主管機關提出檢舉，經政府調查屬實後，對該公司的違法行為開罰。關於上述內容的說明，下列何者正確？</p>
@@ -845,7 +834,6 @@
             }, { threshold: 0.1 });
             sections.forEach(section => observer.observe(section));
 
-            // --- Matching Quiz Logic ---
             const matchingSelects = document.querySelectorAll('.matching-select');
             matchingSelects.forEach(select => {
                 select.addEventListener('change', (e) => {
@@ -870,7 +858,6 @@
                 });
             });
 
-            // --- Typing Effect Logic ---
             const typingSentences = [
                 "公民好神！我會遵守公民神會員守則！",
                 "努力向上、勇往直前、不畏艱難，我要成為公民神！",
@@ -908,7 +895,6 @@
                 loop();
             }
 
-            // --- Multiple-Choice Quiz Logic ---
             const allQuizData = {
                 quiz1: {
                     correct: `<h3 style="color: var(--correct-color);">🎉 答對了！</h3><p><strong>解題關鍵：</strong>表格顯示，男性受贈財產比例遠高於女性，而女性拋棄繼承比例遠高於男性。這反映了傳統觀念中「家產不落外姓」、「財產傳子不傳女」的束縛依然存在。要改變此現象，需加強<strong class="highlight-text">性別平權教育</strong>，破除性別刻板印象。</p>`,
@@ -936,51 +922,48 @@
                 }
             };
             
-            const quizContainers = document.querySelectorAll('.quiz-container');
+            const mcqContainers = document.querySelectorAll('.quiz-container[id]');
             
-            let mcqIndex = 0;
-            quizContainers.forEach(container => {
+            mcqContainers.forEach(container => {
+                const quizId = container.id;
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
+
                 const optionButtons = container.querySelectorAll('.option-btn');
-                // Only apply multiple-choice logic if option buttons exist
-                if (optionButtons.length > 0) {
-                    mcqIndex++;
-                    const quizId = `quiz${mcqIndex}`;
-                    const feedbackArea = container.querySelector('.feedback-area');
-                    const resetButton = container.querySelector('.reset-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
 
-                    optionButtons.forEach(button => {
-                        button.addEventListener('click', () => {
-                            const isCorrect = button.dataset.correct === 'true';
-                            
-                            optionButtons.forEach(btn => btn.disabled = true);
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        
+                        optionButtons.forEach(btn => btn.disabled = true);
 
-                            if (isCorrect) {
-                                button.classList.add('correct');
-                                feedbackArea.innerHTML = allQuizData[quizId].correct;
-                                feedbackArea.className = 'feedback-area feedback-correct';
-                            } else {
-                                const optionLetter = button.textContent.substring(1, 2);
-                                button.classList.add('wrong');
-                                container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
-                                feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
-                                feedbackArea.className = 'feedback-area feedback-wrong';
-                            }
-                            feedbackArea.style.display = 'block';
-                            resetButton.style.display = 'block';
-                            feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        });
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = quizData.correct;
+                        } else {
+                            const optionLetter = button.textContent.substring(1, 2);
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            feedbackArea.innerHTML = quizData[optionLetter];
+                        }
+                        feedbackArea.className = 'feedback-area ' + (isCorrect ? 'feedback-correct' : 'feedback-wrong');
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     });
-                    
-                    resetButton.addEventListener('click', () => {
-                        optionButtons.forEach(btn => {
-                            btn.disabled = false;
-                            btn.classList.remove('correct', 'wrong');
-                        });
-                        feedbackArea.style.display = 'none';
-                        resetButton.style.display = 'none';
-                        container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
                     });
-                }
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
             });
 
             // --- Mascot Interaction Logic ---

@@ -56,11 +56,10 @@
 
         header h1 {
             font-family: 'Orbitron', sans-serif;
-            /* 修改：使用 clamp() 實現響應式字體，確保單行顯示並自動縮放 */
             font-size: clamp(1.6rem, 4vw + 0.5rem, 3.8rem);
             font-weight: 900;
             color: var(--text-color);
-            white-space: nowrap; /* 防止標題換行 */
+            white-space: nowrap;
             text-shadow:
                 0 0 5px #fff,
                 0 0 10px var(--accent-glow),
@@ -83,12 +82,11 @@
 
         header h2 {
             font-family: 'Orbitron', sans-serif;
-            /* 修改：使用 clamp() 實現響應式字體，確保單行顯示並自動縮放 */
             font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
             font-weight: 700;
             color: var(--secondary-glow);
             margin-top: 1rem;
-            white-space: nowrap; /* 防止副標題換行 */
+            white-space: nowrap;
             text-shadow: 0 0 8px var(--secondary-glow);
             animation: bounce 2s infinite;
         }
@@ -125,7 +123,6 @@
 
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            /* 修改：使用 clamp() 實現響應式字體 */
             font-size: clamp(1.8rem, 3vw + 0.5rem, 2.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
@@ -134,7 +131,7 @@
             align-items: center;
             gap: 1rem;
             text-shadow: 0 0 10px var(--primary-glow);
-            white-space: nowrap; /* 新增：確保標題維持在同一行 */
+            white-space: nowrap;
         }
         
         .section-title i {
@@ -165,13 +162,15 @@
             box-shadow: 0 15px 30px rgba(240, 225, 74, 0.2);
         }
         
+        /* 修改：讓h3標題也具有響應式與不換行特性 */
         .dignity-card h3 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 2vw + 0.5rem, 1.5rem);
             color: var(--primary-glow);
             border-bottom: 3px solid var(--accent-glow);
             padding-bottom: 0.5rem;
             margin-bottom: 1rem;
+            white-space: nowrap;
         }
 
         .dignity-card .example-group { margin-top: 1rem; padding: 1rem; background-color: rgba(13, 27, 42, 0.5); border-radius: 10px; }
@@ -190,20 +189,26 @@
         #rights-section ul { list-style: none; padding-left: 1rem; }
         #rights-section li { position: relative; padding-left: 1.5rem; margin-bottom: 1rem; }
         #rights-section li::before { content: '\f138'; font-family: 'Font Awesome 5 Free'; font-weight: 900; position: absolute; left: 0; top: 5px; color: var(--primary-glow); }
-        #rights-section h4 { font-family: 'Orbitron', sans-serif; color: var(--primary-glow); margin-top: 2rem; margin-bottom: 1rem; font-size: 1.4rem; }
+        
+        /* 修改：讓h4標題也具有響應式與不換行特性 */
+        #rights-section h4 { 
+            font-family: 'Orbitron', sans-serif; 
+            color: var(--primary-glow); 
+            margin-top: 2rem; 
+            margin-bottom: 1rem; 
+            font-size: clamp(1.1rem, 2vw + 0.5rem, 1.4rem);
+            white-space: nowrap;
+        }
 
-        /* --- UNIFIED QUIZ STYLES (from ch2-1.html) --- */
         .quiz-container { margin-bottom: 3rem; }
         .quiz-container:last-child { margin-bottom: 0; }
         .quiz-title {
             font-family: 'Orbitron', sans-serif;
-            /* 修改：使用 clamp() 實現響應式字體 */
             font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
             color: var(--accent-glow);
             margin-bottom: 1.5rem;
             padding-bottom: 0.5rem;
             border-bottom: 2px solid var(--accent-border-color);
-            /* 新增：使用 flexbox 確保標題和括號內容不換行 */
             display: flex;
             align-items: baseline;
             flex-wrap: nowrap;
@@ -246,7 +251,6 @@
             position: relative;
             z-index: 5;
             font-family: 'Orbitron', monospace;
-            /* 修改：使用 clamp() 實現響應式字體 */
             font-size: clamp(1.0rem, 2vw + 0.5rem, 1.6rem);
             font-weight: 700;
             color: #fff;
@@ -261,7 +265,6 @@
             box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
             margin-left: 5px;
             width: 10px;
-            /* 修改：使用 em 單位，讓游標高度自動跟隨字體大小變化 */
             height: 1em;
             animation: blink-caret 0.75s step-end infinite;
         }
@@ -341,7 +344,6 @@
             header {
                 padding: 3rem 0;
             }
-            /* 相關字體大小已改用 clamp() 實現，故移除此處的固定大小設定 */
             section {
                 padding: 1.5rem;
                 margin-bottom: 2rem;
@@ -372,9 +374,6 @@
                 bottom: 90px;
             }
         }
-        
-        /* 移除了 max-width: 480px 的媒體查詢，因為相關設定已整合至 clamp() 中 */
-
     </style>
 </head>
 <body>
@@ -476,7 +475,7 @@
 
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
-            <div class="quiz-container">
+            <div class="quiz-container" id="quiz1">
                 <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(112 會考)</span></h3>
                 <div class="question">
                     <p>我國在面對新冠肺炎疫情時，可透過接種疫苗來降低染疫風險，但逾期停留或逾期居留的外國人卻無法接種疫苗，一旦染疫後，可能也無法得到適當的醫療服務，甚至危及他們的<strong class="highlight-text">生命安全</strong>。因此有民間團體呼籲政府應將這些人納入公費疫苗施打對象。後來，政府基於防疫需求與風險控管，在國內疫苗供應充足的情況下，以專案方式為這些人施打疫苗。</p>
@@ -491,7 +490,7 @@
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
-            <div class="quiz-container">
+            <div class="quiz-container" id="quiz2">
                 <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span>(99 基測)</span></h3>
                 <div class="question">
                     <p><strong>下方是一份報告中的相關內容。根據內容判斷，下列哪一項敘述最可能是該報告的觀點？</strong></p>
@@ -607,10 +606,13 @@
                 }
             };
             
-            const quizContainers = document.querySelectorAll('.quiz-container');
+            const quizContainers = document.querySelectorAll('.quiz-container[id]');
             
-            quizContainers.forEach((container, index) => {
-                const quizId = `quiz${index + 1}`;
+            quizContainers.forEach(container => {
+                const quizId = container.id;
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
+
                 const optionButtons = container.querySelectorAll('.option-btn');
                 const feedbackArea = container.querySelector('.feedback-area');
                 const resetButton = container.querySelector('.reset-btn');
@@ -625,15 +627,14 @@
 
                         if (isCorrect) {
                             button.classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId].correct;
-                            feedbackArea.className = 'feedback-area feedback-correct';
+                            feedbackArea.innerHTML = quizData.correct;
                         } else {
                             const optionLetter = button.textContent.substring(1, 2);
                             button.classList.add('wrong');
                             container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
-                            feedbackArea.className = 'feedback-area feedback-wrong';
+                            feedbackArea.innerHTML = quizData[optionLetter];
                         }
+                        feedbackArea.className = 'feedback-area ' + (isCorrect ? 'feedback-correct' : 'feedback-wrong');
                         feedbackArea.style.display = 'block';
                         resetButton.style.display = 'block';
                         feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
