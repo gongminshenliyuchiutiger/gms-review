@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>重點1-1：人性尊嚴與普世人權</title>
-    <!-- Font Awesome script is still useful for other icons in the page -->
+    <title>重點1-2：性別</title>
     <script src="https://kit.fontawesome.com/62a9d1d113.js" crossorigin="anonymous"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
@@ -54,9 +53,9 @@
             box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
         }
 
-        header h1 {
+         header h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(1.6rem, 4vw + 0.5rem, 3.8rem);
+            font-size: clamp(2.5rem, 5vw + 1rem, 3.8rem);
             font-weight: 900;
             color: var(--text-color);
             white-space: nowrap;
@@ -115,6 +114,17 @@
             transform: translateY(0);
         }
         
+        /* 最終修正：h3, h4 使用 clamp 縮放，並允許在極端情況下換行 */
+        h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary-glow);
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        h3 { font-size: clamp(1.4rem, 2.5vw + 0.5rem, 1.8rem); }
+        h4 { font-size: clamp(1.2rem, 2vw + 0.5rem, 1.4rem); }
+
         .highlight-text {
             font-weight: bold;
             color: var(--accent-glow);
@@ -139,72 +149,105 @@
             color: var(--accent-glow);
             text-shadow: 0 0 10px var(--accent-glow);
         }
-
-        .dignity-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .dignity-card {
+        
+        .info-card {
             background: rgba(0,0,0,0.2);
-            border: 2px solid var(--border-color);
+            border: 1px solid var(--border-color);
             border-radius: 15px;
             padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .info-card h4 {
+            margin-top: 0;
+            border-bottom: 2px solid var(--accent-border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .info-card p, .info-card ul {
+            font-size: 1.05rem;
+        }
+        
+        .info-card ul {
+            list-style: none;
+            padding-left: 1rem;
+        }
+        
+        .info-card li::before {
+            content: '»';
+            color: var(--accent-glow);
+            font-weight: bold;
+            margin-right: 0.75rem;
+        }
+
+        .inequality-flow {
             display: flex;
             flex-direction: column;
-            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            gap: 1rem;
+            align-items: center;
         }
-
-        .dignity-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--accent-glow);
-            box-shadow: 0 15px 30px rgba(240, 225, 74, 0.2);
+        .flow-item {
+            width: 100%;
+            background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05));
+            padding: 1.5rem;
+            border-radius: 15px;
+            border-left: 5px solid var(--accent-glow);
         }
-        
-        /* 修正：讓h3標題也具有響應式與不換行特性 */
-        .dignity-card h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(1.2rem, 2vw + 0.5rem, 1.5rem);
-            color: var(--primary-glow);
-            border-bottom: 3px solid var(--accent-glow);
-            padding-bottom: 0.5rem;
-            margin-bottom: 1rem;
-            white-space: nowrap;
-        }
-
-        .dignity-card .example-group { margin-top: 1rem; padding: 1rem; background-color: rgba(13, 27, 42, 0.5); border-radius: 10px; }
-        .example-group .example-title { display: flex; align-items: center; gap: 0.75rem; font-weight: bold; margin-bottom: 0.5rem; font-size: 1.1rem; }
-        .example-title.positive { color: var(--correct-color); }
-        .example-title.negative { color: var(--wrong-color); }
-        .example-title i { font-size: 1.3rem; }
-        .example-group .example-text { padding-left: 2rem; font-size: 0.95rem; opacity: 0.9; }
-
-        .highlight-box { background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05)); padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow); font-size: 1.1rem; margin-top: 2rem; box-shadow: inset 0 0 10px rgba(240, 225, 74, 0.2); }
-        .highlight-box strong { color: var(--accent-glow); font-weight: 700; }
-        .highlight-box ul { list-style: none; padding-left: 0; }
-        .highlight-box li { margin-bottom: 0.5rem; }
-        .highlight-box i { color: var(--accent-glow); margin-right: 0.5rem; }
-        
-        #rights-section ul { list-style: none; padding-left: 1rem; }
-        #rights-section li { position: relative; padding-left: 1.5rem; margin-bottom: 1rem; }
-        #rights-section li::before { content: '\f138'; font-family: 'Font Awesome 5 Free'; font-weight: 900; position: absolute; left: 0; top: 5px; color: var(--primary-glow); }
-        
-        /* 修正：讓h4標題也具有響應式與不換行特性 */
-        h4 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--primary-glow);
-            margin-bottom: 1rem;
-            white-space: nowrap;
-        }
-        #rights-section h4 {
-            margin-top: 2rem;
-            font-size: clamp(1.1rem, 2vw + 0.5rem, 1.4rem);
-        }
-        .highlight-box h4 {
-            font-size: clamp(1.1rem, 2vw + 0.5rem, 1.4rem);
+        .flow-arrow {
+            font-size: 2rem;
             color: var(--accent-glow);
+            transform: rotate(90deg);
         }
+
+        .principles-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        .principle-card {
+            background: rgba(13, 27, 42, 0.5);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+        }
+        .principle-card h4 {
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .principle-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .comparison-box { padding: 1rem; border-radius: 8px; }
+        .comparison-box h5 { display: flex; align-items: center; gap: 0.5rem; margin: 0 0 0.5rem 0; }
+        .fair { background-color: rgba(0, 255, 135, 0.1); border-left: 3px solid var(--correct-color); }
+        .fair h5 { color: var(--correct-color); }
+        .unfair { background-color: rgba(255, 42, 109, 0.1); border-left: 3px solid var(--wrong-color); }
+        .unfair h5 { color: var(--wrong-color); }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .comparison-grid-item h4 { text-align: center; }
+
+        .law-table {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 1rem;
+            border: 1px solid var(--accent-border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+        .law-table .label { font-weight: bold; color: var(--accent-glow); text-align: right; }
+        .law-table .content { border-left: 2px solid var(--border-color); padding-left: 1rem; }
 
         .quiz-container { margin-bottom: 3rem; }
         .quiz-container:last-child { margin-bottom: 0; }
@@ -220,10 +263,16 @@
             flex-wrap: nowrap;
         }
         .quiz-title i { margin-right: 0.75rem; }
-        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
+        .quiz-title .quiz-source {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.7;
+            margin-left: 1rem;
+            font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
+        }
+
         #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
         #quiz-section .options { display: grid; gap: 1rem; }
-        
         .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
         .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
         .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark); }
@@ -237,70 +286,89 @@
         .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
         .reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--accent-glow); }
         
-        .fun-bg-section {
-            position: relative;
-            min-height: 150px;
-            margin-top: 4rem;
-            margin-bottom: 2rem;
-            border-radius: 20px;
-            background-color: var(--card-bg);
-            border: 2px solid var(--border-color);
-            overflow: hidden;
-            backdrop-filter: blur(5px);
+        .matching-item {
             display: flex;
-            justify-content: center;
             align-items: center;
-            padding: 2rem;
+            gap: 1rem;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
         }
+        .matching-item:last-child { border-bottom: none; }
+        .matching-item p { flex-grow: 1; margin: 0; }
+        .matching-select {
+            background-color: var(--bg-dark);
+            color: var(--text-color);
+            border: 1px solid var(--primary-glow);
+            border-radius: 5px;
+            padding: 0.4rem;
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .feedback-icon {
+            font-size: 1.2rem;
+            font-weight: 900;
+            display: none;
+        }
+        .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
+        .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
 
-        .typing-effect {
-            position: relative;
-            z-index: 5;
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(1.0rem, 2vw + 0.5rem, 1.6rem);
-            font-weight: 700;
-            color: #fff;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+        .table-container { overflow-x: auto; }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+        }
+        .data-table th, .data-table td {
+            border: 1px solid var(--accent-border-color);
+            padding: 0.8rem;
             text-align: center;
-            max-width: 100%;
+        }
+        .data-table thead th {
+            background-color: rgba(13, 27, 42, 0.7);
+            color: var(--primary-glow);
         }
 
-        .typing-effect .cursor {
-            display: inline-block;
-            background-color: #fff;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            margin-left: 5px;
-            width: 10px;
-            height: 1em;
-            animation: blink-caret 0.75s step-end infinite;
+        .bar-chart-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 200px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            border-left: 2px solid var(--border-color);
+            border-bottom: 2px solid var(--border-color);
+            position: relative;
         }
-
-        @keyframes blink-caret {
-            from, to { background-color: transparent; box-shadow: none; }
-            50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); }
+        .bar-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            width: 50px;
         }
-
-        .floating-mascot-bg {
+        .bar {
+            width: 100%;
+            background: linear-gradient(to top, var(--primary-glow), var(--secondary-glow));
+            border-radius: 5px 5px 0 0;
+            position: relative;
+            text-align: center;
+            color: var(--bg-dark);
+            font-weight: bold;
+            transition: height 0.5s ease-out;
+        }
+        .bar::after {
+            content: attr(data-value);
             position: absolute;
-            width: 250px;
-            height: auto;
-            opacity: 0.15;
-            animation: floatMascot 15s ease-in-out infinite alternate;
-            top: 50%;
+            top: -25px;
             left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1;
+            transform: translateX(-50%);
+            color: var(--text-color);
         }
+        .bar-label { font-weight: bold; }
 
-        @keyframes floatMascot {
-            from {
-                transform: translate(-60%, -60%) rotate(-15deg);
-            }
-            to {
-                transform: translate(-40%, -40%) rotate(15deg);
-            }
-        }
-        
         #return-home-btn {
             position: fixed;
             bottom: 20px;
@@ -311,7 +379,6 @@
             cursor: pointer;
             transition: transform 0.3s ease;
         }
-
         #return-home-btn svg {
             width: 100%;
             height: 100%;
@@ -323,11 +390,7 @@
             transition: all 0.3s ease;
             filter: drop-shadow(0 0 6px var(--primary-glow));
         }
-
-        #return-home-btn:hover {
-            transform: scale(1.1);
-        }
-
+        #return-home-btn:hover { transform: scale(1.1); }
         #return-home-btn:hover svg {
             stroke: var(--primary-glow);
             filter: drop-shadow(0 0 12px var(--primary-glow));
@@ -343,36 +406,73 @@
         #mascot-speech.visible { opacity: 1; transform: translateY(0); }
         .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
 
+        .fun-bg-section {
+            position: relative;
+            min-height: 150px;
+            margin-top: 4rem;
+            margin-bottom: 2rem;
+            border-radius: 20px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        .typing-effect {
+            position: relative;
+            z-index: 5;
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1.0rem, 2vw + 0.5rem, 1.6rem);
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            text-align: center;
+            max-width: 100%;
+        }
+        .typing-effect .cursor {
+            display: inline-block;
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            margin-left: 5px;
+            width: 10px;
+            height: 1em;
+            animation: blink-caret 0.75s step-end infinite;
+        }
+        @keyframes blink-caret {
+            from, to { background-color: transparent; box-shadow: none; }
+            50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); }
+        }
+        .floating-mascot-bg {
+            position: absolute;
+            width: 250px;
+            height: auto;
+            opacity: 0.15;
+            animation: floatMascot 15s ease-in-out infinite alternate;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+        @keyframes floatMascot {
+            from { transform: translate(-60%, -60%) rotate(-15deg); }
+            to { transform: translate(-40%, -40%) rotate(15deg); }
+        }
+
         @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-            header {
-                padding: 3rem 0;
-            }
-            section {
-                padding: 1.5rem;
-                margin-bottom: 2rem;
-            }
-            .dignity-grid {
-                grid-template-columns: 1fr;
-            }
-            #quiz-section .question, .option-btn {
-                font-size: 1rem;
-            }
-            #return-home-btn {
-                width: 45px;
-                height: 45px;
-                left: 15px;
-                bottom: 15px;
-            }
-            #mascot-container {
-                right: 15px;
-                bottom: 15px;
-            }
-            #mascot-img {
-                width: 80px;
-            }
+            .container { padding: 1rem; }
+            header { padding: 3rem 0; }
+            section { padding: 1.5rem; margin-bottom: 2rem; }
+            .principle-comparison { grid-template-columns: 1fr; }
+            .comparison-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .law-table { grid-template-columns: 80px 1fr; padding: 1rem; }
+            #quiz-section .question, .option-btn { font-size: 1rem; }
+            .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
+            #mascot-container { right: 15px; bottom: 15px; }
+            #mascot-img { width: 80px; }
             #mascot-speech {
                 max-width: 180px;
                 font-size: 0.8rem;
@@ -386,135 +486,311 @@
 
     <header>
         <div class="container">
-            <h1>重點1-1：人性尊嚴與普世人權</h1>
+            <h1>重點1-2：性別</h1>
             <h2>邱俐瑜公民，成為公民神不再只是夢想！</h2>
         </div>
     </header>
 
     <main class="container">
-        <section id="dignity-section">
-            <h2 class="section-title"><i class="fas fa-gem"></i>一、人性尊嚴</h2>
-            <p>人性尊嚴指身為「人」應享有的尊嚴，是與生俱來的，不論個人能力、背景、成就，每個人都應被尊重。主要包含四大面向：</p>
-            <div class="dignity-grid">
-                <div class="dignity-card">
-                    <h3><i class="fas fa-user-check"></i> 獨立自主</h3>
-                    <p>每個人都是獨立自主的個體，不是他人的附屬品。</p>
-                    <div class="example-group">
-                        <p class="example-title positive"><i class="fas fa-check-circle"></i> 具人性尊嚴</p>
-                        <p class="example-text">每個人都是獨一無二、不可取代的。</p>
-                    </div>
-                    <div class="example-group">
-                        <p class="example-title negative"><i class="fas fa-times-circle"></i> 尊嚴受損</p>
-                        <p class="example-text">奴隸制度下的工具之一，易被取代。</p>
-                    </div>
-                </div>
-                <div class="dignity-card">
-                    <h3><i class="fas fa-star"></i> 存在價值</h3>
-                    <p>每一個人都具有其存在的意義與價值。</p>
-                     <div class="example-group">
-                        <p class="example-title positive"><i class="fas fa-check-circle"></i> 具人性尊嚴</p>
-                        <p class="example-text">每個人的出生都有意義與價值。</p>
-                    </div>
-                    <div class="example-group">
-                        <p class="example-title negative"><i class="fas fa-times-circle"></i> 尊嚴受損</p>
-                        <p class="example-text">活著的價值就是勞動，沒有自我存在價值。</p>
-                    </div>
-                </div>
-                <div class="dignity-card">
-                    <h3><i class="fas fa-hand-pointer"></i> 自由選擇</h3>
-                    <p>個人可以自由的選擇與行動，決定想要的生活與未來。</p>
-                     <div class="example-group">
-                        <p class="example-title positive"><i class="fas fa-check-circle"></i> 具人性尊嚴</p>
-                        <p class="example-text">可自己決定生活方式與未來發展。</p>
-                    </div>
-                    <div class="example-group">
-                        <p class="example-title negative"><i class="fas fa-times-circle"></i> 尊嚴受損</p>
-                        <p class="example-text">只能持續勞動，無法選擇自己想要的生活。</p>
-                    </div>
-                </div>
-                <div class="dignity-card">
-                    <h3><i class="fas fa-balance-scale"></i> 平等尊重</h3>
-                    <p>每一個人都應受到平等的尊重與對待。</p>
-                    <div class="example-group">
-                        <p class="example-title positive"><i class="fas fa-check-circle"></i> 具人性尊嚴</p>
-                        <p class="example-text">應受到同等的尊重與對待，如獲獎受肯定。</p>
-                    </div>
-                    <div class="example-group">
-                        <p class="example-title negative"><i class="fas fa-times-circle"></i> 尊嚴受損</p>
-                        <p class="example-text">社會地位低下，經常受到歧視。</p>
-                    </div>
-                </div>
+        <section id="inequality-origin-section">
+            <h2 class="section-title"><i class="fas fa-venus-mars"></i>一、性別差異與不平等的產生</h2>
+            
+            <h3>(一) 性別差異</h3>
+            <div class="info-card">
+                <h4>生理性別</h4>
+                <p>指兩性間生理結構上的差異，是<strong class="highlight-text">與生俱來</strong>的。</p>
+                <p><strong>舉例：</strong>青春期後，男生出現喉結，女生出現月經。</p>
             </div>
-            <div class="highlight-box">
-                <h4><i class="fas fa-info-circle"></i>核心說明</h4>
+            <div class="info-card">
+                <h4>社會性別</h4>
+                <p>指社會文化所認為男性或女性的特質，是<strong class="highlight-text">後天學習</strong>而來。</p>
                 <ul>
-                    <li><i class="fas fa-key"></i>人性尊嚴是<strong class="highlight-text">先天固有</strong>的，不須經過後天努力就能擁有。</li>
-                    <li><i class="fas fa-shield-alt"></i>人的<strong class="highlight-text">基本生活</strong>受到保障，才能活得有尊嚴。</li>
+                    <li>個人依照生理性別，表現出符合社會期待的行為，稱為<strong class="highlight-text">性別角色</strong>。</li>
                 </ul>
+                <p><strong>舉例：</strong>傳統觀念認為女生應秀氣、溫柔；男生應剛強、勇敢。</p>
+            </div>
+
+            <h3>(二) 性別不平等的產生</h3>
+            <div class="inequality-flow">
+                <div class="flow-item">
+                    <h4>1. 性別刻板印象</h4>
+                    <p>對男女<strong class="highlight-text">固定且僵化</strong>的看法，並以此作為評價個人的標準。<br>
+                    <span class="highlight-text">→ 觀念上僵化的印象</span></p>
+                    <p><strong>舉例：</strong>醫生通常由男性擔任。</p>
+                </div>
+                <div class="flow-arrow"><i class="fas fa-long-arrow-alt-right"></i></div>
+                <div class="flow-item">
+                    <h4>2. 性別偏見 (負面態度)</h4>
+                    <p>社會對個人違反性別角色期待時，所抱持的<strong class="highlight-text">負面態度</strong>。<br>
+                    <span class="highlight-text">→ 觀念上的負面態度</span></p>
+                    <p><strong>舉例：</strong>「急診室竟然有女醫生？專業能力不夠吧！」</p>
+                </div>
+                <div class="flow-arrow"><i class="fas fa-long-arrow-alt-right"></i></div>
+                <div class="flow-item">
+                    <h4>3. 性別歧視 (差別對待)</h4>
+                    <p>因性別偏見而對某性別採取實際的行動，形成不利的<strong class="highlight-text">差別待遇</strong>。<br>
+                    <span class="highlight-text">→ 制度上的差別待遇</span></p>
+                    <p><strong>舉例：</strong>男女同工不同酬。</p>
+                </div>
             </div>
         </section>
 
-        <section id="rights-section">
-            <h2 class="section-title"><i class="fas fa-globe-asia"></i>二、人權保障</h2>
-            <h4><i class="fas fa-book-open"></i>意義</h4>
-            <ul>
-                <li>人權是指人<strong class="highlight-text">與生俱來</strong>應享有的各項權利，包括生命、自由、安全、生存等不可或缺、不可剝奪的權利。</li>
-                <li>人權具有<strong class="highlight-text">普遍性 (普世)</strong>、<strong class="highlight-text">平等性</strong>與<strong class="highlight-text">不可剝奪</strong>等特徵，適用於世界上的每一個人。</li>
-            </ul>
-            <h4><i class="fas fa-link"></i>關聯</h4>
-            <ul>
-                <li>保障人權才能維護人性尊嚴，人權保障是將維護人性尊嚴的方式<strong class="highlight-text">具體實踐</strong>。</li>
-                <li><strong class="highlight-text">普世人權</strong>才能確保人人享有人性尊嚴。</li>
-            </ul>
-            <h4><i class="fas fa-scroll"></i>國際法典</h4>
-            <div class="highlight-box">
-                <p><strong>聯合國《世界人權宣言》</strong>：宣告「人人生而自由，在尊嚴和權利上一律平等」，此宣言為各國努力實踐人權的共同標準，奠定人權的普世性基礎。</p>
-                <p style="margin-top: 1rem;"><strong>人權兩公約</strong>：包含《公民與政治權利國際公約》及《經濟社會文化權利國際公約》。</p>
+        <section id="principles-section">
+            <h2 class="section-title"><i class="fas fa-balance-scale-right"></i>二、檢視性別不公平的原則</h2>
+            <div class="principles-grid">
+                <div class="principle-card">
+                    <h4><i class="fas fa-tasks"></i>責任承擔</h4>
+                    <p>不同性別者所負擔的事務和內容，是否公平適切。</p>
+                    <div class="principle-comparison">
+                        <div class="comparison-box fair">
+                            <h5><i class="fas fa-check-circle"></i>公平</h5>
+                            <p>家務由家人共同承擔。</p>
+                        </div>
+                        <div class="comparison-box unfair">
+                            <h5><i class="fas fa-times-circle"></i>不公平</h5>
+                            <p>雙薪家庭中，女性承擔大部分家務勞動。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="principle-card">
+                    <h4><i class="fas fa-award"></i>貢獻肯定</h4>
+                    <p>不同性別者付出的努力，是否都有受到肯定。</p>
+                    <div class="principle-comparison">
+                        <div class="comparison-box fair">
+                            <h5><i class="fas fa-check-circle"></i>公平</h5>
+                            <p>科學家對文明做出貢獻時即給予肯定。</p>
+                        </div>
+                        <div class="comparison-box unfair">
+                            <h5><i class="fas fa-times-circle"></i>不公平</h5>
+                            <p>女性科學家雖有貢獻，卻不受社會肯定。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="principle-card">
+                    <h4><i class="fas fa-hand-holding-usd"></i>利益分配</h4>
+                    <p>不同性別者獲得的利益，是否有對等或公平的分配。</p>
+                    <div class="principle-comparison">
+                        <div class="comparison-box fair">
+                            <h5><i class="fas fa-check-circle"></i>公平</h5>
+                            <p>不分性別，相同職位即給予相同薪資。</p>
+                        </div>
+                        <div class="comparison-box unfair">
+                            <h5><i class="fas fa-times-circle"></i>不公平</h5>
+                            <p>男女同工不同酬。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="principle-card">
+                    <h4><i class="fas fa-lightbulb"></i>需求滿足</h4>
+                    <p>不同性別者的需求是否獲得滿足，能否發揮潛能，實現人生目標。</p>
+                    <div class="principle-comparison">
+                        <div class="comparison-box fair">
+                            <h5><i class="fas fa-check-circle"></i>公平</h5>
+                            <p>男、女性都能向公司請育嬰假。</p>
+                        </div>
+                        <div class="comparison-box unfair">
+                            <h5><i class="fas fa-times-circle"></i>不公平</h5>
+                            <p>只有女廁加裝尿布臺，男廁卻沒有。</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <h4><i class="fas fa-gavel"></i>保障措施</h4>
-            <ul>
-                <li><strong>透過法律制定</strong>：禁止他人或政府侵害人權，例如民主國家以《憲法》保障人權。</li>
-                <li><strong>政府積極提供</strong>：提供生存的保障，例如政府發放白米給獨居老人。</li>
-                <li><strong>個人積極尊重</strong>：維護自己與他人的人權。</li>
-            </ul>
+        </section>
+
+        <section id="promotion-section">
+            <h2 class="section-title"><i class="fas fa-gavel"></i>三、促進性別平等 (性平三法)</h2>
+            <div class="info-card">
+                <h3>(一) 消弭不平等觀念</h3>
+                <ul>
+                    <li>性別平等並非否認性別差異，而是強調<strong class="highlight-text">關懷個人的本質</strong>，不以性別刻板印象妄下論斷。</li>
+                    <li>父母基於個人興趣，而非性別刻板印象，去鼓勵小孩選擇不同的科系。</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h3>(二) 制定性平法規</h3>
+                <h4>性別平等教育法</h4>
+                <p><strong>規範面向：</strong>教育上的平等。</p>
+                <p><strong>規定：</strong>應教導學生尊重多元性別差異，課程設置及活動設計，不得因性別而有差別待遇。</p>
+                
+                <h4>性別平等工作法</h4>
+                <p><strong>規範面向：</strong>工作上的平等。</p>
+                <p><strong>規定：</strong>保障求職者、受雇者不因性別而受差別待遇。禁止要求女性簽訂<strong class="highlight-text">單身或禁孕條款</strong>。提供<strong class="highlight-text">產假、陪產假、育嬰假、家庭照顧假</strong>，以及<strong class="highlight-text">哺乳時間</strong>。</p>
+
+                <h4>性騷擾防治法</h4>
+                <p><strong>規範面向：</strong>其他公共場合的性騷擾事件。</p>
+            </div>
+        </section>
+        
+        <section id="comparison-section">
+            <h2 class="section-title"><i class="fas fa-balance-scale"></i>四、觀念比較：性騷擾 vs 性侵害</h2>
+            <div class="comparison-grid">
+                <div class="comparison-grid-item">
+                    <h4>性騷擾</h4>
+                    <p>以明示或暗示的方式，從事不受對方歡迎，且具有性意味或性別歧視的言詞或肢體行為，尚未達性侵害之程度。</p>
+                    <p><strong>舉例：</strong>說黃色笑話、摟腰。</p>
+                </div>
+                <div class="comparison-grid-item">
+                    <h4>性侵害</h4>
+                    <p>以強暴、脅迫，或其他違反被害人意願的方法，與其發生性行為，或施以猥褻行為。調查屬實將移送司法機關。</p>
+                    <p><strong>舉例：</strong>強暴、迷姦、強制猥褻下體。</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="law-comparison-section">
+            <h2 class="section-title"><i class="fas fa-book-reader"></i>五、性平三法比較總覽</h2>
+            <div class="law-table">
+                <div class="label">法律名稱</div><div class="content"><strong>性別平等教育法</strong></div>
+                <div class="label">適用對象</div><div class="content">各級學校校長、教職員工、學生。</div>
+                <div class="label">適用範圍</div><div class="content">校園事件 (一方為學校教職員工生，另一方為學生)。</div>
+                <div class="label">適用情境</div><div class="content">「你今天穿什麼顏色的內衣啊？讓我看一下嘛！」</div>
+            </div>
+            <div class="law-table">
+                <div class="label">法律名稱</div><div class="content"><strong>性別平等工作法</strong></div>
+                <div class="label">適用對象</div><div class="content">雇主、求職者、受雇者。</div>
+                <div class="label">適用範圍</div><div class="content">職場事件 (應徵時、執行職務期間、非工作時間遭職場相關人士性騷擾)。</div>
+                <div class="label">適用情境</div><div class="content">「今天下班後要不要到我家喝個小酒、看個貓咪後空翻？」</div>
+            </div>
+             <div class="law-table">
+                <div class="label">法律名稱</div><div class="content"><strong>性騷擾防治法</strong></div>
+                <div class="label">適用對象</div><div class="content">不特定對象。</div>
+                <div class="label">適用範圍</div><div class="content">其他事件 (不適用前兩法者)。</div>
+                <div class="label">適用情境</div><div class="content">在大眾交通工具、百貨公司等公共場所被陌生人性騷擾。</div>
+            </div>
         </section>
 
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
+            
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-tasks"></i>模擬神給酷 <span class="quiz-source">(情境判斷)</span></h3>
+                <div class="info-card">
+                     <p><strong>請判斷下列作為適用哪部法律？</strong> (甲. 性平教育法 / 乙. 性平工作法 / 丙. 性騷擾防治法)</p>
+                     <div class="matching-item" data-answer="乙"><p>1. 小林在面試時，遭面試官以曖昧語言騷擾。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="甲"><p>2. 小振在搭公車時，對同學小晴講黃色笑話。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="丙"><p>3. 阿明在捷運上，被陌生人撫摸手臂、屁股。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="丙"><p>4. 小淵在電影院被鄰座的陌生人開黃腔，因而向員工求助。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="乙"><p>5. 公司的主管多次邀約小婷下班後喝酒，酒後便對小婷毛手毛腳。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="甲"><p>6. 小華在上體育課時，被體育老師撫摸屁股，便立即向學校申訴。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
+                </div>
+        
+                 <div class="info-card" style="background-color: rgba(240, 225, 74, 0.1);">
+                    <h4 style="color: var(--accent-glow);">解題關鍵</h4>
+                    <p>判斷性騷擾適用法規的關鍵在於<strong class="highlight-text">「加害人與被害人的關係」</strong>，而非「場合或地點」。<br>
+                    • 關係涉及<strong class="highlight-text">師生/校園</strong> → 性平教育法 (甲)<br>
+                    • 關係涉及<strong class="highlight-text">雇主/職場</strong> → 性平工作法 (乙)<br>
+                    • 關係為<strong class="highlight-text">陌生人/其他</strong> → 性騷擾防治法 (丙)</p>
+                </div>
+            </div>
+
             <div class="quiz-container" id="quiz1">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(112 會考)</span></h3>
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(112會考)</span></h3>
                 <div class="question">
-                    <p>我國在面對新冠肺炎疫情時，可透過接種疫苗來降低染疫風險，但逾期停留或逾期居留的外國人卻無法接種疫苗，一旦染疫後，可能也無法得到適當的醫療服務，甚至危及他們的<strong class="highlight-text">生命安全</strong>。因此有民間團體呼籲政府應將這些人納入公費疫苗施打對象。後來，政府基於防疫需求與風險控管，在國內疫苗供應充足的情況下，以專案方式為這些人施打疫苗。</p>
-                    <p><strong>請問，上述民間團體的呼籲隱含下列哪一觀點？</strong></p>
+                    <p>若小銘在某次報告中提出自己的觀點，並以下表內容加以佐證，則他的觀點最可能是要凸顯下列何項議題的重要性？</p>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">年度(民國)</th>
+                                    <th colspan="2">財產受贈人 人數比例(%)</th>
+                                    <th colspan="2">遺產拋棄繼承人 人數比例(%)</th>
+                                </tr>
+                                <tr>
+                                    <th>男性</th>
+                                    <th>女性</th>
+                                    <th>男性</th>
+                                    <th>女性</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>102</td><td>61.8</td><td>38.2</td><td>43.4</td><td>56.6</td></tr>
+                                <tr><td>103</td><td>61.9</td><td>38.1</td><td>43.1</td><td>56.9</td></tr>
+                                <tr><td>104</td><td>60.8</td><td>39.2</td><td>43.8</td><td>56.2</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="options">
-                    <button class="option-btn" data-correct="false">(A) 公民參政權應受到重視</button>
-                    <button class="option-btn" data-correct="false">(B) 政府應得到人民定期授權</button>
-                    <button class="option-btn" data-correct="true">(C) 基本人權應受到普遍性保障</button>
-                    <button class="option-btn" data-correct="false">(D) 國家權力應受制衡以免遭濫用</button>
+                    <button class="option-btn" data-correct="false">(A) 政府稅收銳減</button>
+                    <button class="option-btn" data-correct="false">(B) 貧富差距擴大</button>
+                    <button class="option-btn" data-correct="false">(C) 尊重生理差異</button>
+                    <button class="option-btn" data-correct="true">(D) 性別平權教育</button>
                 </div>
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
+
             <div class="quiz-container" id="quiz2">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span>(99 基測)</span></h3>
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(111會考)</span></h3>
                 <div class="question">
-                    <p><strong>下方是一份報告中的相關內容。根據內容判斷，下列哪一項敘述最可能是該報告的觀點？</strong></p>
-                    <div class="highlight-box" style="margin-top:1rem; font-size: 1rem;">
-                        某些威權國家，常以自身的價值理念，批判西方國家所宣揚的人權理念，認為落實人權的方法會依不同文化、歷史背景而產生差異。但我們認為，<strong class="highlight-text">不能以文化背景為由，而與基本人權的核心價值背道而馳</strong>。
+                    <p>小華將日常生活中看見的違規情形，與其可能違反的相關法律，整理如下表。根據表中內容判斷，小華所列出的配對項目何者最為適當？</p>
+                    <div class="table-container">
+                         <table class="data-table">
+                            <thead><tr><th>項目</th><th>違規情形</th><th>適用法律</th></tr></thead>
+                            <tbody>
+                                <tr><td>甲</td><td>施工工地誠徵夜班工讀生兩名，年齡不拘。</td><td>《民法》</td></tr>
+                                <tr><td>乙</td><td>網路書店的原版外文書售出後，概不退換。</td><td>《著作權法》</td></tr>
+                                <tr><td>丙</td><td>公司因訂單暴增、業務繁忙，要求員工不得申請育嬰假。</td><td>《家庭暴力防治法》</td></tr>
+                                <tr><td>丁</td><td>學校棒球社男生可優先加入，女生加入須經過老師篩檢。</td><td>《性別平等教育法》</td></tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <div class="options">
-                    <button class="option-btn" data-correct="false">(A) 國家主權高於人權</button>
-                    <button class="option-btn" data-correct="true">(B) 各國都應保障人權</button>
-                    <button class="option-btn" data-correct="false">(C) 人權由政黨的體制決定</button>
-                    <button class="option-btn" data-correct="false">(D) 人權因文化差異而不同</button>
+                    <button class="option-btn" data-correct="false">(A) 甲</button>
+                    <button class="option-btn" data-correct="false">(B) 乙</button>
+                    <button class="option-btn" data-correct="false">(C) 丙</button>
+                    <button class="option-btn" data-correct="true">(D) 丁</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+
+            <div class="quiz-container" id="quiz3">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(110會考)</span></h3>
+                <div class="question">
+                    <p>世界新生兒性別比為106，右圖是同年甲、乙、丙三國國家新生兒性別比的數據。根據圖中資料判斷，下列何者最可能是甲國社會現況的敘述？</p>
+                    <div class="bar-chart-container">
+                        <div class="bar-item">
+                            <div class="bar" style="height: 114%;" data-value="114"></div>
+                            <div class="bar-label">甲</div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar" style="height: 108%;" data-value="108"></div>
+                            <div class="bar-label">乙</div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar" style="height: 105%;" data-value="105"></div>
+                            <div class="bar-label">丙</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 重男輕女，社會環境不夠穩定</button>
+                    <button class="option-btn" data-correct="true">(B) 重男輕女，性別刻板印象普遍</button>
+                    <button class="option-btn" data-correct="false">(C) 思想觀念開放，尊重多元性別發展</button>
+                    <button class="option-btn" data-correct="false">(D) 屬於母系社會，後代子女多從母姓</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            
+            <div class="quiz-container" id="quiz4">
+                 <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰四 <span class="quiz-source">(109會考)</span></h3>
+                <div class="question">
+                    <p>曉軒產後向公司申請育嬰留職停薪，但主管拒絕她的申請，甚至在工作上對她百般刁難。曉軒深感職場對家有幼兒的父母十分不友善，向主管機關提出檢舉，經政府調查屬實後，對該公司的違法行為開罰。關於上述內容的說明，下列何者正確？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 該公司可以透過請願進行權利救濟</button>
+                    <button class="option-btn" data-correct="false">(B) 該公司因違反《勞動基準法》而受罰</button>
+                    <button class="option-btn" data-correct="true">(C) 受雇者不論性別皆可依法提出上述申請</button>
+                    <button class="option-btn" data-correct="false">(D) 政府對於違法行為可處以十五萬元罰金</button>
                 </div>
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
         </section>
-        
+
         <section class="fun-bg-section">
             <h3 class="typing-effect">
                 <span id="typing-text-span"></span><span class="cursor"></span>
@@ -532,7 +808,7 @@
     
     <div id="mascot-container">
         <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
-        <div id="mascot-speech">公民好神！</div>
+        <div id="mascot-speech">尊重多元，性別平等！</div>
     </div>
 
     <footer>
@@ -541,7 +817,45 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            let typingStarted = false; 
+            let typingStarted = false;
+
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
+                            typingStarted = true;
+                            startTypingLoop();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 });
+            sections.forEach(section => observer.observe(section));
+
+            const matchingSelects = document.querySelectorAll('.matching-select');
+            matchingSelects.forEach(select => {
+                select.addEventListener('change', (e) => {
+                    const selectedValue = e.target.value;
+                    const item = e.target.closest('.matching-item');
+                    const correctAnswer = item.dataset.answer;
+                    const feedbackIcon = item.querySelector('.feedback-icon');
+                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    feedbackIcon.innerHTML = ''; 
+                    if (selectedValue === "請選擇") {
+                        feedbackIcon.style.display = 'none';
+                        return;
+                    }
+                    feedbackIcon.style.display = 'inline-block';
+                    if (selectedValue === correctAnswer) {
+                        feedbackIcon.classList.add('icon-correct');
+                        feedbackIcon.innerHTML = '✓';
+                    } else {
+                        feedbackIcon.classList.add('icon-wrong');
+                        feedbackIcon.innerHTML = '✗';
+                    }
+                });
+            });
 
             const typingSentences = [
                 "公民好神！我會遵守公民神會員守則！",
@@ -549,13 +863,11 @@
                 "公民神有三力：注意力、記憶力、戰鬥力！"
             ];
             const typingElementSpan = document.getElementById('typing-text-span');
-
             function startTypingLoop() {
                 if (!typingElementSpan) return;
                 let sentenceIndex = 0;
                 let charIndex = 0;
                 let isDeleting = false;
-
                 function loop() {
                     const currentSentence = typingSentences[sentenceIndex];
                     if (isDeleting) {
@@ -581,40 +893,37 @@
                 }
                 loop();
             }
-            
-            const sections = document.querySelectorAll('section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
-                            typingStarted = true;
-                            startTypingLoop();
-                        }
-                    }
-                });
-            }, { threshold: 0.1 }); 
-            
-            sections.forEach(section => observer.observe(section));
 
             const allQuizData = {
                 quiz1: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>接種疫苗主要是保障人民生存的權利，屬於基本人權。民間團體呼籲將「逾期停留或居留的外國人」納入施打對象，其觀點正在強調<strong class="highlight-text">無論國籍或身分為何，基本人權應普及每一個人</strong>，都應受到同等的保障，這正是「人權的普遍性保障」。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 公民參政權</strong>指的是選舉、罷免等政治權利，通常限定於本國「公民」。題目的核心是所有人的「生命安全」，而非公民獨有的參政權。</p>`,
-                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 政府應得到人民定期授權</strong>指的是「主權在民」。題目討論的是人權保障的對象範圍，與政府權力是否來自人民授權沒有直接關係。</p>`,
-                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 國家權力應受制衡</strong>指的是「權力分立」。這是在討論政府的結構，而不是人權保障的對象。</p>`
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！</h3><p><strong>解題關鍵：</strong>表格顯示，男性受贈財產比例遠高於女性，而女性拋棄繼承比例遠高於男性。這反映了傳統觀念中「家產不落外姓」、「財產傳子不傳女」的束縛依然存在。要改變此現象，需加強<strong class="highlight-text">性別平權教育</strong>，破除性別刻板印象。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>表格討論的是財產在不同性別間的分配，與政府總稅收的增減沒有直接關係。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>雖然財產繼承可能影響貧富差距，但此數據的核心是揭示<strong class="highlight-text">「性別」</strong>造成的差異，而非整體社會的貧富問題。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>財產繼承的觀念是後天社會文化建構的，與<strong class="highlight-text">與生俱來的生理差異</strong>無關。此選項混淆了「生理性別」與「社會性別」的議題。</p>`
                 },
                 quiz2: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>報告中強調「不能以文化背景為由，而與基本人權的核心價值背道而馳」，這句話的深層含義是，雖然各國文化不同，但<strong class="highlight-text">基本人權的標準是普世的、應優先於文化差異的</strong>。因此，報告的核心觀點是 (B) 各國都應保障人權。而 (A)、(C)、(D) 都是報告所反對的威權國家論點。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 國家主權高於人權</strong>：這是報告中所批判的威權國家的藉口，與報告的觀點背道而馳。</p>`,
-                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 人權由政黨的體制決定</strong>：這與人權「與生俱來、普世」的特性完全相反，是報告所反對的觀點。</p>`,
-                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 人權因文化差異而不同</strong>：這是威權國家提出的論點，而報告的內容正是在<strong>批判</strong>這個觀點，認為基本人權不應因文化而異。</p>`
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！</h3><p><strong>解題關鍵：</strong>《性別平等教育法》規定學校的教育活動與資源，不得因性別而有差別待遇。(丁)中學校棒球社對女生的入社資格設置不合理門檻，明顯是基於性別的差別待遇，違反了此法規。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(甲)</strong> 「年齡不拘」可能涉及僱用童工的問題，應適用<strong class="highlight-text">《勞動基準法》</strong>，而非《民法》。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(乙)</strong> 網路購物「概不退換」的條款，違反了<strong class="highlight-text">《消費者保護法》</strong>中關於通訊交易的七日鑑賞期規定。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(丙)</strong> 公司不得拒絕員工申請育嬰假，此權利受<strong class="highlight-text">《性別平等工作法》</strong>保障，而非《家庭暴力防治法》。</p>`
+                },
+                 quiz3: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！</h3><p><strong>解題關鍵：</strong>新生兒性別比的正常值約在102-106之間。甲國性別比高達114，表示男嬰數量遠多於女嬰，這通常是人為選擇（如墮胎）的結果，其背後反映了社會強烈的「重男輕女」觀念。這種觀念就是一種普遍的<strong class="highlight-text">性別刻板印象</strong>。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>「社會環境不夠穩定」是個太模糊的描述，數據直接指向的是性別偏好問題，而非廣泛的社會穩定度。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>「思想觀念開放，尊重多元性別」的社會，其新生兒性別比應接近自然正常值，甚至可能更尊重女性，與甲國的高數據恰好相反。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>「母系社會」通常更重視女性，其新生兒性別比不太可能出現男多於女的失衡狀況，此選項與數據反映的現象矛盾。</p>`
+                },
+                 quiz4: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！</h3><p><strong>解題關鍵：</strong>根據<strong class="highlight-text">《性別平等工作法》</strong>，受雇者於任職滿6個月後，於子女滿3歲前，<strong class="highlight-text">不分性別</strong>皆可申請育嬰留職停薪。因此(C)的敘述是正確的。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>公司是法人，對於行政機關的處分若有不服，應循<strong class="highlight-text">「訴願」</strong>程序尋求救濟。「請願」是人民對國家政策或公共利益的建議。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>育嬰留職停薪的權利是由<strong class="highlight-text">《性別平等工作法》</strong>所保障的，因此公司是違反此法，而非《勞動基準法》。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>根據《性別平等工作法》，雇主違反育嬰留職停薪規定，可處新臺幣<strong class="highlight-text">2萬元以上30萬元以下</strong>的罰鍰，並非固定的15萬元。</p>`
                 }
             };
             
-            const quizContainers = document.querySelectorAll('.quiz-container[id]');
+            const mcqContainers = document.querySelectorAll('.quiz-container[id]');
             
-            quizContainers.forEach(container => {
+            mcqContainers.forEach(container => {
                 const quizId = container.id;
                 const quizData = allQuizData[quizId];
                 if (!quizData) return;
@@ -627,9 +936,7 @@
                     button.addEventListener('click', () => {
                         const isCorrect = button.dataset.correct === 'true';
                         
-                        optionButtons.forEach(btn => {
-                            btn.disabled = true;
-                        });
+                        optionButtons.forEach(btn => btn.disabled = true);
 
                         if (isCorrect) {
                             button.classList.add('correct');
@@ -658,11 +965,12 @@
                 });
             });
 
+            // --- Mascot Interaction Logic ---
             const mascotContainer = document.getElementById('mascot-container');
             const mascotImg = document.getElementById('mascot-img');
             const speechBubble = document.getElementById('mascot-speech');
             
-            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            const messages = [ "尊重多元，性別平等！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！"];
             let messageIndex = 0;
             let clickTimer = null;
             let speechTimeout = null;
