@@ -207,7 +207,7 @@
             gap: 0.75rem;
             margin-top: 1rem;
             margin-bottom: 1rem;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(4, 1fr);
         }
         .law-option-item {
             background-color: rgba(0, 0, 0, 0.3);
@@ -297,8 +297,7 @@
             .flow-container, .agenda-options { flex-direction: column; }
 
             .law-options-list {
-                display: flex;
-                flex-direction: column;
+                grid-template-columns: 1fr;
             }
 
             #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
@@ -363,20 +362,30 @@
 
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
+            
             <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-tasks"></i>模擬神給酷</h3>
+                <h3 class="quiz-title"><i class="fas fa-tasks"></i>模擬神給酷：民主政治特色</h3>
                 <div class="info-card" style="margin-top:0;">
-                     <p><strong>下列行為最符合何種公共意見的特性？請填入正確代號。</strong></p>
+                     <p><strong>下列情境分別彰顯了民主政治的何種特色？請填入正確代號。</strong></p>
                      <div class="law-options-list">
-                         <div class="law-option-item"><span class="law-option-label">甲</span> 複雜性</div>
-                         <div class="law-option-item"><span class="law-option-label">乙</span> 變動性</div>
-                         <div class="law-option-item"><span class="law-option-label">丙</span> 影響性</div>
-                         <div class="law-option-item"><span class="law-option-label">丁</span> 公開性</div>
+                         <div class="law-option-item"><span class="law-option-label">甲</span> 民意政治</div>
+                         <div class="law-option-item"><span class="law-option-label">乙</span> 法治政治</div>
+                         <div class="law-option-item"><span class="law-option-label">丙</span> 責任政治</div>
+                         <div class="law-option-item"><span class="law-option-label">丁</span> 政黨政治</div>
                      </div>
-                     <div class="matching-item" data-answer="甲"><p>1. 安樂死爭議長期引起正、反方爭辯，社會未有共識。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
-                     <div class="matching-item" data-answer="丁"><p>2. 「公共政策網路參與平臺」開放每位公民參與討論。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
-                     <div class="matching-item" data-answer="丙"><p>3. 民眾長期反空汙，促使政府修改《空氣汙染防制法》。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
-                     <div class="matching-item" data-answer="乙"><p>4. 臺灣社會以前提倡使用免洗筷，現在提倡使用環保筷。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="丙"><p>1. 政府官員因為貪汙而下臺，並遭到國家的刑事制裁。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="乙"><p>2. 政府向人民課稅時，必須依據《所得稅法》規定課徵。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="丁"><p>3. 總統選舉時，在野黨候選人提出政黨輪流執政的訴求。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="甲"><p>4. 市議會舉辦輕軌二階規畫與施工公聽會，蒐集人民意見。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                </div>
+                 <div class="info-card" style="background-color: rgba(240, 225, 74, 0.1); margin-top:1.5rem;">
+                    <h4 style="color: var(--accent-glow); border:none; padding-bottom:0;">解題關鍵</h4>
+                    <ul>
+                        <li><strong>民意政治：</strong>政府施政應以「民意」為依歸，透過公聽會、民調等方式蒐集民意作為決策參考。</li>
+                        <li><strong>法治政治：</strong>強調「依法行政」，政府的權力與行為皆須受法律規範與限制。</li>
+                        <li><strong>責任政治：</strong>政府須為其政策及行為「負責」，包括對人民、議會負責，也包含官員違法失職時的法律責任。</li>
+                        <li><strong>政黨政治：</strong>透過「政黨競爭」來取得執政權，並由在野黨監督政府，實現政黨輪替的可能。</li>
+                    </ul>
                 </div>
             </div>
 

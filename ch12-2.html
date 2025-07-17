@@ -170,15 +170,13 @@
             margin-top: 1.5rem;
         }
         .grid-3-col {
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
         }
         .comparison-card {
             background-color: rgba(0,0,0,0.2);
             border-radius: 15px;
             padding: 1.5rem;
             border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
         }
         .comparison-card h5 {
             font-size: 1.2rem;
@@ -190,7 +188,16 @@
             color: var(--primary-glow);
             border-bottom: 1px solid var(--border-color);
         }
+        .comparison-card ul {
+             list-style: none; padding-left: 0; font-size: 0.95rem; flex-grow: 1;
+        }
         
+        .highlight-box { background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05)); padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow); font-size: 1.1rem; margin-top: 2rem; box-shadow: inset 0 0 10px rgba(240, 225, 74, 0.2); }
+        .highlight-box h4 {
+            color: var(--accent-glow); margin: 0 0 1rem 0; display: flex; align-items: center; gap: 0.75rem;
+            border: none; padding: 0; font-size: 1.2rem;
+        }
+
         .quiz-container { margin-bottom: 3rem; }
         .quiz-title {
             font-family: 'Orbitron', sans-serif;
@@ -213,7 +220,7 @@
             border: none;
             border-left: 5px solid var(--primary-glow);
             margin: 1.5rem 0;
-            padding-left: 1.5rem;
+            padding: 1.5rem;
         }
         #quiz-section .highlight-box table {
             margin-top: 0;
@@ -231,6 +238,36 @@
         .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
         .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
         .reset-btn:hover { transform: scale(1.05); }
+        
+        .matching-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .matching-item:last-child { border-bottom: none; }
+        .matching-item p { flex-grow: 1; margin: 0; }
+        .matching-select { background-color: var(--bg-dark); color: var(--text-color); border: 1px solid var(--primary-glow); border-radius: 5px; padding: 0.4rem; font-family: inherit; font-size: 1rem; cursor: pointer; }
+        .feedback-icon { font-size: 1.2rem; font-weight: 900; display: none; }
+        .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
+        .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
+        
+        .law-options-list {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .law-option-item {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .law-option-label {
+            color: var(--accent-glow);
+            font-weight: 700;
+            margin-right: 0.5em;
+            font-family: 'Orbitron', sans-serif;
+        }
         
         .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect {
@@ -278,10 +315,12 @@
             section { padding: 1.5rem; }
             
             .comparison-cards-container.grid-3-col,
-            .comparison-cards-container {
+            .comparison-cards-container,
+            .law-options-list {
                 grid-template-columns: 1fr;
             }
             #quiz-section .options { grid-template-columns: 1fr; }
+            .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
 
             #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
@@ -294,102 +333,112 @@
 
     <header>
         <div class="container">
-            <h1>重點12-2：資源分配</h1>
+            <h1>重點14-2：勞動參與</h1>
             <h2>邱俐瑜公民，成為公民神不再只是夢想！</h2>
         </div>
     </header>
 
     <main class="container">
-        <section id="allocation-method-section">
-            <h2 class="section-title"><i class="fas fa-sitemap"></i> 一、資源分配的方法</h2>
+        <section id="labor-types-section">
+            <h2 class="section-title"><i class="fas fa-briefcase"></i> 一、勞動參與的型態</h2>
+            <p>指人們在市場中，提供勞動以換取工資、佣金、獎金等實質報酬。</p>
             <div class="comparison-cards-container">
-                 <div class="info-card"><h4><i class="fas fa-fist-raised"></i>先占先贏</h4><p><strong>優點：</strong>使用者只要願意付出時間成本，就可以得到該項資源。<br><strong>缺點：</strong>衍生爭奪資源的衝突；資源可能被長期占用。</p></div>
-                 <div class="info-card"><h4><i class="fas fa-random"></i>輪流或抽籤</h4><p><strong>優點：</strong>能讓所有人較有機會取得資源。<br><strong>缺點：</strong>輪到或抽到的人不見得真的需要；可能導致資源未能充分運用。</p></div>
-                 <div class="info-card"><h4><i class="fas fa-handshake"></i>相互協調</h4><p><strong>優點：</strong>能因應個別差異以滿足不同使用者的需求。<br><strong>缺點：</strong>協調必須耗費較長時間；協調不一定能成功。</p></div>
-                 <div class="info-card"><h4><i class="fas fa-calendar-check"></i>預約登記</h4><p><strong>優點：</strong>節省時間、符合需求、減少糾紛。<br><strong>缺點：</strong>若臨時有需求，無法立即使用。</p></div>
-                 <div class="info-card"><h4><i class="fas fa-dollar-sign"></i>價格分配</h4><p><strong>優點：</strong>可以將資源給最需要的人使用，通常最簡便，也最有效率。<br><strong>缺點：</strong>不利經濟弱勢者。</p></div>
+                <div class="info-card">
+                    <h4><i class="fas fa-dollar-sign"></i>有酬勞動 (市場勞動)</h4>
+                    <ul>
+                        <li><strong>重要性</strong>：
+                            <ul>
+                                <li>對個人：提供家庭經濟來源、實現理想與抱負。</li>
+                                <li>對社會：提供勞動力、減少失業人口、促進經濟發展。</li>
+                            </ul>
+                        </li>
+                        <li><strong>舉例</strong>：從事居家清潔服務、在辦公室內做動工作換取工資。</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4><i class="fas fa-heart"></i>無酬勞動</h4>
+                     <ul>
+                        <li><strong>定義</strong>：勞動付出無法獲得實質報酬，包括家務勞動、義務勞動等。</li>
+                        <li><strong>重要性</strong>：提供家庭成員各項生理、心理的照顧，使其能專心工作。若沒有家庭生育照顧下一代，市場勞動可能缺乏勞動。</li>
+                        <li><strong>舉例</strong>：家庭成員在家照顧孩子、打掃房子；志工協助偏鄉孩童的課業輔導。</li>
+                    </ul>
+                </div>
+            </div>
+             <div class="highlight-box">
+                <h4><i class="fas fa-link"></i>兩者關連</h4>
+                <p>家務勞動與市場勞動相輔相成，兩者有互補關係。市場勞動提供經濟來源，而家務勞動提供生理與心理照顧，共同提升工作效能。</p>
             </div>
         </section>
 
-        <section id="consumer-section">
-            <h2 class="section-title"><i class="fas fa-shopping-cart"></i> 二、影響消費者的資源分配</h2>
-            <p>消費者是指從事消費行為的人。消費行為是購買各種商品與勞務以滿足需求的行為。</p>
-            <div class="info-card" style="margin-top:1.5rem;">
-                <h4>價格因素</h4>
-                <p>以機會成本的概念來看，購買商品所付出的代價，就是得到該商品所付出的機會成本。</p>
-                <ul>
-                    <li>商品<strong class="highlight-text">價格上漲</strong> → 付出較多金錢 → 機會成本較大 → <strong class="highlight-text">減少</strong>購買數量。</li>
-                    <li>商品<strong class="highlight-text">價格下降</strong> → 付出較少金錢 → 機會成本較小 → <strong class="highlight-text">增加</strong>購買數量。</li>
-                </ul>
-            </div>
-             <div class="info-card">
-                <h4>非價格因素</h4>
-                <ul>
-                    <li><strong>消費者偏好</strong>：受個人喜好、廣告行銷、風潮等影響，而改變其資源分配。例如，因太喜歡某偶像團體，消費者願意徹夜排隊買演唱會門票。</li>
-                    <li><strong>所得水準</strong>：消費者能力受到個人所得高低的影響。所得提高，購買非生活必需品的比例提高；所得降低，會優先購買生活必需品。</li>
-                    <li><strong>預期心理</strong>：消費者對商品未來價格的預期，會影響其資源分配。例如，預期油價即將調漲，因此預先加油。</li>
-                </ul>
+        <section id="employment-section">
+            <h2 class="section-title"><i class="fas fa-user-tie"></i> 二、就業與失業</h2>
+            <div class="info-card" style="margin-top:0;">
+                <p><strong>勞動力</strong>：就業者 + 失業者。</p>
+                <div class="highlight-box" style="margin-top:1rem;">
+                    <h4><i class="fas fa-question-circle"></i>觀念比較：就業 vs. 失業</h4>
+                    <p><strong>共同條件</strong>：年滿 <strong class="highlight-text">15 歲</strong> + 具有<strong class="highlight-text">工作能力</strong> + 具有<strong class="highlight-text">工作意願</strong> + 有<strong class="highlight-text">找工作的行動</strong>。</p>
+                    <ul>
+                        <li>滿足以上四條件且「<strong>找到工作</strong>」→ <strong class="highlight-text">就業</strong></li>
+                        <li>滿足以上四條件但「<strong>找不到工作</strong>」→ <strong class="highlight-text">失業</strong></li>
+                    </ul>
+                </div>
             </div>
         </section>
 
-        <section id="producer-section">
-            <h2 class="section-title"><i class="fas fa-industry"></i> 三、價格影響生產者的資源分配</h2>
-            <p>生產者（廠商）是從事生產行為的決策者，其主要目的是<strong class="highlight-text">獲取利潤</strong>。</p>
-            <div class="comparison-cards-container grid-3-col">
-                <div class="info-card"><h4><i class="fas fa-box-open"></i>生產什麼 (What?)</h4><p>考量優先生產何種產品，較有利可圖。→ 選擇最有利的產品種類。</p></div>
-                <div class="info-card"><h4><i class="fas fa-cogs"></i>如何生產 (How?)</h4><p>考量何種生產方式，最能降低成本及增加收入。→ 選擇最有利的生產方式。</p></div>
-                <div class="info-card"><h4><i class="fas fa-users"></i>為誰生產 (Who?)</h4><p>考量消費族群的特性，避免產品上市後乏人問津。→ 選擇最主要的消費族群。</p></div>
+        <section id="gov-intervention-section">
+            <h2 class="section-title"><i class="fas fa-landmark"></i> 三、立法保障公平的市場勞動參與</h2>
+            <p>由於資方（雇主）擁有薪資發放權，常單方面決定工作場所、時間等事項，形成勞資雙方不對等的關係，因此政府需立法保障勞動者。</p>
+            <div class="comparison-cards-container">
+                <div class="info-card">
+                    <h4><i class="fas fa-book-reader"></i>勞動基準法</h4>
+                    <p>明確規範<strong class="highlight-text">工資、工作時間、休假、童工</strong>等重要事項。</p>
+                </div>
+                <div class="info-card">
+                    <h4><i class="fas fa-file-invoice-dollar"></i>就業保險法</h4>
+                    <p>可申請<strong class="highlight-text">失業給付</strong>，以維持失業期間的基本生活開銷。</p>
+                </div>
             </div>
-             <div class="info-card" style="margin-top:1.5rem;">
-                <h4>提高利潤的方法 <small>(利潤 = 銷貨收入 - 生產成本)</small></h4>
-                <ul>
-                    <li><strong>降低生產成本</strong>：
-                        <ul>
-                            <li>生產成本是指生產者在生產過程中，使用各種生產資源所支付的代價。</li>
-                            <li>計算生產成本時，也須考慮<strong class="highlight-text">隱含成本</strong>。例如，創業者放棄的月薪。</li>
-                            <li>方法：刪減廣告支出、減少水電支出、減少人力支出、減少店面租金。</li>
-                        </ul>
-                    </li>
-                    <li><strong>增加銷貨收入</strong>：
-                        <ul>
-                             <li>銷貨收入 = 商品價格 × 銷售數量。</li>
-                             <li>方法：提高產品價錢、發傳單、請偶像代言、增加外送服務等。</li>
-                        </ul>
-                    </li>
-                </ul>
+            <div class="highlight-box" style="margin-top:2rem;">
+                讓勞動者都能透過工作賺取收入，且工作權利能受到保障，享有勞動尊嚴，合理的報酬是獲得勞動尊嚴的基礎。
             </div>
         </section>
         
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
-            <div class="quiz-container" id="quiz1">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(113 會考)</span></h3>
-                <div class="question">
-                    <p>過去《道路交通管理處罰條例》中的「電動自行車」，僅以電力驅動行駛，因與電動機車的樣態差異不大，且不須懸掛車牌、不須駕照、駕駛者無年齡限制、價格較低廉，部分民眾喜愛以它作為代步工具，卻也衍生諸多問題。</p>
-                    <p>根據文中第一段內容判斷，相較於電動機車，部分民眾喜愛使用電動自行車的原因，最可能為下列何者？</p>
+            <div class="quiz-container">
+                <h3 class="quiz-title"><i class="fas fa-tasks"></i>模擬神給酷</h3>
+                <div class="info-card" style="margin-top:0;">
+                     <p><strong>下列情境屬於何種勞動？請填入正確代號。</strong></p>
+                     <div class="law-options-list">
+                         <div class="law-option-item"><span class="law-option-label">甲</span> 有酬勞動</div>
+                         <div class="law-option-item"><span class="law-option-label">乙</span> 無酬勞動</div>
+                     </div>
+                     <div class="matching-item" data-answer="乙"><p>1. 媽媽修理家中壞掉的水龍頭。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="甲"><p>2. 爸爸開設線上國中文教室，提供學生付費使用。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="乙"><p>3. 弟弟替媽媽慶生，煮了一桌好料等媽媽回家用餐。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="甲"><p>4. 姐姐利用閒暇時間，當鄰居的數學家教賺取學費。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option></select><i class="feedback-icon"></i></div>
                 </div>
-                <div class="options">
-                    <button class="option-btn" data-correct="false">(A) 該產品的市場競爭程度日漸提升</button>
-                    <button class="option-btn" data-correct="true">(B) 選擇使用該項產品的機會成本較低</button>
-                    <button class="option-btn" data-correct="false">(C) 受匯率變化影響，產品販售價格調降</button>
-                    <button class="option-btn" data-correct="false">(D) 負向誘因增加，民眾使用產品意願提高</button>
+                 <div class="info-card" style="background-color: rgba(240, 225, 74, 0.1); margin-top:1.5rem;">
+                    <h4 style="color: var(--accent-glow); border:none; padding-bottom:0;">解題關鍵</h4>
+                    <ul>
+                        <li><strong>有酬勞動：</strong>提供勞動以換取工資、佣金等實質報酬。</li>
+                        <li><strong>無酬勞動：</strong>勞動的付出無法獲得實質報酬。</li>
+                    </ul>
                 </div>
-                <div class="feedback-area"></div>
-                <button class="reset-btn">再挑戰一次！</button>
             </div>
-            <div class="quiz-container" id="quiz2">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(111 會考)</span></h3>
+            <div class="quiz-container" id="quiz1">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(112 會考)</span></h3>
                 <div class="question">
-                    <p>右圖為大華與小年住家附近的地圖，甲、乙二商店均販賣大華與小年想購買的某項商品，且該商品在甲商店的售價比乙商店高。若大華僅想就近買到商品，而小年卻只想以便宜的價格購買，則對此二人而言，到哪一間商店購物的機會成本較高？</p>
-                     <div class="highlight-box" style="padding:1rem; text-align:center; margin-top:1rem;">
-                        （地圖顯示，甲商店離大華家近，乙商店離小年家近。）
+                    <p>右列是甲國某學者針對該國現況所提出的看法。根據文中內容判斷，甲國就業市場所受影響的原因應是下列何者？</p>
+                    <div id="quiz-section" class="highlight-box" style="padding:1rem;">
+                        <p>……許多人失業的同時，也有大量職缺在等待人應徵。……所以，給予失業者的福利應多，往往會導致更長的高失業率，並拉長他們求職時間，就業市場造成影響。</p>
                     </div>
                 </div>
                 <div class="options">
-                    <button class="option-btn" data-correct="false">(A) 皆為甲商店</button>
-                    <button class="option-btn" data-correct="false">(B) 皆為乙商店</button>
-                    <button class="option-btn" data-correct="false">(C) 大華：甲商店，小年：乙商店</button>
-                    <button class="option-btn" data-correct="true">(D) 大華：乙商店，小年：甲商店</button>
+                    <button class="option-btn" data-correct="false">(A) 勞工意願接受更低的工資</button>
+                    <button class="option-btn" data-correct="false">(B) 勞工願意盡速投入勞動市場</button>
+                    <button class="option-btn" data-correct="true">(C) 勞工選擇就業的機會成本提高</button>
+                    <button class="option-btn" data-correct="false">(D) 勞工選擇較具重要性的家務勞動</button>
                 </div>
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
@@ -413,7 +462,7 @@
     
     <div id="mascot-container">
         <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
-        <div id="mascot-speech">天下沒有白吃的午餐！</div>
+        <div id="mascot-speech">保障勞工，經濟繁榮！</div>
     </div>
 
     <footer>
@@ -478,18 +527,36 @@
             
             sections.forEach(section => observer.observe(section));
 
+            const matchingSelects = document.querySelectorAll('.matching-select');
+            matchingSelects.forEach(select => {
+                select.addEventListener('change', (e) => {
+                    const selectedValue = e.target.value;
+                    const item = e.target.closest('.matching-item');
+                    const correctAnswer = item.dataset.answer;
+                    const feedbackIcon = item.querySelector('.feedback-icon');
+                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    feedbackIcon.innerHTML = '';
+                    if (selectedValue === "請選擇") {
+                        feedbackIcon.style.display = 'none';
+                        return;
+                    }
+                    feedbackIcon.style.display = 'inline-block';
+                    if (selectedValue === correctAnswer) {
+                        feedbackIcon.classList.add('icon-correct');
+                        feedbackIcon.innerHTML = '✓';
+                    } else {
+                        feedbackIcon.classList.add('icon-wrong');
+                        feedbackIcon.innerHTML = '✗';
+                    }
+                });
+            });
+
             const allQuizData = {
                 quiz1: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>民眾選擇電動自行車，是因為它「不須掛牌、不須駕照、無年齡限制、價格低廉」。相較於電動機車，選擇電動自行車所要付出的代價（機會成本）較低，包含金錢成本（價格）和非金錢成本（考照時間、符合年齡限制等）。因此，(B)機會成本較低是民眾選擇的主因。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>題目沒有提供市場競爭程度的資訊。</p>`,
-                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>題目沒有提及匯率變化的資訊。</p>`,
-                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>負向誘因會「降低」使用意願，而非提高。</p>`
-                },
-                quiz2: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>機會成本是「被放棄的選項中，價值最高者」。機會成本「較高」的選擇，就是「較差」的選擇。 <br>• <strong>大華</strong>：只想就近，去乙商店（遠）的機會成本較高。 <br>• <strong>小年</strong>：只想便宜，去甲商店（貴）的機會成本較高。 <br>因此答案是(D)。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>對小年來說，去乙商店（近又便宜）是最佳選擇，機會成本最低。</p>`,
-                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>對大華來說，去甲商店（近又符合需求）是最佳選擇，機會成本最低。</p>`,
-                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>此選項描述的是兩人機會成本「較低」的選擇，與題目問的「較高」相反。</p>`
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>文中提到「給予失業者的福利應多」，這相當於提高了「不工作」的價值。當勞工在「選擇就業」與「維持失業狀態領取福利」之間做決定時，因為後者的價值（福利）提高了，這就意味著選擇前者的<strong class="highlight-text">機會成本（放棄的失業福利）也跟著提高了</strong>，因此會拉長求職時間，影響就業市場。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>文中沒有提到勞工願意接受更低工資的情形。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>文中提到福利多會「拉長求職時間」，與「盡速投入」相反。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>文中討論的是市場勞動與失業福利的選擇，未提及家務勞動。</p>`
                 }
             };
             

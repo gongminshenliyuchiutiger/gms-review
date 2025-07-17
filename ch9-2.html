@@ -113,14 +113,6 @@
             color: var(--accent-glow);
             text-shadow: 0 0 10px var(--accent-glow);
         }
-        .section-title small {
-            font-size: clamp(1rem, 2vw, 1.2rem);
-            color: var(--text-color);
-            opacity: 0.8;
-            font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
-            font-weight: 400;
-            text-shadow: none;
-        }
 
         h3 {
             font-family: 'Orbitron', sans-serif;
@@ -140,19 +132,20 @@
             border: 1px solid var(--border-color); 
             border-radius: 15px; 
             padding: 1.5rem;
-            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-        }
-        .info-card:hover {
-            transform: translateY(-5px) scale(1.01);
-            border-color: var(--accent-glow);
-            box-shadow: 0 10px 25px rgba(240, 225, 74, 0.15);
         }
         
-        .info-card h3 {
-             border-bottom: 3px solid var(--accent-glow);
-             margin-top: 0;
+        .info-card h4 { 
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            color: var(--primary-glow);
+            margin: 0 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            padding-bottom: 0.5rem;
         }
-        .info-card ul {
+         .info-card ul {
             list-style: none; padding-left: 0;
         }
         .info-card li {
@@ -163,21 +156,32 @@
             position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
         
-        .highlight-box { background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05)); padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow); font-size: 1.1rem; margin-top: 2rem; box-shadow: inset 0 0 10px rgba(240, 225, 74, 0.2); }
-        .highlight-box h4 {
-            color: var(--accent-glow); margin: 0 0 1rem 0; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0;
-        }
-        
         .comparison-cards-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+            gap: 1rem;
             margin-top: 1.5rem;
         }
         .grid-3-col {
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
         }
-
+        .comparison-card {
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+        .comparison-card h5 {
+            font-size: 1.2rem;
+            margin: 0 0 1rem 0;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-glow);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
         .quiz-container { margin-bottom: 3rem; }
         .quiz-title {
             font-family: 'Orbitron', sans-serif;
@@ -195,19 +199,48 @@
         .quiz-title .quiz-source { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
         #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
         
+        .law-options-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .law-option-item {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .law-option-label {
+            color: var(--accent-glow);
+            font-weight: 700;
+            margin-right: 0.5em;
+            font-family: 'Orbitron', sans-serif;
+        }
+
         #quiz-section .options { display: grid; gap: 1rem; }
         .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
         .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
-        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark); }
-        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark); }
+        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark);}
+        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
         
         .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
         .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
         .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
         .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
-        
         .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
-        .reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--accent-glow); }
+        .reset-btn:hover { transform: scale(1.05); }
+        
+        .matching-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .matching-item:last-child { border-bottom: none; }
+        .matching-item p { flex-grow: 1; margin: 0; }
+        .matching-select { background-color: var(--bg-dark); color: var(--text-color); border: 1px solid var(--primary-glow); border-radius: 5px; padding: 0.4rem; font-family: inherit; font-size: 1rem; cursor: pointer; }
+        .feedback-icon { font-size: 1.2rem; font-weight: 900; display: none; }
+        .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
+        .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
         
         .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect {
@@ -231,34 +264,45 @@
         }
         @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
         
+        #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
+        #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
+        #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
+        #mascot-img.enlarged { transform: scale(2.5) !important; }
+        #mascot-speech {
+            position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9);
+            color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px;
+            font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3);
+        }
+        #mascot-speech.visible { opacity: 1; transform: translateY(0); }
+        .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
+
         #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
         #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
         #return-home-btn:hover { transform: scale(1.1); }
         #return-home-btn:hover svg { stroke: var(--primary-glow); filter: drop-shadow(0 0 12px var(--primary-glow)); transform: rotate(-10deg); }
         footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
-        #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
-        #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
-        #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
-        #mascot-img.enlarged { transform: scale(2.5) !important; }
-        #mascot-speech { position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9); color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3); }
-        #mascot-speech.visible { opacity: 1; transform: translateY(0); }
-        .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
 
         @media (max-width: 768px) {
             .container { padding: 1rem; }
             section { padding: 1.5rem; }
             
-            .three-col-grid,
             .comparison-cards-container {
                 grid-template-columns: 1fr;
             }
+            .law-options-list {
+                display: flex;
+                flex-direction: column;
+            }
+            #quiz-section .options { grid-template-columns: 1fr; }
+
+            .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
 
             #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
             #mascot-img { width: 80px; }
             #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
         }
-
     </style>
 </head>
 <body>
@@ -271,164 +315,83 @@
     </header>
 
     <main class="container">
-        <section id="scope-section">
-            <h2 class="section-title"><i class="fas fa-users"></i> 一、民法範圍 <small>規範私人間之權利義務關係</small></h2>
+        <section id="basics-section">
+            <h2 class="section-title"><i class="fas fa-file-contract"></i> 一、民法的基本原則</h2>
             <div class="info-card" style="margin-top:0;">
-                <h3><i class="fas fa-coins"></i> 財產關係</h3>
-                <p>因買賣、租賃、借貸等契約行為所產生的權利義務關係。</p>
-                <div class="comparison-cards-container grid-3-col" style="margin-top: 1rem;">
-                    <div class="info-card"><h4>買賣</h4><p>出賣人將特定物品移轉給買受人，而買受人支付金錢給出賣人的契約。</p></div>
-                    <div class="info-card"><h4>租賃</h4><p>雙方約定，出租人將物品租給承租人使用，而承租人支付租金的契約。</p></div>
-                    <div class="info-card"><h4>借貸</h4><p>出借人將金錢或借用物交給借用人，借用人依約返還金錢或借用物的契約。</p></div>
-                </div>
+                <p>《民法》是規範私人間財產及身分關係的法律，又稱為「<strong class="highlight-text">私法之母</strong>」。</p>
             </div>
-            <div class="info-card" style="margin-top:1.5rem;">
-                <h3><i class="fas fa-user-friends"></i> 身分關係</h3>
-                <p>因特定身分而產生的權利義務關係，主要包括：</p>
-                <ul>
-                    <li>親子關係</li>
-                    <li>婚姻關係</li>
-                    <li>繼承關係</li>
-                </ul>
-                <div class="highlight-box" style="margin-top: 1rem; padding: 1rem; font-size: 0.95rem;">
-                    <i class="fas fa-info-circle"></i> 根據《民法》規定，結婚應以書面為之，須有兩人以上證人之簽名，並由雙方當事人向戶政機關登記，才具法律效力。
-                </div>
+            <div class="comparison-cards-container">
+                <div class="info-card"><h4><i class="fas fa-handshake"></i>契約自由原則</h4><p>個人可依自由意志，決定是否訂定契約、選擇締約對象及內容，政府不得干預。契約一旦成立，雙方皆須遵守。</p></div>
+                <div class="info-card"><h4><i class="fas fa-shield-alt"></i>誠實信用原則</h4><p>在行使權利、履行義務時，應抱持誠實、信用、互信的態度，不得有欺騙、隱瞞的行為。</p></div>
+                <div class="info-card"><h4><i class="fas-fa-user-check"></i>權利濫用禁止原則</h4><p>行使權利時，不能以損害他人為主要目的。若因權利濫用而造成他人損害，仍須負起法律責任。</p></div>
             </div>
         </section>
 
         <section id="capacity-section">
-            <h2 class="section-title"><i class="fas fa-child"></i> 二、行為能力與效力</h2>
-            <p>一個人的行為是否能產生法律上的效力，取決於其年齡、精神及心智狀態，可分為三種類型：</p>
+            <h2 class="section-title"><i class="fas fa-child"></i> 二、行為能力</h2>
+            <p>指個人能獨立完成有效法律行為的能力與資格。依據<strong class="highlight-text">年齡</strong>與<strong class="highlight-text">心智狀態</strong>，可分為三種：</p>
             <div class="comparison-cards-container grid-3-col">
                 <div class="info-card">
-                    <h3>無行為能力<br><small>未滿7歲 / 受監護宣告者</small></h3>
-                    <h4>法律效力：<span class="highlight-text">無效</span></h4>
-                    <p>法律行為須由法定代理人代為處理，始能產生法律上效力。</p>
-                    <h4>法律責任</h4>
-                    <p>法定代理人須負擔連帶損害賠償責任。</p>
-                </div>
-                <div class="info-card">
-                    <h3>限制行為能力<br><small>7歲以上，未滿18歲</small></h3>
-                    <h4>法律效力：<span class="highlight-text">部分有效</span></h4>
+                    <h4>無行為能力</h4>
                     <ul>
-                        <li><strong>原則</strong>：須經法定代理人事前允許或事後承認才有效。</li>
-                        <li><strong>例外</strong>：不須取得同意也有效的行為：
-                            <ul>
-                                <li>單純獲得利益的行為（如：領獎學金）。</li>
-                                <li>依其年齡與身分，日常生活所必需者（如：買文具、搭捷運）。</li>
-                            </ul>
-                        </li>
+                        <li><strong>對象：</strong>未滿 7 歲；或受監護宣告者。</li>
+                        <li><strong>效力：</strong>法律行為無效，須由<strong class="highlight-text">法定代理人</strong>代為行使。</li>
                     </ul>
                 </div>
-                <div class="info-card">
-                    <h3>完全行為能力<br><small>年滿18歲</small></h3>
-                    <h4>法律效力：<span class="highlight-text">有效</span></h4>
-                    <p>其法律行為在法律上具有完全效力。</p>
-                    <h4>法律責任</h4>
-                    <p>自己為自己的行為負完全責任。</p>
+                 <div class="info-card">
+                    <h4>限制行為能力</h4>
+                    <ul>
+                        <li><strong>對象：</strong>7 歲以上，未滿 18 歲。</li>
+                        <li><strong>效力：</strong>法律行為須經<strong class="highlight-text">法定代理人</strong>事前允許或事後承認才有效力。</li>
+                         <li><strong>例外：</strong>純獲法律上利益（如收紅包）、依年齡身分日常生活所必需者（如買文具），不在此限。</li>
+                    </ul>
+                </div>
+                 <div class="info-card">
+                    <h4>完全行為能力</h4>
+                    <ul>
+                        <li><strong>對象：</strong>年滿 18 歲。</li>
+                        <li><strong>效力：</strong>法律行為在法律上完全有效。</li>
+                    </ul>
                 </div>
             </div>
         </section>
 
-        <section id="contract-section">
-            <h2 class="section-title"><i class="fas fa-file-signature"></i> 三、契約的訂定與原則</h2>
-            <div class="highlight-box">
-                <h4><i class="fas fa-lightbulb"></i> 契約是什麼？</h4>
-                <p>契約當事人互相表示<strong class="highlight-text">意思一致</strong>而訂立的協議。契約一旦成立，雙方須依約定履行權利和義務。</p>
+        <section id="tort-section">
+            <h2 class="section-title"><i class="fas fa-car-crash"></i> 三、侵權行為與損害賠償</h2>
+            <div class="info-card" style="margin-top:0;">
+                <p>指因<strong class="highlight-text">故意</strong>或<strong class="highlight-text">過失</strong>，不法侵害他人權利，造成損害的行為。</p>
                 <ul>
-                    <li><strong>非要式契約</strong>：口頭約定、明示或默示都可生效（例：買早餐）。</li>
-                    <li><strong>要式契約</strong>：須以特定方式完成才有效（例：不動產移轉→書面契約+登記）。</li>
+                    <li><strong>財產損害</strong>：侵權行為造成他人財產的直接減少，或應增加而未增加。</li>
+                    <li><strong>非財產損害</strong>：侵權行為造成他人精神上的痛苦。</li>
                 </ul>
-            </div>
-            <div class="comparison-cards-container grid-3-col" style="margin-top: 2rem;">
-                <div class="info-card">
-                    <h3>原則一：契約自由</h3>
-                    <p>個人有依其意思簽訂契約的自由，但內容須不違反<strong class="highlight-text">法律</strong>、<strong class="highlight-text">公共秩序</strong>、<strong class="highlight-text">善良風俗</strong>。</p>
-                </div>
-                <div class="info-card">
-                    <h3>原則二：誠實信用</h3>
-                    <p>行使權利，履行義務，應依誠實及信用方法。此為《民法》最高指導原則。</p>
-                </div>
-                <div class="info-card">
-                    <h3>原則三：消滅時效</h3>
-                    <p>權利的請求具有時效性。債權人經過一定期間不行使權利，其請求權就會<strong class="highlight-text">喪失或受到限制</strong>。</p>
-                </div>
+                <p><strong>法律責任</strong>：被害人可向加害人請求損害賠償，以填補其損害。</p>
             </div>
         </section>
-
-        <section id="liability-section">
-            <h2 class="section-title"><i class="fas fa-balance-scale-right"></i> 四、民事責任</h2>
-            <p>指違反《民法》規定應遵守的義務時，所須承擔的法律責任，主要有兩種類型：</p>
-            <div class="comparison-cards-container">
-                <div class="info-card">
-                    <h3>侵權行為</h3>
-                    <p>因<strong class="highlight-text">故意</strong>或<strong class="highlight-text">過失</strong>，不法侵害他人的權利或利益的行為。</p>
-                    <h4>責任</h4>
-                    <ul>
-                        <li><strong>原則</strong>：回復原狀。</li>
-                        <li><strong>無法回復原狀時</strong>：則以金錢賠償。</li>
-                    </ul>
-                </div>
-                <div class="info-card">
-                    <h3>債務不履行</h3>
-                    <p>未依照法律規定或契約約定履行所訂之義務。</p>
-                    <h4>責任</h4>
-                    <p>權利受損害的一方（債權人）可要求：</p>
-                    <ul>
-                        <li>解除契約</li>
-                        <li>損害賠償</li>
-                        <li>減少價金</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
+        
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
             <div class="quiz-container" id="quiz1">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(113 會考)</span></h3>
-                <div class="question">
-                    <p>小央花費數萬元購買限量模型，將商品帶回家後遭到父母反對，並立刻陪同小央返回店家要求退貨。根據我國法律規定，就小央的年齡而言，此項契約須經法定代理人同意才具備效力，因此店家只能辦理退貨。根據上述內容判斷，下列何者最可能是小央的年齡？</p>
+                <h3 class="quiz-title"><i class="fas fa-tasks"></i>模擬神給酷</h3>
+                <div class="info-card" style="margin-top:0;">
+                     <p><strong>請依敘述判斷其行為的法律效力，有效為 O，無效為 X。</strong></p>
+                     <div class="law-options-list">
+                         <div class="law-option-item"><span class="law-option-label">O</span> 有效</div>
+                         <div class="law-option-item"><span class="law-option-label">X</span> 無效</div>
+                     </div>
+                     <div class="matching-item" data-answer="X"><p>1. 6 歲的品萱，將哥哥的平板電腦賣給小儀。</p><select class="matching-select"><option>請選擇</option><option value="O">O</option><option value="X">X</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="O"><p>2. 17 歲的泰泰過生日，收到朋友贈送的手機。</p><select class="matching-select"><option>請選擇</option><option value="O">O</option><option value="X">X</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="O"><p>3. 剛過 18 歲生日的敏敏，為創業向銀行貸款。</p><select class="matching-select"><option>請選擇</option><option value="O">O</option><option value="X">X</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="X"><p>4. 17 歲的小珍簽訂租屋契約，父母事後不同意。</p><select class="matching-select"><option>請選擇</option><option value="O">O</option><option value="X">X</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="X"><p>5. 25 歲受監護宣告的琪琪，向車行購買汽車。</p><select class="matching-select"><option>請選擇</option><option value="O">O</option><option value="X">X</option></select><i class="feedback-icon"></i></div>
                 </div>
-                <div class="options">
-                    <button class="option-btn" data-correct="true">(A) 16歲</button>
-                    <button class="option-btn" data-correct="false">(B) 6歲</button>
-                    <button class="option-btn" data-correct="false">(C) 20歲</button>
-                    <button class="option-btn" data-correct="false">(D) 父母離異，由祖父母扶養</button>
+                 <div class="info-card" style="background-color: rgba(240, 225, 74, 0.1); margin-top:1.5rem;">
+                    <h4 style="color: var(--accent-glow); border:none; padding-bottom:0;">解題關鍵</h4>
+                    <ul>
+                        <li><strong>無行為能力人</strong>：未滿 7 歲或受監護宣告者，須由法定代理人代為行使法律行為。</li>
+                        <li><strong>限制行為能力人</strong>：7 歲以上未滿 18 歲者，法律行為須經法定代理人事前允許或事後承認才有效。</li>
+                        <li><strong>完全行為能力人</strong>：滿 18 歲者，行為在法律上完全有效。</li>
+                    </ul>
                 </div>
-                <div class="feedback-area"></div>
-                <button class="reset-btn">再挑戰一次！</button>
-            </div>
-            <div class="quiz-container" id="quiz2">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(112 會考)</span></h3>
-                <div class="question">
-                    <p>新聞報導：15歲的小君自行跑到住家巷口的超商，將上萬元壓歲錢全數用來購買高額遊戲點數，事後小君的父母前往超商要求退款，認為超商未盡到把關責任。超商店長表示，小君購買點數時聲稱已獲得家長同意，所以才將商品販賣給他，對於小君父親的要求雖然感到相當無奈，但仍願意退款。關於上述消費爭議事件，下列何項說法最合理？</p>
-                </div>
-                <div class="options">
-                    <button class="option-btn" data-correct="false">(A) 買賣契約經雙方當事人同意即生效，超商店長無須退款</button>
-                    <button class="option-btn" data-correct="false">(B) 店家依法不得販售該商品給未成年人，店家應退款負責</button>
-                    <button class="option-btn" data-correct="true">(C) 法律規範契約自由，是為了保障限制行為能力人的權益</button>
-                    <button class="option-btn" data-correct="false">(D) 小君購買任何商品皆須得到法定代理人同意，才能避免爭議</button>
-                </div>
-                <div class="feedback-area"></div>
-                <button class="reset-btn">再挑戰一次！</button>
-            </div>
-            <div class="quiz-container" id="quiz3">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(109 會考)</span></h3>
-                <div class="question">
-                    <p>右圖為《民法》中年齡與行為能力的示意圖，甲、乙、丙分別代表不同程度的行為能力。下列何者最可能與圖中的「甲」屬於相同程度的行為能力？</p>
-                    <div class="highlight-box" style="padding:1rem; text-align:center;">
-                        甲（0歲） → 乙（7歲） → 丙（18歲）
-                    </div>
-                </div>
-                <div class="options">
-                    <button class="option-btn" data-correct="true">(A) 受到法院監護宣告的大明</button>
-                    <button class="option-btn" data-correct="false">(B) 遭到宣告禁治產的阿世</button> <!-- 註：(A)(B)在現行法下意義相同，(A)為新法用語 -->
-                    <button class="option-btn" data-correct="false">(C) 8歲因故仍未就學的小麗</button>
-                    <button class="option-btn" data-correct="false">(D) 9歲意外失去雙親的琪琪</button>
-                </div>
-                <div class="feedback-area"></div>
-                <button class="reset-btn">再挑戰一次！</button>
             </div>
         </section>
         
@@ -449,7 +412,7 @@
     
     <div id="mascot-container">
         <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
-        <div id="mascot-speech">懂民法，生活不踩雷！</div>
+        <div id="mascot-speech">誠信為本，守法為要！</div>
     </div>
 
     <footer>
@@ -514,71 +477,27 @@
             
             sections.forEach(section => observer.observe(section));
 
-            const allQuizData = {
-                quiz1: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>題目描述契約「須經法定代理人同意才具備效力」，這正是<strong class="highlight-text">限制行為能力人</strong>的特徵。我國《民法》規定，年滿7歲、未滿18歲者為限制行為能力人。因此，(A) 16歲符合此條件。</p>`,
-                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 6歲</strong>：屬於無行為能力人，其所為的法律行為「無效」，而非「須經同意才有效」。</p>`,
-                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 20歲</strong>：屬於完全行為能力人（年滿18歲即是），其契約無須法定代理人同意即有效。</p>`,
-                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 父母離異</strong>：這只影響監護權的歸屬，不影響行為能力的判斷標準（年齡）。</p>`
-                },
-                quiz2: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>15歲的小君是限制行為能力人，其購買高額點數的行為並非日常生活所必需，因此契約的效力處於「未定」狀態，需要法定代理人（父母）的同意。整個制度的設計目的，就是<strong class="highlight-text">在「契約自由」的原則下，為了保護思慮未周的未成年人而設的例外規定</strong>，故(C)的說法最能涵蓋此事件背後的法律精神。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 買賣契約因小君是限制行為能力人，所以效力未定，並非「同意即生效」。</p>`,
-                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 法律沒有「禁止」店家賣東西給未成年人，只是該契約的效力會受影響。</p>`,
-                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 這個說法太絕對。如果小君只是買一瓶飲料或一個麵包（日常生活所必需），就不需要父母同意。</p>`
-                },
-                quiz3: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>圖中的「甲」代表0歲開始的<strong class="highlight-text">無行為能力</strong>。除了未滿7歲的未成年人，因精神障礙而「受監護宣告」之人，在法律上也屬於無行為能力人。(A) 受到法院監護宣告的大明，與「甲」的法律地位相同。</p>`,
-                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 「禁治產」</strong>是舊法用語，其效果等同於現行的「監護宣告」，在舊考題中是正確答案。但在新法架構下，(A)的用詞更為精確。</p>`,
-                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 8歲的小麗</strong>：已滿7歲，屬於「乙」的限制行為能力人。</p>`,
-                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 9歲的琪琪</strong>：已滿7歲，屬於「乙」的限制行為能力人。失去雙親只影響監護問題，不改變其行為能力程度。</p>`
-                }
-            };
-            
-            const quizContainers = document.querySelectorAll('.quiz-container');
-            
-            quizContainers.forEach((container, index) => {
-                const quizId = `quiz${index + 1}`;
-                container.id = quizId;
-                const quizData = allQuizData[quizId];
-                if (!quizData) return;
-
-                const optionButtons = container.querySelectorAll('.option-btn');
-                const feedbackArea = container.querySelector('.feedback-area');
-                const resetButton = container.querySelector('.reset-btn');
-
-                optionButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        const isCorrect = button.dataset.correct === 'true';
-                        
-                        optionButtons.forEach(btn => {
-                            btn.disabled = true;
-                        });
-
-                        if (isCorrect) {
-                            button.classList.add('correct');
-                            feedbackArea.innerHTML = quizData.correct;
-                        } else {
-                            const optionLetter = button.textContent.substring(1, 2);
-                            button.classList.add('wrong');
-                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
-                            feedbackArea.innerHTML = quizData[optionLetter];
-                        }
-                        feedbackArea.className = `feedback-area ${isCorrect ? 'feedback-correct' : 'feedback-wrong'}`;
-                        feedbackArea.style.display = 'block';
-                        resetButton.style.display = 'block';
-                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    });
-                });
-                
-                resetButton.addEventListener('click', () => {
-                    optionButtons.forEach(btn => {
-                        btn.disabled = false;
-                        btn.classList.remove('correct', 'wrong');
-                    });
-                    feedbackArea.style.display = 'none';
-                    resetButton.style.display = 'none';
-                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+             const matchingSelects = document.querySelectorAll('.matching-select');
+            matchingSelects.forEach(select => {
+                select.addEventListener('change', (e) => {
+                    const selectedValue = e.target.value;
+                    const item = e.target.closest('.matching-item');
+                    const correctAnswer = item.dataset.answer;
+                    const feedbackIcon = item.querySelector('.feedback-icon');
+                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    feedbackIcon.innerHTML = '';
+                    if (selectedValue === "請選擇") {
+                        feedbackIcon.style.display = 'none';
+                        return;
+                    }
+                    feedbackIcon.style.display = 'inline-block';
+                    if (selectedValue === correctAnswer) {
+                        feedbackIcon.classList.add('icon-correct');
+                        feedbackIcon.innerHTML = '✓';
+                    } else {
+                        feedbackIcon.classList.add('icon-wrong');
+                        feedbackIcon.innerHTML = '✗';
+                    }
                 });
             });
 
@@ -586,7 +505,7 @@
             const mascotImg = document.getElementById('mascot-img');
             const speechBubble = document.getElementById('mascot-speech');
             
-            const messages = ["公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
             let messageIndex = 0;
             let clickTimer = null;
             let speechTimeout = null;

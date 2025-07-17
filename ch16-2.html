@@ -162,6 +162,9 @@
             gap: 1rem;
             margin-top: 1.5rem;
         }
+        .grid-3-col {
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        }
         .comparison-card {
             background-color: rgba(0,0,0,0.2);
             border-radius: 15px;
@@ -177,6 +180,15 @@
             gap: 0.5rem;
             color: var(--primary-glow);
             border-bottom: 1px solid var(--border-color);
+        }
+        .comparison-card ul {
+             list-style: none; padding-left: 0; font-size: 0.95rem; flex-grow: 1;
+        }
+        
+        .highlight-box { background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05)); padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow); font-size: 1.1rem; margin-top: 2rem; box-shadow: inset 0 0 10px rgba(240, 225, 74, 0.2); }
+        .highlight-box h4 {
+            color: var(--accent-glow); margin: 0 0 1rem 0; display: flex; align-items: center; gap: 0.75rem;
+            border: none; padding: 0; font-size: 1.2rem;
         }
         
         .quiz-container { margin-bottom: 3rem; }
@@ -196,6 +208,28 @@
         .quiz-title .quiz-source { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
         #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
         
+        .law-options-list {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .law-option-item {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .law-option-label {
+            color: var(--accent-glow);
+            font-weight: 700;
+            margin-right: 0.5em;
+            font-family: 'Orbitron', sans-serif;
+        }
+
         #quiz-section .options { display: grid; gap: 1rem; }
         .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
         .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
@@ -208,6 +242,14 @@
         .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
         .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
         .reset-btn:hover { transform: scale(1.05); }
+        
+        .matching-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .matching-item:last-child { border-bottom: none; }
+        .matching-item p { flex-grow: 1; margin: 0; }
+        .matching-select { background-color: var(--bg-dark); color: var(--text-color); border: 1px solid var(--primary-glow); border-radius: 5px; padding: 0.4rem; font-family: inherit; font-size: 1rem; cursor: pointer; }
+        .feedback-icon { font-size: 1.2rem; font-weight: 900; display: none; }
+        .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
+        .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
         
         .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect {
@@ -254,10 +296,14 @@
             .container { padding: 1rem; }
             section { padding: 1.5rem; }
             
-            .comparison-cards-container {
+            .comparison-cards-container.grid-3-col,
+            .comparison-cards-container,
+            .law-options-list {
                 grid-template-columns: 1fr;
             }
             #quiz-section .options { grid-template-columns: 1fr; }
+
+            .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
 
             #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
@@ -293,10 +339,8 @@
             <div class="info-card" style="margin-top:1.5rem;">
                 <h4><i class="fas fa-sitemap"></i>國際組織的種類</h4>
                 <div class="comparison-cards-container">
-                    <div class="comparison-card"><h5><i class="fas fa-globe"></i>全球性</h5><p>政府面臨全球普遍性議題，會透過全球性國際組織處理、解決。<br><strong>舉例：</strong>UN、WTO、WHO</p></div>
-                    <div class="comparison-card"><h5><i class="fas fa-map-marked-alt"></i>區域性</h5><p>政府面臨區域性議題，會透過區域國際組織處理、解決。<br><strong>舉例：</strong>EU、APEC、ASEAN</p></div>
-                    <div class="comparison-card"><h5><i class="fas fa-landmark"></i>政府的 (IGO)</h5><p>參與成員原則上必須為<strong class="highlight-text">主權國家</strong>的政府。<br><strong>舉例：</strong>EU、WHO、UN</p></div>
-                    <div class="comparison-card"><h5><i class="fas fa-users"></i>非政府的 (NGO)</h5><p>參與成員為<strong class="highlight-text">人民</strong>或是<strong class="highlight-text">民間團體</strong>。<br><strong>舉例：</strong>無國界醫生、臺灣路竹會</p></div>
+                    <div class="comparison-card"><h5><i class="fas fa-globe"></i>依範圍：全球性 vs. 區域性</h5><ul><li><strong>全球性：</strong>處理全球普遍性議題。<br>舉例：UN、WTO、WHO</li><li><strong>區域性：</strong>處理區域性議題。<br>舉例：EU、APEC、ASEAN</li></ul></div>
+                    <div class="comparison-card"><h5><i class="fas fa-users"></i>依成員：政府 vs. 非政府</h5><ul><li><strong>政府的 (IGO)：</strong>成員為<strong class="highlight-text">主權國家</strong>政府。<br>舉例：EU、WHO、UN</li><li><strong>非政府的 (NGO)：</strong>成員為<strong class="highlight-text">人民</strong>或<strong class="highlight-text">民間團體</strong>。<br>舉例：無國界醫生、臺灣路竹會</li></ul></div>
                 </div>
             </div>
         </section>
@@ -332,7 +376,30 @@
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
             <div class="quiz-container" id="quiz1">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(110 會考)</span></h3>
+                <h3 class="quiz-title"><i class="fas fa-tasks"></i>模擬神給酷</h3>
+                <div class="info-card" style="margin-top:0;">
+                     <p><strong>下列情境屬於何種國際互動？請填入正確代號。</strong></p>
+                     <div class="law-options-list">
+                         <div class="law-option-item"><span class="law-option-label">甲</span> 國際援助</div>
+                         <div class="law-option-item"><span class="law-option-label">乙</span> 國際合作</div>
+                         <div class="law-option-item"><span class="law-option-label">丙</span> 國際交流</div>
+                         <div class="law-option-item"><span class="law-option-label">丁</span> 國際衝突</div>
+                     </div>
+                     <div class="matching-item" data-answer="丁"><p>1. 以哈瑪斯為首的巴勒斯坦武裝團體入侵以色列南部。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="甲"><p>2. 我國派駐技術團至帛琉協助建立健康飲食觀念。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="乙"><p>3. 我國與美國共同簽署備忘錄以強化醫療合作。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="丙"><p>4. 我國學生與日本學生，利用視訊進行語言交流互動。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="甲"><p>5. 我國政府援助烏克蘭 27 噸的醫療器材與藥品等人道物資。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="丁"><p>6. 美國總統川普與烏克蘭總統澤倫斯基會談時發生激烈爭執，談判破裂，雙方不歡而散，美烏關係也陷入緊張。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                </div>
+                 <div class="info-card" style="background-color: rgba(240, 225, 74, 0.1); margin-top:1.5rem;">
+                    <h4 style="color: var(--accent-glow); border:none; padding-bottom:0;">解題關鍵</h4>
+                    <p>◆ 國際<strong class="highlight-text">合作</strong>與國際<strong class="highlight-text">交流</strong>最大的不同，在於前者通常會簽訂國際條約，且主要是政府間的合作。</p>
+                </div>
+            </div>
+            
+            <div class="quiz-container" id="quiz2">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(110 會考)</span></h3>
                 <div class="question">
                     <p>新聞報導：近來跨國犯罪案件頻傳，而我國籍嫌犯夥同東南亞犯罪集團詐騙民眾的消息也時有所聞，日前泰國與我國警方聯手破獲跨國詐騙集團，其犯罪所得估計約新臺幣數千萬元，對此泰國感謝我國政府協助偵辦，避免更多泰國民眾受害。根據上述案例推論，未來各國應更加重視下列何者？</p>
                 </div>
@@ -345,8 +412,8 @@
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
-            <div class="quiz-container" id="quiz2">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(110 會考)</span></h3>
+            <div class="quiz-container" id="quiz3">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(110 會考)</span></h3>
                 <div class="question">
                     <p>食物是人類維持生存的必需品，但世界上卻不是人人都能夠吃飽喝足，因此，聯合國在 1945 年 10 月 16 日成立糧食與農業組織，希望能有效管理全球糧食系統，讓更多人擺脫飢餓……。文中國際組織的分布區域及成員性質，與下列何者最類似？</p>
                 </div>
@@ -443,6 +510,30 @@
             
             sections.forEach(section => observer.observe(section));
 
+            const matchingSelects = document.querySelectorAll('.matching-select');
+            matchingSelects.forEach(select => {
+                select.addEventListener('change', (e) => {
+                    const selectedValue = e.target.value;
+                    const item = e.target.closest('.matching-item');
+                    const correctAnswer = item.dataset.answer;
+                    const feedbackIcon = item.querySelector('.feedback-icon');
+                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    feedbackIcon.innerHTML = '';
+                    if (selectedValue === "請選擇") {
+                        feedbackIcon.style.display = 'none';
+                        return;
+                    }
+                    feedbackIcon.style.display = 'inline-block';
+                    if (selectedValue === correctAnswer) {
+                        feedbackIcon.classList.add('icon-correct');
+                        feedbackIcon.innerHTML = '✓';
+                    } else {
+                        feedbackIcon.classList.add('icon-wrong');
+                        feedbackIcon.innerHTML = '✗';
+                    }
+                });
+            });
+
             const allQuizData = {
                 quiz1: {
                     correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>題目描述泰國與我國警方「聯手」破獲「跨國」詐騙集團，這是一種為了共同利益（打擊犯罪）而進行的跨國行動，屬於<strong class="highlight-text">國際合作</strong>。面對日益猖獗的跨國犯罪，單一國家很難有效打擊，因此未來各國應更加重視透過國際合作來共同應對。</p>`,
@@ -458,52 +549,55 @@
                 }
             };
             
-            const quizContainers = document.querySelectorAll('.quiz-container');
-            
-            quizContainers.forEach((container) => {
-                const quizId = container.id;
-                if (!quizId) return;
-                const quizData = allQuizData[quizId];
-                if (!quizData) return;
+            const mcqContainers = document.querySelectorAll('.quiz-container');
+            let mcqIndex = 0;
+            mcqContainers.forEach((container) => {
+                if(container.querySelector('.option-btn')) {
+                    mcqIndex++;
+                    const quizId = `quiz${mcqIndex}`; 
+                    container.id = quizId;
+                    const quizData = allQuizData[quizId];
+                    if (!quizData) return;
 
-                const optionButtons = container.querySelectorAll('.option-btn');
-                const feedbackArea = container.querySelector('.feedback-area');
-                const resetButton = container.querySelector('.reset-btn');
+                    const optionButtons = container.querySelectorAll('.option-btn');
+                    const feedbackArea = container.querySelector('.feedback-area');
+                    const resetButton = container.querySelector('.reset-btn');
 
-                optionButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        const isCorrect = button.dataset.correct === 'true';
-                        
-                        optionButtons.forEach(btn => {
-                            btn.disabled = true;
+                    optionButtons.forEach(button => {
+                        button.addEventListener('click', () => {
+                            const isCorrect = button.dataset.correct === 'true';
+                            
+                            optionButtons.forEach(btn => {
+                                btn.disabled = true;
+                            });
+
+                            if (isCorrect) {
+                                button.classList.add('correct');
+                                feedbackArea.innerHTML = quizData.correct;
+                                feedbackArea.className = 'feedback-area feedback-correct';
+                            } else {
+                                const optionLetter = button.textContent.substring(1, 2);
+                                button.classList.add('wrong');
+                                container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                                feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
+                                feedbackArea.className = 'feedback-area feedback-wrong';
+                            }
+                            feedbackArea.style.display = 'block';
+                            resetButton.style.display = 'block';
+                            feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
                         });
-
-                        if (isCorrect) {
-                            button.classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId].correct;
-                            feedbackArea.className = 'feedback-area feedback-correct';
-                        } else {
-                            const optionLetter = button.textContent.substring(1, 2);
-                            button.classList.add('wrong');
-                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
-                            feedbackArea.className = 'feedback-area feedback-wrong';
-                        }
-                        feedbackArea.style.display = 'block';
-                        resetButton.style.display = 'block';
-                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     });
-                });
-                
-                resetButton.addEventListener('click', () => {
-                    optionButtons.forEach(btn => {
-                        btn.disabled = false;
-                        btn.classList.remove('correct', 'wrong');
+                    
+                    resetButton.addEventListener('click', () => {
+                        optionButtons.forEach(btn => {
+                            btn.disabled = false;
+                            btn.classList.remove('correct', 'wrong');
+                        });
+                        feedbackArea.style.display = 'none';
+                        resetButton.style.display = 'none';
+                        container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
                     });
-                    feedbackArea.style.display = 'none';
-                    resetButton.style.display = 'none';
-                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                });
+                }
             });
 
             const mascotContainer = document.getElementById('mascot-container');
