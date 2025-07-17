@@ -102,12 +102,15 @@
             margin-top: 1.5rem;
             margin-bottom: 1rem;
         }
+        h3:first-of-type {
+             margin-top: 0;
+        }
 
         .highlight-text { font-weight: bold; color: var(--accent-glow); text-shadow: 0 0 5px var(--accent-glow); }
 
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
             color: var(--primary-glow);
@@ -120,8 +123,21 @@
         
         .section-title i { font-size: clamp(1.6rem, 4.5vw, 2.2rem); color: var(--accent-glow); text-shadow: 0 0 10px var(--accent-glow); }
         
-        .info-card { background: rgba(0,0,0,0.2); border: 1px solid var(--border-color); border-radius: 15px; padding: 1.5rem; margin-bottom: 1.5rem; }
-        .info-card h4 { margin-top: 0; border-bottom: 2px solid var(--accent-border-color); padding-bottom: 0.5rem; }
+        .info-card { 
+            background: rgba(0,0,0,0.2); 
+            border: 1px solid var(--border-color); 
+            border-radius: 15px; 
+            padding: 1.5rem; 
+            margin-bottom: 1.5rem;
+        }
+        .info-card:last-child {
+            margin-bottom: 0;
+        }
+        .info-card h4 {
+            margin-top: 0;
+            border-bottom: 2px solid var(--accent-border-color);
+            padding-bottom: 0.5rem;
+        }
         .info-card p, .info-card ul { font-size: 1.05rem; }
         .info-card ul { list-style: none; padding-left: 1rem; }
         .info-card li::before { content: '»'; color: var(--accent-glow); font-weight: bold; margin-right: 0.75rem; }
@@ -145,10 +161,6 @@
         .comparison-grid-item { background: rgba(0,0,0,0.2); border: 1px solid var(--border-color); border-radius: 15px; padding: 1.5rem; }
         .comparison-grid-item h4 { text-align: center; margin-top:0; }
         
-        .law-table { display: grid; grid-template-columns: 120px 1fr; gap: 1rem; border: 1px solid var(--accent-border-color); border-radius: 15px; padding: 1.5rem; margin-top: 1rem; align-items: center; }
-        .law-table .label { font-weight: bold; color: var(--accent-glow); text-align: right; }
-        .law-table .content { border-left: 2px solid var(--border-color); padding-left: 1rem; }
-
         .quiz-container { margin-bottom: 3rem; }
         .quiz-container:last-child { margin-bottom: 0; }
         .quiz-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.5rem 1rem; }
@@ -163,7 +175,7 @@
         .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark); }
         
         .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
-        .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
+        .feedback-area h3 { margin: 0 0 1rem 0; font-family: 'Orbitron', sans-serif;}
         .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
         .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
         
@@ -178,21 +190,20 @@
         .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
         .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
 
-        /* --- NEW STYLES FOR LAW OPTIONS --- */
         .law-options-list {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 0.75rem;
             margin-top: 1rem;
+            margin-bottom: 1rem;
         }
         .law-option-item {
             background-color: rgba(0, 0, 0, 0.3);
             border: 1px solid var(--border-color);
             padding: 0.5rem 1rem;
             border-radius: 8px;
-            flex-grow: 1;
             text-align: center;
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
         .law-option-label {
             color: var(--accent-glow);
@@ -200,8 +211,6 @@
             margin-right: 0.5em;
             font-family: 'Orbitron', sans-serif;
         }
-        /* --- END OF NEW STYLES --- */
-
 
         .table-container { overflow-x: auto; }
         .data-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.95rem; }
@@ -227,7 +236,7 @@
         #mascot-speech { position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9); color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3); }
         #mascot-speech.visible { opacity: 1; transform: translateY(0); }
         .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
-
+        
         .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect { position: relative; z-index: 5; font-family: 'Orbitron', monospace; font-size: clamp(1.0rem, 2vw + 0.5rem, 1.6rem); font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); text-align: center; max-width: 100%; }
         .typing-effect .cursor { display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); margin-left: 5px; width: 10px; height: 1em; animation: blink-caret 0.75s step-end infinite; }
@@ -237,20 +246,13 @@
 
         @media (max-width: 768px) {
             .container { padding: 1rem; }
-            header { padding: 3rem 1rem; }
             section { padding: 1.5rem; margin-bottom: 2rem; }
-            h3 { font-size: 1.6rem; }
-            h4 { font-size: 1.3rem; }
             
-            .principle-comparison { 
+            .principle-comparison,
+            .comparison-grid,
+            .law-options-list { 
                 grid-template-columns: 1fr; 
             }
-            .comparison-grid { grid-template-columns: 1fr; gap: 1rem; }
-            
-            .law-table { grid-template-columns: 1fr; padding: 1rem; gap: 0.5rem; }
-            .law-table .label { text-align: left; padding-bottom: 0.5rem; border-bottom: 1px solid var(--accent-border-color); margin-bottom: 0.5rem; }
-            .law-table .content { border-left: none; padding-left: 0; }
-            
             #quiz-section .question, .option-btn { font-size: 1rem; }
             .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
             #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
@@ -274,8 +276,8 @@
         <section id="inequality-origin-section">
             <h2 class="section-title"><i class="fas fa-venus-mars"></i>一、性別差異與不平等的產生</h2>
             
-            <h3>(一) 性別差異</h3>
-            <div class="info-card">
+            <h3 style="margin-top:0;">(一) 性別差異</h3>
+            <div class="info-card" style="margin-bottom:0.5rem;">
                 <h4>生理性別</h4>
                 <p>指兩性間生理結構上的差異，是<strong class="highlight-text">與生俱來</strong>的。</p>
                 <p><strong>舉例：</strong>青春期後，男生出現喉結，女生出現月經。</p>
@@ -378,7 +380,7 @@
 
         <section id="promotion-section">
             <h2 class="section-title"><i class="fas fa-gavel"></i>三、促進性別平等 (性平三法)</h2>
-            <div class="info-card">
+            <div class="info-card" style="margin-bottom:0.5rem;">
                 <h3>(一) 消弭不平等觀念</h3>
                 <ul>
                     <li>性別平等並非否認性別差異，而是強調<strong class="highlight-text">關懷個人的本質</strong>，不以性別刻板印象妄下論斷。</li>
@@ -388,12 +390,10 @@
             <div class="info-card">
                 <h3>(二) 制定性平法規</h3>
                 <h4>性別平等教育法</h4>
-                <p><strong>規範面向：</strong>教育上的平等。</p>
-                <p><strong>規定：</strong>應教導學生尊重多元性別差異，課程設置及活動設計，不得因性別而有差別待遇。</p>
+                <p><strong>規範面向：</strong>教育上的平等。<br><strong>規定：</strong>應教導學生尊重多元性別差異，課程設置及活動設計，不得因性別而有差別待遇。</p>
                 
                 <h4>性別平等工作法</h4>
-                <p><strong>規範面向：</strong>工作上的平等。</p>
-                <p><strong>規定：</strong>保障求職者、受雇者不因性別而受差別待遇。禁止要求女性簽訂<strong class="highlight-text">單身或禁孕條款</strong>。提供<strong class="highlight-text">產假、陪產假、育嬰假、家庭照顧假</strong>，以及<strong class="highlight-text">哺乳時間</strong>。</p>
+                <p><strong>規範面向：</strong>工作上的平等。<br><strong>規定：</strong>保障求職者、受雇者不因性別而受差別待遇。禁止要求女性簽訂<strong class="highlight-text">單身或禁孕條款</strong>。提供<strong class="highlight-text">產假、陪產假、育嬰假、家庭照顧假</strong>，以及<strong class="highlight-text">哺乳時間</strong>。</p>
 
                 <h4>性騷擾防治法</h4>
                 <p><strong>規範面向：</strong>其他公共場合的性騷擾事件。</p>
@@ -418,23 +418,10 @@
         
         <section id="law-comparison-section">
             <h2 class="section-title"><i class="fas fa-book-reader"></i>五、性平三法比較總覽</h2>
-            <div class="law-table">
-                <div class="label">法律名稱</div><div class="content"><strong>性別平等教育法</strong></div>
-                <div class="label">適用對象</div><div class="content">各級學校校長、教職員工、學生。</div>
-                <div class="label">適用範圍</div><div class="content">校園事件 (一方為學校教職員工生，另一方為學生)。</div>
-                <div class="label">適用情境</div><div class="content">「你今天穿什麼顏色的內衣啊？讓我看一下嘛！」</div>
-            </div>
-            <div class="law-table">
-                <div class="label">法律名稱</div><div class="content"><strong>性別平等工作法</strong></div>
-                <div class="label">適用對象</div><div class="content">雇主、求職者、受雇者。</div>
-                <div class="label">適用範圍</div><div class="content">職場事件 (應徵時、執行職務期間、非工作時間遭職場相關人士性騷擾)。</div>
-                <div class="label">適用情境</div><div class="content">「今天下班後要不要到我家喝個小酒、看個貓咪後空翻？」</div>
-            </div>
-             <div class="law-table">
-                <div class="label">法律名稱</div><div class="content"><strong>性騷擾防治法</strong></div>
-                <div class="label">適用對象</div><div class="content">不特定對象。</div>
-                <div class="label">適用範圍</div><div class="content">其他事件 (不適用前兩法者)。</div>
-                <div class="label">適用情境</div><div class="content">在大眾交通工具、百貨公司等公共場所被陌生人性騷擾。</div>
+            <div class="comparison-cards-container">
+                <div class="info-card"><h4><i class="fas fa-school"></i>性別平等教育法</h4><ul><li><strong>適用對象：</strong>各級學校校長、教職員工、學生。</li><li><strong>適用範圍：</strong>校園事件 (一方為學校教職員工生，另一方為學生)。</li><li><strong>情境：</strong>「你今天穿什麼顏色的內衣啊？讓我看一下嘛！」</li></ul></div>
+                <div class="info-card"><h4><i class="fas fa-briefcase"></i>性別平等工作法</h4><ul><li><strong>適用對象：</strong>雇主、求職者、受雇者。</li><li><strong>適用範圍：</strong>職場事件 (應徵時、執行職務期間、非工作時間遭職場相關人士性騷擾)。</li><li><strong>情境：</strong>「今天下班後要不要到我家喝個小酒、看個貓咪後空翻？」</li></ul></div>
+                <div class="info-card"><h4><i class="fas fa-users"></i>性騷擾防治法</h4><ul><li><strong>適用對象：</strong>不特定對象。</li><li><strong>適用範圍：</strong>其他事件 (不適用前兩法者)。</li><li><strong>情境：</strong>在大眾交通工具、百貨公司等公共場所被陌生人性騷擾。</li></ul></div>
             </div>
         </section>
 
@@ -444,14 +431,12 @@
             <div class="quiz-container">
                 <h3 class="quiz-title"><i class="fas fa-tasks"></i>模擬神給酷 <span class="quiz-source">(情境判斷)</span></h3>
                 <div class="info-card">
-                     <!-- --- THIS IS THE MODIFIED HTML --- -->
                      <p><strong>請判斷下列作為適用哪部法律？</strong></p>
                      <div class="law-options-list">
                          <div class="law-option-item"><span class="law-option-label">甲</span> 性平教育法</div>
                          <div class="law-option-item"><span class="law-option-label">乙</span> 性平工作法</div>
                          <div class="law-option-item"><span class="law-option-label">丙</span> 性騷擾防治法</div>
                      </div>
-                     <!-- --- END OF MODIFIED HTML --- -->
                      <div class="matching-item" data-answer="乙"><p>1. 小林在面試時，遭面試官以曖昧語言騷擾。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
                      <div class="matching-item" data-answer="甲"><p>2. 小振在搭公車時，對同學小晴講黃色笑話。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
                      <div class="matching-item" data-answer="丙"><p>3. 阿明在捷運上，被陌生人撫摸手臂、屁股。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
@@ -461,7 +446,7 @@
                 </div>
         
                  <div class="info-card" style="background-color: rgba(240, 225, 74, 0.1);">
-                    <h4 style="color: var(--accent-glow);">解題關鍵</h4>
+                    <h4 style="color: var(--accent-glow); border:none; padding-bottom:0;">解題關鍵</h4>
                     <p>判斷性騷擾適用法規的關鍵在於<strong class="highlight-text">「加害人與被害人的關係」</strong>，而非「場合或地點」。<br>
                     • 關係涉及<strong class="highlight-text">師生/校園</strong> → 性平教育法 (甲)<br>
                     • 關係涉及<strong class="highlight-text">雇主/職場</strong> → 性平工作法 (乙)<br>
