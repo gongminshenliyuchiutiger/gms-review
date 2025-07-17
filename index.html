@@ -56,9 +56,15 @@
             z-index: 1;
         }
 
+        /* --- 排版優化: 第一個 section 與 header 增加間距 --- */
+        main.container > section:first-of-type {
+            margin-top: 2rem;
+        }
+
         header {
             text-align: center;
-            padding: 5rem 0; 
+            /* --- 排版優化: 減少垂直 padding，讓內容更快進入視野 --- */
+            padding: 4rem 1rem; 
             border-bottom: 2px solid var(--border-color);
             box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
             position: relative;
@@ -77,7 +83,9 @@
 
         header h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2.5rem, 10vw, 4.5rem);
+            /* --- MODIFICATION: 調整 clamp() 讓字體在小螢幕上更具彈性，並確保不換行 --- */
+            font-size: clamp(2.2rem, 8vw, 4.5rem);
+            white-space: nowrap; /* 強制不換行 */
             font-weight: 900;
             color: var(--text-color);
             text-shadow:
@@ -104,7 +112,9 @@
 
         header h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(1.2rem, 5vw, 1.8rem);
+            /* --- MODIFICATION: 調整 clamp() 讓字體在小螢幕上更具彈性，並確保不換行 --- */
+            font-size: clamp(1.1rem, 4.5vw, 1.8rem);
+            white-space: nowrap; /* 強制不換行 */
             font-weight: 700;
             color: var(--secondary-glow);
             margin-top: 1rem;
@@ -168,7 +178,7 @@
             transform: rotate(-15deg);
         }
 
-        /* --- MODIFICATION START: Search Box Styles --- */
+        /* --- Search Box Styles --- */
         .search-container {
             position: relative;
             max-width: 500px;
@@ -220,9 +230,8 @@
             opacity: 1;
             transform: translateY(-50%) scale(1.2);
         }
-        /* --- MODIFICATION END --- */
 
-        /* --- MODIFICATION START: No Results Message Style --- */
+        /* --- No Results Message Style --- */
         #no-results-message {
             display: none; /* Initially hidden */
             text-align: center;
@@ -232,7 +241,6 @@
             padding: 3rem 0;
             font-family: 'Orbitron', sans-serif;
         }
-        /* --- MODIFICATION END --- */
         
         section {
             margin-bottom: 4rem;
@@ -299,6 +307,7 @@
             transform: translateY(-10px) scale(1.03);
             border-color: var(--accent-glow);
             box-shadow: 0 15px 30px rgba(240, 225, 74, 0.2);
+            /* --- 排版優化: 增加背景色變化，提升互動感 --- */
             background-color: rgba(240, 225, 74, 0.1);
             outline: none;
         }
@@ -344,7 +353,8 @@
 
         @media (max-width: 768px) {
             .container { padding: 1rem; }
-            header { padding: 4rem 1rem; }
+            /* --- 排版優化: 在手機上進一步減少 header padding --- */
+            header { padding: 3rem 1rem; }
             .header-links { 
                 gap: 1.5rem; 
                 flex-direction: column;
@@ -356,14 +366,12 @@
             .chapter-grid { grid-template-columns: 1fr; }
             #mascot-img { width: 80px; }
             #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
-            /* --- MODIFICATION START: Responsive search box --- */
             .search-container {
                 margin-top: 2rem;
             }
             #search-input {
                 padding: 10px 15px 10px 40px;
             }
-            /* --- MODIFICATION END --- */
         }
 
     </style>
@@ -380,7 +388,6 @@
                 <!-- Header links will be inserted here by JS -->
             </div>
             
-            <!-- MODIFICATION START: Search Box HTML -->
             <div class="search-container">
                 <i class="fas fa-search search-icon"></i>
                 <input type="text" id="search-input" placeholder="搜尋章節關鍵字 (例如: 民法, 10-1)..." autocomplete="off">
@@ -388,7 +395,6 @@
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <!-- MODIFICATION END -->
         </div>
     </header>
 
@@ -401,11 +407,9 @@
         <section id="book5" data-book="5"><h2 class="section-title"><i class="fas fa-chart-line"></i> 第五冊・經濟選擇與市場</h2><div class="chapter-grid" id="book5-grid"></div></section>
         <section id="book6" data-book="6"><h2 class="section-title"><i class="fas fa-globe-asia"></i> 第六冊・科技、媒體與全球化</h2><div class="chapter-grid" id="book6-grid"></div></section>
 
-        <!-- MODIFICATION START: No Results Message HTML -->
         <div id="no-results-message">
             <i class="fas fa-ghost"></i> 找不到符合的章節...
         </div>
-        <!-- MODIFICATION END -->
     </main>
     
     <div id="mascot-container">
@@ -421,7 +425,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Galaxy Background (No changes) ---
+            // --- Galaxy Background ---
             const canvas = document.getElementById('starry-sky');
             const ctx = canvas.getContext('2d');
             let width, height, stars = [];
@@ -474,9 +478,8 @@
             init();
             draw();
 
-            // --- Dynamic Link Generation (No changes) ---
+            // --- Dynamic Link Generation ---
             const chapters = [
-                // ... (chapter data remains the same)
                  // Book 1 (1-3)
                 { file: 'ch1-1.html', title: '人性尊嚴與普世人權', chapter: '1-1' },
                 { file: 'ch1-2.html', title: '性別', chapter: '1-2' },
@@ -548,7 +551,7 @@
                 headerLinksContainer.innerHTML += `<a href="${link.url}" target="_blank" rel="noopener noreferrer"><i class="${link.icon}"></i><span>${link.text}</span></a>`;
             });
 
-            // Section fade-in animation (No changes)
+            // Section fade-in animation
             const allSections = document.querySelectorAll('section');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -559,7 +562,7 @@
             }, { threshold: 0.1 }); 
             allSections.forEach(section => observer.observe(section));
 
-            // Mascot JS (No changes)
+            // Mascot JS
             const mascotContainer = document.getElementById('mascot-container');
             const mascotBtn = document.getElementById('mascot-btn');
             const mascotImg = document.getElementById('mascot-img');
@@ -596,8 +599,7 @@
                 setTimeout(() => mascotImg.classList.remove('enlarged'), 300);
             }
             
-
-            /* --- MODIFICATION START: Search Functionality --- */
+            // --- Search Functionality ---
             const searchInput = document.getElementById('search-input');
             const clearSearchBtn = document.getElementById('clear-search-btn');
             const noResultsMessage = document.getElementById('no-results-message');
@@ -642,7 +644,6 @@
                 searchInput.dispatchEvent(new Event('input'));
                 searchInput.focus();
             });
-            /* --- MODIFICATION END --- */
         });
     </script>
 </body>
