@@ -12,7 +12,7 @@
         :root {
             --primary-glow: #00f2ea; /* 亮青色 */
             --secondary-glow: #ff00ff; /* 洋紅色 */
-            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --accent-glow: #f0e14a; /* 金黃色 */
             --bg-dark: #0d1b2a;
             --bg-dark-2: #020a12;
             --text-color: #e0e0e0;
@@ -37,17 +37,17 @@
 
         header {
             text-align: center;
-            padding: 5rem 0;
+            padding: 5rem 1rem;
             border-bottom: 2px solid var(--border-color);
             box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+            overflow: hidden;
         }
 
         header h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3.8rem;
+            font-size: clamp(2.5rem, 4vw, 3.8rem);
             font-weight: 900;
             color: var(--text-color);
-            white-space: nowrap; /* 新增：防止標題換行 */
             text-shadow:
                 0 0 5px #fff,
                 0 0 10px var(--accent-glow),
@@ -65,7 +65,7 @@
 
         header h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
             font-weight: 700;
             color: var(--secondary-glow);
             margin-top: 1rem;
@@ -94,15 +94,11 @@
         
         section.visible { opacity: 1; transform: translateY(0); }
         
-        .highlight-text {
-            font-weight: bold;
-            color: var(--accent-glow);
-            text-shadow: 0 0 5px var(--accent-glow);
-        }
+        .highlight-text { font-weight: bold; color: var(--accent-glow); text-shadow: 0 0 5px var(--accent-glow); }
 
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
             color: var(--primary-glow);
@@ -110,66 +106,165 @@
             align-items: center;
             gap: 1rem;
             text-shadow: 0 0 10px var(--primary-glow);
+            flex-wrap: wrap;
         }
-        
         .section-title i {
-            font-size: 2.2rem;
+            font-size: clamp(1.6rem, 4.5vw, 2.2rem);
             color: var(--accent-glow);
             text-shadow: 0 0 10px var(--accent-glow);
         }
-        
-        h3, h4 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--primary-glow);
-            margin-bottom: 1rem;
-        }
-        h3 { font-size: 1.6rem; }
-        h4 { font-size: 1.4rem; }
 
-        .info-card {
-            background: rgba(0,0,0,0.2);
-            border: 1px solid var(--border-color);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-top: 1.5rem;
+        h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 1.8rem);
+            color: var(--primary-glow);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
         }
-        .info-card h4 {
+        h3:first-of-type {
             margin-top: 0;
+        }
+        
+        h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
             color: var(--accent-glow);
+            margin: 0 0 1rem 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        
+        .info-card { 
+            background: rgba(0,0,0,0.2); 
+            border: 1px solid var(--border-color); 
+            border-radius: 15px; 
+            padding: 1.5rem;
+        }
+        
+        .info-card h4 { 
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            color: var(--primary-glow);
+            margin: 0 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
             border-bottom: 2px solid var(--accent-border-color);
             padding-bottom: 0.5rem;
         }
-        .info-card ul { list-style: none; padding: 0;}
-        .info-card li { position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem; }
+         .info-card ul {
+            list-style: none; padding-left: 0;
+        }
+        .info-card li {
+            position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem;
+        }
         .info-card li::before {
             content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
             position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
+        .info-card ul ul {
+            padding-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        .info-card ul ul li::before {
+            content: '\f0da';
+        }
 
-        .comparison-table {
-            width: 100%; border-collapse: collapse; margin-top: 1.5rem;
+        .comparison-item {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            margin-top: 1.5rem;
         }
-        .comparison-table th, .comparison-table td {
-            border: 1px solid var(--border-color); padding: 1rem; text-align: left;
-            vertical-align: top;
+        .comparison-item:last-child {
+            margin-bottom: 0;
         }
-        .comparison-table thead th { background-color: rgba(13, 27, 42, 0.7); color: var(--primary-glow); text-align: center; }
-        .comparison-table tbody th { font-weight: bold; color: var(--accent-glow); text-align: center; }
+        .comparison-item h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-glow);
+            text-align: center;
+            font-size: clamp(1.3rem, 2.8vw, 1.6rem);
+            margin: 0;
+        }
+        .comparison-cards-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .grid-3-col {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        .comparison-card {
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid transparent;
+        }
+        .comparison-card h5 {
+            font-size: 1.2rem;
+            margin: 0 0 1rem 0;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .comparison-card ul {
+             list-style: none; padding-left: 0; font-size: 0.95rem;
+        }
+        .comparison-card li {
+            position: relative; padding-left: 1.2rem; margin-bottom: 0.3rem;
+        }
+        .comparison-card li::before {
+            content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
+            position: absolute; left: 0; top: 3px;
+        }
         
-        /* Mascot & Typing Effect Styles */
-        .fun-bg-section {
-            position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem;
-            border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color);
-            overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem;
+        .quiz-container { margin-bottom: 3rem; }
+        .quiz-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
+            color: var(--accent-glow);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
         }
+        .quiz-title i { margin-right: 0.75rem; }
+        .quiz-title .quiz-source { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
+        #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
+        
+        #quiz-section .options { display: grid; gap: 1rem; }
+        .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+        .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
+        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark);}
+        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
+        
+        .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
+        .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
+        .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
+        .reset-btn:hover { transform: scale(1.05); }
+        
+        .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect {
-            position: relative; z-index: 5; font-family: 'Orbitron', monospace; font-size: 1.6rem; 
+            position: relative; z-index: 5; font-family: 'Orbitron', monospace;
+            font-size: clamp(1.2rem, 2vw + 0.5rem, 1.6rem); 
             font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
             text-align: center; max-width: 100%;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin: 0;
         }
         .typing-effect .cursor {
             display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            margin-left: 5px; width: 10px; height: 1.6rem; animation: blink-caret 0.75s step-end infinite;
+            margin-left: 5px; width: 10px; height: 1em; animation: blink-caret 0.75s step-end infinite;
         }
         @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
         .floating-mascot-bg {
@@ -178,6 +273,7 @@
             top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;
         }
         @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
+        
         #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
         #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
         #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
@@ -191,7 +287,6 @@
         #mascot-speech.visible { opacity: 1; transform: translateY(0); }
         .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
 
-        /* Floating Home Button & Footer */
         #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
         #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
         #return-home-btn:hover { transform: scale(1.1); }
@@ -200,14 +295,14 @@
 
         @media (max-width: 768px) {
             .container { padding: 1rem; }
-            header h1 { font-size: 2.5rem; }
             section { padding: 1.5rem; }
-            .section-title { font-size: 2rem; }
-            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
+            
+            .comparison-cards-container.grid-3-col,
+            .comparison-cards-container {
+                grid-template-columns: 1fr;
+            }
 
-            /* Adjust new elements for mobile */
-            .typing-effect { font-size: 1.2rem; }
-            .typing-effect .cursor { height: 1.2rem; }
+            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
             #mascot-img { width: 80px; }
             #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
@@ -227,16 +322,13 @@
 
         <section id="group-section">
             <h2 class="section-title"><i class="fas fa-object-group"></i>一、團體</h2>
-            <div class="info-card">
+            <div class="info-card" style="margin-top: 0;">
+                <p><strong>意義：</strong>由兩個以上有<strong class="highlight-text">共同目標</strong>的個人組成，成員間經常互動並具一定程度的認同感。</p>
+                <p><strong>重要性：</strong>個人融入社會生活、參與公共事務的重要途徑。</p>
+                <p><strong>功能：</strong>個人在參與團體運作的過程中，經常能同時滿足下述兩種需求：</p>
                 <ul>
-                    <li><strong>意義：</strong>由兩個以上有<strong class="highlight-text">共同目標</strong>的個人組成，成員間經常互動並具一定程度的認同感。</li>
-                    <li><strong>重要性：</strong>個人融入社會生活、參與公共事務的重要途徑。</li>
-                    <li><strong>功能：</strong>個人在參與團體運作的過程中，經常能同時滿足下述兩種需求：
-                        <ul>
-                            <li><strong>滿足情感需求：</strong>關係取向團體，讓成員認識志同道合的朋友，建立新的人際關係。</li>
-                            <li><strong>達成工作目標：</strong>工作取向團體，讓成員相互合作，實現共同的工作目標或理想。</li>
-                        </ul>
-                    </li>
+                    <li><strong>滿足情感需求：</strong>關係取向團體，讓成員認識志同道合的朋友，建立新的人際關係。</li>
+                    <li><strong>達成工作目標：</strong>工作取向團體，讓成員相互合作，實現共同的工作目標或理想。</li>
                 </ul>
             </div>
         </section>
@@ -244,67 +336,84 @@
         <section id="association-section">
             <h2 class="section-title"><i class="fas fa-hands-helping"></i>二、志願結社的特徵</h2>
             <h3>(一) 結社自由的保障與限制</h3>
-            <div class="info-card">
+            <div class="info-card" style="margin-top: 0;">
                 <h4><i class="fas fa-shield-alt"></i>保障</h4>
                 <ul>
                     <li><strong class="highlight-text">《世界人權宣言》</strong>：人人有和平集會結社之自由，並不得強迫加入任何團體。</li>
                     <li><strong class="highlight-text">《憲法》</strong>：人民有集會及結社之自由。</li>
                 </ul>
             </div>
-            <div class="info-card">
+            <div class="info-card" style="margin-top: 1.5rem;">
                  <h4><i class="fas fa-gavel"></i>限制</h4>
                  <ul>
                     <li>結社自由並非無限，團體若侵犯他人權利或危害國家安全，會受到法律限制與制裁。</li>
                     <li>政府制定<strong class="highlight-text">《組織犯罪防制條例》</strong>，限制幫派、黑道等以宗旨之團體。</li>
                 </ul>
             </div>
-            <h4 style="margin-top: 2rem;">觀念比較：集會自由 vs 結社自由</h4>
-             <table class="comparison-table">
-                <thead>
-                    <tr><th>項目</th><th>集會自由</th><th>結社自由</th></tr>
-                </thead>
-                <tbody>
-                    <tr><th>意義</th><td>人民有集會、遊行之自由</td><td>人民有組織或加入團體之自由</td></tr>
-                    <tr><th>說明</th><td>特定人或不特定人臨時性的聚集</td><td>特定人組成團體，長期的結合</td></tr>
-                    <tr><th>舉例</th><td>粉絲參加偶像的演唱會</td><td>粉絲組成偶像歌友會</td></tr>
-                </tbody>
-            </table>
+            <div class="comparison-item">
+                <h4>觀念比較：集會自由 vs 結社自由</h4>
+                <div class="comparison-cards-container">
+                    <div class="comparison-card">
+                        <h5><i class="fas fa-users"></i>集會自由</h5>
+                        <p>人民有集會、遊行之自由。屬於特定人或不特定人<strong class="highlight-text">臨時性</strong>的聚集。</p>
+                        <p><strong>舉例：</strong>粉絲參加偶像的演唱會。</p>
+                    </div>
+                    <div class="comparison-card">
+                        <h5><i class="fas fa-user-friends"></i>結社自由</h5>
+                        <p>人民有組織或加入團體之自由。屬於特定人組成團體，<strong class="highlight-text">長期性</strong>的結合。</p>
+                        <p><strong>舉例：</strong>粉絲組成偶像歌友會。</p>
+                    </div>
+                </div>
+            </div>
             
             <h3 style="margin-top: 2rem;">(二) 志願結社的特徵</h3>
             <p style="margin-top: 1rem;">基於共同興趣、目標或利益的人們，依<strong class="highlight-text">自由意願</strong>組成或參與的團體。</p>
-            <table class="comparison-table">
-                <thead>
-                    <tr><th style="width:15%">特徵</th><th>說明</th><th>舉例</th></tr>
-                </thead>
-                <tbody>
-                    <tr><th>志願性</th><td>成員基於自由意願而組成，屬於非強制性的結合。</td><td>創世基金會成員都是基於相同的理念自願加入。</td></tr>
-                    <tr><th>組織性</th><td>經由正式的組織機構，明定規範進行專業分工，提升組織效率。</td><td>兒童福利聯盟中設有組織發展處、資源發展處、研究發展處、行政管理處、社會工作處等。</td></tr>
-                    <tr><th>民間性</th><td>由社會大眾組成的非官方、民間團體，不具公權力性質，運作不具強制力。</td><td>新豐鄉和社區環境巡守隊是由一群熱心的民眾組成，不屬於政府單位。</td></tr>
-                    <tr><th>自主性</th><td>成員能自主決定行動，自行管理團體事務，運作過程不受政府支配。</td><td>世界展望會自發性舉辦「飢餓三十」、「資助兒童」等公益活動，政府不予以干預。</td></tr>
-                    <tr><th>非營利性</th><td>不以營利為目的，收入僅僅用於公益目的。雖能透過募款、收取會費等方式籌得經費，但不能將盈餘分配給成員。</td><td>伊甸基金會時常發起順手捐發票的募款活動，募得之經費都用於公益目的。</td></tr>
-                </tbody>
-            </table>
+            <div class="info-card" style="margin-top: 0;">
+                <h4><i class="fas fa-hand-holding-heart"></i>志願性</h4>
+                <p>成員基於自由意願而組成，屬於非強制性的結合。</p>
+                <p><strong>舉例：</strong>創世基金會成員都是基於相同的理念自願加入。</p>
+            </div>
+            <div class="info-card" style="margin-top: 1.5rem;">
+                <h4><i class="fas fa-sitemap"></i>組織性</h4>
+                <p>經由正式的組織機構，明定規範進行專業分工，提升組織效率。</p>
+                <p><strong>舉例：</strong>兒童福利聯盟中設有組織發展處、資源發展處、研究發展處、行政管理處、社會工作處等。</p>
+            </div>
+            <div class="info-card" style="margin-top: 1.5rem;">
+                <h4><i class="fas fa-users"></i>民間性</h4>
+                <p>由社會大眾組成的非官方、民間團體，不具公權力性質，運作不具強制力。</p>
+                <p><strong>舉例：</strong>新豐鄉和社區環境巡守隊是由一群熱心的民眾組成，不屬於政府單位。</p>
+            </div>
+            <div class="info-card" style="margin-top: 1.5rem;">
+                <h4><i class="fas fa-cogs"></i>自主性</h4>
+                <p>成員能自主決定行動，自行管理團體事務，運作過程不受政府支配。</p>
+                <p><strong>舉例：</strong>世界展望會自發性舉辦「飢餓三十」、「資助兒童」等公益活動，政府不予以干預。</p>
+            </div>
+            <div class="info-card" style="margin-top: 1.5rem;">
+                <h4><i class="fas fa-piggy-bank"></i>非營利性</h4>
+                <p>不以營利為目的，收入僅僅用於公益目的。雖能透過募款、收取會費等方式籌得經費，但不能將盈餘分配給成員。</p>
+                <p><strong>舉例：</strong>伊甸基金會時常發起順手捐發票的募款活動，募得之經費都用於公益目的。</p>
+            </div>
         </section>
 
         <section id="impact-section">
             <h2 class="section-title"><i class="fas fa-chart-line"></i>三、志願結社對社會生活的影響</h2>
-            <div class="info-card">
+            <div class="info-card" style="margin-top: 0;">
                 <h4><i class="fas fa-user-plus"></i>擴大個人的影響力</h4>
                 <ul>
                     <li>個人透過志願結社，可集結更多資源與人力。</li>
                     <li>透過志願服務的提供可實現社會公益，為弱勢群體爭取權益。</li>
-                    <li><strong class="highlight-text">志願服務</strong>是指民眾不以獲取報酬為目標，自願提供勞力、時間、知能等付出以貢獻社會。</li>
+                    <li><strong>志願服務</strong>是指民眾不以獲取報酬為目標，自願提供勞力、時間、知能等付出以貢獻社會。</li>
                 </ul>
             </div>
-             <div class="info-card">
-                <h4><i class="fas-fa-fist-raised"></i>增進公共參與和促進公共利益</h4>
+             <div class="info-card" style="margin-top: 1.5rem;">
+                <h4><i class="fas fa-fist-raised"></i>增進公共參與和促進公共利益</h4>
                 <ul>
                     <li><strong>對內：</strong>成員在長期互動下形成凝聚力，或受到鼓舞而參與公共事務。</li>
                     <li><strong>對外：</strong>透過理念宣導，吸引更多民眾的關注支持。</li>
                     <li><strong>舉例：</strong>中華民國水中運動協會邀約志工清除水下垃圾，並號召民眾淨灘。</li>
                 </ul>
             </div>
-             <div class="info-card">
+             <div class="info-card" style="margin-top: 1.5rem;">
                 <h4><i class="fas fa-search"></i>監督政府施政</h4>
                 <ul>
                     <li>志願結社具有自主性，故發生公共事務的爭議時，可監督政府。</li>
@@ -314,6 +423,52 @@
             </div>
         </section>
         
+        <section id="quiz-section">
+             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
+             <div class="quiz-container" id="quiz1">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(110 會考)</span></h3>
+                <div class="question">
+                    <p>小明參加學校的校慶園遊會，此時有數個攤位前的排隊人潮占據走道，影響其他師生的通行。根據題文中的敘述，下列何者最能說明小明參與校慶園遊會的性質？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="true">(A) 參與集會活動</button>
+                    <button class="option-btn" data-correct="false">(B) 成立志願結社</button>
+                    <button class="option-btn" data-correct="false">(C) 加入利益團體</button>
+                    <button class="option-btn" data-correct="false">(D) 組成壓力團體</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            <div class="quiz-container" id="quiz2">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(108 會考)</span></h3>
+                <div class="question">
+                    <p>曉菁固定參加某個協會的活動，此協會的經費來自各界捐款，收入除了維持會務運作外，結餘全數用於推展公益，從不分配給會員。根據上述內容判斷，該協會最可能具備下列何項特徵？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 組織性</button>
+                    <button class="option-btn" data-correct="false">(B) 自主性</button>
+                    <button class="option-btn" data-correct="false">(C) 民間性</button>
+                    <button class="option-btn" data-correct="true">(D) 非營利性</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            <div class="quiz-container" id="quiz3">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(106 會考)</span></h3>
+                <div class="question">
+                    <p>為了解決停車位不足的問題，某社區居民開會討論解決方案。若會議中達成決議，欲向政府提出申請，在社區內的公園增設地下停車場。上述社區居民的行為，最能展現下列何種精神？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 社會流動</button>
+                    <button class="option-btn" data-correct="false">(B) 社會福利</button>
+                    <button class="option-btn" data-correct="true">(C) 公民參與</button>
+                    <button class="option-btn" data-correct="false">(D) 社會階層化</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+        </section>
+
         <!-- Fun BG Section -->
         <section class="fun-bg-section">
             <h3 class="typing-effect">
@@ -345,7 +500,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             let typingStarted = false;
 
-            // Section fade-in animation
             const sections = document.querySelectorAll('section');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -359,7 +513,72 @@
                 });
             }, { threshold: 0.1 }); 
             sections.forEach(section => observer.observe(section));
+
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>校慶園遊會是許多人<strong class="highlight-text">臨時性</strong>的聚集，符合「集會」的定義。而「結社」是指組織一個長期性的團體，如成立校友會或社團，與題目情境不同。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 成立志願結社</strong>是指組織一個有共同目標的長期團體，例如創立一個環保社，這與參加一次性的園遊會活動不同。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 加入利益團體</strong>是指加入以影響政府政策、維護特定群體利益為目的的組織（如工會、商會），這與參加校慶園遊會無關。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 組成壓力團體</strong>是指為了特定訴求向政府施壓的團體，這與參加校慶園遊會的性質完全不同。</p>`
+                },
+                quiz2: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>題目核心在於「結餘全數用於推展公益，<strong class="highlight-text">從不分配給會員</strong>」。這正是志願結社「非營利性」的典型特徵，其目的不是為成員賺錢，而是將資源用於達成公益目標。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 組織性</strong>是指團體有明確的結構和分工，題目未提及此部分。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 自主性</strong>是指團體能自行管理事務，不受政府支配，題目未提及與政府的關係。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 民間性</strong>是指團體由民間發起，非官方組織。雖然此協會可能是民間團體，但題目敘述最直接指向的是其處理金錢的方式，也就是非營利性。</p>`
+                },
+                quiz3: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>社區居民自發性地「開會討論」、「向政府提出申請」，以解決共同的「停車位不足問題」，這整個過程就是一種積極參與公共事務的行為，最能展現<strong class="highlight-text">「公民參與」</strong>的精神。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 社會流動</strong>是指個人在社會階層中的位置發生變動，與題目無關。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 社會福利</strong>是政府為照顧國民而提供的服務，而題目描述的是「居民的行動」，而非政府提供的福利。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 社會階層化</strong>是指社會因財富、權力等因素形成不同等級，與題目無關。</p>`
+                }
+            };
             
+            const mcqContainers = document.querySelectorAll('.quiz-container[id]');
+            
+            mcqContainers.forEach(container => {
+                const quizId = container.id;
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
+
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
+
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        optionButtons.forEach(btn => btn.disabled = true);
+                        
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = quizData.correct;
+                        } else {
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            const optionLetter = button.textContent.substring(1, 2);
+                            feedbackArea.innerHTML = quizData[optionLetter];
+                        }
+                        
+                        feedbackArea.className = 'feedback-area ' + (isCorrect ? 'feedback-correct' : 'feedback-wrong');
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
+                    });
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+
             // Typing Effect and Mascot JS
             const typingSentences = [
                 "公民好神！我會遵守公民神會員守則！",

@@ -12,7 +12,7 @@
         :root {
             --primary-glow: #00f2ea; /* 亮青色 */
             --secondary-glow: #ff00ff; /* 洋紅色 */
-            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --accent-glow: #f0e14a; /* 金黃色 */
             --bg-dark: #0d1b2a;
             --bg-dark-2: #020a12;
             --text-color: #e0e0e0;
@@ -37,17 +37,17 @@
 
         header {
             text-align: center;
-            padding: 5rem 0;
+            padding: 5rem 1rem;
             border-bottom: 2px solid var(--border-color);
             box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+            overflow: hidden;
         }
 
         header h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3.8rem;
+            font-size: clamp(2.5rem, 4vw, 3.8rem);
             font-weight: 900;
             color: var(--text-color);
-            white-space: nowrap; /* 新增：防止標題換行 */
             text-shadow:
                 0 0 5px #fff,
                 0 0 10px var(--accent-glow),
@@ -65,7 +65,7 @@
 
         header h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
             font-weight: 700;
             color: var(--secondary-glow);
             margin-top: 1rem;
@@ -94,15 +94,11 @@
         
         section.visible { opacity: 1; transform: translateY(0); }
         
-        .highlight-text {
-            font-weight: bold;
-            color: var(--accent-glow);
-            text-shadow: 0 0 5px var(--accent-glow);
-        }
+        .highlight-text { font-weight: bold; color: var(--accent-glow); text-shadow: 0 0 5px var(--accent-glow); }
 
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
             color: var(--primary-glow);
@@ -110,74 +106,128 @@
             align-items: center;
             gap: 1rem;
             text-shadow: 0 0 10px var(--primary-glow);
+            flex-wrap: wrap;
         }
-        
         .section-title i {
-            font-size: 2.2rem;
+            font-size: clamp(1.6rem, 4.5vw, 2.2rem);
             color: var(--accent-glow);
             text-shadow: 0 0 10px var(--accent-glow);
         }
-        
-        h3, h4 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--primary-glow);
-            margin-bottom: 1rem;
-        }
-        h3 { font-size: 1.6rem; }
-        h4 { font-size: 1.4rem; }
 
-        .info-card {
-            background: rgba(0,0,0,0.2);
-            border: 1px solid var(--border-color);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-top: 1.5rem;
+        h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 1.8rem);
+            color: var(--primary-glow);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
         }
-        .info-card ul { list-style: none; padding: 0;}
-        .info-card li { margin-bottom: 0.5rem; position: relative; padding-left: 1.5rem; }
+        h3:first-of-type {
+            margin-top: 0;
+        }
+        
+        .info-card { 
+            background: rgba(0,0,0,0.2); 
+            border: 1px solid var(--border-color); 
+            border-radius: 15px; 
+            padding: 1.5rem;
+        }
+        
+        .info-card h4 { 
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            color: var(--primary-glow);
+            margin: 0 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            padding-bottom: 0.5rem;
+        }
+         .info-card ul {
+            list-style: none; padding-left: 0;
+        }
+        .info-card li {
+            position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem;
+        }
         .info-card li::before {
             content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
-            position: absolute; left: 0; top: 4px; color: var(--primary-glow);
+            position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
-        
-        .comparison-table {
-            width: 100%; border-collapse: collapse; margin-top: 1.5rem;
+        .info-card ul ul {
+            padding-left: 1.5rem;
+            margin-top: 0.5rem;
         }
-        .comparison-table th, .comparison-table td {
-            border: 1px solid var(--border-color); padding: 1rem; text-align: left;
-            vertical-align: top;
-        }
-        .comparison-table thead th { background-color: rgba(13, 27, 42, 0.7); color: var(--primary-glow); text-align: center; }
-        .comparison-table tbody th { font-weight: bold; color: var(--accent-glow); text-align: center; }
-        .comparison-table ul { list-style: none; padding-left: 0; }
-        
-        .flow-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-        }
-        .flow-item {
-            background: var(--bg-dark);
-            padding: 1rem 1.5rem;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            text-align: center;
-            font-weight: bold;
-        }
-        .flow-arrow {
-            font-size: 2rem;
-            color: var(--accent-glow);
+        .info-card ul ul li::before {
+            content: '\f0da';
         }
 
-        /* Quiz Styles */
+        .comparison-cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .grid-3-col {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        .comparison-card {
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+        .comparison-card h5 {
+            font-size: 1.2rem;
+            margin: 0 0 1rem 0;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-glow);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
         .quiz-container { margin-bottom: 3rem; }
-        .quiz-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); }
+        .quiz-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
+            color: var(--accent-glow);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+        }
         .quiz-title i { margin-right: 0.75rem; }
-        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; }
+        .quiz-title .quiz-source { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
         #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
+        
+        .law-options-list {
+            display: grid;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .law-option-item {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .law-option-label {
+            color: var(--accent-glow);
+            font-weight: 700;
+            margin-right: 0.5em;
+            font-family: 'Orbitron', sans-serif;
+        }
+
         #quiz-section .options { display: grid; gap: 1rem; }
         .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
         .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
@@ -185,25 +235,33 @@
         .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
         
         .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
+        .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
         .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
         .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
         .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
         .reset-btn:hover { transform: scale(1.05); }
         
-        /* Mascot & Typing Effect Styles */
-        .fun-bg-section {
-            position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem;
-            border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color);
-            overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem;
-        }
+        .matching-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .matching-item:last-child { border-bottom: none; }
+        .matching-item p { flex-grow: 1; margin: 0; }
+        .matching-select { background-color: var(--bg-dark); color: var(--text-color); border: 1px solid var(--primary-glow); border-radius: 5px; padding: 0.4rem; font-family: inherit; font-size: 1rem; cursor: pointer; }
+        .feedback-icon { font-size: 1.2rem; font-weight: 900; display: none; }
+        .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
+        .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
+        
+        .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect {
-            position: relative; z-index: 5; font-family: 'Orbitron', monospace; font-size: 1.6rem; 
+            position: relative; z-index: 5; font-family: 'Orbitron', monospace;
+            font-size: clamp(1.2rem, 2vw + 0.5rem, 1.6rem); 
             font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
             text-align: center; max-width: 100%;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin: 0;
         }
         .typing-effect .cursor {
             display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            margin-left: 5px; width: 10px; height: 1.6rem; animation: blink-caret 0.75s step-end infinite;
+            margin-left: 5px; width: 10px; height: 1em; animation: blink-caret 0.75s step-end infinite;
         }
         @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
         .floating-mascot-bg {
@@ -212,6 +270,7 @@
             top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;
         }
         @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
+        
         #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
         #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
         #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
@@ -225,7 +284,6 @@
         #mascot-speech.visible { opacity: 1; transform: translateY(0); }
         .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
 
-        /* Floating Home Button & Footer */
         #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
         #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
         #return-home-btn:hover { transform: scale(1.1); }
@@ -234,14 +292,21 @@
 
         @media (max-width: 768px) {
             .container { padding: 1rem; }
-            header h1 { font-size: 2.5rem; }
             section { padding: 1.5rem; }
-            .section-title { font-size: 2rem; }
-            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
+            .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+            
+            .comparison-cards-container.grid-3-col,
+            .comparison-cards-container {
+                grid-template-columns: 1fr;
+            }
 
-            /* Adjust new elements for mobile */
-            .typing-effect { font-size: 1.2rem; }
-            .typing-effect .cursor { height: 1.2rem; }
+            .law-options-list {
+                display: flex;
+                flex-direction: column;
+            }
+            #quiz-section .options { grid-template-columns: 1fr; }
+
+            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
             #mascot-img { width: 80px; }
             #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
@@ -261,7 +326,7 @@
 
         <section id="political-participation-section">
             <h2 class="section-title"><i class="fas fa-vote-yea"></i>一、政治參與的意義與重要性</h2>
-            <div class="info-card">
+            <div class="info-card" style="margin-top:0;">
                 <ul>
                     <li><strong>意義：</strong>人民企圖影響政府的人事及決策，所採取的行動。</li>
                     <li><strong>具體方式：</strong>關心時事、表達意見（投書媒體、參加遊行、參與公聽會）、參與選舉、<strong class="highlight-text">公民投票</strong>等。</li>
@@ -278,75 +343,108 @@
 
         <section id="voting-section">
             <h2 class="section-title"><i class="fas fa-person-booth"></i>二、民主社會中的投票</h2>
-            <h3 style="margin-top: 2rem;">(一) 投票的重要性</h3>
-            <table class="comparison-table">
-                <tbody>
-                    <tr><th>以和平方式表達意見</th><td>暴力無法解決紛爭，爭議可能還會擴大，或陷入以暴制暴的惡性循環。相較於拳頭，數人頭方式的投票較為理性與和平。</td></tr>
-                    <tr><th>能反映更廣泛的民意</th><td>投票讓每位具資格的人民直接表達意見，能反映更廣泛的民意。</td></tr>
-                    <tr><th>延續民主政治的價值</th><td>投票前關心、討論公共議題；投票中踴躍投票、審慎衡量候選人政見、杜絕賄選；投票後保持民主風度、尊重選舉結果。</td></tr>
-                </tbody>
-            </table>
+            <h3 style="margin-top: 0;">(一) 投票的重要性</h3>
+            <div class="comparison-cards-container grid-3-col">
+                <div class="info-card"><h4><i class="fas fa-hands-helping"></i>以和平方式表達意見</h4><p>暴力無法解決紛爭，爭議可能還會擴大。相較於拳頭，數人頭方式的投票較為理性與和平。</p></div>
+                <div class="info-card"><h4><i class="fas fa-bullhorn"></i>能反映更廣泛的民意</h4><p>投票讓每位具資格的人民直接表達意見，能反映更廣泛的民意。</p></div>
+                <div class="info-card"><h4><i class="fas fa-landmark"></i>延續民主政治的價值</h4><p>投票前關心、討論公共議題；投票中踴躍投票、審慎衡量候選人政見；投票後保持民主風度。</p></div>
+            </div>
+
             <h3 style="margin-top: 2rem;">(二) 投票的類型</h3>
-            <table class="comparison-table">
-                <thead><tr><th>項目</th><th>對「人」的投票</th><th>對「事」的投票</th></tr></thead>
-                <tbody>
-                    <tr><th>投票對象</th><td>公職人員（行政首長或民意代表）</td><td>法律、政策</td></tr>
-                    <tr><th>目的</th><td>定期授權政府，落實主權在民</td><td>決定政策與法令，落實直接民主</td></tr>
-                    <tr><th>法源</th><td>《總統副總統選舉罷免法》、《公職人員選舉罷免法》</td><td>《公民投票法》</td></tr>
-                    <tr><th>行使權利</th><td>選舉權、罷免權</td><td>創制權、複決權</td></tr>
-                </tbody>
-            </table>
+            <div class="comparison-cards-container">
+                <div class="info-card"><h4><i class="fas fa-user-tie"></i>對「人」的投票</h4><ul><li><strong>對象：</strong>公職人員（行政首長或民代）</li><li><strong>目的：</strong>定期授權政府，落實主權在民</li><li><strong>法源：</strong>《選罷法》</li><li><strong>權利：</strong>選舉權、罷免權</li></ul></div>
+                <div class="info-card"><h4><i class="fas fa-file-alt"></i>對「事」的投票</h4><ul><li><strong>對象：</strong>法律、政策</li><li><strong>目的：</strong>決定政策與法令，落實直接民主</li><li><strong>法源：</strong>《公民投票法》</li><li><strong>權利：</strong>創制權、複決權</li></ul></div>
+            </div>
         </section>
 
         <section id="fair-voting-section">
             <h2 class="section-title"><i class="fas fa-balance-scale-right"></i>三、落實投票公平的方式</h2>
-            <h3>(一) 訂定公平原則</h3>
+            <h3 style="margin-top: 0;">(一) 訂定公平原則</h3>
             <p>對人及對事的投票都適用此公平原則。</p>
-            <table class="comparison-table">
-                <thead><tr><th>原則</th><th>目的</th><th>說明</th></tr></thead>
-                <tbody>
-                    <tr><th>普通</th><td>選舉權普及化</td><td>凡是符合法定資格的公民，皆享有投票權。不因性別、宗教、種族、階級、黨派等因素而有所差異。</td></tr>
-                    <tr><th>平等</th><td>落實平等權</td><td>每位選民都只領取一張選票，且每張選票具有同等效力。即「一人一票，票票等值」。</td></tr>
-                    <tr><th>直接</th><td>彰顯主權在民</td><td>由人民自己投票，直接選出公職人員，不透過他人代表投票。</td></tr>
-                    <tr><th>無記名<br>(祕密投票)</th><td>保障選民的安全</td><td>避免選民受威脅利誘，能依照個人的自由意志，圈選自己支持的候選人。</td></tr>
-                </tbody>
-            </table>
+            <div class="comparison-cards-container">
+                <div class="info-card"><h4><i class="fas fa-globe"></i>普通原則</h4><p>選舉權普及化，凡是符合法定資格的公民，皆享有投票權。</p></div>
+                <div class="info-card"><h4><i class="fas fa-equals"></i>平等原則</h4><p>落實平等權，每位選民都只領取一張選票，且票票等值。</p></div>
+                <div class="info-card"><h4><i class="fas fa-hand-point-up"></i>直接原則</h4><p>彰顯主權在民，由人民自己投票，直接選出公職人員。</p></div>
+                <div class="info-card"><h4><i class="fas fa-user-secret"></i>無記名原則</h4><p>保障選民的安全，避免選民受威脅利誘，能依自由意志投票。</p></div>
+            </div>
+
              <h3 style="margin-top: 2rem;">(二) 明文規範投票過程</h3>
-             <table class="comparison-table">
-                <thead><tr><th>過程</th><th>選舉過程</th><th>公投過程</th></tr></thead>
-                <tbody>
-                    <tr><th>投票前</th><td>1. 選舉公告<br>2. 登記參選<br>3. 競選活動</td><td>1. 提案<br>2. 連署<br>3. 公告</td></tr>
-                    <tr><th>投票時</th><td colspan="2">4. 投票</td></tr>
-                    <tr><th>投票後</th><td>5. 開票<br>6. 當選公告</td><td>5. 公告投票結果</td></tr>
-                </tbody>
-             </table>
+             <div class="comparison-cards-container">
+                <div class="info-card"><h4><i class="fas fa-user-tie"></i>選舉過程</h4><p>1. 選舉公告<br>2. 登記參選<br>3. 競選活動<br>4. 投票<br>5. 開票<br>6. 當選公告</p></div>
+                <div class="info-card"><h4><i class="fas fa-file-alt"></i>公投過程</h4><p>1. 提案<br>2. 連署<br>3. 公告<br>4. 投票<br>5. 公告投票結果</p></div>
+             </div>
         </section>
 
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
             <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(113 會考)</span></h3>
+                <h3 class="quiz-title"><i class="fas fa-tasks"></i>模擬神給酷</h3>
+                <div class="info-card" style="margin-top:0;">
+                     <p><strong>下列敘述是在說明哪一種投票原則？請填入正確代號。</strong></p>
+                     <div class="law-options-list">
+                         <div class="law-option-item"><span class="law-option-label">甲</span> 普通原則</div>
+                         <div class="law-option-item"><span class="law-option-label">乙</span> 平等原則</div>
+                         <div class="law-option-item"><span class="law-option-label">丙</span> 直接原則</div>
+                         <div class="law-option-item"><span class="law-option-label">丁</span> 無記名原則</div>
+                     </div>
+                     <div class="matching-item" data-answer="乙"><p>1. 每位選民的選票價值皆相同。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="丁"><p>2. 為保障選民的安全，他人無法得知其投票內容。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="甲"><p>3. 只要符合法定資格的公民，都能享有投票權。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="丙"><p>4. 公民親自投票，而非透過他人代理。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                </div>
+            </div>
+
+            <div class="quiz-container" id="quiz1">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(113 會考)</span></h3>
                 <div class="question">
-                    <p>下表是小安過去兩年去辦理證件的網路貼文，右圖是當時動物之家認養規定的部分內容：</p>
-                    <table class="comparison-table" style="font-size: 0.9rem;">
-                        <tr>
-                            <td style="width:50%; vertical-align: middle; text-align: center;">
-                                <strong>小安的網路貼文</strong><br>
-                                前年，我投完票後的星期三，是我養貓生活的起點，為了符合認養規定，我拜託爸爸跟我去動物之家辦理手續，認養一隻貓回家。這次，又是投完票後的星期三，認養規定沒變，但我已經能自己辦理手續，我打算去動物之家認養第二隻貓。
-                            </td>
-                            <td style="width:50%;">
-                                <strong>認養規定</strong><br>
-                                一、申請人：年滿20歲且無棄養紀錄之民眾，並攜帶身分證明文件親自到場辦理手續。未滿20歲者，以其法定代理人或法定監護人為申請人，並由申請人攜帶身分證明文件親自到場辦理手續。
-                            </td>
-                        </tr>
-                    </table>
-                    <p>根據左、右表的內容判斷，小安參與的這兩次投票，先後順序最可能為下列何者？</p>
+                    <p>小安過去兩年去辦理證件的網路貼文，以及當時動物之家認養規定的部分內容：</p>
+                    <div class="comparison-cards-container" style="font-size: 0.95rem;">
+                        <div class="info-card" style="padding: 1rem;">
+                            <h4 style="border:none; padding:0; margin-bottom:0.5rem; font-size: 1.1rem; color:var(--accent-glow);">小安的網路貼文</h4>
+                            前年，我投完票後的星期三，是我養貓生活的起點，為了符合認養規定，我拜託爸爸跟我去動物之家辦理手續，認養一隻貓回家。這次，又是投完票後的星期三，認養規定沒變，但我已經能自己辦理手續，我打算去動物之家認養第二隻貓。
+                        </div>
+                        <div class="info-card" style="padding: 1rem;">
+                             <h4 style="border:none; padding:0; margin-bottom:0.5rem; font-size: 1.1rem; color:var(--accent-glow);">認養規定</h4>
+                             一、申請人：年滿20歲且無棄養紀錄之民眾，並攜帶身分證明文件親自到場辦理手續。未滿20歲者，以其法定代理人或法定監護人為申請人，並由申請人攜帶身分證明文件親自到場辦理手續。
+                        </div>
+                    </div>
+                    <p style="margin-top:1.5rem;">根據上述內容判斷，小安參與的這兩次投票，先後順序最可能為下列何者？</p>
                 </div>
                 <div class="options">
                     <button class="option-btn" data-correct="false">(A) 地方選舉、中央選舉</button>
                     <button class="option-btn" data-correct="false">(B) 地方選舉、公民投票</button>
                     <button class="option-btn" data-correct="false">(C) 中央選舉、公民投票</button>
                     <button class="option-btn" data-correct="true">(D) 公民投票、中央選舉</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            
+            <div class="quiz-container" id="quiz2">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(109 會考)</span></h3>
+                <div class="question">
+                    <p>為避免候選人或其支持者以暴力脅迫或金錢、禮品等方式，影響選民的投票意願，確保每位選民能依其自由意志投票，政府在法律中規定投票方式應符合下列哪一項原則？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 普通原則</button>
+                    <button class="option-btn" data-correct="false">(B) 平等原則</button>
+                    <button class="option-btn" data-correct="true">(C) 無記名原則</button>
+                    <button class="option-btn" data-correct="false">(D) 直接原則</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+
+            <div class="quiz-container" id="quiz3">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(100 基測)</span></h3>
+                <div class="question">
+                    <p>哈帝國發生外籍勞工的集體抗爭事件，以此抗議生活管理的不當，為此主管機關首長宣布請辭下臺。上述首長的做法，最符合民主政治的哪一種內涵？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 民意政治</button>
+                    <button class="option-btn" data-correct="false">(B) 法治政治</button>
+                    <button class="option-btn" data-correct="false">(C) 政黨政治</button>
+                    <button class="option-btn" data-correct="true">(D) 責任政治</button>
                 </div>
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
@@ -398,7 +496,32 @@
                 });
             }, { threshold: 0.1 }); 
             sections.forEach(section => observer.observe(section));
-            
+
+             // Matching quiz logic
+            const matchingSelects = document.querySelectorAll('.matching-select');
+            matchingSelects.forEach(select => {
+                select.addEventListener('change', (e) => {
+                    const selectedValue = e.target.value;
+                    const item = e.target.closest('.matching-item');
+                    const correctAnswer = item.dataset.answer;
+                    const feedbackIcon = item.querySelector('.feedback-icon');
+                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    feedbackIcon.innerHTML = '';
+                    if (selectedValue === "請選擇") {
+                        feedbackIcon.style.display = 'none';
+                        return;
+                    }
+                    feedbackIcon.style.display = 'inline-block';
+                    if (selectedValue === correctAnswer) {
+                        feedbackIcon.classList.add('icon-correct');
+                        feedbackIcon.innerHTML = '✓';
+                    } else {
+                        feedbackIcon.classList.add('icon-wrong');
+                        feedbackIcon.innerHTML = '✗';
+                    }
+                });
+            });
+
             // Multiple choice quiz logic
             const allQuizData = {
                 quiz1: {
@@ -406,49 +529,69 @@
                     A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 第一次投票時，小安未滿20歲，不能參與地方選舉或中央選舉。</p>`,
                     B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 第一次投票時，小安未滿20歲，不能參與地方選舉。</p>`,
                     C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C)</strong> 第一次投票時，小安未滿20歲，不能參與中央選舉。</p>`
+                },
+                quiz2: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>為了「避免選民受威脅利誘，能依照個人的自由意志投票」，投票方式應採用<strong class="highlight-text">無記名投票</strong>（祕密投票），讓他人無法得知選民的投票選擇，以保障其投票安全。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 普通原則</strong>是指只要符合資格，人人都有投票權。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 平等原則</strong>是指一人一票，票票等值。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 直接原則</strong>是指由選民親自投票，不透過他人代理。</p>`
+                },
+                quiz3: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>政策失當時，政府官員須接受人民的責難，甚至<strong class="highlight-text">辭職下臺</strong>，以示負責。主管機關首長因抗爭事件而請辭，正是「責任政治」的體現。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 民意政治強調聽取民意，但官員下臺負責則屬於責任政治的範疇。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 法治政治強調依法行政，題目未提及官員違法。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C)</strong> 政黨政治涉及政黨競爭與監督，與官員因政策失當而下臺不同。</p>`
                 }
             };
             
-            const quizContainers = document.querySelectorAll('.quiz-container');
-            
-            quizContainers.forEach((container, index) => {
-                const quizId = `quiz${index + 1}`;
-                const optionButtons = container.querySelectorAll('.option-btn');
-                const feedbackArea = container.querySelector('.feedback-area');
-                const resetButton = container.querySelector('.reset-btn');
+            const mcqContainers = document.querySelectorAll('.quiz-container');
+            let mcqIndex = 0;
+            mcqContainers.forEach((container) => {
+                // Find only the MCQ containers
+                if(container.querySelector('.option-btn')) {
+                    mcqIndex++;
+                    const quizId = `quiz${mcqIndex}`; 
+                    container.id = quizId;
+                    const quizData = allQuizData[quizId];
+                    if (!quizData) return;
 
-                optionButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        const isCorrect = button.dataset.correct === 'true';
-                        optionButtons.forEach(btn => btn.disabled = true);
-                        
-                        if (isCorrect) {
-                            button.classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId].correct;
-                            feedbackArea.className = 'feedback-area feedback-correct';
-                        } else {
-                            button.classList.add('wrong');
-                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
-                            const optionLetter = button.textContent.substring(1, 2);
-                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
-                            feedbackArea.className = 'feedback-area feedback-wrong';
-                        }
-                        
-                        feedbackArea.style.display = 'block';
-                        resetButton.style.display = 'block';
-                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    const optionButtons = container.querySelectorAll('.option-btn');
+                    const feedbackArea = container.querySelector('.feedback-area');
+                    const resetButton = container.querySelector('.reset-btn');
+
+                    optionButtons.forEach(button => {
+                        button.addEventListener('click', () => {
+                            const isCorrect = button.dataset.correct === 'true';
+                            optionButtons.forEach(btn => btn.disabled = true);
+                            
+                            if (isCorrect) {
+                                button.classList.add('correct');
+                                feedbackArea.innerHTML = quizData.correct;
+                                feedbackArea.className = 'feedback-area feedback-correct';
+                            } else {
+                                button.classList.add('wrong');
+                                container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                                const optionLetter = button.textContent.substring(1, 2);
+                                feedbackArea.innerHTML = quizData[optionLetter];
+                                feedbackArea.className = 'feedback-area feedback-wrong';
+                            }
+                            
+                            feedbackArea.style.display = 'block';
+                            resetButton.style.display = 'block';
+                            feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        });
                     });
-                });
-                
-                resetButton.addEventListener('click', () => {
-                    optionButtons.forEach(btn => {
-                        btn.disabled = false;
-                        btn.classList.remove('correct', 'wrong');
+                    
+                    resetButton.addEventListener('click', () => {
+                        optionButtons.forEach(btn => {
+                            btn.disabled = false;
+                            btn.classList.remove('correct', 'wrong');
+                        });
+                        feedbackArea.style.display = 'none';
+                        resetButton.style.display = 'none';
+                        container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
                     });
-                    feedbackArea.style.display = 'none';
-                    resetButton.style.display = 'none';
-                    container.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                });
+                }
             });
 
             // Typing Effect and Mascot JS

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>重點16-2：國際社會的形成與互動</title>
-    <!-- Font Awesome script is still useful for other icons in the page -->
+    <!-- Font Awesome script -->
     <script src="https://kit.fontawesome.com/62a9d1d113.js" crossorigin="anonymous"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
@@ -12,7 +12,7 @@
         :root {
             --primary-glow: #00f2ea; /* 亮青色 */
             --secondary-glow: #ff00ff; /* 洋紅色 */
-            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --accent-glow: #f0e14a; /* 金黃色 */
             --bg-dark: #0d1b2a;
             --bg-dark-2: #020a12;
             --text-color: #e0e0e0;
@@ -23,16 +23,8 @@
             --accent-border-color: rgba(240, 225, 74, 0.5);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
             background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-2));
@@ -41,25 +33,21 @@
             overflow-x: hidden;
         }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
 
         header {
             text-align: center;
-            padding: 5rem 0;
+            padding: 5rem 1rem;
             border-bottom: 2px solid var(--border-color);
             box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+            overflow: hidden;
         }
 
         header h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3.8rem;
+            font-size: clamp(2rem, 4vw, 3.8rem);
             font-weight: 900;
             color: var(--text-color);
-            white-space: nowrap; /* 防止標題換行 */
             text-shadow:
                 0 0 5px #fff,
                 0 0 10px var(--accent-glow),
@@ -70,23 +58,17 @@
 
         @keyframes flicker-orange {
             0%, 18%, 22%, 25%, 53%, 57%, 100% {
-                text-shadow:
-                0 0 4px #fff,
-                0 0 11px var(--accent-glow),
-                0 0 19px var(--accent-glow),
-                0 0 40px var(--accent-glow),
-                0 0 80px var(--accent-glow);
+                text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-glow), 0 0 19px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow);
             }
             20%, 24%, 55% { text-shadow: none; }
         }
 
         header h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
             font-weight: 700;
             color: var(--secondary-glow);
             margin-top: 1rem;
-            white-space: nowrap; /* 防止副標題換行 */
             text-shadow: 0 0 8px var(--secondary-glow);
             animation: bounce 2s infinite;
         }
@@ -110,20 +92,13 @@
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
         
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        section.visible { opacity: 1; transform: translateY(0); }
         
-        .highlight-text {
-            font-weight: bold;
-            color: var(--accent-glow);
-            text-shadow: 0 0 5px var(--accent-glow);
-        }
+        .highlight-text { font-weight: bold; color: var(--accent-glow); text-shadow: 0 0 5px var(--accent-glow); }
 
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
             color: var(--primary-glow);
@@ -131,249 +106,164 @@
             align-items: center;
             gap: 1rem;
             text-shadow: 0 0 10px var(--primary-glow);
+            flex-wrap: wrap;
         }
-        
         .section-title i {
-            font-size: 2.2rem;
+            font-size: clamp(1.6rem, 4.5vw, 2.2rem);
             color: var(--accent-glow);
             text-shadow: 0 0 10px var(--accent-glow);
         }
 
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .info-card {
-            background: rgba(0,0,0,0.2);
-            border: 2px solid var(--border-color);
-            border-radius: 15px;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-        }
-        
-        .info-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--accent-glow);
-            box-shadow: 0 15px 30px rgba(240, 225, 74, 0.2);
-        }
-        
-        .info-card h3 {
+        h3 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: clamp(1.5rem, 3vw, 1.8rem);
             color: var(--primary-glow);
-            border-bottom: 3px solid var(--accent-glow);
-            padding-bottom: 0.5rem;
+            margin-top: 2rem;
             margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+        }
+        h3:first-of-type {
+            margin-top: 0;
         }
         
-        .info-card ul {
-            list-style: none;
-            padding-left: 0;
-            flex-grow: 1;
+        .info-card { 
+            background: rgba(0,0,0,0.2); 
+            border: 1px solid var(--border-color); 
+            border-radius: 15px; 
+            padding: 1.5rem;
+        }
+        
+        .info-card h4 { 
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            color: var(--primary-glow);
+            margin: 0 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            padding-bottom: 0.5rem;
+        }
+         .info-card ul {
+            list-style: none; padding-left: 0;
         }
         .info-card li {
-            position: relative;
-            padding-left: 1.5rem;
-            margin-bottom: 0.75rem;
+            position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem;
         }
         .info-card li::before {
-            content: '\f105'; /* Font Awesome angle-right */
-            font-family: 'Font Awesome 5 Free';
-            font-weight: 900;
-            position: absolute;
-            left: 0;
-            top: 2px;
-            color: var(--accent-glow);
-            transition: transform 0.3s;
-        }
-        .info-card:hover li::before {
-            transform: rotate(90deg);
+            content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
+            position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
         
-        .info-card h4 {
-            font-size: 1.2rem;
-            color: var(--primary-glow);
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .table-container {
-            overflow-x: auto;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        .comparison-cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
             margin-top: 1.5rem;
         }
-        th, td {
-            padding: 0.8rem;
-            text-align: left;
+        .comparison-card {
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
             border: 1px solid var(--border-color);
         }
-        th {
-            background-color: rgba(0, 242, 234, 0.1);
+        .comparison-card h5 {
+            font-size: 1.2rem;
+            margin: 0 0 1rem 0;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             color: var(--primary-glow);
-            font-family: 'Orbitron', sans-serif;
-        }
-        td {
-             background-color: rgba(13, 27, 42, 0.5);
+            border-bottom: 1px solid var(--border-color);
         }
         
-        .highlight-box { background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05)); padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow); font-size: 1.1rem; margin-top: 2rem; box-shadow: inset 0 0 10px rgba(240, 225, 74, 0.2); }
-        .highlight-box strong { color: var(--accent-glow); font-weight: 700; }
-        
-        /* --- QUIZ STYLES --- */
         .quiz-container { margin-bottom: 3rem; }
-        .quiz-container:last-child { margin-bottom: 0; }
-        .quiz-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); }
+        .quiz-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
+            color: var(--accent-glow);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+        }
         .quiz-title i { margin-right: 0.75rem; }
-        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
+        .quiz-title .quiz-source { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
         #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
-        #quiz-section .options { display: grid; gap: 1rem; }
         
+        #quiz-section .options { display: grid; gap: 1rem; }
         .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
         .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
-        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark); }
-        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark); }
+        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark);}
+        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
         
         .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
         .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
         .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
         .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
-        
         .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
-        .reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--accent-glow); }
+        .reset-btn:hover { transform: scale(1.05); }
         
-        /* --- FUN STYLES --- */
-        .fun-bg-section {
-            position: relative;
-            min-height: 150px;
-            margin-top: 4rem;
-            margin-bottom: 2rem;
-            border-radius: 20px;
-            background-color: var(--card-bg);
-            border: 2px solid var(--border-color);
-            overflow: hidden;
-            backdrop-filter: blur(5px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-        }
+        .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect {
-            position: relative;
-            z-index: 5;
-            font-family: 'Orbitron', monospace;
-            font-size: 1.6rem; 
-            font-weight: 700;
-            color: #fff;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            text-align: center;
-            max-width: 100%;
+            position: relative; z-index: 5; font-family: 'Orbitron', monospace;
+            font-size: clamp(1.2rem, 2vw + 0.5rem, 1.6rem); 
+            font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            text-align: center; max-width: 100%;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin: 0;
         }
         .typing-effect .cursor {
-            display: inline-block;
-            background-color: #fff;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            margin-left: 5px;
-            width: 10px;
-            height: 1.6rem;
-            animation: blink-caret 0.75s step-end infinite;
+            display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            margin-left: 5px; width: 10px; height: 1em; animation: blink-caret 0.75s step-end infinite;
         }
-        @keyframes blink-caret {
-            from, to { background-color: transparent; box-shadow: none; }
-            50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); }
-        }
+        @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
         .floating-mascot-bg {
-            position: absolute;
-            width: 250px;
-            height: auto;
-            opacity: 0.15;
+            position: absolute; width: 250px; height: auto; opacity: 0.15;
             animation: floatMascot 15s ease-in-out infinite alternate;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1;
+            top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;
         }
-        @keyframes floatMascot {
-            from { transform: translate(-60%, -60%) rotate(-15deg); }
-            to { transform: translate(-40%, -40%) rotate(15deg); }
-        }
+        @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
         
-        #return-home-btn {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            width: 50px;
-            height: 50px;
-            z-index: 1001;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        #return-home-btn svg {
-            width: 100%;
-            height: 100%;
-            stroke: #ffffff;
-            stroke-width: 2px;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            fill: none;
-            transition: all 0.3s ease;
-            filter: drop-shadow(0 0 6px var(--primary-glow));
-        }
-        #return-home-btn:hover { transform: scale(1.1); }
-        #return-home-btn:hover svg {
-            stroke: var(--primary-glow);
-            filter: drop-shadow(0 0 12px var(--primary-glow));
-            transform: rotate(-10deg);
-        }
-
-        footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
         #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
         #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
         #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
         #mascot-img.enlarged { transform: scale(2.5) !important; }
-        #mascot-speech { position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9); color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3); }
+        #mascot-speech {
+            position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9);
+            color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px;
+            font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3);
+        }
         #mascot-speech.visible { opacity: 1; transform: translateY(0); }
         .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
 
+        #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
+        #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
+        #return-home-btn:hover { transform: scale(1.1); }
+        #return-home-btn:hover svg { stroke: var(--primary-glow); filter: drop-shadow(0 0 12px var(--primary-glow)); transform: rotate(-10deg); }
+        footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+
         @media (max-width: 768px) {
             .container { padding: 1rem; }
-            header { padding: 3rem 0; }
-            header h1 {
-                font-size: 2.2rem; /* 調整字體大小 */
+            section { padding: 1.5rem; }
+            
+            .comparison-cards-container {
+                grid-template-columns: 1fr;
             }
-            header h2 {
-                font-size: 1.1rem; /* 調整字體大小 */
-            }
-            section { padding: 1.5rem; margin-bottom: 2rem; }
-            .section-title { font-size: 2rem; }
-            .content-grid { grid-template-columns: 1fr; }
-            .info-card { margin-bottom: 1.5rem; }
-            .info-card:last-child { margin-bottom: 0; }
-            .typing-effect { font-size: 1.2rem; }
-            .typing-effect .cursor { height: 1.2rem; }
-            #quiz-section .question, .option-btn { font-size: 1rem; }
+            #quiz-section .options { grid-template-columns: 1fr; }
+
             #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
             #mascot-img { width: 80px; }
             #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
         }
-
-        /* 新增一個更小的斷點，以應對極窄螢幕 */
-        @media (max-width: 480px) {
-            header h1 {
-                font-size: 1.6rem;
-            }
-            header h2 {
-                font-size: 0.8rem;
-            }
-        }
-
     </style>
 </head>
 <body>
@@ -389,98 +279,60 @@
         <section id="interaction-section">
             <h2 class="section-title"><i class="fas fa-handshake"></i> 一、國際社會的形成與互動</h2>
             <p>隨著全球化的發展，許多重要議題擴及為國與國間需共同面對與承擔的責任，各國必須積極參與，透過各種國際互動的方式解決問題。</p>
-            <div class="content-grid">
-                <div class="info-card">
-                    <h3>國際援助</h3>
-                    <p>基於<strong class="highlight-text">尊重人權、人道關懷</strong>的精神，對受災或低度開發國家，提供經濟、技術或人道賑災等協助。</p>
-                </div>
-                 <div class="info-card">
-                    <h3>國際合作</h3>
-                    <p>國與國間為了共同利益和目標，透過<strong class="highlight-text">締結盟約、簽訂條約</strong>等方式進行跨國合作。</p>
-                </div>
-                 <div class="info-card">
-                    <h3>國際交流</h3>
-                    <p>國與國間透過政府或民間團體進行經濟貿易、學術文化、藝術表演、體育競賽等活動的跨國交流。</p>
-                </div>
-                 <div class="info-card">
-                    <h3>國際衝突</h3>
-                    <p>因族群、宗教、政治、領土、資源等因素，國與國間產生糾紛或衝突，處理不當可能會引發戰爭。</p>
-                </div>
+            <div class="comparison-cards-container">
+                <div class="info-card"><h4><i class="fas fa-hands-helping"></i>國際援助</h4><p>基於<strong class="highlight-text">尊重人權、人道關懷</strong>的精神，對受災或低度開發國家，提供經濟、技術或人道賑災等協助。</p></div>
+                 <div class="info-card"><h4><i class="fas fa-file-signature"></i>國際合作</h4><p>國與國間為了共同利益和目標，透過<strong class="highlight-text">締結盟約、簽訂條約</strong>等方式進行跨國合作。</p></div>
+                 <div class="info-card"><h4><i class="fas fa-palette"></i>國際交流</h4><p>國與國間透過政府或民間團體進行經濟貿易、學術文化、藝術表演、體育競賽等活動的跨國交流。</p></div>
+                 <div class="info-card"><h4><i class="fas fa-exclamation-triangle"></i>國際衝突</h4><p>因族群、宗教、政治、領土、資源等因素，國與國間產生糾紛或衝突，處理不當可能會引發戰爭。</p></div>
             </div>
         </section>
 
         <section id="org-section">
             <h2 class="section-title"><i class="fas fa-sitemap"></i> 二、國際組織</h2>
             <p>國際組織是由參與成員透過條約或協議方式所組成，主要功能有：<br>1. 維護國際安全與和平、2. 促進人類的生活福祉、3. 關注全球議題。</p>
-            <div class="highlight-box">
-                <h4>國際組織的種類</h4>
-                 <div class="table-container">
-                     <table>
-                        <thead>
-                            <tr>
-                                <th>分類</th>
-                                <th>類型</th>
-                                <th>意義</th>
-                                <th>舉例</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td rowspan="2"><strong>依範圍</strong></td>
-                                <td>全球性國際組織</td>
-                                <td>政府面臨全球普遍性議題，會透過全球性國際組織處理、解決。</td>
-                                <td>聯合國 (UN)、世界貿易組織 (WTO)、世界衛生組織 (WHO)</td>
-                            </tr>
-                             <tr>
-                                <td>區域性國際組織</td>
-                                <td>政府面臨區域性議題，會透過區域國際組織處理、解決。</td>
-                                <td>歐洲聯盟 (EU)、亞太經濟合作會議 (APEC)、東南亞國協 (ASEAN)</td>
-                            </tr>
-                            <tr>
-                                <td rowspan="2"><strong>依成員</strong></td>
-                                <td>政府的國際組織 (IGO)</td>
-                                <td>參與國際組織的成員原則上必須為<strong class="highlight-text">主權國家</strong>的政府。</td>
-                                <td>歐洲聯盟 (EU)、世界衛生組織 (WHO)、聯合國 (UN)</td>
-                            </tr>
-                             <tr>
-                                <td>非政府的國際組織 (NGO)</td>
-                                <td>參與國際組織的成員為<strong class="highlight-text">人民</strong>或是<strong class="highlight-text">民間團體</strong>。</td>
-                                <td>無國界醫生、解放兒童組織、臺灣世界展望會、臺灣路竹會</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class="info-card" style="margin-top:1.5rem;">
+                <h4><i class="fas fa-sitemap"></i>國際組織的種類</h4>
+                <div class="comparison-cards-container">
+                    <div class="comparison-card"><h5><i class="fas fa-globe"></i>全球性</h5><p>政府面臨全球普遍性議題，會透過全球性國際組織處理、解決。<br><strong>舉例：</strong>UN、WTO、WHO</p></div>
+                    <div class="comparison-card"><h5><i class="fas fa-map-marked-alt"></i>區域性</h5><p>政府面臨區域性議題，會透過區域國際組織處理、解決。<br><strong>舉例：</strong>EU、APEC、ASEAN</p></div>
+                    <div class="comparison-card"><h5><i class="fas fa-landmark"></i>政府的 (IGO)</h5><p>參與成員原則上必須為<strong class="highlight-text">主權國家</strong>的政府。<br><strong>舉例：</strong>EU、WHO、UN</p></div>
+                    <div class="comparison-card"><h5><i class="fas fa-users"></i>非政府的 (NGO)</h5><p>參與成員為<strong class="highlight-text">人民</strong>或是<strong class="highlight-text">民間團體</strong>。<br><strong>舉例：</strong>無國界醫生、臺灣路竹會</p></div>
                 </div>
             </div>
         </section>
 
         <section id="taiwan-participation-section">
             <h2 class="section-title"><i class="fas fa-flag"></i> 三、我國的國際參與</h2>
-            <div class="info-card">
-                <h3>我國的國際處境</h3>
-                <p>因<strong class="highlight-text">兩岸關係</strong>影響，自1971年我國退出聯合國後，加上中國單方面主張「一個中國」原則，使我國無法以主權國家的名義參與國際社會。</p>
-                <h3>我國的參與方式</h3>
-                <ul>
-                    <li><strong>政府</strong>：
-                        <ul>
-                            <li>以「中華臺北」名義加入<strong class="highlight-text">亞太經濟合作會議 (APEC)</strong>。</li>
-                            <li>曾以觀察員身分受邀參與<strong class="highlight-text">世界衛生大會 (WHA)</strong>。</li>
-                             <li>以「臺灣、澎湖、金門、馬祖個別關稅領域」名義加入<strong class="highlight-text">世界貿易組織 (WTO)</strong>。</li>
-                        </ul>
-                    </li>
-                     <li><strong>民間團體</strong>：
-                        <ul>
-                            <li>我國民間團體積極與其他國家進行交流，並從事慈善活動與人道救援。</li>
-                            <li>例如：臺灣世界展望會、臺灣路竹會。</li>
-                        </ul>
-                    </li>
-                </ul>
+             <div class="comparison-cards-container">
+                <div class="info-card">
+                    <h4><i class="fas fa-map-pin"></i>我國的國際處境</h4>
+                    <p>因<strong class="highlight-text">兩岸關係</strong>影響，自1971年我國退出聯合國後，加上中國單方面主張「一個中國」原則，使我國無法以主權國家的名義參與國際社會。</p>
+                </div>
+                 <div class="info-card">
+                    <h4><i class="fas fa-plane"></i>我國的參與方式</h4>
+                    <ul>
+                        <li><strong>政府</strong>：
+                            <ul>
+                                <li>以「中華臺北」名義加入<strong class="highlight-text">APEC</strong>。</li>
+                                <li>曾以觀察員身分參與<strong class="highlight-text">WHA</strong>。</li>
+                                <li>以「臺澎金馬個別關稅領域」名義加入<strong class="highlight-text">WTO</strong>。</li>
+                            </ul>
+                        </li>
+                         <li><strong>民間團體</strong>：
+                            <ul>
+                                <li>積極與他國交流，並從事慈善活動與人道救援。</li>
+                                <li>例如：臺灣世界展望會、臺灣路竹會。</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </section>
 
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
-            <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(110 會考)</span></h3>
+            <div class="quiz-container" id="quiz1">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(110 會考)</span></h3>
                 <div class="question">
                     <p>新聞報導：近來跨國犯罪案件頻傳，而我國籍嫌犯夥同東南亞犯罪集團詐騙民眾的消息也時有所聞，日前泰國與我國警方聯手破獲跨國詐騙集團，其犯罪所得估計約新臺幣數千萬元，對此泰國感謝我國政府協助偵辦，避免更多泰國民眾受害。根據上述案例推論，未來各國應更加重視下列何者？</p>
                 </div>
@@ -493,8 +345,8 @@
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
-            <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span>(110 會考)</span></h3>
+            <div class="quiz-container" id="quiz2">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(110 會考)</span></h3>
                 <div class="question">
                     <p>食物是人類維持生存的必需品，但世界上卻不是人人都能夠吃飽喝足，因此，聯合國在 1945 年 10 月 16 日成立糧食與農業組織，希望能有效管理全球糧食系統，讓更多人擺脫飢餓……。文中國際組織的分布區域及成員性質，與下列何者最類似？</p>
                 </div>
@@ -608,8 +460,12 @@
             
             const quizContainers = document.querySelectorAll('.quiz-container');
             
-            quizContainers.forEach((container, index) => {
-                const quizId = `quiz${index + 1}`;
+            quizContainers.forEach((container) => {
+                const quizId = container.id;
+                if (!quizId) return;
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
+
                 const optionButtons = container.querySelectorAll('.option-btn');
                 const feedbackArea = container.querySelector('.feedback-area');
                 const resetButton = container.querySelector('.reset-btn');

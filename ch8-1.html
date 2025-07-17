@@ -12,7 +12,7 @@
         :root {
             --primary-glow: #00f2ea; /* 亮青色 */
             --secondary-glow: #ff00ff; /* 洋紅色 */
-            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --accent-glow: #f0e14a; /* 金黃色 */
             --bg-dark: #0d1b2a;
             --bg-dark-2: #020a12;
             --text-color: #e0e0e0;
@@ -37,17 +37,17 @@
 
         header {
             text-align: center;
-            padding: 5rem 0;
+            padding: 5rem 1rem;
             border-bottom: 2px solid var(--border-color);
             box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+            overflow: hidden;
         }
 
         header h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3.8rem;
+            font-size: clamp(2rem, 4vw, 3.8rem);
             font-weight: 900;
             color: var(--text-color);
-            white-space: nowrap; /* 新增：防止標題換行 */
             text-shadow:
                 0 0 5px #fff,
                 0 0 10px var(--accent-glow),
@@ -65,11 +65,10 @@
 
         header h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
             font-weight: 700;
             color: var(--secondary-glow);
             margin-top: 1rem;
-            white-space: nowrap; /* 新增：防止副標題換行 */
             text-shadow: 0 0 8px var(--secondary-glow);
             animation: bounce 2s infinite;
         }
@@ -95,15 +94,11 @@
         
         section.visible { opacity: 1; transform: translateY(0); }
         
-        .highlight-text {
-            font-weight: bold;
-            color: var(--accent-glow);
-            text-shadow: 0 0 5px var(--accent-glow);
-        }
+        .highlight-text { font-weight: bold; color: var(--accent-glow); text-shadow: 0 0 5px var(--accent-glow); }
 
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
             color: var(--primary-glow);
@@ -111,46 +106,62 @@
             align-items: center;
             gap: 1rem;
             text-shadow: 0 0 10px var(--primary-glow);
+            flex-wrap: wrap;
         }
-        
         .section-title i {
-            font-size: 2.2rem;
+            font-size: clamp(1.6rem, 4.5vw, 2.2rem);
             color: var(--accent-glow);
             text-shadow: 0 0 10px var(--accent-glow);
         }
-        
-        h3, h4 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--primary-glow);
-            margin-bottom: 1rem;
-        }
-        h3 { font-size: 1.6rem; }
-        h4 { font-size: 1.4rem; }
 
-        .info-card {
-            background: rgba(0,0,0,0.2);
-            border: 1px solid var(--border-color);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-top: 1.5rem;
+        h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 1.8rem);
+            color: var(--primary-glow);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
         }
-        .info-card ul { list-style: none; padding: 0;}
-        .info-card li { margin-bottom: 0.5rem; position: relative; padding-left: 1.5rem; }
+        h3:first-of-type {
+            margin-top: 0;
+        }
+        
+        .info-card { 
+            background: rgba(0,0,0,0.2); 
+            border: 1px solid var(--border-color); 
+            border-radius: 15px; 
+            padding: 1.5rem;
+        }
+        
+        .info-card h4 { 
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            color: var(--primary-glow);
+            margin: 0 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            padding-bottom: 0.5rem;
+        }
+         .info-card ul {
+            list-style: none; padding-left: 0;
+        }
+        .info-card li {
+            position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem;
+        }
         .info-card li::before {
             content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
-            position: absolute; left: 0; top: 4px; color: var(--primary-glow);
+            position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
-        
-        .comparison-table {
-            width: 100%; border-collapse: collapse; margin-top: 1.5rem;
+
+        .comparison-cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
         }
-        .comparison-table th, .comparison-table td {
-            border: 1px solid var(--border-color); padding: 1rem; text-align: left;
-            vertical-align: top;
-        }
-        .comparison-table thead th { background-color: rgba(13, 27, 42, 0.7); color: var(--primary-glow); text-align: center; }
-        .comparison-table tbody th { font-weight: bold; color: var(--accent-glow); text-align: center; }
-        .comparison-table ul { list-style: none; padding-left: 0; }
         
         .flow-container {
             display: flex;
@@ -159,6 +170,7 @@
             gap: 1rem;
             margin-top: 1.5rem;
             flex-wrap: wrap;
+            margin-bottom: 2rem;
         }
         .flow-item {
             background: var(--bg-dark);
@@ -173,10 +185,57 @@
             color: var(--accent-glow);
         }
 
-        /* Quiz Styles */
         .quiz-container { margin-bottom: 3rem; }
-        .quiz-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); }
+        .quiz-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
+            color: var(--accent-glow);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+        }
         .quiz-title i { margin-right: 0.75rem; }
+        .quiz-title .quiz-source { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
+        #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
+        
+        .law-options-list {
+            display: grid;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .law-option-item {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .law-option-label {
+            color: var(--accent-glow);
+            font-weight: 700;
+            margin-right: 0.5em;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        #quiz-section .options { display: grid; gap: 1rem; }
+        .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+        .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
+        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark);}
+        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
+        
+        .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
+        .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
+        .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
+        .reset-btn:hover { transform: scale(1.05); }
         
         .matching-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
         .matching-item:last-child { border-bottom: none; }
@@ -186,20 +245,19 @@
         .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
         .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
         
-        /* Mascot & Typing Effect Styles */
-        .fun-bg-section {
-            position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem;
-            border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color);
-            overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem;
-        }
+        .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect {
-            position: relative; z-index: 5; font-family: 'Orbitron', monospace; font-size: 1.6rem; 
+            position: relative; z-index: 5; font-family: 'Orbitron', monospace;
+            font-size: clamp(1.2rem, 2vw + 0.5rem, 1.6rem); 
             font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
             text-align: center; max-width: 100%;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin: 0;
         }
         .typing-effect .cursor {
             display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            margin-left: 5px; width: 10px; height: 1.6rem; animation: blink-caret 0.75s step-end infinite;
+            margin-left: 5px; width: 10px; height: 1em; animation: blink-caret 0.75s step-end infinite;
         }
         @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
         .floating-mascot-bg {
@@ -208,6 +266,7 @@
             top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;
         }
         @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
+        
         #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
         #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
         #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
@@ -221,7 +280,6 @@
         #mascot-speech.visible { opacity: 1; transform: translateY(0); }
         .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
 
-        /* Floating Home Button & Footer */
         #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
         #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
         #return-home-btn:hover { transform: scale(1.1); }
@@ -230,14 +288,20 @@
 
         @media (max-width: 768px) {
             .container { padding: 1rem; }
-            header h1 { font-size: 2.5rem; }
             section { padding: 1.5rem; }
-            .section-title { font-size: 2rem; }
-            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
+            .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+            
+            .comparison-cards-container {
+                grid-template-columns: 1fr;
+            }
+            .flow-container, .agenda-options { flex-direction: column; }
 
-            /* Adjust new elements for mobile */
-            .typing-effect { font-size: 1.2rem; }
-            .typing-effect .cursor { height: 1.2rem; }
+            .law-options-list {
+                display: flex;
+                flex-direction: column;
+            }
+
+            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
             #mascot-img { width: 80px; }
             #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
@@ -257,7 +321,7 @@
 
         <section id="public-opinion-section">
             <h2 class="section-title"><i class="fas fa-bullhorn"></i>一、公共意見的形成與表達</h2>
-            <div class="info-card">
+            <div class="info-card" style="margin-top:0;">
                 <ul>
                     <li><strong>意義：</strong>一群民眾在某段時間內，<strong class="highlight-text">公開</strong>表達的集體意見，又稱為「民意」。</li>
                     <li><strong>具體內容：</strong>與民眾的生活利益有關，且涉及公共事務、政府政策或政治人物的議題。</li>
@@ -274,12 +338,12 @@
                 <div class="flow-item">形成公共意見</div>
             </div>
              <div class="info-card">
-                <h4>表達方式</h4>
+                <h4><i class="fas fa-paper-plane"></i>表達方式</h4>
                 <ul>
                     <li><strong>直接表達：</strong>向政府陳情、透過管道表達意見（如公聽會、民意調查、公民投票）。</li>
                     <li><strong>間接表達：</strong>向公眾人物、志願團體、大眾傳播媒體等表達意見。</li>
                 </ul>
-                <h4 style="margin-top:2rem">重要性</h4>
+                <h4 style="margin-top:2rem"><i class="fas fa-check-circle"></i>重要性</h4>
                 <ul>
                     <li>人民透過民意影響政策，政府也應以民意為施政依歸。</li>
                     <li>政策貼近民意才能得到人民的支持，背離民意將面臨執政正當性的危機。</li>
@@ -289,30 +353,76 @@
         
         <section id="opinion-features-section">
             <h2 class="section-title"><i class="fas fa-cogs"></i>二、公共意見的特性</h2>
-            <table class="comparison-table">
-                <thead><tr><th>特性</th><th>說明</th></tr></thead>
-                <tbody>
-                    <tr><th>複雜性 (差異性)</th><td>針對相同議題，社會成員的立場、表達強度都有差異，可能支持、反對或沒意見。</td></tr>
-                    <tr><th>變動性 (不穩定性)</th><td>社會成員的立場可能隨時空變化而產生變化，呈現不穩定狀態。</td></tr>
-                    <tr><th>影響性</th><td>公共意見可能影響政府、政治人物或政策作為，促使其推動符合民意的政策。</td></tr>
-                    <tr><th>公開性</th><td>公共意見須為公開的，大眾才會知悉，並匯集成共識，形成影響力。</td></tr>
-                </tbody>
-            </table>
+            <div class="comparison-cards-container">
+                <div class="info-card"><h4><i class="fas fa-code-branch"></i>複雜性 (差異性)</h4><p>針對相同議題，社會成員的立場、表達強度都有差異，可能支持、反對或沒意見。</p></div>
+                <div class="info-card"><h4><i class="fas fa-history"></i>變動性 (不穩定性)</h4><p>社會成員的立場可能隨時空變化而產生變化，呈現不穩定狀態。</p></div>
+                <div class="info-card"><h4><i class="fas fa-fist-raised"></i>影響性</h4><p>公共意見可能影響政府、政治人物或政策作為，促使其推動符合民意的政策。</p></div>
+                <div class="info-card"><h4><i class="fas fa-broadcast-tower"></i>公開性</h4><p>公共意見須為公開的，大眾才會知悉，並匯集成共識，形成影響力。</p></div>
+            </div>
         </section>
 
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
             <div class="quiz-container">
                 <h3 class="quiz-title"><i class="fas fa-tasks"></i>模擬神給酷</h3>
-                <div class="info-card">
-                     <p><strong>請填入正確代號。</strong><br>
-                     (甲) 複雜性 &nbsp;&nbsp; (乙) 變動性 &nbsp;&nbsp; (丙) 影響性 &nbsp;&nbsp; (丁) 公開性
-                     </p>
+                <div class="info-card" style="margin-top:0;">
+                     <p><strong>下列行為最符合何種公共意見的特性？請填入正確代號。</strong></p>
+                     <div class="law-options-list">
+                         <div class="law-option-item"><span class="law-option-label">甲</span> 複雜性</div>
+                         <div class="law-option-item"><span class="law-option-label">乙</span> 變動性</div>
+                         <div class="law-option-item"><span class="law-option-label">丙</span> 影響性</div>
+                         <div class="law-option-item"><span class="law-option-label">丁</span> 公開性</div>
+                     </div>
                      <div class="matching-item" data-answer="甲"><p>1. 安樂死爭議長期引起正、反方爭辯，社會未有共識。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
                      <div class="matching-item" data-answer="丁"><p>2. 「公共政策網路參與平臺」開放每位公民參與討論。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
                      <div class="matching-item" data-answer="丙"><p>3. 民眾長期反空汙，促使政府修改《空氣汙染防制法》。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
                      <div class="matching-item" data-answer="乙"><p>4. 臺灣社會以前提倡使用免洗筷，現在提倡使用環保筷。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
                 </div>
+            </div>
+
+            <div class="quiz-container" id="quiz1">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(108 會考)</span></h3>
+                <div class="question">
+                    <p>某個國家因是否興建核能發電廠的議題引發爭議，贊成方認為，此舉可提供更穩定的電力；反對方則擔憂，此舉會增加安全風險與環境負擔。這兩種意見相互對立，各有其支持者。上述內容最能說明公共意見的何種特性？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 變動性</button>
+                    <button class="option-btn" data-correct="true">(B) 複雜性</button>
+                    <button class="option-btn" data-correct="false">(C) 影響性</button>
+                    <button class="option-btn" data-correct="false">(D) 公開性</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+
+            <div class="quiz-container" id="quiz2">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(104 會考)</span></h3>
+                <div class="question">
+                    <p>早期政府曾大力宣導「一個孩子不算少，兩個孩子恰恰好」，但隨著我國少子化問題日益嚴重，為提高生育率，政府改以發放育兒津貼，並設立公共托育中心等措施，鼓勵國人多生育。上述現象最能反映公共意見的何種特性？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="true">(A) 變動性</button>
+                    <button class="option-btn" data-correct="false">(B) 複雜性</button>
+                    <button class="option-btn" data-correct="false">(C) 影響性</button>
+                    <button class="option-btn" data-correct="false">(D) 公開性</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            
+            <div class="quiz-container" id="quiz3">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(100 基測)</span></h3>
+                <div class="question">
+                    <p>我國為了解決少子化及高齡化社會所帶來的問題，曾召開全國性的年金改革會議，廣泛蒐集各界意見，以做為政策制定的參考。上述會議的舉行，最能彰顯民主政治的何種特色？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="true">(A) 民意政治</button>
+                    <button class="option-btn" data-correct="false">(B) 法治政治</button>
+                    <button class="option-btn" data-correct="false">(C) 責任政治</button>
+                    <button class="option-btn" data-correct="false">(D) 政黨政治</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
             </div>
         </section>
         
@@ -371,6 +481,7 @@
                     const correctAnswer = item.dataset.answer;
                     const feedbackIcon = item.querySelector('.feedback-icon');
                     feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    feedbackIcon.innerHTML = '';
                     if (selectedValue === "請選擇") {
                         feedbackIcon.style.display = 'none';
                         return;
@@ -384,6 +495,78 @@
                         feedbackIcon.innerHTML = '✗';
                     }
                 });
+            });
+
+            // Multiple choice quiz logic
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>針對「興建核能發電廠」這個議題，社會上同時存在「贊成」與「反對」兩種相互對立的意見，這顯示了公共意見針對同一議題，可能因立場不同而有多元分歧的看法，此為<strong class="highlight-text">複雜性</strong>的展現。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 變動性</strong>是指意見隨時間改變，題目描述的是同一時間點的不同看法。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 影響性</strong>是指意見對政府決策產生影響，題目尚未提及決策結果。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 公開性</strong>是公共意見的基本特徵，雖然題目中意見是公開的，但核心在於意見的「對立與分歧」。</p>`
+                },
+                quiz2: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>從「早期」提倡「兩個孩子恰恰好」，到「現在」因應少子化而「鼓勵多生育」，顯示社會對於生育的公共意見，隨著<strong class="highlight-text">時間和社會背景的改變而產生變化</strong>，這正是公共意見「變動性」的體現。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 複雜性</strong>是指同一時間點存在多種不同意見，題目描述的是不同時間點的意見轉變。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 影響性</strong>雖然存在（政策改變），但題目的核心是描述意見「本身」的轉變，而非其結果。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 公開性</strong>是公共意見的基本特徵，但非此題描述的重點。</p>`
+                },
+                quiz3: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>政府透過召開全國性會議，「廣泛蒐集各界意見」作為政策制定的參考，其目的是希望政策能符合人民的期望。這種以民意為施政依歸的作法，最能彰顯民主政治中的<strong class="highlight-text">「民意政治」</strong>特色。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 法治政治</strong>強調政府依法行政，與蒐集意見的行為不同。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 責任政治</strong>是指政府為政策成敗負責，與制定政策前的民意蒐集不同。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 政黨政治</strong>涉及政黨競爭與監督，與政府蒐集民意的行為不同。</p>`
+                }
+            };
+            
+            const mcqContainers = document.querySelectorAll('.quiz-container');
+            let mcqIndex = 0;
+            mcqContainers.forEach((container) => {
+                // Find only the MCQ containers
+                if(container.querySelector('.option-btn')) {
+                    mcqIndex++;
+                    const quizId = `quiz${mcqIndex}`; 
+                    container.id = quizId;
+                    const quizData = allQuizData[quizId];
+                    if (!quizData) return;
+
+                    const optionButtons = container.querySelectorAll('.option-btn');
+                    const feedbackArea = container.querySelector('.feedback-area');
+                    const resetButton = container.querySelector('.reset-btn');
+
+                    optionButtons.forEach(button => {
+                        button.addEventListener('click', () => {
+                            const isCorrect = button.dataset.correct === 'true';
+                            optionButtons.forEach(btn => btn.disabled = true);
+                            
+                            if (isCorrect) {
+                                button.classList.add('correct');
+                                feedbackArea.innerHTML = quizData.correct;
+                                feedbackArea.className = 'feedback-area feedback-correct';
+                            } else {
+                                button.classList.add('wrong');
+                                container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                                const optionLetter = button.textContent.substring(1, 2);
+                                feedbackArea.innerHTML = quizData[optionLetter];
+                                feedbackArea.className = 'feedback-area feedback-wrong';
+                            }
+                            
+                            feedbackArea.style.display = 'block';
+                            resetButton.style.display = 'block';
+                            feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        });
+                    });
+                    
+                    resetButton.addEventListener('click', () => {
+                        optionButtons.forEach(btn => {
+                            btn.disabled = false;
+                            btn.classList.remove('correct', 'wrong');
+                        });
+                        feedbackArea.style.display = 'none';
+                        resetButton.style.display = 'none';
+                        container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                }
             });
 
             // Typing Effect and Mascot JS

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>重點9-2：民法與生活</title>
-    <!-- Font Awesome script is still useful for other icons in the page -->
+    <!-- Font Awesome script -->
     <script src="https://kit.fontawesome.com/62a9d1d113.js" crossorigin="anonymous"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
@@ -12,7 +12,7 @@
         :root {
             --primary-glow: #00f2ea; /* 亮青色 */
             --secondary-glow: #ff00ff; /* 洋紅色 */
-            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --accent-glow: #f0e14a; /* 金黃色 */
             --bg-dark: #0d1b2a;
             --bg-dark-2: #020a12;
             --text-color: #e0e0e0;
@@ -23,16 +23,8 @@
             --accent-border-color: rgba(240, 225, 74, 0.5);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
             background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-2));
@@ -41,25 +33,21 @@
             overflow-x: hidden;
         }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
 
         header {
             text-align: center;
-            padding: 5rem 0;
+            padding: 5rem 1rem;
             border-bottom: 2px solid var(--border-color);
             box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+            overflow: hidden;
         }
 
         header h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3.8rem;
+            font-size: clamp(2.5rem, 4vw, 3.8rem);
             font-weight: 900;
             color: var(--text-color);
-            white-space: nowrap; /* 新增：防止標題換行 */
             text-shadow:
                 0 0 5px #fff,
                 0 0 10px var(--accent-glow),
@@ -70,19 +58,14 @@
 
         @keyframes flicker-orange {
             0%, 18%, 22%, 25%, 53%, 57%, 100% {
-                text-shadow:
-                0 0 4px #fff,
-                0 0 11px var(--accent-glow),
-                0 0 19px var(--accent-glow),
-                0 0 40px var(--accent-glow),
-                0 0 80px var(--accent-glow);
+                text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-glow), 0 0 19px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow);
             }
             20%, 24%, 55% { text-shadow: none; }
         }
 
         header h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
             font-weight: 700;
             color: var(--secondary-glow);
             margin-top: 1rem;
@@ -109,20 +92,13 @@
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
         
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        section.visible { opacity: 1; transform: translateY(0); }
         
-        .highlight-text {
-            font-weight: bold;
-            color: var(--accent-glow);
-            text-shadow: 0 0 5px var(--accent-glow);
-        }
+        .highlight-text { font-weight: bold; color: var(--accent-glow); text-shadow: 0 0 5px var(--accent-glow); }
 
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
             color: var(--primary-glow);
@@ -130,16 +106,15 @@
             align-items: center;
             gap: 1rem;
             text-shadow: 0 0 10px var(--primary-glow);
+            flex-wrap: wrap;
         }
-        
         .section-title i {
-            font-size: 2.2rem;
+            font-size: clamp(1.6rem, 4.5vw, 2.2rem);
             color: var(--accent-glow);
             text-shadow: 0 0 10px var(--accent-glow);
         }
-        
         .section-title small {
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 2vw, 1.2rem);
             color: var(--text-color);
             opacity: 0.8;
             font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
@@ -147,93 +122,80 @@
             text-shadow: none;
         }
 
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 1.5rem;
+        h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 1.8rem);
+            color: var(--primary-glow);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
         }
-
-        .three-col-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
+        h3:first-of-type {
+            margin-top: 0;
         }
-
-        .info-card {
-            background: rgba(0,0,0,0.2);
-            border: 2px solid var(--border-color);
-            border-radius: 15px;
+        
+        .info-card { 
+            background: rgba(0,0,0,0.2); 
+            border: 1px solid var(--border-color); 
+            border-radius: 15px; 
             padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
             transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-            margin-bottom: 1.5rem; 
         }
-        .info-card:last-child {
-            margin-bottom: 0;
-        }
-        .three-col-grid .info-card, .content-grid .info-card {
-            margin-bottom: 0; /* Remove bottom margin when in grid */
-        }
-
         .info-card:hover {
-            transform: translateY(-10px) scale(1.02);
+            transform: translateY(-5px) scale(1.01);
             border-color: var(--accent-glow);
-            box-shadow: 0 15px 30px rgba(240, 225, 74, 0.2);
+            box-shadow: 0 10px 25px rgba(240, 225, 74, 0.15);
         }
         
         .info-card h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            color: var(--primary-glow);
-            border-bottom: 3px solid var(--accent-glow);
-            padding-bottom: 0.5rem;
-            margin-bottom: 1rem;
+             border-bottom: 3px solid var(--accent-glow);
+             margin-top: 0;
         }
-        
         .info-card ul {
-            list-style: none;
-            padding-left: 0;
-            flex-grow: 1;
+            list-style: none; padding-left: 0;
         }
         .info-card li {
-            position: relative;
-            padding-left: 1.5rem;
-            margin-bottom: 0.75rem;
+            position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem;
         }
         .info-card li::before {
-            content: '\f105'; /* Font Awesome angle-right */
-            font-family: 'Font Awesome 5 Free';
-            font-weight: 900;
-            position: absolute;
-            left: 0;
-            top: 2px;
-            color: var(--accent-glow);
-            transition: transform 0.3s;
-        }
-        .info-card:hover li::before {
-            transform: rotate(90deg);
+            content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
+            position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
         
-        .info-card h4 {
-            font-size: 1.2rem;
-            color: var(--primary-glow);
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
+        .highlight-box { background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05)); padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow); font-size: 1.1rem; margin-top: 2rem; box-shadow: inset 0 0 10px rgba(240, 225, 74, 0.2); }
+        .highlight-box h4 {
+            color: var(--accent-glow); margin: 0 0 1rem 0; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0;
+        }
+        
+        .comparison-cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .grid-3-col {
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
         }
 
-        .highlight-box { background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05)); padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow); font-size: 1.1rem; margin-top: 2rem; box-shadow: inset 0 0 10px rgba(240, 225, 74, 0.2); }
-        .highlight-box strong { color: var(--accent-glow); font-weight: 700; }
-        
-        /* --- QUIZ STYLES --- */
         .quiz-container { margin-bottom: 3rem; }
-        .quiz-container:last-child { margin-bottom: 0; }
-        .quiz-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); }
+        .quiz-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
+            color: var(--accent-glow);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+        }
         .quiz-title i { margin-right: 0.75rem; }
-        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
+        .quiz-title .quiz-source { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
         #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
-        #quiz-section .options { display: grid; gap: 1rem; }
         
+        #quiz-section .options { display: grid; gap: 1rem; }
         .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
         .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
         .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark); }
@@ -247,90 +209,32 @@
         .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
         .reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--accent-glow); }
         
-        /* --- FUN STYLES --- */
-        .fun-bg-section {
-            position: relative;
-            min-height: 150px;
-            margin-top: 4rem;
-            margin-bottom: 2rem;
-            border-radius: 20px;
-            background-color: var(--card-bg);
-            border: 2px solid var(--border-color);
-            overflow: hidden;
-            backdrop-filter: blur(5px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-        }
+        .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect {
-            position: relative;
-            z-index: 5;
-            font-family: 'Orbitron', monospace;
-            font-size: 1.6rem; 
-            font-weight: 700;
-            color: #fff;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            text-align: center;
-            max-width: 100%;
+            position: relative; z-index: 5; font-family: 'Orbitron', monospace;
+            font-size: clamp(1.2rem, 2vw + 0.5rem, 1.6rem); 
+            font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            text-align: center; max-width: 100%;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin: 0;
         }
         .typing-effect .cursor {
-            display: inline-block;
-            background-color: #fff;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            margin-left: 5px;
-            width: 10px;
-            height: 1.6rem;
-            animation: blink-caret 0.75s step-end infinite;
+            display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            margin-left: 5px; width: 10px; height: 1em; animation: blink-caret 0.75s step-end infinite;
         }
-        @keyframes blink-caret {
-            from, to { background-color: transparent; box-shadow: none; }
-            50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); }
-        }
+        @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
         .floating-mascot-bg {
-            position: absolute;
-            width: 250px;
-            height: auto;
-            opacity: 0.15;
+            position: absolute; width: 250px; height: auto; opacity: 0.15;
             animation: floatMascot 15s ease-in-out infinite alternate;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1;
+            top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;
         }
-        @keyframes floatMascot {
-            from { transform: translate(-60%, -60%) rotate(-15deg); }
-            to { transform: translate(-40%, -40%) rotate(15deg); }
-        }
+        @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
         
-        #return-home-btn {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            width: 50px;
-            height: 50px;
-            z-index: 1001;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        #return-home-btn svg {
-            width: 100%;
-            height: 100%;
-            stroke: #ffffff;
-            stroke-width: 2px;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            fill: none;
-            transition: all 0.3s ease;
-            filter: drop-shadow(0 0 6px var(--primary-glow));
-        }
+        #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
+        #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
         #return-home-btn:hover { transform: scale(1.1); }
-        #return-home-btn:hover svg {
-            stroke: var(--primary-glow);
-            filter: drop-shadow(0 0 12px var(--primary-glow));
-            transform: rotate(-10deg);
-        }
-
+        #return-home-btn:hover svg { stroke: var(--primary-glow); filter: drop-shadow(0 0 12px var(--primary-glow)); transform: rotate(-10deg); }
         footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
         #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
         #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
@@ -342,15 +246,13 @@
 
         @media (max-width: 768px) {
             .container { padding: 1rem; }
-            header { padding: 3rem 0; }
-            header h1 { font-size: 2.5rem; }
-            header h2 { font-size: 1.2rem; }
-            section { padding: 1.5rem; margin-bottom: 2rem; }
-            .section-title { font-size: 2rem; }
-            .content-grid, .three-col-grid { grid-template-columns: 1fr; }
-            .typing-effect { font-size: 1.2rem; }
-            .typing-effect .cursor { height: 1.2rem; }
-            #quiz-section .question, .option-btn { font-size: 1rem; }
+            section { padding: 1.5rem; }
+            
+            .three-col-grid,
+            .comparison-cards-container {
+                grid-template-columns: 1fr;
+            }
+
             #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
             #mascot-img { width: 80px; }
@@ -371,16 +273,16 @@
     <main class="container">
         <section id="scope-section">
             <h2 class="section-title"><i class="fas fa-users"></i> 一、民法範圍 <small>規範私人間之權利義務關係</small></h2>
-            <div class="info-card">
+            <div class="info-card" style="margin-top:0;">
                 <h3><i class="fas fa-coins"></i> 財產關係</h3>
                 <p>因買賣、租賃、借貸等契約行為所產生的權利義務關係。</p>
-                <div class="content-grid" style="margin-top: 1rem;">
+                <div class="comparison-cards-container grid-3-col" style="margin-top: 1rem;">
                     <div class="info-card"><h4>買賣</h4><p>出賣人將特定物品移轉給買受人，而買受人支付金錢給出賣人的契約。</p></div>
                     <div class="info-card"><h4>租賃</h4><p>雙方約定，出租人將物品租給承租人使用，而承租人支付租金的契約。</p></div>
                     <div class="info-card"><h4>借貸</h4><p>出借人將金錢或借用物交給借用人，借用人依約返還金錢或借用物的契約。</p></div>
                 </div>
             </div>
-            <div class="info-card">
+            <div class="info-card" style="margin-top:1.5rem;">
                 <h3><i class="fas fa-user-friends"></i> 身分關係</h3>
                 <p>因特定身分而產生的權利義務關係，主要包括：</p>
                 <ul>
@@ -397,7 +299,7 @@
         <section id="capacity-section">
             <h2 class="section-title"><i class="fas fa-child"></i> 二、行為能力與效力</h2>
             <p>一個人的行為是否能產生法律上的效力，取決於其年齡、精神及心智狀態，可分為三種類型：</p>
-            <div class="three-col-grid">
+            <div class="comparison-cards-container grid-3-col">
                 <div class="info-card">
                     <h3>無行為能力<br><small>未滿7歲 / 受監護宣告者</small></h3>
                     <h4>法律效力：<span class="highlight-text">無效</span></h4>
@@ -411,10 +313,10 @@
                     <ul>
                         <li><strong>原則</strong>：須經法定代理人事前允許或事後承認才有效。</li>
                         <li><strong>例外</strong>：不須取得同意也有效的行為：
-                            <ol>
+                            <ul>
                                 <li>單純獲得利益的行為（如：領獎學金）。</li>
                                 <li>依其年齡與身分，日常生活所必需者（如：買文具、搭捷運）。</li>
-                            </ol>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -433,32 +335,23 @@
             <div class="highlight-box">
                 <h4><i class="fas fa-lightbulb"></i> 契約是什麼？</h4>
                 <p>契約當事人互相表示<strong class="highlight-text">意思一致</strong>而訂立的協議。契約一旦成立，雙方須依約定履行權利和義務。</p>
-                <p><strong>非要式契約</strong>：口頭約定、明示或默示都可生效（例：買早餐）。</p>
-                <p><strong>要式契約</strong>：須以特定方式完成才有效（例：不動產移轉→書面契約+登記）。</p>
+                <ul>
+                    <li><strong>非要式契約</strong>：口頭約定、明示或默示都可生效（例：買早餐）。</li>
+                    <li><strong>要式契約</strong>：須以特定方式完成才有效（例：不動產移轉→書面契約+登記）。</li>
+                </ul>
             </div>
-            <div style="margin-top: 2rem;">
+            <div class="comparison-cards-container grid-3-col" style="margin-top: 2rem;">
                 <div class="info-card">
-                    <h3>原則一：契約自由原則</h3>
-                    <ul>
-                        <li>個人有依其意思簽訂契約的自由，雙方同意即生效力。</li>
-                        <li>契約內容須不違反<strong class="highlight-text">法律</strong>、<strong class="highlight-text">公共秩序</strong>、<strong class="highlight-text">善良風俗</strong>。</li>
-                        <li><strong>例如</strong>：勞雇雙方可自由議定工資，但若低於基本工資，則該約定因違法而無效。</li>
-                    </ul>
+                    <h3>原則一：契約自由</h3>
+                    <p>個人有依其意思簽訂契約的自由，但內容須不違反<strong class="highlight-text">法律</strong>、<strong class="highlight-text">公共秩序</strong>、<strong class="highlight-text">善良風俗</strong>。</p>
                 </div>
                 <div class="info-card">
-                    <h3>原則二：誠實信用原則</h3>
-                    <ul>
-                        <li>行使權利，履行義務，應依誠實及信用方法。此為《民法》最高指導原則。</li>
-                        <li><strong>例如</strong>：利用商家接受退貨的規定，故意將已購買的商品使用後再退貨，違反誠實信用原則。</li>
-                    </ul>
+                    <h3>原則二：誠實信用</h3>
+                    <p>行使權利，履行義務，應依誠實及信用方法。此為《民法》最高指導原則。</p>
                 </div>
                 <div class="info-card">
-                    <h3>原則三：消滅時效原則</h3>
-                    <ul>
-                        <li>權利的請求具有時效性。</li>
-                        <li>債權人經過一定期間不行使權利，其請求權就會<strong class="highlight-text">喪失或受到限制</strong>。</li>
-                        <li><strong>例如</strong>：一般而言，債權人要在 <strong class="highlight-text">15年</strong>內行使權利，否則請求權會受限制。</li>
-                    </ul>
+                    <h3>原則三：消滅時效</h3>
+                    <p>權利的請求具有時效性。債權人經過一定期間不行使權利，其請求權就會<strong class="highlight-text">喪失或受到限制</strong>。</p>
                 </div>
             </div>
         </section>
@@ -466,12 +359,11 @@
         <section id="liability-section">
             <h2 class="section-title"><i class="fas fa-balance-scale-right"></i> 四、民事責任</h2>
             <p>指違反《民法》規定應遵守的義務時，所須承擔的法律責任，主要有兩種類型：</p>
-            <div class="content-grid">
+            <div class="comparison-cards-container">
                 <div class="info-card">
                     <h3>侵權行為</h3>
                     <p>因<strong class="highlight-text">故意</strong>或<strong class="highlight-text">過失</strong>，不法侵害他人的權利或利益的行為。</p>
                     <h4>責任</h4>
-                    <p>侵權行為人應負起損害賠償責任。</p>
                     <ul>
                         <li><strong>原則</strong>：回復原狀。</li>
                         <li><strong>無法回復原狀時</strong>：則以金錢賠償。</li>
@@ -493,8 +385,8 @@
 
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
-            <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(113 會考)</span></h3>
+            <div class="quiz-container" id="quiz1">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(113 會考)</span></h3>
                 <div class="question">
                     <p>小央花費數萬元購買限量模型，將商品帶回家後遭到父母反對，並立刻陪同小央返回店家要求退貨。根據我國法律規定，就小央的年齡而言，此項契約須經法定代理人同意才具備效力，因此店家只能辦理退貨。根據上述內容判斷，下列何者最可能是小央的年齡？</p>
                 </div>
@@ -507,8 +399,8 @@
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
-            <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span>(112 會考)</span></h3>
+            <div class="quiz-container" id="quiz2">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(112 會考)</span></h3>
                 <div class="question">
                     <p>新聞報導：15歲的小君自行跑到住家巷口的超商，將上萬元壓歲錢全數用來購買高額遊戲點數，事後小君的父母前往超商要求退款，認為超商未盡到把關責任。超商店長表示，小君購買點數時聲稱已獲得家長同意，所以才將商品販賣給他，對於小君父親的要求雖然感到相當無奈，但仍願意退款。關於上述消費爭議事件，下列何項說法最合理？</p>
                 </div>
@@ -521,8 +413,8 @@
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
-            <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span>(109 會考)</span></h3>
+            <div class="quiz-container" id="quiz3">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(109 會考)</span></h3>
                 <div class="question">
                     <p>右圖為《民法》中年齡與行為能力的示意圖，甲、乙、丙分別代表不同程度的行為能力。下列何者最可能與圖中的「甲」屬於相同程度的行為能力？</p>
                     <div class="highlight-box" style="padding:1rem; text-align:center;">
@@ -530,8 +422,8 @@
                     </div>
                 </div>
                 <div class="options">
-                    <button class="option-btn" data-correct="false">(A) 受到法院監護宣告的大明</button>
-                    <button class="option-btn" data-correct="true">(B) 遭到宣告禁治產的阿世</button> <!-- 註：禁治產為舊法用語，等於現行的監護宣告，此為符合考題的正確答案 -->
+                    <button class="option-btn" data-correct="true">(A) 受到法院監護宣告的大明</button>
+                    <button class="option-btn" data-correct="false">(B) 遭到宣告禁治產的阿世</button> <!-- 註：(A)(B)在現行法下意義相同，(A)為新法用語 -->
                     <button class="option-btn" data-correct="false">(C) 8歲因故仍未就學的小麗</button>
                     <button class="option-btn" data-correct="false">(D) 9歲意外失去雙親的琪琪</button>
                 </div>
@@ -636,8 +528,8 @@
                     D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 這個說法太絕對。如果小君只是買一瓶飲料或一個麵包（日常生活所必需），就不需要父母同意。</p>`
                 },
                 quiz3: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>圖中的「甲」代表0歲開始的<strong class="highlight-text">無行為能力</strong>。除了未滿7歲的未成年人，因精神障礙而「受監護宣告」之人，在法律上也屬於無行為能力人。(B)「禁治產宣告」是舊法用語，其效果等同於現行的「監護宣告」。因此阿世與「甲」的法律地位相同。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 監護宣告的大明</strong>：這與(B)是相同意思，但(B)是考題當時的原始選項用語，因此在歷屆試題中選(B)。在新考題中，(A)會是正確答案。</p>`,
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>圖中的「甲」代表0歲開始的<strong class="highlight-text">無行為能力</strong>。除了未滿7歲的未成年人，因精神障礙而「受監護宣告」之人，在法律上也屬於無行為能力人。(A) 受到法院監護宣告的大明，與「甲」的法律地位相同。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 「禁治產」</strong>是舊法用語，其效果等同於現行的「監護宣告」，在舊考題中是正確答案。但在新法架構下，(A)的用詞更為精確。</p>`,
                     C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 8歲的小麗</strong>：已滿7歲，屬於「乙」的限制行為能力人。</p>`,
                     D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 9歲的琪琪</strong>：已滿7歲，屬於「乙」的限制行為能力人。失去雙親只影響監護問題，不改變其行為能力程度。</p>`
                 }
@@ -647,6 +539,10 @@
             
             quizContainers.forEach((container, index) => {
                 const quizId = `quiz${index + 1}`;
+                container.id = quizId;
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
+
                 const optionButtons = container.querySelectorAll('.option-btn');
                 const feedbackArea = container.querySelector('.feedback-area');
                 const resetButton = container.querySelector('.reset-btn');
@@ -661,15 +557,14 @@
 
                         if (isCorrect) {
                             button.classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId].correct;
-                            feedbackArea.className = 'feedback-area feedback-correct';
+                            feedbackArea.innerHTML = quizData.correct;
                         } else {
                             const optionLetter = button.textContent.substring(1, 2);
                             button.classList.add('wrong');
                             container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
-                            feedbackArea.className = 'feedback-area feedback-wrong';
+                            feedbackArea.innerHTML = quizData[optionLetter];
                         }
+                        feedbackArea.className = `feedback-area ${isCorrect ? 'feedback-correct' : 'feedback-wrong'}`;
                         feedbackArea.style.display = 'block';
                         resetButton.style.display = 'block';
                         feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -691,7 +586,7 @@
             const mascotImg = document.getElementById('mascot-img');
             const speechBubble = document.getElementById('mascot-speech');
             
-            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            const messages = ["公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
             let messageIndex = 0;
             let clickTimer = null;
             let speechTimeout = null;

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>重點9-3：刑法與生活</title>
-    <!-- Font Awesome script is still useful for other icons in the page -->
+    <!-- Font Awesome script -->
     <script src="https://kit.fontawesome.com/62a9d1d113.js" crossorigin="anonymous"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
@@ -12,7 +12,7 @@
         :root {
             --primary-glow: #00f2ea; /* 亮青色 */
             --secondary-glow: #ff00ff; /* 洋紅色 */
-            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --accent-glow: #f0e14a; /* 金黃色 */
             --bg-dark: #0d1b2a;
             --bg-dark-2: #020a12;
             --text-color: #e0e0e0;
@@ -23,16 +23,8 @@
             --accent-border-color: rgba(240, 225, 74, 0.5);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
             background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-2));
@@ -41,25 +33,21 @@
             overflow-x: hidden;
         }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
 
         header {
             text-align: center;
-            padding: 5rem 0;
+            padding: 5rem 1rem;
             border-bottom: 2px solid var(--border-color);
             box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+            overflow: hidden;
         }
 
         header h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3.8rem;
+            font-size: clamp(2.5rem, 4vw, 3.8rem);
             font-weight: 900;
             color: var(--text-color);
-            white-space: nowrap; /* 新增：防止標題換行 */
             text-shadow:
                 0 0 5px #fff,
                 0 0 10px var(--accent-glow),
@@ -70,19 +58,14 @@
 
         @keyframes flicker-orange {
             0%, 18%, 22%, 25%, 53%, 57%, 100% {
-                text-shadow:
-                0 0 4px #fff,
-                0 0 11px var(--accent-glow),
-                0 0 19px var(--accent-glow),
-                0 0 40px var(--accent-glow),
-                0 0 80px var(--accent-glow);
+                text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-glow), 0 0 19px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow);
             }
             20%, 24%, 55% { text-shadow: none; }
         }
 
         header h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
             font-weight: 700;
             color: var(--secondary-glow);
             margin-top: 1rem;
@@ -109,20 +92,13 @@
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
         
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        section.visible { opacity: 1; transform: translateY(0); }
         
-        .highlight-text {
-            font-weight: bold;
-            color: var(--accent-glow);
-            text-shadow: 0 0 5px var(--accent-glow);
-        }
+        .highlight-text { font-weight: bold; color: var(--accent-glow); text-shadow: 0 0 5px var(--accent-glow); }
 
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
             color: var(--primary-glow);
@@ -130,233 +106,196 @@
             align-items: center;
             gap: 1rem;
             text-shadow: 0 0 10px var(--primary-glow);
+            flex-wrap: wrap;
         }
-        
         .section-title i {
-            font-size: 2.2rem;
+            font-size: clamp(1.6rem, 4.5vw, 2.2rem);
             color: var(--accent-glow);
             text-shadow: 0 0 10px var(--accent-glow);
         }
-        
-        .section-title small {
-            font-size: 1.2rem;
-            color: var(--text-color);
-            opacity: 0.8;
-            font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
-            font-weight: 400;
-            text-shadow: none;
-        }
 
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .three-col-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-        }
-
-        .info-card {
-            background: rgba(0,0,0,0.2);
-            border: 2px solid var(--border-color);
-            border-radius: 15px;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-        }
-        
-        .info-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--accent-glow);
-            box-shadow: 0 15px 30px rgba(240, 225, 74, 0.2);
-        }
-        
-        .info-card h3 {
+        h3 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: clamp(1.5rem, 3vw, 1.8rem);
             color: var(--primary-glow);
-            border-bottom: 3px solid var(--accent-glow);
-            padding-bottom: 0.5rem;
+            margin-top: 2rem;
             margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+        }
+        h3:first-of-type {
+            margin-top: 0;
         }
         
-        .info-card ul {
-            list-style: none;
-            padding-left: 0;
-            flex-grow: 1;
+        .info-card { 
+            background: rgba(0,0,0,0.2); 
+            border: 1px solid var(--border-color); 
+            border-radius: 15px; 
+            padding: 1.5rem;
+        }
+        
+        .info-card h4 { 
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            color: var(--primary-glow);
+            margin: 0 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            padding-bottom: 0.5rem;
+        }
+         .info-card ul {
+            list-style: none; padding-left: 0;
         }
         .info-card li {
-            position: relative;
-            padding-left: 1.5rem;
-            margin-bottom: 0.75rem;
+            position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem;
         }
         .info-card li::before {
-            content: '\f105'; /* Font Awesome angle-right */
-            font-family: 'Font Awesome 5 Free';
-            font-weight: 900;
-            position: absolute;
-            left: 0;
-            top: 2px;
-            color: var(--accent-glow);
-            transition: transform 0.3s;
-        }
-        .info-card:hover li::before {
-            transform: rotate(90deg);
-        }
-        
-        .info-card h4 {
-            font-size: 1.2rem;
-            color: var(--primary-glow);
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
+            content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
+            position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
         .info-card .sub-title {
             font-weight: bold;
             color: var(--primary-glow);
-            margin-top: 0.5rem;
+            margin-top: 1rem;
         }
 
         .highlight-box { background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05)); padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow); font-size: 1.1rem; margin-top: 2rem; box-shadow: inset 0 0 10px rgba(240, 225, 74, 0.2); }
         .highlight-box strong { color: var(--accent-glow); font-weight: 700; }
+
+        .comparison-cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .grid-3-col {
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        }
+        .comparison-card {
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+        .comparison-card h5 {
+            font-size: 1.2rem;
+            margin: 0 0 1rem 0;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-glow);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .comparison-card ul {
+             list-style: none; padding-left: 0; font-size: 0.95rem; flex-grow: 1;
+        }
+        .comparison-card li {
+            position: relative; padding-left: 1.2rem; margin-bottom: 0.3rem;
+        }
+        .comparison-card li::before {
+            content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
+            position: absolute; left: 0; top: 3px;
+        }
         
-        /* --- QUIZ STYLES --- */
         .quiz-container { margin-bottom: 3rem; }
-        .quiz-container:last-child { margin-bottom: 0; }
-        .quiz-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); }
+        .quiz-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
+            color: var(--accent-glow);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+        }
         .quiz-title i { margin-right: 0.75rem; }
-        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
+        .quiz-title .quiz-source { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
         #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
-        #quiz-section .options { display: grid; gap: 1rem; }
         
+        #quiz-section .options { display: grid; gap: 1rem; }
         .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
         .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
-        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark); }
-        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark); }
+        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark);}
+        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
         
         .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
         .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
         .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
         .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
+        .reset-btn:hover { transform: scale(1.05); }
         
-        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
-        .reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--accent-glow); }
+        .matching-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .matching-item:last-child { border-bottom: none; }
+        .matching-item p { flex-grow: 1; margin: 0; }
+        .matching-select { background-color: var(--bg-dark); color: var(--text-color); border: 1px solid var(--primary-glow); border-radius: 5px; padding: 0.4rem; font-family: inherit; font-size: 1rem; cursor: pointer; }
+        .feedback-icon { font-size: 1.2rem; font-weight: 900; display: none; }
+        .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
+        .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
         
-        /* --- FUN STYLES --- */
-        .fun-bg-section {
-            position: relative;
-            min-height: 150px;
-            margin-top: 4rem;
-            margin-bottom: 2rem;
-            border-radius: 20px;
-            background-color: var(--card-bg);
-            border: 2px solid var(--border-color);
-            overflow: hidden;
-            backdrop-filter: blur(5px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-        }
+        .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect {
-            position: relative;
-            z-index: 5;
-            font-family: 'Orbitron', monospace;
-            font-size: 1.6rem; 
-            font-weight: 700;
-            color: #fff;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            text-align: center;
-            max-width: 100%;
+            position: relative; z-index: 5; font-family: 'Orbitron', monospace;
+            font-size: clamp(1.2rem, 2vw + 0.5rem, 1.6rem); 
+            font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            text-align: center; max-width: 100%;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin: 0;
         }
         .typing-effect .cursor {
-            display: inline-block;
-            background-color: #fff;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            margin-left: 5px;
-            width: 10px;
-            height: 1.6rem;
-            animation: blink-caret 0.75s step-end infinite;
+            display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            margin-left: 5px; width: 10px; height: 1em; animation: blink-caret 0.75s step-end infinite;
         }
-        @keyframes blink-caret {
-            from, to { background-color: transparent; box-shadow: none; }
-            50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); }
-        }
+        @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
         .floating-mascot-bg {
-            position: absolute;
-            width: 250px;
-            height: auto;
-            opacity: 0.15;
+            position: absolute; width: 250px; height: auto; opacity: 0.15;
             animation: floatMascot 15s ease-in-out infinite alternate;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1;
+            top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;
         }
-        @keyframes floatMascot {
-            from { transform: translate(-60%, -60%) rotate(-15deg); }
-            to { transform: translate(-40%, -40%) rotate(15deg); }
-        }
+        @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
         
-        #return-home-btn {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            width: 50px;
-            height: 50px;
-            z-index: 1001;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        #return-home-btn svg {
-            width: 100%;
-            height: 100%;
-            stroke: #ffffff;
-            stroke-width: 2px;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            fill: none;
-            transition: all 0.3s ease;
-            filter: drop-shadow(0 0 6px var(--primary-glow));
-        }
-        #return-home-btn:hover { transform: scale(1.1); }
-        #return-home-btn:hover svg {
-            stroke: var(--primary-glow);
-            filter: drop-shadow(0 0 12px var(--primary-glow));
-            transform: rotate(-10deg);
-        }
-
-        footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
         #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
         #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
         #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
         #mascot-img.enlarged { transform: scale(2.5) !important; }
-        #mascot-speech { position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9); color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3); }
+        #mascot-speech {
+            position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9);
+            color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px;
+            font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3);
+        }
         #mascot-speech.visible { opacity: 1; transform: translateY(0); }
         .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
 
+        #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
+        #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
+        #return-home-btn:hover { transform: scale(1.1); }
+        #return-home-btn:hover svg { stroke: var(--primary-glow); filter: drop-shadow(0 0 12px var(--primary-glow)); transform: rotate(-10deg); }
+        footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+
         @media (max-width: 768px) {
             .container { padding: 1rem; }
-            header { padding: 3rem 0; }
-            header h1 { font-size: 2.5rem; }
-            header h2 { font-size: 1.2rem; }
-            section { padding: 1.5rem; margin-bottom: 2rem; }
-            .section-title { font-size: 2rem; }
-            .content-grid, .three-col-grid { grid-template-columns: 1fr; }
-            .info-card { margin-bottom: 1.5rem; }
-            .info-card:last-child { margin-bottom: 0; }
-            .typing-effect { font-size: 1.2rem; }
-            .typing-effect .cursor { height: 1.2rem; }
-            #quiz-section .question, .option-btn { font-size: 1rem; }
+            section { padding: 1.5rem; }
+            .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+            
+            .comparison-cards-container.grid-3-col,
+            .comparison-cards-container {
+                grid-template-columns: 1fr;
+            }
+
             #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
             #mascot-img { width: 80px; }
             #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
         }
-
     </style>
 </head>
 <body>
@@ -371,7 +310,9 @@
     <main class="container">
         <section id="basics-section">
             <h2 class="section-title"><i class="fas fa-gavel"></i> 一、刑法的意義</h2>
-            <p>刑法規定了「何種行為構成犯罪」以及「犯罪之後要如何處罰」的法律，具有禁止人民動用私刑、約束國家刑罰權的作用。</p>
+            <div class="info-card" style="margin-top:0;">
+                <p>刑法規定了「何種行為構成犯罪」以及「犯罪之後要如何處罰」的法律，具有禁止人民動用私刑、約束國家刑罰權的作用。</p>
+            </div>
             <div class="highlight-box">
                 <h4><i class="fas fa-exclamation-triangle"></i> 違法 vs. 犯罪</h4>
                 <p><strong>違法行為</strong>：違反法律的行為，包含違反行政法規、民事法規與刑事法規。</p>
@@ -383,7 +324,7 @@
         <section id="principle-section">
             <h2 class="section-title"><i class="fas fa-scroll"></i> 二、罪刑法定原則</h2>
             <p>《刑法》第 1 條：「行為之處罰，以行為時之法律有明文規定者為限。」這是《刑法》的最高原則。</p>
-            <div class="info-card">
+            <div class="info-card" style="margin-top:0;">
                 <h3>內涵</h3>
                 <ul>
                     <li>法律未事先明文規定，就不構成犯罪；不構成犯罪，就沒有刑罰。</li>
@@ -399,17 +340,17 @@
         
         <section id="penalty-section">
             <h2 class="section-title"><i class="fas fa-balance-scale"></i> 三、刑罰的目的與種類</h2>
-            <div class="three-col-grid">
-                <div class="info-card">
-                    <h3>懲罰犯罪<br><small>(應報目的)</small></h3>
+            <div class="comparison-cards-container grid-3-col">
+                <div class="comparison-card">
+                    <h5><i class="fas fa-gavel"></i>懲罰犯罪<br><small>(應報目的)</small></h5>
                     <p>對犯罪者施以懲罰，使其受到應有的懲罰，撫平被害人及其家屬受到的傷害，實現<strong class="highlight-text">公平正義</strong>。</p>
                 </div>
-                <div class="info-card">
-                    <h3>嚇阻犯罪<br><small>(預防目的)</small></h3>
+                <div class="comparison-card">
+                    <h5><i class="fas fa-exclamation-triangle"></i>嚇阻犯罪<br><small>(預防目的)</small></h5>
                     <p>透過刑罰的嚇阻作用，使社會大眾不敢以身試法，預防犯罪的發生。</p>
                 </div>
-                <div class="info-card">
-                    <h3>矯正犯罪<br><small>(教化目的)</small></h3>
+                <div class="comparison-card">
+                    <h5><i class="fas fa-seedling"></i>矯正犯罪<br><small>(教化目的)</small></h5>
                     <p>透過<strong class="highlight-text">教化</strong>的方式，矯正受刑人不良習性，並提供技能訓練，使其重返社會不致再度犯罪。</p>
                 </div>
             </div>
@@ -437,51 +378,66 @@
         <section id="liability-section">
             <h2 class="section-title"><i class="fas fa-brain"></i> 四、刑事責任能力</h2>
             <p>指負擔刑罰的能力與資格，判斷依據為行為人的年齡、生理與心智狀態。</p>
-            <div class="three-col-grid">
+            <div class="comparison-cards-container grid-3-col">
                 <div class="info-card">
-                    <h3>無責任能力</h3>
+                    <h4>無責任能力</h4>
                     <ul>
                         <li><strong>年齡</strong>：未滿 14 歲。</li>
                         <li><strong>身心狀態</strong>：行為時因精神障礙、心智缺陷，致不能辨識其行為違法者。</li>
                     </ul>
-                    <h4>法律責任：<span class="highlight-text">不處罰</span></h4>
+                    <h4 style="border-top: 2px solid var(--accent-border-color); padding-top:1rem; color:var(--accent-glow);">法律責任：不處罰</h4>
                 </div>
                 <div class="info-card">
-                    <h3>限制責任能力</h3>
+                    <h4>限制責任能力</h4>
                      <ul>
                         <li><strong>年齡</strong>：14 歲以上，未滿 18 歲；或 80 歲以上。</li>
                         <li><strong>身心狀態</strong>：行為時因精神障礙、心智缺陷，致其辨識能力顯著減低者；或先天或後天瘖啞之人。</li>
                     </ul>
-                    <h4>法律責任：<span class="highlight-text">得減輕其刑</span></h4>
+                    <h4 style="border-top: 2px solid var(--accent-border-color); padding-top:1rem; color:var(--accent-glow);">法律責任：得減輕其刑</h4>
                 </div>
                 <div class="info-card">
-                     <h3>完全責任能力</h3>
+                     <h4>完全責任能力</h4>
                      <ul>
                         <li><strong>年齡</strong>：18 歲以上，未滿 80 歲。</li>
                         <li><strong>身心狀態</strong>：精神狀態健全、非瘖啞人。</li>
                     </ul>
-                    <h4>法律責任：<span class="highlight-text">負完全刑事責任</span></h4>
+                    <h4 style="border-top: 2px solid var(--accent-border-color); padding-top:1rem; color:var(--accent-glow);">法律責任：負完全刑事責任</h4>
                 </div>
             </div>
         </section>
 
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
-            <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(111 會考)</span></h3>
+            <div class="quiz-container" id="quiz1">
+                <h3 class="quiz-title"><i class="fas fa-tasks"></i>模擬神給酷</h3>
+                <div class="info-card" style="margin-top:0;">
+                     <p><strong>下列敘述屬於何種刑事責任能力？請填入正確代號。</strong></p>
+                      <div class="law-options-list">
+                         <div class="law-option-item"><span class="law-option-label">甲</span> 無責任能力</div>
+                         <div class="law-option-item"><span class="law-option-label">乙</span> 限制責任能力</div>
+                         <div class="law-option-item"><span class="law-option-label">丙</span> 完全責任能力</div>
+                     </div>
+                     <div class="matching-item" data-answer="甲"><p>1. 13歲的小光偷竊超商的巧克力。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="丙"><p>2. 30歲的上班族小李酒後駕車。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="乙"><p>3. 82歲的阿公在公園與人鬥毆。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="乙"><p>4. 17歲的高中生小明無照駕駛撞傷路人。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
+                </div>
+            </div>
+            <div class="quiz-container" id="quiz2">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span>(111 會考)</span></h3>
                 <div class="question">
                     <p>謝先生是王小姐的前夫，但謝先生屢次騷擾王小姐的住處，甚至還到她上班的地方騷擾，最後謝先生因違反保護令的相關規定，被判處拘役四十天。根據上述內容判斷，下列敘述何者正確？</p>
                 </div>
                 <div class="options">
-                    <button class="option-btn" data-correct="false">(A) 謝先生必須為自己的違法行為負起刑事責任</button>
+                    <button class="option-btn" data-correct="true">(A) 謝先生必須為自己的違法行為負起刑事責任</button>
                     <button class="option-btn" data-correct="false">(B) 王小姐因警察局所核發的保護令而獲得保障</button>
-                    <button class="option-btn" data-correct="true">(C) 謝先生若不服判決可向地方法院提出抗告</button>
+                    <button class="option-btn" data-correct="false">(C) 謝先生若不服判決可向地方法院提出抗告</button>
                     <button class="option-btn" data-correct="false">(D) 王小姐可依《性別平等教育法》向謝先生求償</button>
                 </div>
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
-            <!-- More quiz containers can be added here -->
+            
         </section>
         
         <section class="fun-bg-section">
@@ -566,11 +522,35 @@
             
             sections.forEach(section => observer.observe(section));
 
+            const matchingSelects = document.querySelectorAll('.matching-select');
+            matchingSelects.forEach(select => {
+                select.addEventListener('change', (e) => {
+                    const selectedValue = e.target.value;
+                    const item = e.target.closest('.matching-item');
+                    const correctAnswer = item.dataset.answer;
+                    const feedbackIcon = item.querySelector('.feedback-icon');
+                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    feedbackIcon.innerHTML = '';
+                    if (selectedValue === "請選擇") {
+                        feedbackIcon.style.display = 'none';
+                        return;
+                    }
+                    feedbackIcon.style.display = 'inline-block';
+                    if (selectedValue === correctAnswer) {
+                        feedbackIcon.classList.add('icon-correct');
+                        feedbackIcon.innerHTML = '✓';
+                    } else {
+                        feedbackIcon.classList.add('icon-wrong');
+                        feedbackIcon.innerHTML = '✗';
+                    }
+                });
+            });
+
             const allQuizData = {
                 quiz1: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>刑事訴訟程序中，對於地方法院的判決不服，可以向上級法院提出救濟。其中，對於「裁定」不服是提「抗告」，對於「判決」不服是提「上訴」。本題是簡易判決，若不服可向地方法院合議庭提出上訴，但考題選項中提供「抗告」此一救濟途徑的概念，指向刑事訴訟的救濟流程，故為最佳選項。(A) 違反保護令被判拘役是「犯罪」而非僅「違法」。(B) 保護令由法院核發。(D) 應依《家庭暴力防治法》或《民法》求償。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 違反保護令被判處「拘役」（一種刑罰），這代表謝先生的行為已構成「犯罪」，而不僅僅是「違法」。</p>`,
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>拘役是《刑法》中的自由刑，屬於刑事處罰。因此，謝先生必須為自己的犯罪行為負起<strong class="highlight-text">刑事責任</strong>。</p>`,
                     B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 保護令是由「法院」核發的，警察局負責執行與受理報案。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C)</strong> 對於刑事「判決」不服，應提出「上訴」；對於「裁定」不服才是提「抗告」。</p>`,
                     D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 王小姐應依據《家庭暴力防治法》或《民法》的侵權行為規定來請求損害賠償，《性別平等教育法》主要規範校園內的性平事件。</p>`
                 }
             };
@@ -579,6 +559,10 @@
             
             quizContainers.forEach((container, index) => {
                 const quizId = `quiz${index + 1}`;
+                container.id = quizId;
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
+
                 const optionButtons = container.querySelectorAll('.option-btn');
                 const feedbackArea = container.querySelector('.feedback-area');
                 const resetButton = container.querySelector('.reset-btn');

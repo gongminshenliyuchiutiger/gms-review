@@ -12,7 +12,7 @@
         :root {
             --primary-glow: #00f2ea; /* 亮青色 */
             --secondary-glow: #ff00ff; /* 洋紅色 */
-            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --accent-glow: #f0e14a; /* 金黃色 */
             --bg-dark: #0d1b2a;
             --bg-dark-2: #020a12;
             --text-color: #e0e0e0;
@@ -37,17 +37,17 @@
 
         header {
             text-align: center;
-            padding: 5rem 0;
+            padding: 5rem 1rem;
             border-bottom: 2px solid var(--border-color);
             box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+            overflow: hidden;
         }
 
         header h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3.8rem;
+            font-size: clamp(2.5rem, 4vw, 3.8rem);
             font-weight: 900;
             color: var(--text-color);
-            white-space: nowrap; /* 新增：防止標題換行 */
             text-shadow:
                 0 0 5px #fff,
                 0 0 10px var(--accent-glow),
@@ -65,7 +65,7 @@
 
         header h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
             font-weight: 700;
             color: var(--secondary-glow);
             margin-top: 1rem;
@@ -94,15 +94,11 @@
         
         section.visible { opacity: 1; transform: translateY(0); }
         
-        .highlight-text {
-            font-weight: bold;
-            color: var(--accent-glow);
-            text-shadow: 0 0 5px var(--accent-glow);
-        }
+        .highlight-text { font-weight: bold; color: var(--accent-glow); text-shadow: 0 0 5px var(--accent-glow); }
 
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
             color: var(--primary-glow);
@@ -110,39 +106,63 @@
             align-items: center;
             gap: 1rem;
             text-shadow: 0 0 10px var(--primary-glow);
+            flex-wrap: wrap;
         }
-        
         .section-title i {
-            font-size: 2.2rem;
+            font-size: clamp(1.6rem, 4.5vw, 2.2rem);
             color: var(--accent-glow);
             text-shadow: 0 0 10px var(--accent-glow);
         }
-        
-        h3, h4 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--primary-glow);
-            margin-bottom: 1rem;
-        }
-        h3 { font-size: 1.6rem; }
-        h4 { font-size: 1.4rem; }
 
-        .info-card {
-            background: rgba(0,0,0,0.2);
-            border: 1px solid var(--border-color);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-top: 1.5rem;
+        h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 1.8rem);
+            color: var(--primary-glow);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+        }
+        h3:first-of-type {
+            margin-top: 0;
         }
         
-        .comparison-table {
-            width: 100%; border-collapse: collapse; margin-top: 1.5rem;
+        h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            color: var(--accent-glow);
+            margin: 0 0 1rem 0;
+            border-bottom: none;
+            padding-bottom: 0;
         }
-        .comparison-table th, .comparison-table td {
-            border: 1px solid var(--border-color); padding: 1rem; text-align: left;
-            vertical-align: top;
+        
+        .info-card { 
+            background: rgba(0,0,0,0.2); 
+            border: 1px solid var(--border-color); 
+            border-radius: 15px; 
+            padding: 1.5rem;
         }
-        .comparison-table thead th { background-color: rgba(13, 27, 42, 0.7); color: var(--primary-glow); text-align: center; }
-        .comparison-table tbody th { font-weight: bold; color: var(--accent-glow); text-align: center; }
+        
+        .info-card h4 { 
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            color: var(--primary-glow);
+            margin: 0 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            padding-bottom: 0.5rem;
+        }
+         .info-card ul {
+            list-style: none; padding-left: 0;
+        }
+        .info-card li {
+            position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem;
+        }
+        .info-card li::before {
+            content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
+            position: absolute; left: 0; top: 3px; color: var(--primary-glow);
+        }
 
         .definition-list dt {
             font-weight: bold; color: var(--primary-glow); margin-top: 1rem;
@@ -150,17 +170,68 @@
         .definition-list dd {
             padding-left: 1rem; border-left: 2px solid var(--border-color);
         }
+
+        .comparison-item {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            margin-top: 1.5rem;
+        }
+        .comparison-item:last-child {
+            margin-bottom: 0;
+        }
+        .comparison-item h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-glow);
+            text-align: center;
+            font-size: clamp(1.3rem, 2.8vw, 1.6rem);
+            margin: 0;
+        }
+        .comparison-cards-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .comparison-card {
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+        .comparison-card h5 {
+            font-size: 1.2rem;
+            margin: 0 0 1rem 0;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-glow);
+            border-bottom: 1px solid var(--border-color);
+        }
         
-        /* Quiz Styles */
         .quiz-container { margin-bottom: 3rem; }
-        .quiz-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); }
+        .quiz-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
+            color: var(--accent-glow);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+        }
         .quiz-title i { margin-right: 0.75rem; }
-        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; }
+        .quiz-title .quiz-source { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
         #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
+        
         #quiz-section .dialogue-box {
             background: rgba(0, 242, 234, 0.08); padding: 1rem; border-radius: 10px; margin-top: 1rem;
         }
         #quiz-section .dialogue-box p { margin: 0.5rem 0; }
+        
         #quiz-section .options { display: grid; gap: 1rem; }
         .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
         .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
@@ -168,25 +239,25 @@
         .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
         
         .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
+        .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
         .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
         .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
         .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
         .reset-btn:hover { transform: scale(1.05); }
         
-        /* Mascot & Typing Effect Styles */
-        .fun-bg-section {
-            position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem;
-            border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color);
-            overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem;
-        }
+        .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect {
-            position: relative; z-index: 5; font-family: 'Orbitron', monospace; font-size: 1.6rem; 
+            position: relative; z-index: 5; font-family: 'Orbitron', monospace;
+            font-size: clamp(1.2rem, 2vw + 0.5rem, 1.6rem); 
             font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
             text-align: center; max-width: 100%;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin: 0;
         }
         .typing-effect .cursor {
             display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            margin-left: 5px; width: 10px; height: 1.6rem; animation: blink-caret 0.75s step-end infinite;
+            margin-left: 5px; width: 10px; height: 1em; animation: blink-caret 0.75s step-end infinite;
         }
         @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
         .floating-mascot-bg {
@@ -195,6 +266,7 @@
             top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;
         }
         @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
+        
         #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
         #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
         #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
@@ -208,7 +280,6 @@
         #mascot-speech.visible { opacity: 1; transform: translateY(0); }
         .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
 
-        /* Floating Home Button & Footer */
         #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
         #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
         #return-home-btn:hover { transform: scale(1.1); }
@@ -217,14 +288,13 @@
 
         @media (max-width: 768px) {
             .container { padding: 1rem; }
-            header h1 { font-size: 2.5rem; }
             section { padding: 1.5rem; }
-            .section-title { font-size: 2rem; }
-            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
+            
+            .comparison-cards-container {
+                grid-template-columns: 1fr;
+            }
 
-            /* Adjust new elements for mobile */
-            .typing-effect { font-size: 1.2rem; }
-            .typing-effect .cursor { height: 1.2rem; }
+            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
             #mascot-img { width: 80px; }
             #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
@@ -244,7 +314,7 @@
 
         <section id="norms-meaning-section">
             <h2 class="section-title"><i class="fas fa-book-open"></i>一、社會規範的意義與種類</h2>
-            <div class="info-card">
+            <div class="info-card" style="margin-top:0;">
                  <dl class="definition-list">
                     <dt>意義</dt>
                     <dd>指社會成員日常生活的行為準則及依據。</dd>
@@ -255,104 +325,106 @@
                  </dl>
             </div>
             <h3 style="margin-top: 2rem;">種類</h3>
-            <table class="comparison-table">
-                <thead><tr><th style="width: 20%;">項目</th><th style="width: 50%;">說明</th><th>舉例</th></tr></thead>
-                <tbody>
-                    <tr>
-                        <th>風俗習慣</th>
-                        <td>1. 長久累積、約定俗成的生活經驗，形成相沿成習的<strong class="highlight-text">慣例</strong>。<br>2. 可反映該社會的文化特色。<br>3. 最早發展出來的規範形式。</td>
-                        <td>清明節掃墓、樹葬或土葬、中秋節賞月、紋面傳統。</td>
-                    </tr>
-                    <tr>
-                        <th>倫理道德</th>
-                        <td>1. 倫理：人與人<strong class="highlight-text">相處</strong>的應對進退之道。<br>2. 道德：內在判斷<strong class="highlight-text">是非、善惡</strong>的標準。</td>
-                        <td>孝順父母、五倫、第六倫、環境倫理。</td>
-                    </tr>
-                    <tr>
-                        <th>宗教信仰</th>
-                        <td>1. 透過<strong class="highlight-text">超自然</strong>力量、教義或戒律，約束個人行為。<br>2. 大多主張勸人為善，具有穩定社會的作用。</td>
-                        <td>生死輪迴觀念、佛教吃素念經、伊斯蘭教不吃豬肉。</td>
-                    </tr>
-                    <tr>
-                        <th>法律</th>
-                        <td>1. 政府經<strong class="highlight-text">一定程序</strong>制定的規範。<br>2. 具體明文規範，具<strong class="highlight-text">明確性</strong>。<br>3. 以<strong class="highlight-text">公權力</strong>為後盾，可對違反法律規定的人，進行<strong class="highlight-text">強制性制裁</strong>。</td>
-                        <td>公共場所禁止吸菸(《菸害防制法》)、禁止酒駕規定。</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="comparison-cards-container">
+                <div class="comparison-card">
+                    <h5><i class="fas fa-leaf"></i>風俗習慣</h5>
+                    <p>長久累積、約定俗成的生活經驗，形成相沿成習的<strong class="highlight-text">慣例</strong>。可反映該社會的文化特色。最早發展出來的規範形式。</p>
+                    <p><strong>舉例：</strong>清明節掃墓、樹葬或土葬、中秋節賞月、紋面傳統。</p>
+                </div>
+                <div class="comparison-card">
+                    <h5><i class="fas fa-heart"></i>倫理道德</h5>
+                    <p>倫理是人與人<strong class="highlight-text">相處</strong>的應對進退之道。道德是內在判斷<strong class="highlight-text">是非、善惡</strong>的標準。</p>
+                    <p><strong>舉例：</strong>孝順父母、五倫、第六倫、環境倫理。</p>
+                </div>
+                 <div class="comparison-card">
+                    <h5><i class="fas fa-om"></i>宗教信仰</h5>
+                    <p>透過<strong class="highlight-text">超自然</strong>力量、教義或戒律，約束個人行為。大多主張勸人為善，具有穩定社會的作用。</p>
+                    <p><strong>舉例：</strong>生死輪迴觀念、佛教吃素念經、伊斯蘭教不吃豬肉。</p>
+                </div>
+                 <div class="comparison-card">
+                    <h5><i class="fas fa-gavel"></i>法律</h5>
+                    <p>政府經<strong class="highlight-text">一定程序</strong>制定的規範，具體明文規範，具<strong class="highlight-text">明確性</strong>。以<strong class="highlight-text">公權力</strong>為後盾，可對違反法律規定的人，進行<strong class="highlight-text">強制性制裁</strong>。</p>
+                    <p><strong>舉例：</strong>公共場所禁止吸菸(《菸害防制法》)、禁止酒駕規定。</p>
+                </div>
+            </div>
         </section>
 
         <section id="concepts-comparison-section">
             <h2 class="section-title"><i class="fas fa-balance-scale"></i>二、觀念比較</h2>
-            <h4>各種倫理</h4>
-            <table class="comparison-table">
-                <thead><tr><th style="width: 20%;">倫理</th><th>說明</th><th>強調重點</th></tr></thead>
-                <tbody>
-                    <tr><th>五倫</th><td>父子有親、君臣有義、夫婦有別、長幼有序、朋友有信</td><td>私德、傳統社會</td></tr>
-                    <tr><th>第六倫</th><td>重視個人與一般社會大眾的關係，也稱「群己倫理」</td><td>公德、現代社會</td></tr>
-                    <tr><th>環境倫理</th><td>針對人與環境之間的關係</td><td>環境保護、生態保育</td></tr>
-                    <tr><th>科技倫理</th><td>從事科技活動時，應有的行為準則</td><td>因應快速的科技變遷</td></tr>
-                </tbody>
-            </table>
+            <div class="comparison-item" style="margin-top:0;">
+                <h4>各種倫理</h4>
+                <div class="comparison-cards-container">
+                    <div class="comparison-card"><h5>五倫</h5><p>父子有親、君臣有義、夫婦有別、長幼有序、朋友有信。<br><strong>重點：</strong>私德、傳統社會</p></div>
+                    <div class="comparison-card"><h5>第六倫</h5><p>重視個人與一般社會大眾的關係，也稱「群己倫理」。<br><strong>重點：</strong>公德、現代社會</p></div>
+                    <div class="comparison-card"><h5>環境倫理</h5><p>針對人與環境之間的關係。<br><strong>重點：</strong>環境保護、生態保育</p></div>
+                    <div class="comparison-card"><h5>科技倫理</h5><p>從事科技活動時，應有的行為準則。<br><strong>重點：</strong>因應快速的科技變遷</p></div>
+                </div>
+            </div>
 
-            <h4 style="margin-top: 2rem;">不同社會規範的效力</h4>
-            <table class="comparison-table">
-                <thead><tr><th>項目</th><th>法律 (正式規範)</th><th>風俗習慣、倫理道德、宗教信仰 (非正式規範)</th></tr></thead>
-                <tbody>
-                    <tr><th>制定</th><td>政府經一定程序制定</td><td>長時間累積形成</td></tr>
-                    <tr><th>明確性</th><td>明確規範應遵守的事項</td><td>沒有明確性的規範</td></tr>
-                    <tr><th>規範效果</th><td>1. 約束人的<strong class="highlight-text">外在行為</strong><br>2. 無法規範人的內在思想</td><td>1. 能約束人的外在行為<br>2. 也能啟發個人的<strong class="highlight-text">內在良知</strong></td></tr>
-                    <tr><th>制裁方式</th><td>以<strong class="highlight-text">公權力</strong>懲處</td><td><strong class="highlight-text">良心譴責</strong>、社會輿論批評</td></tr>
-                    <tr><th>強制力</th><td>有</td><td>無</td></tr>
-                    <tr><th>二者關係</th><td colspan="2" style="text-align: left;">法律是最低限度的行為準則，無法強迫人的內心，因此社會穩定的發展需要非正式規範的輔助與配合。</td></tr>
-                </tbody>
-            </table>
+            <div class="comparison-item">
+                <h4>不同社會規範的效力</h4>
+                <div class="comparison-cards-container">
+                    <div class="comparison-card">
+                        <h5>法律 (正式規範)</h5>
+                        <ul>
+                            <li><strong>制定：</strong>政府經一定程序制定</li>
+                            <li><strong>明確性：</strong>明確規範應遵守的事項</li>
+                            <li><strong>規範效果：</strong>約束人的<strong class="highlight-text">外在行為</strong>，無法規範人的內在思想</li>
+                            <li><strong>制裁方式：</strong>以<strong class="highlight-text">公權力</strong>懲處</li>
+                            <li><strong>強制力：</strong>有</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-card">
+                        <h5>非正式規範</h5>
+                        <ul>
+                            <li><strong>制定：</strong>長時間累積形成</li>
+                            <li><strong>明確性：</strong>沒有明確性的規範</li>
+                            <li><strong>規範效果：</strong>能約束外在行為，也能啟發個人的<strong class="highlight-text">內在良知</strong></li>
+                            <li><strong>制裁方式：</strong><strong class="highlight-text">良心譴責</strong>、社會輿論批評</li>
+                            <li><strong>強制力：</strong>無</li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="info-card" style="margin-top: 1rem; text-align: center;">
+                    <p><strong>二者關係：</strong>法律是最低限度的行為準則，無法強迫人的內心，因此社會穩定的發展需要非正式規範的輔助與配合。</p>
+                </div>
+            </div>
         </section>
 
         <section id="norms-change-section">
-            <h2 class="section-title"><i class="fas-fa-sync-alt"></i>三、社會規範的變動</h2>
+            <h2 class="section-title"><i class="fas fa-sync-alt"></i>三、社會規範的變動</h2>
             <p>社會規範可能因文化變遷而變動，社會規範也會影響文化的發展。</p>
-            <table class="comparison-table">
-                <thead><tr><th style="width: 20%;"></th><th>說明</th><th>舉例</th></tr></thead>
-                <tbody>
-                    <tr>
-                        <th rowspan="3">變動模式</th>
-                        <td>非正式規範成為正式規範的基礎</td>
-                        <td>社會推廣公德心，拒吸二手菸逐漸受到重視 ➡ 《菸害防制法》禁止民眾在公共場所吸菸。</td>
-                    </tr>
-                    <tr>
-                        <td>正式規範改變不合時宜的非正式規範</td>
-                        <td>《爆竹煙火管理條例》規範爆竹煙火的種類、施放時間與地點等，透過法律來約束慶典行為。</td>
-                    </tr>
-                    <tr>
-                        <td>非正式規範之間互相影響</td>
-                        <td>臺灣民眾以往過世後多採土葬方式，在環境倫理影響下，各種綠色環保殯葬應運而生。</td>
-                    </tr>
-                    <tr>
-                        <th rowspan="2">時空差異</th>
-                        <td>時間差異</td>
-                        <td>過去原住民族獵殺野生動物是違法行為，政府為保存與傳承文化，修法使其可因祭儀需要，在原住民族地區依法狩獵。</td>
-                    </tr>
-                    <tr>
-                        <td>空間差異</td>
-                        <td>瑞士病人自主安樂死的制度已經合法化，但在我國仍屬非法的行為。</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="info-card" style="margin-top:0;">
+                <h4>變動模式</h4>
+                <ul>
+                    <li><strong>非正式 → 正式：</strong>社會推廣公德心，拒吸二手菸逐漸受到重視 ➡ 《菸害防制法》禁止民眾在公共場所吸菸。</li>
+                    <li><strong>正式 → 非正式：</strong>《爆竹煙火管理條例》規範爆竹煙火的種類、施放時間與地點等，透過法律來約束慶典行為。</li>
+                    <li><strong>非正式 ↔ 非正式：</strong>臺灣民眾以往過世後多採土葬方式，在環境倫理影響下，各種綠色環保殯葬應運而生。</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h4>時空差異</h4>
+                <ul>
+                    <li><strong>時間差異：</strong>過去原住民族獵殺野生動物是違法行為，政府為保存與傳承文化，修法使其可因祭儀需要，在原住民族地區依法狩獵。</li>
+                    <li><strong>空間差異：</strong>瑞士病人自主安樂死的制度已經合法化，但在我國仍屬非法的行為。</li>
+                </ul>
+            </div>
         </section>
 
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
-            <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(112 會考)</span></h3>
+            <div class="quiz-container" id="quiz1">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(112 會考)</span></h3>
                 <div class="question">
                     <p>三位同學看見路邊有人在虐待流浪狗，分別從不同規範的觀點出言制止，以下是他們的說法：</p>
-                    <div class="dialogue-box">
-                        <p>大強：「這種樣子很殘忍，難道你希望別人也如此對待你嗎？」</p>
-                        <p>小紅：「別欺負小狗，否則就會受因果報應，下輩子輪迴換你被欺負！」</p>
-                        <p>阿順：「你再繼續這樣做，我就要報警讓你接受刑罰的制裁。」</p>
+                    <div id="quiz-section">
+                        <div class="dialogue-box">
+                            <p>大強：「這種樣子很殘忍，難道你希望別人也如此對待你嗎？」</p>
+                            <p>小紅：「別欺負小狗，否則就會受因果報應，下輩子輪迴換你被欺負！」</p>
+                            <p>阿順：「你再繼續這樣做，我就要報警讓你接受刑罰的制裁。」</p>
+                        </div>
                     </div>
-                    <p>關於三位同學的說法，下列何項敘述最為適當？</p>
+                    <p style="margin-top: 1rem;">關於三位同學的說法，下列何項敘述最為適當？</p>
                 </div>
                 <div class="options">
                     <button class="option-btn" data-correct="false">(A) 大強提及的社會規範內容限制了人民的權利</button>
@@ -364,8 +436,8 @@
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
             
-            <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span>(111 會考)</span></h3>
+            <div class="quiz-container" id="quiz2">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(111 會考)</span></h3>
                 <div class="question">
                     <p>某宮廟因擴建擴建道路及廟宇建築，涉嫌占用國土及濫墾山坡地，相關單位多次介入協調，要求廟方自行拆除，但該廟負責人認為廟地選擇及建造的決定皆為神明指示，堅決不願退讓。於此，相關單位除了開罰六萬元外，並將負責人移送法辦。上述內容可能是關於下列哪二者之間的衝突？</p>
                 </div>
@@ -379,8 +451,8 @@
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
 
-            <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span>(110 會考)</span></h3>
+            <div class="quiz-container" id="quiz3">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(110 會考)</span></h3>
                 <div class="question">
                     <p>小毛：「老師為什麼每年學校都要送應屆考生生包子、蛋糕和粽子的餐盒？」</p>
                     <p>老師：「因為包子、蛋糕和粽子的諧音為『包高中』，寓有對考生祝福吉利的意思。」</p>
@@ -467,8 +539,12 @@
             
             const quizContainers = document.querySelectorAll('.quiz-container');
             
-            quizContainers.forEach((container, index) => {
-                const quizId = `quiz${index + 1}`;
+            quizContainers.forEach((container) => {
+                const quizId = container.id;
+                if (!quizId) return; // Skip containers without an ID
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
+
                 const optionButtons = container.querySelectorAll('.option-btn');
                 const feedbackArea = container.querySelector('.feedback-area');
                 const resetButton = container.querySelector('.reset-btn');
@@ -480,13 +556,13 @@
                         
                         if (isCorrect) {
                             button.classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId].correct;
+                            feedbackArea.innerHTML = quizData.correct;
                             feedbackArea.className = 'feedback-area feedback-correct';
                         } else {
                             button.classList.add('wrong');
                             container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
                             const optionLetter = button.textContent.substring(1, 2);
-                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
+                            feedbackArea.innerHTML = quizData[optionLetter];
                             feedbackArea.className = 'feedback-area feedback-wrong';
                         }
                         
@@ -503,7 +579,7 @@
                     });
                     feedbackArea.style.display = 'none';
                     resetButton.style.display = 'none';
-                    container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
                 });
             });
 

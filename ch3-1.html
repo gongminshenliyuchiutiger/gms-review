@@ -12,7 +12,7 @@
         :root {
             --primary-glow: #00f2ea; /* 亮青色 */
             --secondary-glow: #ff00ff; /* 洋紅色 */
-            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --accent-glow: #f0e14a; /* 金黃色 */
             --bg-dark: #0d1b2a;
             --bg-dark-2: #020a12;
             --text-color: #e0e0e0;
@@ -37,9 +37,10 @@
 
         header {
             text-align: center;
-            padding: 5rem 0;
+            padding: 5rem 1rem;
             border-bottom: 2px solid var(--border-color);
             box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+            overflow: hidden;
         }
 
         header h1 {
@@ -47,7 +48,6 @@
             font-size: clamp(2.5rem, 5vw + 1rem, 3.8rem);
             font-weight: 900;
             color: var(--text-color);
-            white-space: nowrap;
             text-shadow:
                 0 0 5px #fff,
                 0 0 10px var(--accent-glow),
@@ -69,7 +69,6 @@
             font-weight: 700;
             color: var(--secondary-glow);
             margin-top: 1rem;
-            white-space: nowrap;
             text-shadow: 0 0 8px var(--secondary-glow);
             animation: bounce 2s infinite;
         }
@@ -95,15 +94,11 @@
         
         section.visible { opacity: 1; transform: translateY(0); }
         
-        .highlight-text {
-            font-weight: bold;
-            color: var(--accent-glow);
-            text-shadow: 0 0 5px var(--accent-glow);
-        }
+        .highlight-text { font-weight: bold; color: var(--accent-glow); text-shadow: 0 0 5px var(--accent-glow); }
 
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(1.8rem, 3vw + 0.5rem, 2.5rem);
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
             color: var(--primary-glow);
@@ -111,73 +106,95 @@
             align-items: center;
             gap: 1rem;
             text-shadow: 0 0 10px var(--primary-glow);
-            white-space: nowrap;
+            flex-wrap: wrap;
         }
-        
         .section-title i {
-            font-size: 2.2rem;
+            font-size: clamp(1.6rem, 4.5vw, 2.2rem);
             color: var(--accent-glow);
             text-shadow: 0 0 10px var(--accent-glow);
         }
-        
-        h3, h4 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--primary-glow);
-            margin-bottom: 1rem;
-        }
-        h3 { font-size: 1.6rem; }
-        h4 { font-size: 1.4rem; }
 
-        .rights-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 1.5rem;
+        h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 1.8rem);
+            color: var(--primary-glow);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
         }
-        .rights-card {
-            background: rgba(0,0,0,0.2);
-            border: 1px solid var(--border-color);
+        h3:first-of-type {
+            margin-top: 0;
+        }
+        
+        .info-card { 
+            background: rgba(0,0,0,0.2); 
+            border: 1px solid var(--border-color); 
+            border-radius: 15px; 
+            padding: 1.5rem; 
+        }
+
+        .highlight-box { background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05)); padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow); margin-top: 2rem; }
+        .highlight-box h4 { font-family: 'Orbitron', sans-serif; color: var(--accent-glow); margin: 0 0 1rem 0; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .highlight-box ul { list-style: none; padding-left: 0; }
+        .highlight-box li { position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem; }
+        .highlight-box li::before { content: '\f054'; font-family: 'Font Awesome 5 Free'; font-weight: 900; position: absolute; left: 0; top: 5px; color: var(--accent-glow); font-size: 0.8em; }
+
+        .comparison-item {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .comparison-item:last-child {
+            margin-bottom: 0;
+        }
+        .comparison-item h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-glow);
+            text-align: center;
+            font-size: clamp(1.3rem, 2.8vw, 1.6rem);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .comparison-cards-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .comparison-card {
+            background-color: rgba(0,0,0,0.2);
             border-radius: 15px;
             padding: 1.5rem;
+            border: 1px solid transparent;
         }
-        .rights-card h4 {
-            margin-top: 0;
-            border-bottom: 2px solid var(--accent-border-color);
+        .comparison-card h5 {
+            font-size: 1.2rem;
+            margin: 0 0 1rem 0;
             padding-bottom: 0.5rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
-        .rights-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+        .comparison-card ul {
+             list-style: none; padding-left: 0; font-size: 0.95rem;
         }
-        .content-box h5 {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
+        .comparison-card li {
+            position: relative; padding-left: 1.2rem; margin-bottom: 0.3rem;
         }
-        .content-box.right h5 { color: var(--correct-color); }
-        .content-box.duty h5 { color: var(--wrong-color); }
-        .content-box ul { list-style: none; padding-left: 0; font-size: 0.95rem; }
-        .content-box li { position: relative; padding-left: 1.2rem; margin-bottom: 0.3rem;}
-        .content-box li::before {
+        .comparison-card li::before {
             content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
             position: absolute; left: 0; top: 3px;
         }
-        .right li::before { color: var(--correct-color); }
-        .duty li::before { color: var(--wrong-color); }
-
-
-        .highlight-box {
-            background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05));
-            padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow);
-            margin-top: 2rem;
-        }
-        .highlight-box h4 {
-            color: var(--accent-glow); margin: 0 0 1rem 0; display: flex; align-items: center; gap: 0.75rem;
-        }
+        .comparison-card.left { border-color: var(--correct-color); }
+        .comparison-card.left h5 { color: var(--correct-color); border-bottom: 1px solid var(--correct-color); }
+        .comparison-card.left li::before { color: var(--correct-color); }
+        .comparison-card.right { border-color: var(--wrong-color); }
+        .comparison-card.right h5 { color: var(--wrong-color); border-bottom: 1px solid var(--wrong-color); }
+        .comparison-card.right li::before { color: var(--wrong-color); }
         
         .flow-container {
             display: flex;
@@ -199,17 +216,7 @@
             font-size: 2rem;
             color: var(--accent-glow);
         }
-
-        .comparison-table {
-            width: 100%; border-collapse: collapse; margin-top: 1.5rem;
-        }
-        .comparison-table th, .comparison-table td {
-            border: 1px solid var(--border-color); padding: 1rem; text-align: left;
-        }
-        .comparison-table thead th { background-color: rgba(13, 27, 42, 0.7); color: var(--primary-glow); text-align: center; }
-        .comparison-table td:first-child { font-weight: bold; color: var(--accent-glow); }
         
-        /* Quiz Styles */
         .quiz-container { margin-bottom: 3rem; }
         .quiz-title {
             font-family: 'Orbitron', sans-serif;
@@ -220,22 +227,24 @@
             border-bottom: 2px solid var(--accent-border-color);
             display: flex;
             align-items: baseline;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
         }
         .quiz-title i { margin-right: 0.75rem; }
-        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
+        .quiz-title .quiz-source { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
         #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
         #quiz-section .options { display: grid; gap: 1rem; }
         .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
         .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
-        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark);}
-        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
+        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark); }
+        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark); }
         
         .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
+        .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
         .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
         .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
-        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
-        .reset-btn:hover { transform: scale(1.05); }
+        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--accent-glow);}
 
         .matching-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
         .matching-item:last-child { border-bottom: none; }
@@ -244,43 +253,27 @@
         .feedback-icon { font-size: 1.2rem; font-weight: 900; display: none; }
         .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
         .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
-
-        .meeting-flowchart {
-            background: rgba(13, 27, 42, 0.5);
-            border: 1px solid var(--border-color);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-top: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-        }
-        .flow-step {
-            background: var(--bg-dark);
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            font-weight: bold;
-            width: 80%;
-            text-align: center;
-        }
-        .main-agenda {
-            border: 2px dashed var(--accent-border-color);
-            padding: 1rem;
-            width: 100%;
-            border-radius: 10px;
-        }
-        .agenda-options {
+        
+        .law-options-list {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.75rem;
             margin-top: 1rem;
+            margin-bottom: 1rem;
         }
-        .agenda-option {
-            background-color: var(--card-bg);
-            padding: 0.5rem;
-            border-radius: 5px;
+        .law-option-item {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
             text-align: center;
+            font-size: 0.95rem;
+        }
+        .law-option-label {
+            color: var(--accent-glow);
+            font-weight: 700;
+            margin-right: 0.5em;
+            font-family: 'Orbitron', sans-serif;
         }
 
         .dialogue-container {
@@ -314,39 +307,26 @@
         }
         .dialogue-box .speech { margin: 0; }
         
-        /* Mascot & Typing Effect Styles */
-        .fun-bg-section {
-            position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem;
-            border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color);
-            overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem;
-        }
-        .typing-effect {
-            position: relative; z-index: 5; font-family: 'Orbitron', monospace;
-            font-size: clamp(1.2rem, 2vw + 0.5rem, 1.6rem); 
+        .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
+        .fun-bg-section .typing-effect {
+            position: relative; z-index: 5; font-family: 'Orbitron', monospace; 
+            font-size: clamp(1.0rem, 2vw + 0.5rem, 1.6rem);
             font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
             text-align: center; max-width: 100%;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
         }
-        .typing-effect .cursor {
-            display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            margin-left: 5px; width: 10px; height: 1em; animation: blink-caret 0.75s step-end infinite;
-        }
+        .typing-effect .cursor { display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); margin-left: 5px; width: 10px; height: 1em; animation: blink-caret 0.75s step-end infinite; }
         @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
-        .floating-mascot-bg {
-            position: absolute; width: 250px; height: auto; opacity: 0.15;
-            animation: floatMascot 15s ease-in-out infinite alternate;
-            top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;
-        }
+        .floating-mascot-bg { position: absolute; width: 250px; height: auto; opacity: 0.15; animation: floatMascot 15s ease-in-out infinite alternate; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; }
         @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
+        
         #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
         #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
         #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
         #mascot-img.enlarged { transform: scale(2.5) !important; }
-        #mascot-speech {
-            position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9);
-            color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px;
-            font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s;
-            pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3);
-        }
+        #mascot-speech { position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9); color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3); }
         #mascot-speech.visible { opacity: 1; transform: translateY(0); }
         .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
 
@@ -359,10 +339,15 @@
         @media (max-width: 768px) {
             .container { padding: 1rem; }
             section { padding: 1.5rem; }
-            .rights-grid, .rights-content { grid-template-columns: 1fr; }
             .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+            
             .flow-container, .agenda-options { flex-direction: column; }
             .dialogue-box { flex-direction: column; text-align: center; }
+
+            .comparison-cards-container {
+                grid-template-columns: 1fr;
+            }
+
             #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
             #mascot-img { width: 80px; }
@@ -383,73 +368,79 @@
 
         <section id="rights-responsibilities-section">
             <h2 class="section-title"><i class="fas fa-user-graduate"></i>一、學生的權利與責任</h2>
-            <div class="rights-grid">
-                <div class="rights-card">
-                    <h4><i class="fas fa-book"></i>學習</h4>
-                    <div class="rights-content">
-                        <div class="content-box right"><h5><i class="fas fa-check-circle"></i>權利</h5>
-                            <ul>
-                                <li>受國民教育的權利 (<strong class="highlight-text">《憲法》</strong>)。</li>
-                                <li>學習權應受尊重與保障。</li>
-                            </ul>
-                        </div>
-                        <div class="content-box duty"><h5><i class="fas fa-times-circle"></i>責任</h5>
-                            <ul>
-                                <li>上課時不得發出噪音。</li>
-                                <li>干擾其他同學學習權。</li>
-                            </ul>
-                        </div>
+            <div class="comparison-item">
+                <h4><i class="fas fa-book"></i>學習</h4>
+                <div class="comparison-cards-container">
+                    <div class="comparison-card left">
+                        <h5><i class="fas fa-check-circle"></i>權利</h5>
+                        <ul>
+                            <li>受國民教育的權利 (<strong class="highlight-text">《憲法》</strong>)。</li>
+                            <li>學習權應受尊重與保障。</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-card right">
+                        <h5><i class="fas fa-times-circle"></i>責任</h5>
+                        <ul>
+                            <li>上課時不得發出噪音。</li>
+                            <li>干擾其他同學學習權。</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="rights-card">
-                    <h4><i class="fas fa-child"></i>身體自主</h4>
-                    <div class="rights-content">
-                        <div class="content-box right"><h5><i class="fas fa-check-circle"></i>權利</h5>
-                            <ul>
-                                <li>身體自主權受國家保障 (<strong class="highlight-text">《教育基本法》</strong>)。</li>
-                                <li>不受任何體罰或霸凌。</li>
-                            </ul>
-                        </div>
-                        <div class="content-box duty"><h5><i class="fas fa-times-circle"></i>責任</h5>
-                             <ul>
-                                <li>不得有霸凌行為。</li>
-                                <li>如肢體、關係、網路霸凌。</li>
-                            </ul>
-                        </div>
+            </div>
+            <div class="comparison-item">
+                <h4><i class="fas fa-child"></i>身體自主</h4>
+                <div class="comparison-cards-container">
+                    <div class="comparison-card left">
+                        <h5><i class="fas fa-check-circle"></i>權利</h5>
+                        <ul>
+                            <li>身體自主權受國家保障 (<strong class="highlight-text">《教育基本法》</strong>)。</li>
+                            <li>不受任何體罰或霸凌。</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-card right">
+                        <h5><i class="fas fa-times-circle"></i>責任</h5>
+                         <ul>
+                            <li>不得有霸凌行為。</li>
+                            <li>如肢體、關係、網路霸凌。</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="rights-card">
-                    <h4><i class="fas fa-user-secret"></i>名譽與隱私</h4>
-                    <div class="rights-content">
-                        <div class="content-box right"><h5><i class="fas fa-check-circle"></i>權利</h5>
-                            <ul>
-                                <li>擁有名譽及保有隱私等權利 (<strong class="highlight-text">《教師法》</strong>)。</li>
-                                <li>發展健全人格。</li>
-                            </ul>
-                        </div>
-                        <div class="content-box duty"><h5><i class="fas fa-times-circle"></i>責任</h5>
-                             <ul>
-                                <li>不應惡意傷害他人。</li>
-                                <li>不宜翻動他人書包或信件。</li>
-                            </ul>
-                        </div>
+            </div>
+            <div class="comparison-item">
+                <h4><i class="fas fa-user-secret"></i>名譽與隱私</h4>
+                <div class="comparison-cards-container">
+                    <div class="comparison-card left">
+                        <h5><i class="fas fa-check-circle"></i>權利</h5>
+                        <ul>
+                            <li>擁有名譽及保有隱私等權利 (<strong class="highlight-text">《教師法》</strong>)。</li>
+                            <li>發展健全人格。</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-card right">
+                        <h5><i class="fas fa-times-circle"></i>責任</h5>
+                         <ul>
+                            <li>不應惡意傷害他人。</li>
+                            <li>不宜翻動他人書包或信件。</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="rights-card">
-                    <h4><i class="fas fa-wallet"></i>財產</h4>
-                    <div class="rights-content">
-                        <div class="content-box right"><h5><i class="fas fa-check-circle"></i>權利</h5>
-                            <ul>
-                                <li>自由使用自己物品的權利 (<strong class="highlight-text">《民法》</strong>)。</li>
-                                <li>財產權不得任意被侵害。</li>
-                            </ul>
-                        </div>
-                        <div class="content-box duty"><h5><i class="fas fa-times-circle"></i>責任</h5>
-                             <ul>
-                                <li>不應攜帶妨害學習的物品。</li>
-                                <li>教師可依法暫代保管後交還。</li>
-                            </ul>
-                        </div>
+            </div>
+            <div class="comparison-item">
+                <h4><i class="fas fa-wallet"></i>財產</h4>
+                <div class="comparison-cards-container">
+                    <div class="comparison-card left">
+                        <h5><i class="fas fa-check-circle"></i>權利</h5>
+                        <ul>
+                            <li>自由使用自己物品的權利 (<strong class="highlight-text">《民法》</strong>)。</li>
+                            <li>財產權不得任意被侵害。</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-card right">
+                        <h5><i class="fas fa-times-circle"></i>責任</h5>
+                         <ul>
+                            <li>不應攜帶妨害學習的物品。</li>
+                            <li>教師可依法暫代保管後交還。</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -457,12 +448,19 @@
 
         <section id="quiz-matching">
              <h2 class="section-title"><i class="fas fa-tasks"></i>公民神挑戰！</h2>
-             <div class="rights-card">
+             <div class="info-card">
                  <p><strong>下列校園情境中，主要是哪種面向的權利受到侵害？</strong></p>
-                 <div class="matching-item" data-answer="丙"><p>1. 雨萱遭到男同學勾肩搭背而感到不舒服。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲. 學習</option><option value="乙">乙. 名譽與隱私</option><option value="丙">丙. 身體自主</option><option value="丁">丁. 財產</option></select><i class="feedback-icon"></i></div>
-                 <div class="matching-item" data-answer="乙"><p>2. 俊傑在網路上被同學辱罵是孬種、娘娘腔。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲. 學習</option><option value="乙">乙. 名譽與隱私</option><option value="丙">丙. 身體自主</option><option value="丁">丁. 財產</option></select><i class="feedback-icon"></i></div>
-                 <div class="matching-item" data-answer="丁"><p>3. 銓勝的鉛筆在未經允許下，被同學拿去使用。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲. 學習</option><option value="乙">乙. 名譽與隱私</option><option value="丙">丙. 身體自主</option><option value="丁">丁. 財產</option></select><i class="feedback-icon"></i></div>
-                 <div class="matching-item" data-answer="甲"><p>4. 韻如因為同學一直發出噪音而聽不清楚老師講課。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲. 學習</option><option value="乙">乙. 名譽與隱私</option><option value="丙">丙. 身體自主</option><option value="丁">丁. 財產</option></select><i class="feedback-icon"></i></div>
+                 <!-- MODIFIED OPTIONS LIST -->
+                 <div class="law-options-list">
+                    <div class="law-option-item"><span class="law-option-label">甲</span> 學習</div>
+                    <div class="law-option-item"><span class="law-option-label">乙</span> 名譽與隱私</div>
+                    <div class="law-option-item"><span class="law-option-label">丙</span> 身體自主</div>
+                    <div class="law-option-item"><span class="law-option-label">丁</span> 財產</div>
+                </div>
+                 <div class="matching-item" data-answer="丙"><p>1. 雨萱遭到男同學勾肩搭背而感到不舒服。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                 <div class="matching-item" data-answer="乙"><p>2. 俊傑在網路上被同學辱罵是孬種、娘娘腔。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                 <div class="matching-item" data-answer="丁"><p>3. 銓勝的鉛筆在未經允許下，被同學拿去使用。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                 <div class="matching-item" data-answer="甲"><p>4. 韻如因為同學一直發出噪音而聽不清楚老師講課。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
             </div>
             <div class="highlight-box">
                 <h4><i class="fas fa-key"></i>解題關鍵</h4>
@@ -487,23 +485,33 @@
             </div>
             <h3 style="margin-top: 2rem;">開會程序 (依據《會議規範》)</h3>
             <p>開會是實踐學生自治的重要方式，依循議事規則能讓會議順利進行。表決時應採<strong class="highlight-text">多數決原則</strong>，少數服從多數，多數尊重少數。</p>
-            <h4 style="margin-top: 2rem;">觀念比較：權宜問題 vs 秩序問題</h4>
-             <table class="comparison-table">
-                <thead>
-                    <tr><th>項目</th><th>權宜問題 (Point of Privilege)</th><th>秩序問題 (Point of Order)</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>提出時機</td><td>議場內發生<strong class="highlight-text">干擾個人或全體</strong>的突發事件。</td><td>議事<strong class="highlight-text">程序出現錯誤</strong>，或發言離題。</td></tr>
-                    <tr><td>功能</td><td>維護議事環境的<strong class="highlight-text">秩序與舒適</strong>。</td><td>節省開會時間、<strong class="highlight-text">糾正程序錯誤</strong>。</td></tr>
-                    <tr><td>舉例</td><td>有人喧嘩、鼓譟；冷氣太冷；發生地震、有人昏倒等緊急事件。</td><td>處理表決的先後規定不合；不應提出動議而提出等。</td></tr>
-                </tbody>
-            </table>
+            <div class="comparison-item">
+                <h4>觀念比較：權宜問題 vs 秩序問題</h4>
+                 <div class="comparison-cards-container">
+                     <div class="comparison-card left">
+                         <h5><i class="fas fa-exclamation-circle"></i>權宜問題</h5>
+                         <ul>
+                             <li><strong>提出時機：</strong>議場內發生<strong class="highlight-text">干擾個人或全體</strong>的突發事件。</li>
+                             <li><strong>功能：</strong>維護議事環境的<strong class="highlight-text">秩序與舒適</strong>。</li>
+                             <li><strong>舉例：</strong>有人喧嘩、鼓譟；冷氣太冷；發生地震、有人昏倒等緊急事件。</li>
+                         </ul>
+                     </div>
+                     <div class="comparison-card right">
+                         <h5><i class="fas fa-gavel"></i>秩序問題</h5>
+                          <ul>
+                             <li><strong>提出時機：</strong>議事<strong class="highlight-text">程序出現錯誤</strong>，或發言離題。</li>
+                             <li><strong>功能：</strong>節省開會時間、<strong class="highlight-text">糾正程序錯誤</strong>。</li>
+                             <li><strong>舉例：</strong>處理表決的先後規定不合；不應提出動議而提出等。</li>
+                         </ul>
+                     </div>
+                 </div>
+            </div>
         </section>
         
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
             <div class="quiz-container" id="quiz1">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(112 會考)</span></h3>
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(112 會考)</span></h3>
                 <div class="question">
                     <p>在班會進行中，小華突然提出了秩序問題，下列何者最可能是他提出該要求的原因？</p>
                 </div>
@@ -518,21 +526,24 @@
             </div>
             
             <div class="quiz-container" id="quiz2">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span>(111 會考)</span></h3>
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(111 會考)</span></h3>
                 <div class="question">
                     <p>開班會時，有些同學在玩牌、有些同學在吃東西，阿德認為吵雜聲使他聽不清楚其他人的發言內容，影響到他參與會議的權利。根據下方班會流程，阿德應是在哪一階段要求主席處理上述問題？</p>
-                    <div class="meeting-flowchart">
-                        <div class="flow-step">主席宣布開會</div>
-                        <i class="fas fa-arrow-down flow-arrow" style="font-size: 1.5rem;"></i>
-                        <div class="flow-step">班級幹部報告</div>
-                        <i class="fas fa-arrow-down flow-arrow" style="font-size: 1.5rem;"></i>
-                        <div class="main-agenda">
-                            <h4>主要議程</h4>
-                             <div class="agenda-options">
-                                <div class="agenda-option">(甲) 權宜問題</div>
-                                <div class="agenda-option">(乙) 提案討論</div>
-                                <div class="agenda-option">(丙) 秩序問題</div>
-                                <div class="agenda-option">(丁) 臨時動議</div>
+                    <div class="info-card" style="padding: 1rem; margin-top: 1rem;">
+                        <h4 style="text-align: center; border-bottom: none; margin: 0 0 1rem 0; padding-bottom: 0;">班會流程</h4>
+                        <div class="flow-container" style="flex-direction: column; align-items: stretch; margin-top: 0;">
+                            <div class="flow-item">主席宣布開會</div>
+                            <i class="fas fa-arrow-down flow-arrow" style="transform: rotate(90deg);"></i>
+                            <div class="flow-item">班級幹部報告</div>
+                             <i class="fas fa-arrow-down flow-arrow" style="transform: rotate(90deg);"></i>
+                            <div class="flow-item" style="border: 2px dashed var(--accent-border-color); padding: 1rem;">
+                                <strong>主要議程</strong>
+                                <div class="law-options-list" style="grid-template-columns: 1fr 1fr; margin-bottom: 0; margin-top: 0.5rem;">
+                                    <div class="law-option-item" style="background: none; border: none; padding: 0.2rem;">(甲) 權宜問題</div>
+                                    <div class="law-option-item" style="background: none; border: none; padding: 0.2rem;">(乙) 提案討論</div>
+                                    <div class="law-option-item" style="background: none; border: none; padding: 0.2rem;">(丙) 秩序問題</div>
+                                    <div class="law-option-item" style="background: none; border: none; padding: 0.2rem;">(丁) 臨時動議</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -548,7 +559,7 @@
             </div>
 
             <div class="quiz-container" id="quiz3">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span>(107 會考)</span></h3>
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(107 會考)</span></h3>
                 <div class="question">
                     <p>在會議中，甲、乙、丙、丁四位同學的發言如下。根據《會議規範》，哪兩位同學的發言是合乎規定的？</p>
                      <div class="dialogue-container">

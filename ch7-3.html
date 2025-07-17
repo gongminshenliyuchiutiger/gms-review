@@ -12,7 +12,7 @@
         :root {
             --primary-glow: #00f2ea; /* 亮青色 */
             --secondary-glow: #ff00ff; /* 洋紅色 */
-            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --accent-glow: #f0e14a; /* 金黃色 */
             --bg-dark: #0d1b2a;
             --bg-dark-2: #020a12;
             --text-color: #e0e0e0;
@@ -37,17 +37,17 @@
 
         header {
             text-align: center;
-            padding: 5rem 0;
+            padding: 5rem 1rem;
             border-bottom: 2px solid var(--border-color);
             box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+            overflow: hidden;
         }
 
         header h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3.8rem;
+            font-size: clamp(2.5rem, 4vw, 3.8rem);
             font-weight: 900;
             color: var(--text-color);
-            white-space: nowrap; /* 新增：防止標題換行 */
             text-shadow:
                 0 0 5px #fff,
                 0 0 10px var(--accent-glow),
@@ -65,7 +65,7 @@
 
         header h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
             font-weight: 700;
             color: var(--secondary-glow);
             margin-top: 1rem;
@@ -94,15 +94,11 @@
         
         section.visible { opacity: 1; transform: translateY(0); }
         
-        .highlight-text {
-            font-weight: bold;
-            color: var(--accent-glow);
-            text-shadow: 0 0 5px var(--accent-glow);
-        }
+        .highlight-text { font-weight: bold; color: var(--accent-glow); text-shadow: 0 0 5px var(--accent-glow); }
 
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
             color: var(--primary-glow);
@@ -110,72 +106,125 @@
             align-items: center;
             gap: 1rem;
             text-shadow: 0 0 10px var(--primary-glow);
+            flex-wrap: wrap;
         }
-        
         .section-title i {
-            font-size: 2.2rem;
+            font-size: clamp(1.6rem, 4.5vw, 2.2rem);
             color: var(--accent-glow);
             text-shadow: 0 0 10px var(--accent-glow);
         }
-        
-        h3, h4 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--primary-glow);
-            margin-bottom: 1rem;
-        }
-        h3 { font-size: 1.6rem; }
-        h4 { font-size: 1.4rem; }
 
-        .info-card {
-            background: rgba(0,0,0,0.2);
-            border: 1px solid var(--border-color);
-            border-radius: 15px;
+        h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 1.8rem);
+            color: var(--primary-glow);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+        }
+        h3:first-of-type {
+            margin-top: 0;
+        }
+        
+        .info-card { 
+            background: rgba(0,0,0,0.2); 
+            border: 1px solid var(--border-color); 
+            border-radius: 15px; 
             padding: 1.5rem;
+        }
+        
+        .info-card h4 { 
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            color: var(--primary-glow);
+            margin: 0 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            padding-bottom: 0.5rem;
+        }
+         .info-card ul {
+            list-style: none; padding-left: 0;
+        }
+        .info-card li {
+            position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem;
+        }
+        .info-card li::before {
+            content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
+            position: absolute; left: 0; top: 3px; color: var(--primary-glow);
+        }
+
+        .comparison-cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
             margin-top: 1.5rem;
         }
-        .info-card ul { list-style: none; padding: 0;}
-        .info-card li { margin-bottom: 0.5rem; }
         
-        .comparison-table {
-            width: 100%; border-collapse: collapse; margin-top: 1.5rem;
+        .comparison-card {
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
         }
-        .comparison-table th, .comparison-table td {
-            border: 1px solid var(--border-color); padding: 1rem; text-align: left;
-            vertical-align: top;
+        .comparison-card h5 {
+            font-size: 1.2rem;
+            margin: 0 0 1rem 0;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-glow);
+            border-bottom: 1px solid var(--border-color);
         }
-        .comparison-table thead th { background-color: rgba(13, 27, 42, 0.7); color: var(--primary-glow); text-align: center; }
-        .comparison-table tbody th { font-weight: bold; color: var(--accent-glow); text-align: center; }
-        .comparison-table ul { list-style: none; padding-left: 0; }
-        .comparison-table ul li { position: relative; padding-left: 1.2rem; }
-        .comparison-table ul li::before {
-            content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
-            position: absolute; left: 0; top: 4px; font-size: 0.9em;
-        }
-
-        /* Quiz Styles */
+        
         .quiz-container { margin-bottom: 3rem; }
-        .quiz-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); }
+        .quiz-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
+            color: var(--accent-glow);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+        }
         .quiz-title i { margin-right: 0.75rem; }
-        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; }
+        .quiz-title .quiz-source { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
         #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
-        .diagram-description {
+        
+        #quiz-section .diagram-description {
             background-color: rgba(0, 242, 234, 0.08); padding: 1rem; border-radius: 10px; margin-top: 1rem; border: 1px dashed var(--border-color);
         }
-        .diagram-description p { margin-bottom: 0.5rem;}
-        .diagram-description ul { list-style-type: none; padding-left: 1rem; }
+        #quiz-section .diagram-description p { margin-bottom: 0.5rem;}
+        #quiz-section .diagram-description ul { list-style-type: none; padding-left: 1rem; }
         
-        #quiz-section .options { display: grid; gap: 1rem; grid-template-columns: repeat(2, 1fr); }
-        #quiz-section .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+        .table-container { overflow-x: auto; }
+        .data-table {
+            width: 100%; border-collapse: collapse; font-size: 0.95rem; margin-top: 1.5rem;
+        }
+        .data-table th, .data-table td {
+            border: 1px solid var(--accent-border-color); padding: 0.8rem; text-align: center; white-space: nowrap; vertical-align: middle;
+        }
+        .data-table thead th { background-color: rgba(13, 27, 42, 0.7); color: var(--primary-glow); }
+
+        #quiz-section .options { display: grid; gap: 1rem; }
+        .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
         .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
         .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark);}
         .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
         
         .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
+        .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
         .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
         .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
         .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
         .reset-btn:hover { transform: scale(1.05); }
-
+        
         .matching-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
         .matching-item:last-child { border-bottom: none; }
         .matching-item p { flex-grow: 1; margin: 0; }
@@ -184,20 +233,41 @@
         .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
         .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
         
-        /* Mascot & Typing Effect Styles */
-        .fun-bg-section {
-            position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem;
-            border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color);
-            overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem;
+        .law-options-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
         }
+        .law-option-item {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .law-option-label {
+            color: var(--accent-glow);
+            font-weight: 700;
+            margin-right: 0.5em;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect {
-            position: relative; z-index: 5; font-family: 'Orbitron', monospace; font-size: 1.6rem; 
+            position: relative; z-index: 5; font-family: 'Orbitron', monospace;
+            font-size: clamp(1.2rem, 2vw + 0.5rem, 1.6rem); 
             font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
             text-align: center; max-width: 100%;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin: 0;
         }
         .typing-effect .cursor {
             display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            margin-left: 5px; width: 10px; height: 1.6rem; animation: blink-caret 0.75s step-end infinite;
+            margin-left: 5px; width: 10px; height: 1em; animation: blink-caret 0.75s step-end infinite;
         }
         @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
         .floating-mascot-bg {
@@ -206,6 +276,7 @@
             top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;
         }
         @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
+        
         #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
         #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
         #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
@@ -219,7 +290,6 @@
         #mascot-speech.visible { opacity: 1; transform: translateY(0); }
         .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
 
-        /* Floating Home Button & Footer */
         #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
         #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
         #return-home-btn:hover { transform: scale(1.1); }
@@ -228,15 +298,19 @@
 
         @media (max-width: 768px) {
             .container { padding: 1rem; }
-            header h1 { font-size: 2.5rem; }
             section { padding: 1.5rem; }
-            .section-title { font-size: 2rem; }
-            #quiz-section .options { grid-template-columns: 1fr; }
-            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
+            .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+            
+            .comparison-cards-container {
+                grid-template-columns: 1fr;
+            }
 
-            /* Adjust new elements for mobile */
-            .typing-effect { font-size: 1.2rem; }
-            .typing-effect .cursor { height: 1.2rem; }
+             .law-options-list {
+                display: flex;
+                flex-direction: column;
+            }
+
+            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
             #mascot-img { width: 80px; }
             #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
@@ -256,17 +330,20 @@
 
         <section id="central-local-division-section">
             <h2 class="section-title"><i class="fas fa-sitemap"></i>一、中央與地方的權限劃分</h2>
-            <div class="info-card">
+            <div class="info-card" style="margin-top:0;">
                 <h4>劃分原則：均權制度</h4>
                 <p>以事務之性質為劃分依據。</p>
-                <table class="comparison-table">
-                    <thead><tr><th style="width:50%">中央政府</th><th style="width:50%">地方政府</th></tr></thead>
-                    <tbody>
-                        <tr><td><strong>負責事務：</strong>具有<strong class="highlight-text">全國一致性</strong>者。</td><td><strong>負責事務：</strong>具有<strong class="highlight-text">因地制宜性</strong>者。</td></tr>
-                        <tr><td><strong>舉例：</strong>中央修訂《空氣汙染防制法》，訂定空氣汙染防制方案。</td><td><strong>舉例：</strong>地方政府可視空氣品質需求及汙染特性，因地制宜設空氣品質維護區。</td></tr>
-                        <tr><td colspan="2"><strong>爭議處理：</strong>中央與地方的權限劃分遇有爭議時，《憲法》規定交由<strong class="highlight-text">立法院</strong>負責解決。</td></tr>
-                    </tbody>
-                </table>
+                <div class="comparison-cards-container">
+                    <div class="comparison-card">
+                        <h5><i class="fas fa-landmark"></i>中央政府</h5>
+                        <p><strong>負責事務：</strong>具有<strong class="highlight-text">全國一致性</strong>者。<br><strong>舉例：</strong>修訂《空氣汙染防制法》。</p>
+                    </div>
+                     <div class="comparison-card">
+                        <h5><i class="fas fa-city"></i>地方政府</h5>
+                        <p><strong>負責事務：</strong>具有<strong class="highlight-text">因地制宜性</strong>者。<br><strong>舉例：</strong>因地制宜設空氣品質維護區。</p>
+                    </div>
+                </div>
+                <p style="text-align:center; margin-top:1.5rem;"><strong>爭議處理：</strong>中央與地方的權限劃分遇有爭議時，《憲法》規定交由<strong class="highlight-text">立法院</strong>負責解決。</p>
             </div>
              <div class="info-card">
                 <h4>觀念比較：權限劃分</h4>
@@ -280,23 +357,18 @@
         <section id="local-gov-section">
             <h2 class="section-title"><i class="fas fa-building"></i>二、地方政府</h2>
             <p>依據《地方制度法》</p>
-            <table class="comparison-table">
-                <thead>
-                    <tr><th>自治團體</th><th>地方行政機關</th><th>地方立法機關</th></tr>
-                </thead>
-                <tbody>
-                    <tr><th>直轄市</th><td>直轄市政府、市長</td><td>直轄市議會、議員</td></tr>
-                    <tr><th>縣（市）</th><td>縣（市）政府、縣（市）長</td><td>縣（市）議會、議員</td></tr>
-                    <tr><th>鄉（鎮、市）</th><td>鄉（鎮、市）公所、鄉（鎮、市）長</td><td>鄉（鎮、市）民代表會、鄉（鎮、市）民代表</td></tr>
-                    <tr><th>直轄市山地原住民區</th><td>直轄市山地原住民區公所、區長</td><td>直轄市山地原住民區民代表會、區民代表</td></tr>
-                    <tr><th>主要職權</th><td><ul><li>處理地方自治事務</li><li>執行上級政府委辦事項</li></ul></td><td><ul><li>議決地方自治條例與預算</li><li>監督地方行政機關的施政</li></ul></td></tr>
-                </tbody>
-            </table>
+            <div class="comparison-cards-container">
+                <div class="info-card"><h4><i class="fas fa-star"></i>直轄市</h4><p><strong>行政：</strong>直轄市政府、市長<br><strong>立法：</strong>直轄市議會、議員</p></div>
+                <div class="info-card"><h4><i class="fas fa-city"></i>縣（市）</h4><p><strong>行政：</strong>縣（市）政府、縣（市）長<br><strong>立法：</strong>縣（市）議會、議員</p></div>
+                <div class="info-card"><h4><i class="fas fa-home"></i>鄉（鎮、市）</h4><p><strong>行政：</strong>鄉（鎮、市）公所、鄉（鎮、市）長<br><strong>立法：</strong>鄉（鎮、市）民代表會、代表</p></div>
+                <div class="info-card"><h4><i class="fas fa-mountain"></i>直轄市山地原住民區</h4><p><strong>行政：</strong>區公所、區長<br><strong>立法：</strong>區民代表會、區民代表</p></div>
+            </div>
         </section>
 
         <section id="local-self-gov-section">
              <h2 class="section-title"><i class="fas fa-landmark"></i>三、地方自治</h2>
-             <div class="info-card">
+             <div class="info-card" style="margin-top:0;">
+                <h4><i class="fas fa-info-circle"></i>意義與目的</h4>
                 <ul>
                     <li><strong>意義：</strong>地方人民制定自治規章、選舉地方官員，自行管理地方公共事務。</li>
                     <li><strong>目的：</strong>
@@ -309,66 +381,72 @@
                 </ul>
              </div>
              <h3 style="margin-top: 2rem;">自治事務</h3>
-             <table class="comparison-table">
-                <thead><tr><th style="width:25%">事務</th><th>具體說明</th><th>舉例</th></tr></thead>
-                <tbody>
-                    <tr><th>教育文化</th><td>推動國民教育、社會教育，舉辦各類藝文活動。</td><td>新竹市政府舉辦薪傳研習活動，傳承優良文化，提升生活品質。</td></tr>
-                    <tr><th>社會服務</th><td>辦理社會救助、托育保護與老人安養等。</td><td>臺北市政府增設托嬰中心，打造友善的托育環境。</td></tr>
-                    <tr><th>經濟發展</th><td>發展各項產業、推動觀光事業、建設道路等。</td><td>桃園市政府辦理「花彩節」，帶動觀光產業的樂趣。</td></tr>
-                    <tr><th>安全衛生</th><td>維持治安、消防救災、醫療保健與垃圾處理等。</td><td>花蓮縣政府邀請消防局科員擔任講師，宣導防災避難的觀念。</td></tr>
-                </tbody>
-             </table>
+             <div class="comparison-cards-container">
+                 <div class="info-card"><h4><i class="fas fa-book-open"></i>教育文化</h4><p>推動國民教育、社會教育，舉辦各類藝文活動。<br><strong>舉例：</strong>新竹市政府舉辦薪傳研習活動。</p></div>
+                 <div class="info-card"><h4><i class="fas fa-hands-helping"></i>社會服務</h4><p>辦理社會救助、托育保護與老人安養等。<br><strong>舉例：</strong>臺北市政府增設托嬰中心。</p></div>
+                 <div class="info-card"><h4><i class="fas fa-chart-line"></i>經濟發展</h4><p>發展各項產業、推動觀光事業、建設道路等。<br><strong>舉例：</strong>桃園市政府辦理「花彩節」。</p></div>
+                 <div class="info-card"><h4><i class="fas fa-shield-alt"></i>安全衛生</h4><p>維持治安、消防救災、醫療保健與垃圾處理等。<br><strong>舉例：</strong>花蓮縣政府宣導防災避難觀念。</p></div>
+             </div>
         </section>
 
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
             <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(106 會考)</span></h3>
+                <h3 class="quiz-title"><i class="fas fa-tasks"></i>模擬神給酷</h3>
+                <div class="info-card" style="margin-top:0;">
+                     <p><strong>根據問題，將單一正確代號填入空格中。</strong></p>
+                     <div class="law-options-list" style="grid-template-columns:1fr 1fr; margin-bottom:1rem;">
+                         <div class="law-option-item"><span class="law-option-label">甲</span> 地方自治團體</div>
+                         <div class="law-option-item"><span class="law-option-label">乙</span> 非地方自治團體</div>
+                     </div>
+                      <div class="law-options-list grid-3-col">
+                         <div class="law-option-item"><span class="law-option-label">丙</span> 直轄市</div>
+                         <div class="law-option-item"><span class="law-option-label">丁</span> 縣級市</div>
+                         <div class="law-option-item"><span class="law-option-label">戊</span> 鄉鎮市級市</div>
+                     </div>
+                     <div class="matching-item" data-answer="乙"><p>1. 「臺灣省」的團體性質屬於何者？</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="甲"><p>2. 「桃園市復興區」的團體性質屬於何者？</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="丁"><p>3. 行政機關為市政府的「基隆市」，其層級屬於何者？</p><select class="matching-select"><option>請選擇</option><option value="丙">丙</option><option value="丁">丁</option><option value="戊">戊</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="丙"><p>4. 民意機關為市議會的「臺南市」，其層級屬於何者？</p><select class="matching-select"><option>請選擇</option><option value="丙">丙</option><option value="丁">丁</option><option value="戊">戊</option></select><i class="feedback-icon"></i></div>
+                      <div class="matching-item" data-answer="戊"><p>5. 民意代表為市民代表的「彰化市」，其層級屬於何者？</p><select class="matching-select"><option>請選擇</option><option value="丙">丙</option><option value="丁">丁</option><option value="戊">戊</option></select><i class="feedback-icon"></i></div>
+                </div>
+            </div>
+
+            <div class="quiz-container" id="quiz1">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(106 會考)</span></h3>
                 <div class="question">
                     <p>我國中央政府的權力畫分如下方示意圖所述，但地方政府僅具有其中部分的權力，若將圖中我國地方政府所具有的權力區塊上色，下列何者的呈現方式正確？</p>
-                    <div class="diagram-description">
-                        <p><strong>示意圖：</strong>中央政府的五權分立，包含「行政」、「立法」、「司法」、「考試」、「監察」五個權力區塊。</p>
-
+                    <div id="quiz-section">
+                        <div class="diagram-description">
+                            <p><strong>示意圖：</strong>中央政府的五權分立，包含「行政」、「立法」、「司法」、「考試」、「監察」五個權力區塊。</p>
+                        </div>
                     </div>
                 </div>
                 <div class="options">
-                    <button class="option-btn" data-correct="false">(A) 上色區塊：監察、司法、考試</button>
-                    <button class="option-btn" data-correct="true">(B) 上色區塊：行政、立法</button>
-                    <button class="option-btn" data-correct="false">(C) 上色區塊：行政、立法、考試</button>
-                    <button class="option-btn" data-correct="false">(D) 上色區塊：監察、立法、司法</button>
+                    <button class="option-btn" data-correct="false">(A) 監察、司法、考試</button>
+                    <button class="option-btn" data-correct="true">(B) 行政、立法</button>
+                    <button class="option-btn" data-correct="false">(C) 行政、立法、考試</button>
+                    <button class="option-btn" data-correct="false">(D) 監察、立法、司法</button>
                 </div>
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
             
-            <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-tasks"></i>模擬神給酷</h3>
-                <div class="info-card">
-                     <p><strong>根據問題，將單一正確代號填入空格中。</strong><br>
-                     (甲) 地方自治團體 &nbsp;&nbsp; (乙) 非地方自治團體<br>
-                     (丙) 直轄市 &nbsp;&nbsp; (丁) 縣，與縣同級的市 &nbsp;&nbsp; (戊) 鄉鎮市級的市
-                     </p>
-                     <div class="matching-item" data-answer="乙"><p>5. 「臺灣省」的團體性質屬於何者？</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option></select><i class="feedback-icon"></i></div>
-                     <div class="matching-item" data-answer="甲"><p>6. 「桃園市復興區」的團體性質屬於何者？</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option></select><i class="feedback-icon"></i></div>
-                     <div class="matching-item" data-answer="丁"><p>7. 行政機關為市政府的「基隆市」，其層級屬於何者？</p><select class="matching-select"><option>請選擇</option><option value="丙">丙</option><option value="丁">丁</option><option value="戊">戊</option></select><i class="feedback-icon"></i></div>
-                     <div class="matching-item" data-answer="丙"><p>8. 民意機關為市議會的「臺南市」，其層級屬於何者？</p><select class="matching-select"><option>請選擇</option><option value="丙">丙</option><option value="丁">丁</option><option value="戊">戊</option></select><i class="feedback-icon"></i></div>
-                      <div class="matching-item" data-answer="戊"><p>9. 民意代表為市民代表的「彰化市」，其層級屬於何者？</p><select class="matching-select"><option>請選擇</option><option value="丙">丙</option><option value="丁">丁</option><option value="戊">戊</option></select><i class="feedback-icon"></i></div>
-                </div>
-            </div>
-
-            <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span>(113 會考)</span></h3>
+            <div class="quiz-container" id="quiz2">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(113 會考)</span></h3>
                 <div class="question">
                     <p>小惠在旅行的過程中，曾借宿右表中四位親戚家，其中一位家長是血親旁系當地的民意代表，因此在借宿的那天晚上，他也參與了掃街拜票。根據上述內容判斷，參選者最可能是表中何者？</p>
-                    <table class="comparison-table">
-                        <thead><tr><th>行程</th><th>借宿地點</th><th>親戚稱謂</th></tr></thead>
-                        <tbody>
-                            <tr><td>第一天</td><td>新北市</td><td>姨丈</td></tr>
-                            <tr><td>第二天</td><td>花蓮縣</td><td>舅舅</td></tr>
-                            <tr><td>第三天</td><td>臺南市</td><td>姑姑</td></tr>
-                            <tr><td>第四天</td><td>彰化縣</td><td>伯母</td></tr>
-                        </tbody>
-                    </table>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead><tr><th>行程</th><th>借宿地點</th><th>親戚稱謂</th></tr></thead>
+                            <tbody>
+                                <tr><td>第一天</td><td>新北市</td><td>姨丈</td></tr>
+                                <tr><td>第二天</td><td>花蓮縣</td><td>舅舅</td></tr>
+                                <tr><td>第三天</td><td>臺南市</td><td>姑姑</td></tr>
+                                <tr><td>第四天</td><td>彰化縣</td><td>伯母</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="options">
                     <button class="option-btn" data-correct="false">(A) 姨丈</button>
@@ -379,8 +457,8 @@
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
-             <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span>(110 會考)</span></h3>
+             <div class="quiz-container" id="quiz3">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(110 會考)</span></h3>
                 <div class="question">
                     <p>近來許多地方政府重新整頓閒置空間，每逢週末舉辦藝文活動，並對外進行攤位招商，有時還搭配煙火秀吸引遊客。由於此舉易造成周邊交通壅塞，加上地方財政困窘，因而輿論對此作法有諸多批評，但不少地方政府仍持續舉辦相關活動。下列何者最可能是上述地方政府作為的目的？</p>
                 </div>
@@ -450,6 +528,7 @@
                     const correctAnswer = item.dataset.answer;
                     const feedbackIcon = item.querySelector('.feedback-icon');
                     feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    feedbackIcon.innerHTML = '';
                     if (selectedValue === "請選擇") {
                         feedbackIcon.style.display = 'none';
                         return;
@@ -468,7 +547,7 @@
             // Multiple choice quiz logic
             const allQuizData = {
                 quiz1: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>我國中央政府採「五權分立」，而地方政府則採行<strong class="highlight-text">行政權與立法權</strong>的分立。因此，地方政府的權力對應到圖中的行政（藍色）與立法（綠色）兩塊。選項(B)正確地描述了這兩塊。</p>`,
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>我國中央政府採「五權分立」，而地方政府則採行<strong class="highlight-text">行政權與立法權</strong>的分立。因此，地方政府的權力對應到圖中的行政與立法兩塊。選項(B)正確地描述了這兩塊。</p>`,
                     A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 描述的區塊包含監察、司法、考試權，這些權力屬於中央政府層級。</p>`,
                     C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C)</strong> 描述的區塊包含考試權，考試權屬於中央政府層級。</p>`,
                     D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 描述的區塊包含監察與司法權，這些屬於中央政府層級。</p>`
@@ -487,12 +566,16 @@
                 }
             };
             
-            const quizContainers = document.querySelectorAll('.quiz-container');
+            const mcqContainers = document.querySelectorAll('.quiz-container');
             let mcqIndex = 0;
-            quizContainers.forEach((container) => {
+            mcqContainers.forEach((container) => {
                 if(container.querySelector('.option-btn')) { // Only process MCQs
                     mcqIndex++;
                     const quizId = `quiz${mcqIndex}`; 
+                    container.id = quizId;
+                    const quizData = allQuizData[quizId];
+                    if (!quizData) return;
+
                     const optionButtons = container.querySelectorAll('.option-btn');
                     const feedbackArea = container.querySelector('.feedback-area');
                     const resetButton = container.querySelector('.reset-btn');
@@ -504,13 +587,13 @@
                             
                             if (isCorrect) {
                                 button.classList.add('correct');
-                                feedbackArea.innerHTML = allQuizData[quizId].correct;
+                                feedbackArea.innerHTML = quizData.correct;
                                 feedbackArea.className = 'feedback-area feedback-correct';
                             } else {
                                 button.classList.add('wrong');
                                 container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
                                 const optionLetter = button.textContent.substring(1, 2);
-                                feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
+                                feedbackArea.innerHTML = quizData[optionLetter];
                                 feedbackArea.className = 'feedback-area feedback-wrong';
                             }
                             
@@ -527,7 +610,7 @@
                         });
                         feedbackArea.style.display = 'none';
                         resetButton.style.display = 'none';
-                        container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
                     });
                 }
             });

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>重點15-2：社群網路與媒體識讀</title>
-    <!-- Font Awesome script is still useful for other icons in the page -->
+    <!-- Font Awesome script -->
     <script src="https://kit.fontawesome.com/62a9d1d113.js" crossorigin="anonymous"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
@@ -12,7 +12,7 @@
         :root {
             --primary-glow: #00f2ea; /* 亮青色 */
             --secondary-glow: #ff00ff; /* 洋紅色 */
-            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --accent-glow: #f0e14a; /* 金黃色 */
             --bg-dark: #0d1b2a;
             --bg-dark-2: #020a12;
             --text-color: #e0e0e0;
@@ -23,16 +23,8 @@
             --accent-border-color: rgba(240, 225, 74, 0.5);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
             background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-2));
@@ -41,25 +33,21 @@
             overflow-x: hidden;
         }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
 
         header {
             text-align: center;
-            padding: 5rem 0;
+            padding: 5rem 1rem;
             border-bottom: 2px solid var(--border-color);
             box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+            overflow: hidden;
         }
 
         header h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3.8rem;
+            font-size: clamp(2rem, 4vw, 3.8rem);
             font-weight: 900;
             color: var(--text-color);
-            white-space: nowrap; /* 新增：防止標題換行 */
             text-shadow:
                 0 0 5px #fff,
                 0 0 10px var(--accent-glow),
@@ -70,19 +58,14 @@
 
         @keyframes flicker-orange {
             0%, 18%, 22%, 25%, 53%, 57%, 100% {
-                text-shadow:
-                0 0 4px #fff,
-                0 0 11px var(--accent-glow),
-                0 0 19px var(--accent-glow),
-                0 0 40px var(--accent-glow),
-                0 0 80px var(--accent-glow);
+                text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-glow), 0 0 19px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow);
             }
             20%, 24%, 55% { text-shadow: none; }
         }
 
         header h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
             font-weight: 700;
             color: var(--secondary-glow);
             margin-top: 1rem;
@@ -109,20 +92,13 @@
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
         
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        section.visible { opacity: 1; transform: translateY(0); }
         
-        .highlight-text {
-            font-weight: bold;
-            color: var(--accent-glow);
-            text-shadow: 0 0 5px var(--accent-glow);
-        }
+        .highlight-text { font-weight: bold; color: var(--accent-glow); text-shadow: 0 0 5px var(--accent-glow); }
 
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
             color: var(--primary-glow);
@@ -130,212 +106,166 @@
             align-items: center;
             gap: 1rem;
             text-shadow: 0 0 10px var(--primary-glow);
+            flex-wrap: wrap;
         }
-        
         .section-title i {
-            font-size: 2.2rem;
+            font-size: clamp(1.6rem, 4.5vw, 2.2rem);
             color: var(--accent-glow);
             text-shadow: 0 0 10px var(--accent-glow);
         }
 
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .info-card {
-            background: rgba(0,0,0,0.2);
-            border: 2px solid var(--border-color);
-            border-radius: 15px;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-        }
-        
-        .info-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--accent-glow);
-            box-shadow: 0 15px 30px rgba(240, 225, 74, 0.2);
-        }
-        
-        .info-card h3 {
+        h3 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: clamp(1.5rem, 3vw, 1.8rem);
             color: var(--primary-glow);
-            border-bottom: 3px solid var(--accent-glow);
-            padding-bottom: 0.5rem;
+            margin-top: 2rem;
             margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+        }
+        h3:first-of-type {
+            margin-top: 0;
         }
         
-        .info-card ul {
-            list-style: none;
-            padding-left: 0;
-            flex-grow: 1;
+        .info-card { 
+            background: rgba(0,0,0,0.2); 
+            border: 1px solid var(--border-color); 
+            border-radius: 15px; 
+            padding: 1.5rem;
+        }
+        
+        .info-card h4 { 
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            color: var(--primary-glow);
+            margin: 0 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            padding-bottom: 0.5rem;
+        }
+         .info-card ul {
+            list-style: none; padding-left: 0;
         }
         .info-card li {
-            position: relative;
-            padding-left: 1.5rem;
-            margin-bottom: 0.75rem;
+            position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem;
         }
         .info-card li::before {
-            content: '\f105'; /* Font Awesome angle-right */
-            font-family: 'Font Awesome 5 Free';
-            font-weight: 900;
-            position: absolute;
-            left: 0;
-            top: 2px;
-            color: var(--accent-glow);
-            transition: transform 0.3s;
-        }
-        .info-card:hover li::before {
-            transform: rotate(90deg);
+            content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
+            position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
         
-        .info-card h4 {
-            font-size: 1.2rem;
-            color: var(--primary-glow);
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .table-container {
-            overflow-x: auto;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        .comparison-cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
             margin-top: 1.5rem;
         }
-        th, td {
-            padding: 0.8rem;
-            text-align: left;
-            border: 1px solid var(--border-color);
-        }
-        th {
-            background-color: rgba(0, 242, 234, 0.1);
-            color: var(--primary-glow);
-            font-family: 'Orbitron', sans-serif;
-        }
-        td {
-             background-color: rgba(13, 27, 42, 0.5);
-        }
-        
-        .highlight-box { background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05)); padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow); font-size: 1.1rem; margin-top: 2rem; box-shadow: inset 0 0 10px rgba(240, 225, 74, 0.2); }
-        .highlight-box strong { color: var(--accent-glow); font-weight: 700; }
-        
-        /* --- FUN STYLES --- */
-        .fun-bg-section {
-            position: relative;
-            min-height: 150px;
-            margin-top: 4rem;
-            margin-bottom: 2rem;
-            border-radius: 20px;
-            background-color: var(--card-bg);
-            border: 2px solid var(--border-color);
-            overflow: hidden;
-            backdrop-filter: blur(5px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-        }
-        .typing-effect {
-            position: relative;
-            z-index: 5;
-            font-family: 'Orbitron', monospace;
-            font-size: 1.6rem; 
-            font-weight: 700;
-            color: #fff;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            text-align: center;
-            max-width: 100%;
-        }
-        .typing-effect .cursor {
-            display: inline-block;
-            background-color: #fff;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            margin-left: 5px;
-            width: 10px;
-            height: 1.6rem;
-            animation: blink-caret 0.75s step-end infinite;
-        }
-        @keyframes blink-caret {
-            from, to { background-color: transparent; box-shadow: none; }
-            50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); }
-        }
-        .floating-mascot-bg {
-            position: absolute;
-            width: 250px;
-            height: auto;
-            opacity: 0.15;
-            animation: floatMascot 15s ease-in-out infinite alternate;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1;
-        }
-        @keyframes floatMascot {
-            from { transform: translate(-60%, -60%) rotate(-15deg); }
-            to { transform: translate(-40%, -40%) rotate(15deg); }
-        }
-        
-        #return-home-btn {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            width: 50px;
-            height: 50px;
-            z-index: 1001;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        #return-home-btn svg {
-            width: 100%;
-            height: 100%;
-            stroke: #ffffff;
-            stroke-width: 2px;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            fill: none;
-            transition: all 0.3s ease;
-            filter: drop-shadow(0 0 6px var(--primary-glow));
-        }
-        #return-home-btn:hover { transform: scale(1.1); }
-        #return-home-btn:hover svg {
-            stroke: var(--primary-glow);
-            filter: drop-shadow(0 0 12px var(--primary-glow));
-            transform: rotate(-10deg);
+        .grid-3-col {
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
         }
 
-        footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+        .highlight-box { background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05)); padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow); font-size: 1.1rem; margin-top: 2rem; box-shadow: inset 0 0 10px rgba(240, 225, 74, 0.2); }
+        .highlight-box h4 {
+            color: var(--accent-glow); margin: 0 0 1rem 0; display: flex; align-items: center; gap: 0.75rem;
+            border: none; padding: 0; font-size: 1.2rem;
+        }
+        
+        .quiz-container { margin-bottom: 3rem; }
+        .quiz-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
+            color: var(--accent-glow);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+        }
+        .quiz-title i { margin-right: 0.75rem; }
+        .quiz-title .quiz-source { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
+        #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
+        
+        #quiz-section .highlight-box {
+            background-color: rgba(0, 242, 234, 0.08);
+            border: none;
+            border-left: 5px solid var(--primary-glow);
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+        }
+        
+        #quiz-section .options { display: grid; gap: 1rem; }
+        .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+        .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
+        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark);}
+        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
+        
+        .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
+        .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
+        .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .reset-btn:hover { transform: scale(1.05); }
+        
+        .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
+        .typing-effect {
+            position: relative; z-index: 5; font-family: 'Orbitron', monospace;
+            font-size: clamp(1.2rem, 2vw + 0.5rem, 1.6rem); 
+            font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            text-align: center; max-width: 100%;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin: 0;
+        }
+        .typing-effect .cursor {
+            display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            margin-left: 5px; width: 10px; height: 1em; animation: blink-caret 0.75s step-end infinite;
+        }
+        @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
+        .floating-mascot-bg {
+            position: absolute; width: 250px; height: auto; opacity: 0.15;
+            animation: floatMascot 15s ease-in-out infinite alternate;
+            top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;
+        }
+        @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
+        
         #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
         #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
         #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
         #mascot-img.enlarged { transform: scale(2.5) !important; }
-        #mascot-speech { position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9); color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3); }
+        #mascot-speech {
+            position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9);
+            color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px;
+            font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3);
+        }
         #mascot-speech.visible { opacity: 1; transform: translateY(0); }
         .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
 
+        #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
+        #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
+        #return-home-btn:hover { transform: scale(1.1); }
+        #return-home-btn:hover svg { stroke: var(--primary-glow); filter: drop-shadow(0 0 12px var(--primary-glow)); transform: rotate(-10deg); }
+        footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+
         @media (max-width: 768px) {
             .container { padding: 1rem; }
-            header { padding: 3rem 0; }
-            header h1 { font-size: 2.5rem; }
-            header h2 { font-size: 1.2rem; }
-            section { padding: 1.5rem; margin-bottom: 2rem; }
-            .section-title { font-size: 2rem; }
-            .content-grid { grid-template-columns: 1fr; }
-            .info-card { margin-bottom: 1.5rem; }
-            .info-card:last-child { margin-bottom: 0; }
-            .typing-effect { font-size: 1.2rem; }
-            .typing-effect .cursor { height: 1.2rem; }
+            section { padding: 1.5rem; }
+            
+            .comparison-cards-container.grid-3-col,
+            .comparison-cards-container {
+                grid-template-columns: 1fr;
+            }
+            #quiz-section .options { grid-template-columns: 1fr; }
+
             #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
             #mascot-img { width: 80px; }
             #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
         }
-
     </style>
 </head>
 <body>
@@ -350,35 +280,35 @@
     <main class="container">
         <section id="media-basics-section">
             <h2 class="section-title"><i class="fas fa-satellite"></i> 一、媒體與社群網路</h2>
-            <div class="content-grid">
+            <div class="comparison-cards-container">
                 <div class="info-card">
-                    <h3>媒體</h3>
+                    <h4><i class="fas fa-tv"></i>媒體</h4>
                     <p>指閱聽人接收訊息的媒介，例如電視、電影、書報、雜誌、網路。</p>
                 </div>
                 <div class="info-card">
-                    <h3>社群網路</h3>
+                    <h4><i class="fas fa-users"></i>社群網路</h4>
                     <p>透過網路組成的團體或討論平臺，提供使用者交流、分享資訊，如臉書社群、公共政策網路參與平臺。</p>
                 </div>
             </div>
             <div class="highlight-box">
-                <h4>媒體的重要性：第四權</h4>
+                <h4><i class="fas fa-shield-alt"></i>媒體的重要性：第四權</h4>
                 媒體能監督政府、防止政府濫權，因此被稱為繼行政、立法、司法以外的第四種制衡力量。
             </div>
         </section>
 
         <section id="media-roles-section">
             <h2 class="section-title"><i class="fas fa-microphone-alt"></i> 二、媒體扮演的公共角色</h2>
-             <div class="content-grid">
+             <div class="comparison-cards-container grid-3-col">
                 <div class="info-card">
-                    <h3>報導事實 提供訊息</h3>
+                    <h4><i class="fas fa-newspaper"></i>報導事實 提供訊息</h4>
                     <p>媒體會報導事件的事實，提供正確訊息，讓民眾了解公共事務。</p>
                 </div>
                  <div class="info-card">
-                    <h3>設定議題 引導關注</h3>
+                    <h4><i class="fas fa-bullseye"></i>設定議題 引導關注</h4>
                     <p>媒體透過<strong class="highlight-text">版面大小、報導次數</strong>多寡來設定特定新聞的報導強度，引領民眾關注方向與重點。</p>
                 </div>
                  <div class="info-card">
-                    <h3>促成討論 形成民意</h3>
+                    <h4><i class="fas fa-comments"></i>促成討論 形成民意</h4>
                      <p>媒體會提供民眾各種評論的管道和平臺，讓不同立場的輿論可以相互進行討論，凝聚社會共識，進而影響政府政策。</p>
                 </div>
             </div>
@@ -386,7 +316,7 @@
         
         <section id="social-media-impact-section">
             <h2 class="section-title"><i class="fas fa-share-alt"></i> 三、社群網路改變公共參與</h2>
-            <div class="info-card">
+            <div class="info-card" style="margin-top:0;">
                  <ul>
                     <li><strong>公民記者（自媒體）崛起</strong>：閱聽人從被動的訊息接受者，轉變為主動的資訊提供者，主動製播節目或報導媒體忽略的主題，引起社會大眾重視。</li>
                     <li><strong>公共政策參與平臺建置</strong>：民眾透過網路平臺參與討論，表達對公共議題的看法，作為政策參考。</li>
@@ -397,55 +327,41 @@
 
         <section id="media-issues-section">
             <h2 class="section-title"><i class="fas fa-exclamation-triangle"></i> 四、媒體可能存在的現象</h2>
-            <div class="table-container">
-                 <table>
-                    <thead>
-                        <tr>
-                            <th>現象</th>
-                            <th>說明</th>
-                            <th>影響</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>媒體報導未必反映事實</strong></td>
-                            <td>媒體可能為求快速與獨家報導，而未善盡查證訊息真假之責；或為特定目的製造「假新聞」、為追求廣告收益做「置入性行銷」。</td>
-                            <td>報導與事實出現落差。</td>
-                        </tr>
-                        <tr>
-                            <td><strong>媒體報導有特定立場</strong></td>
-                            <td>媒體本身存在特定立場或商業考量，透過內容選擇與議題的設定，刻意「帶風向」導引輿論發展。</td>
-                            <td>導致無法公平的讓不同意見表達出來。</td>
-                        </tr>
-                        <tr>
-                            <td><strong>媒體內容存在隱藏的歧視</strong></td>
-                            <td>媒體可能會在報導中不自覺的加入自己主觀的想法。</td>
-                            <td>強化對於性別、族群或階級的刻板印象、偏見與歧視。</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="comparison-cards-container">
+                 <div class="info-card">
+                    <h4><i class="fas fa-question-circle"></i>報導未必反映事實</h4>
+                    <p><strong>說明：</strong>媒體可能為求快速與獨家報導，而未善盡查證訊息真假之責；或為特定目的製造「假新聞」、為追求廣告收益做「置入性行銷」。<br><strong>影響：</strong>報導與事實出現落差。</p>
+                </div>
+                <div class="info-card">
+                    <h4><i class="fas fa-crosshairs"></i>報導有特定立場</h4>
+                    <p><strong>說明：</strong>媒體本身存在特定立場或商業考量，透過內容選擇與議題的設定，刻意「帶風向」導引輿論發展。<br><strong>影響：</strong>導致無法公平的讓不同意見表達出來。</p>
+                </div>
+                <div class="info-card">
+                    <h4><i class="fas fa-eye-slash"></i>內容存在隱藏的歧視</h4>
+                    <p><strong>說明：</strong>媒體可能會在報導中不自覺的加入自己主觀的想法。<br><strong>影響：</strong>強化對於性別、族群或階級的刻板印象、偏見與歧視。</p>
+                </div>
             </div>
         </section>
         
         <section id="media-literacy-section">
             <h2 class="section-title"><i class="fas fa-user-check"></i> 五、媒體識讀能力</h2>
             <p>指閱聽人認識和解讀媒體的能力，成為一個「<strong class="highlight-text">能動的閱聽人</strong>」。</p>
-            <div class="info-card">
-                <h3>能夠辨識事實與意見</h3>
+            <div class="info-card" style="margin-top:1.5rem;">
+                <h4><i class="fas fa-search"></i>辨識事實與意見</h4>
                 <ul>
                     <li><strong>事實</strong>：訊息內容有客觀、可測量或可觀察到的證據支持，且經確認為「真」。</li>
                     <li><strong>意見</strong>：訊息內容加入<strong class="highlight-text">主觀的價值或道德判斷</strong>。</li>
                 </ul>
             </div>
             <div class="info-card">
-                <h3>培養主動思辨與查證的能力</h3>
+                <h4><i class="fas fa-check"></i>培養主動思辨與查證</h4>
                 <ul>
                     <li>對訊息內容抱持懷疑態度。</li>
                     <li>善用查證工具了解來源、數據或內容是否為事實。例如：到「台灣事實查核中心」查證。</li>
                 </ul>
             </div>
              <div class="info-card">
-                <h3>運用媒體接近使用權的能力</h3>
+                <h4><i class="fas fa-hand-paper"></i>運用媒體接近使用權</h4>
                 <ul>
                     <li>媒體報導有誤，或有失公允，可要求其<strong class="highlight-text">更正</strong>（接近權）。</li>
                     <li>可自己產製優質良善內容，透過媒體與他人分享（使用權）。</li>
@@ -453,6 +369,38 @@
             </div>
         </section>
 
+        <section id="quiz-section">
+            <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
+            <div class="quiz-container" id="quiz1">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(112 會考)</span></h3>
+                <div class="question">
+                    <p>新聞媒體的興盛，使民眾能從多元管道取得大量資訊，但部分媒體為求時效、點閱率，或有其特定立場，使民眾對新聞事件產生錯誤的判斷。下列何種方式最有助於解決上述問題？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="true">(A) 培養媒體識讀，審慎查證資訊</button>
+                    <button class="option-btn" data-correct="false">(B) 增加媒體數量，提升市場競爭</button>
+                    <button class="option-btn" data-correct="false">(C) 立法禁止媒體報導爭議性議題</button>
+                    <button class="option-btn" data-correct="false">(D) 推動媒體分級，降低媒體影響</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            <div class="quiz-container" id="quiz2">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(111 會考)</span></h3>
+                <div class="question">
+                    <p>某網路媒體出現一則新聞快訊：「甲地發生大地震，死傷無數，請大家注意安全。」但事實上甲地並未發生地震，該消息是未經查證的錯誤訊息。上述情況最能呈現下列何種媒體議題？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 議題設定</button>
+                    <button class="option-btn" data-correct="true">(B) 假新聞</button>
+                    <button class="option-btn" data-correct="false">(C) 置入性行銷</button>
+                    <button class="option-btn" data-correct="false">(D) 媒體近用權</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+        </section>
+        
         <section class="fun-bg-section">
             <h3 class="typing-effect">
                 <span id="typing-text-span"></span><span class="cursor"></span>
@@ -534,6 +482,69 @@
             }, { threshold: 0.1 }); 
             
             sections.forEach(section => observer.observe(section));
+
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>面對媒體可能因時效、立場或商業考量而產生錯誤或偏頗的報導，身為閱聽人最根本的解決之道就是提升自身的<strong class="highlight-text">媒體識讀</strong>能力，學會審慎判斷與查證資訊的真偽。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>增加媒體數量不一定能解決問題，反而可能產生更多品質參差不齊的資訊。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>立法禁止報導爭議性議題會侵害新聞自由，並非民主社會的做法。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>媒體分級主要針對內容的適齡性（如暴力、色情），無法解決新聞真偽或立場偏頗的問題。</p>`
+                },
+                quiz2: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>新聞報導「甲地並未發生地震」，代表該則快訊是<strong class="highlight-text">與事實不符的錯誤訊息</strong>，這正是「假新聞」的典型特徵。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 議題設定</strong>是指媒體透過報導篇幅、次數來決定哪些議題重要，與新聞真偽無關。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 置入性行銷</strong>是指將廣告偽裝成新聞內容，題目未提及商業行為。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 媒體近用權</strong>是指民眾使用媒體或要求更正錯誤報導的權利，題目描述的是媒體本身的問題。</p>`
+                }
+            };
+            
+            const quizContainers = document.querySelectorAll('.quiz-container');
+            
+            quizContainers.forEach((container) => {
+                const quizId = container.id;
+                if (!quizId) return;
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
+
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
+
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        
+                        optionButtons.forEach(btn => {
+                            btn.disabled = true;
+                        });
+
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = allQuizData[quizId].correct;
+                            feedbackArea.className = 'feedback-area feedback-correct';
+                        } else {
+                            const optionLetter = button.textContent.substring(1, 2);
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
+                            feedbackArea.className = 'feedback-area feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
+                    });
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
 
             const mascotContainer = document.getElementById('mascot-container');
             const mascotImg = document.getElementById('mascot-img');

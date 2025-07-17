@@ -12,7 +12,7 @@
         :root {
             --primary-glow: #00f2ea; /* 亮青色 */
             --secondary-glow: #ff00ff; /* 洋紅色 */
-            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --accent-glow: #f0e14a; /* 金黃色 */
             --bg-dark: #0d1b2a;
             --bg-dark-2: #020a12;
             --text-color: #e0e0e0;
@@ -135,7 +135,6 @@
             margin-top: 1.5rem;
         }
         
-        /* --- 優化：新增強制三欄的 class --- */
         .grid-3-col {
             grid-template-columns: repeat(3, 1fr);
         }
@@ -187,12 +186,55 @@
         .highlight-box ul { list-style: none; padding-left: 0; }
         .highlight-box li { position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem; }
         .highlight-box li::before { content: '\f054'; font-family: 'Font Awesome 5 Free'; font-weight: 900; position: absolute; left: 0; top: 5px; color: var(--accent-glow); font-size: 0.8em; }
-        
-        .table-container { overflow-x: auto; margin-top: 1rem; }
-        .comparison-table { width: 100%; border-collapse: collapse; }
-        .comparison-table th, .comparison-table td { border: 1px solid var(--border-color); padding: 1rem; text-align: left; vertical-align: top; min-width: 120px; }
-        .comparison-table thead th { background-color: rgba(13, 27, 42, 0.7); color: var(--primary-glow); text-align: center; }
-        .comparison-table td:first-child { font-weight: bold; color: var(--accent-glow); width: 15%; text-align: center; }
+
+        /* --- NEW: Comparison Card Styles for Function Section --- */
+        .function-item {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .function-item:last-child {
+            margin-bottom: 0;
+        }
+        .function-item h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-glow);
+            text-align: center;
+            font-size: clamp(1.3rem, 2.8vw, 1.6rem);
+            margin: 0;
+        }
+        .function-cards-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .function-card {
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid transparent;
+        }
+        .function-card h5 {
+            font-size: 1.2rem;
+            margin: 0 0 1rem 0;
+            padding-bottom: 0.5rem;
+        }
+        .function-card.traditional {
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        .function-card.traditional h5 {
+            color: #ccc;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .function-card.modern {
+            border-color: var(--border-color);
+        }
+        .function-card.modern h5 {
+            color: var(--primary-glow);
+            border-bottom: 1px solid var(--border-color);
+        }
+        /* --- END Comparison Card Styles --- */
         
         .quiz-container { margin-bottom: 3rem; }
         .quiz-title {
@@ -231,6 +273,29 @@
         .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
         .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
 
+        /* --- UPDATED: Options List Layout --- */
+        .law-options-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .law-option-item {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .law-option-label {
+            color: var(--accent-glow);
+            font-weight: 700;
+            margin-right: 0.5em;
+            font-family: 'Orbitron', sans-serif;
+        }
+
         .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .fun-bg-section .typing-effect {
             position: relative; z-index: 5; font-family: 'Orbitron', monospace; 
@@ -265,8 +330,18 @@
             section { padding: 1.5rem; }
             .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
             
-            /* --- 優化：強制三欄的 class 在手機版變回單欄 --- */
-            .grid-3-col {
+            .grid-3-col,
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .css-diagram {
+                font-size: 1.8rem;
+                gap: 0.8rem;
+            }
+            
+            /* RWD: Comparison Card Layout on mobile */
+            .function-cards-container {
                 grid-template-columns: 1fr;
             }
 
@@ -329,7 +404,6 @@
         <section id="affinity-kinship">
             <h2 class="section-title"><i class="fas fa-ring"></i>三、姻親 (In-laws)</h2>
             <p>因婚姻關係而產生的親屬，主要有三種類型：</p>
-            <!-- 優化：使用 grid-3-col 來強制三欄 -->
             <div class="info-grid grid-3-col">
                 <div class="info-card"><h4><i class="fas fa-user-friends"></i>血親之配偶</h4><p>自己血親的另一半。例如：嫂嫂、姊夫、嬸嬸、姑丈。</p></div>
                 <div class="info-card"><h4><i class="fas fa-users"></i>配偶之血親</h4><p>自己另一半的血親。例如：公婆、岳父母、配偶的兄弟姊妹。</p></div>
@@ -344,7 +418,6 @@
         <section id="family-types-section">
             <h2 class="section-title"><i class="fas fa-home"></i>五、家庭的型態</h2>
              <h3>基本型態</h3>
-            <!-- 優化：使用 grid-3-col 來強制三欄 -->
             <div class="info-grid grid-3-col">
                 <div class="info-card">
                     <h4><i class="fas fa-users"></i>小家庭 (核心家庭)</h4>
@@ -406,17 +479,60 @@
 
         <section id="functions-section">
             <h2 class="section-title"><i class="fas fa-cogs"></i>六、家庭的功能與轉變</h2>
-            <div class="table-container">
-                <table class="comparison-table">
-                     <thead><tr><th>功能</th><th>傳統社會</th><th>現代社會</th></tr></thead>
-                     <tbody>
-                        <tr><td>生育</td><td>強調生兒育女，延續家庭血脈。</td><td>少生或不生，家庭子女人數減少。接受透過<strong class="highlight-text">收養</strong>來延續家庭的傳承。</td></tr>
-                        <tr><td>教育</td><td>個人言行舉止、習慣與價值觀念，受家庭影響甚深。</td><td>傳播媒體及<strong class="highlight-text">教育機構</strong>普及，取代部分教育功能。</td></tr>
-                        <tr><td>經濟</td><td>家庭是生產的基本單位，自給自足。</td><td>生產功能由工廠及商店取代。透過<strong class="highlight-text">市場消費</strong>滿足需求。</td></tr>
-                        <tr><td>保護與照顧</td><td>親屬間比鄰而居，提供生理與心理支持。</td><td>家庭照顧人力減少，由各類<strong class="highlight-text">幼兒托育、老人安養機構</strong>，彌補照顧功能。</td></tr>
-                    </tbody>
-                </table>
+            <!-- NEW LAYOUT: Comparison Cards -->
+            <div class="function-item">
+                <h4>生育</h4>
+                <div class="function-cards-container">
+                    <div class="function-card traditional">
+                        <h5>傳統社會</h5>
+                        <p>強調生兒育女，延續家庭血脈。</p>
+                    </div>
+                    <div class="function-card modern">
+                        <h5>現代社會</h5>
+                        <p>少生或不生，家庭子女人數減少。接受透過<strong class="highlight-text">收養</strong>來延續家庭的傳承。</p>
+                    </div>
+                </div>
             </div>
+            <div class="function-item">
+                <h4>教育</h4>
+                <div class="function-cards-container">
+                    <div class="function-card traditional">
+                        <h5>傳統社會</h5>
+                        <p>個人言行舉止、習慣與價值觀念，受家庭影響甚深。</p>
+                    </div>
+                    <div class="function-card modern">
+                        <h5>現代社會</h5>
+                        <p>傳播媒體及<strong class="highlight-text">教育機構</strong>普及，取代部分教育功能。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="function-item">
+                <h4>經濟</h4>
+                <div class="function-cards-container">
+                    <div class="function-card traditional">
+                        <h5>傳統社會</h5>
+                        <p>家庭是生產的基本單位，自給自足。</p>
+                    </div>
+                    <div class="function-card modern">
+                        <h5>現代社會</h5>
+                        <p>生產功能由工廠及商店取代。透過<strong class="highlight-text">市場消費</strong>滿足需求。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="function-item">
+                <h4>保護與照顧</h4>
+                <div class="function-cards-container">
+                    <div class="function-card traditional">
+                        <h5>傳統社會</h5>
+                        <p>親屬間比鄰而居，提供生理與心理支持。</p>
+                    </div>
+                    <div class="function-card modern">
+                        <h5>現代社會</h5>
+                        <p>家庭照顧人力減少，由各類<strong class="highlight-text">幼兒托育、老人安養機構</strong>，彌補照顧功能。</p>
+                    </div>
+                </div>
+            </div>
+            <!-- END NEW LAYOUT -->
         </section>
         
         <section id="quiz-section">
@@ -455,9 +571,15 @@
             <div class="quiz-container">
                 <h3 class="quiz-title"><i class="fas fa-tasks"></i>挑戰三 <span class="quiz-source">(模擬神給酷)</span></h3>
                 <div class="info-card">
-                     <p><strong>請判斷下列各種家庭屬於何種類型？</strong><br>
-                        (甲) 祖孫家庭 (乙) 折衷家庭 (丙) 單親家庭 (丁) 重組家庭 (戊) 頂客家庭 (己) 聯合家庭
-                     </p>
+                     <p><strong>請判斷下列各種家庭屬於何種類型？</strong></p>
+                     <div class="law-options-list">
+                         <div class="law-option-item"><span class="law-option-label">甲</span> 祖孫家庭</div>
+                         <div class="law-option-item"><span class="law-option-label">乙</span> 折衷家庭</div>
+                         <div class="law-option-item"><span class="law-option-label">丙</span> 單親家庭</div>
+                         <div class="law-option-item"><span class="law-option-label">丁</span> 重組家庭</div>
+                         <div class="law-option-item"><span class="law-option-label">戊</span> 頂客家庭</div>
+                         <div class="law-option-item"><span class="law-option-label">己</span> 聯合家庭</div>
+                     </div>
                      <div class="matching-item" data-answer="甲"><p>1. 昭廣在佐賀的超級阿嬤之單獨撫養下長大成人。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option><option value="戊">戊</option><option value="己">己</option></select><i class="feedback-icon"></i></div>
                      <div class="matching-item" data-answer="丁"><p>2. 海潮的妻子早逝，多年後帶著女兒與賀梅結婚。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option><option value="戊">戊</option><option value="己">己</option></select><i class="feedback-icon"></i></div>
                      <div class="matching-item" data-answer="乙"><p>3. 小丸子與爸爸、媽媽、爺爺、奶奶、姐姐同住。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option><option value="戊">戊</option><option value="己">己</option></select><i class="feedback-icon"></i></div>

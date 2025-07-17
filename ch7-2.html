@@ -12,7 +12,7 @@
         :root {
             --primary-glow: #00f2ea; /* 亮青色 */
             --secondary-glow: #ff00ff; /* 洋紅色 */
-            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --accent-glow: #f0e14a; /* 金黃色 */
             --bg-dark: #0d1b2a;
             --bg-dark-2: #020a12;
             --text-color: #e0e0e0;
@@ -37,17 +37,17 @@
 
         header {
             text-align: center;
-            padding: 5rem 0;
+            padding: 5rem 1rem;
             border-bottom: 2px solid var(--border-color);
             box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+            overflow: hidden;
         }
 
         header h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3.8rem;
+            font-size: clamp(2.5rem, 4vw, 3.8rem);
             font-weight: 900;
             color: var(--text-color);
-            white-space: nowrap; /* 新增：防止標題換行 */
             text-shadow:
                 0 0 5px #fff,
                 0 0 10px var(--accent-glow),
@@ -65,7 +65,7 @@
 
         header h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
             font-weight: 700;
             color: var(--secondary-glow);
             margin-top: 1rem;
@@ -94,15 +94,11 @@
         
         section.visible { opacity: 1; transform: translateY(0); }
         
-        .highlight-text {
-            font-weight: bold;
-            color: var(--accent-glow);
-            text-shadow: 0 0 5px var(--accent-glow);
-        }
+        .highlight-text { font-weight: bold; color: var(--accent-glow); text-shadow: 0 0 5px var(--accent-glow); }
 
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
             color: var(--primary-glow);
@@ -110,55 +106,146 @@
             align-items: center;
             gap: 1rem;
             text-shadow: 0 0 10px var(--primary-glow);
+            flex-wrap: wrap;
         }
-        
         .section-title i {
-            font-size: 2.2rem;
+            font-size: clamp(1.6rem, 4.5vw, 2.2rem);
             color: var(--accent-glow);
             text-shadow: 0 0 10px var(--accent-glow);
         }
-        
-        h3, h4 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--primary-glow);
-            margin-bottom: 1rem;
-        }
-        h3 { font-size: 1.6rem; }
-        h4 { font-size: 1.4rem; }
 
-        .info-card {
-            background: rgba(0,0,0,0.2);
-            border: 1px solid var(--border-color);
-            border-radius: 15px;
+        h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 1.8rem);
+            color: var(--primary-glow);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+        }
+        h3:first-of-type {
+            margin-top: 0;
+        }
+        
+        h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            color: var(--accent-glow);
+            margin: 0 0 1rem 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        
+        .info-card { 
+            background: rgba(0,0,0,0.2); 
+            border: 1px solid var(--border-color); 
+            border-radius: 15px; 
             padding: 1.5rem;
+        }
+        
+        .info-card h4 { 
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            color: var(--primary-glow);
+            margin: 0 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            padding-bottom: 0.5rem;
+        }
+         .info-card ul {
+            list-style: none; padding-left: 0;
+        }
+        .info-card li {
+            position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem;
+        }
+        .info-card li::before {
+            content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
+            position: absolute; left: 0; top: 3px; color: var(--primary-glow);
+        }
+        .info-card ul ul {
+            padding-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        .info-card ul ul li::before {
+            content: '\f0da';
+        }
+
+        .comparison-item {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
             margin-top: 1.5rem;
         }
-        .info-card ul { list-style: none; padding: 0;}
-        .info-card li { margin-bottom: 0.5rem; }
-        
-        .comparison-table {
-            width: 100%; border-collapse: collapse; margin-top: 1.5rem;
+        .comparison-item:last-child {
+            margin-bottom: 0;
         }
-        .comparison-table th, .comparison-table td {
-            border: 1px solid var(--border-color); padding: 1rem; text-align: left;
-            vertical-align: top;
+        .comparison-item h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-glow);
+            text-align: center;
+            font-size: clamp(1.3rem, 2.8vw, 1.6rem);
+            margin: 0;
         }
-        .comparison-table thead th { background-color: rgba(13, 27, 42, 0.7); color: var(--primary-glow); text-align: center; }
-        .comparison-table tbody th { font-weight: bold; color: var(--accent-glow); text-align: center; }
-        .comparison-table ul { list-style: none; padding-left: 0; }
-        .comparison-table ul li { position: relative; padding-left: 1.2rem; }
-        .comparison-table ul li::before {
+        .comparison-cards-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .grid-3-col {
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        }
+        .comparison-card {
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+        .comparison-card h5 {
+            font-size: 1.2rem;
+            margin: 0 0 1rem 0;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-glow);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .comparison-card ul {
+             list-style: none; padding-left: 0; font-size: 0.95rem;
+        }
+        .comparison-card li {
+            position: relative; padding-left: 1.2rem; margin-bottom: 0.3rem;
+        }
+        .comparison-card li::before {
             content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
-            position: absolute; left: 0; top: 4px; font-size: 0.9em;
+            position: absolute; left: 0; top: 3px;
         }
-
-        /* Quiz Styles */
+        
         .quiz-container { margin-bottom: 3rem; }
-        .quiz-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); }
+        .quiz-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
+            color: var(--accent-glow);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+        }
         .quiz-title i { margin-right: 0.75rem; }
-        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; }
+        .quiz-title .quiz-source { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
         #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
-        #quiz-section .question img { max-width: 100%; border-radius: 10px; margin-top: 1rem; }
+        
+        #quiz-section .diagram-description {
+            background-color: rgba(0, 242, 234, 0.08); padding: 1rem; border-radius: 10px; margin-top: 1rem; border: 1px dashed var(--border-color);
+        }
+        #quiz-section .diagram-description ul { list-style: none; padding: 0; }
+        
         #quiz-section .options { display: grid; gap: 1rem; }
         .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
         .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
@@ -166,25 +253,55 @@
         .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
         
         .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
+        .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
         .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
         .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
         .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
         .reset-btn:hover { transform: scale(1.05); }
         
-        /* Mascot & Typing Effect Styles */
-        .fun-bg-section {
-            position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem;
-            border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color);
-            overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem;
+        .matching-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .matching-item:last-child { border-bottom: none; }
+        .matching-item p { flex-grow: 1; margin: 0; }
+        .matching-select { background-color: var(--bg-dark); color: var(--text-color); border: 1px solid var(--primary-glow); border-radius: 5px; padding: 0.4rem; font-family: inherit; font-size: 1rem; cursor: pointer; }
+        .feedback-icon { font-size: 1.2rem; font-weight: 900; display: none; }
+        .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
+        .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
+        
+        .law-options-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
         }
+        .law-option-item {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .law-option-label {
+            color: var(--accent-glow);
+            font-weight: 700;
+            margin-right: 0.5em;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect {
-            position: relative; z-index: 5; font-family: 'Orbitron', monospace; font-size: 1.6rem; 
+            position: relative; z-index: 5; font-family: 'Orbitron', monospace;
+            font-size: clamp(1.2rem, 2vw + 0.5rem, 1.6rem); 
             font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
             text-align: center; max-width: 100%;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin: 0;
         }
         .typing-effect .cursor {
             display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            margin-left: 5px; width: 10px; height: 1.6rem; animation: blink-caret 0.75s step-end infinite;
+            margin-left: 5px; width: 10px; height: 1em; animation: blink-caret 0.75s step-end infinite;
         }
         @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
         .floating-mascot-bg {
@@ -193,6 +310,7 @@
             top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;
         }
         @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
+        
         #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
         #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
         #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
@@ -206,7 +324,6 @@
         #mascot-speech.visible { opacity: 1; transform: translateY(0); }
         .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
 
-        /* Floating Home Button & Footer */
         #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
         #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
         #return-home-btn:hover { transform: scale(1.1); }
@@ -215,14 +332,20 @@
 
         @media (max-width: 768px) {
             .container { padding: 1rem; }
-            header h1 { font-size: 2.5rem; }
             section { padding: 1.5rem; }
-            .section-title { font-size: 2rem; }
-            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
+            .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+            
+            .comparison-cards-container.grid-3-col,
+            .comparison-cards-container {
+                grid-template-columns: 1fr;
+            }
 
-            /* Adjust new elements for mobile */
-            .typing-effect { font-size: 1.2rem; }
-            .typing-effect .cursor { height: 1.2rem; }
+            .law-options-list {
+                display: flex;
+                flex-direction: column;
+            }
+
+            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
             #mascot-img { width: 80px; }
             #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
@@ -242,103 +365,158 @@
 
         <section id="president-executive-section">
             <h2 class="section-title"><i class="fas fa-university"></i>一、總統與行政院</h2>
-            <table class="comparison-table">
-                <thead><tr><th style="width:15%">機關</th><th style="width:42.5%">總統</th><th style="width:42.5%">行政院</th></tr></thead>
-                <tbody>
-                    <tr><th>權力</th><td>行政權：組織和管理內政、外交等行政事務的權力。</td><td rowspan="2">最高行政機關（內閣）</td></tr>
-                    <tr><th>角色</th><td>國家元首、三軍統帥</td></tr>
-                    <tr><th>產生方式</th><td>人民直接選舉產生，任期四年，連選得連任一次。</td><td>1. 院長：總統直接任命。<br>2. 副院長及各部會首長：行政院院長提請總統任命。</td></tr>
-                    <tr>
-                        <th>職責</th>
-                        <td><ul><li><strong>外交、國防及內政：</strong>對外代表中華民國、國防、外交的實際決策權、統率全國陸海空軍、決定國家安全大政方針。</li><li><strong>法律面向：</strong>公布法律、發布命令、發布<strong class="highlight-text">緊急命令</strong>。</li><li><strong>人事任命權：</strong>直接任命行政院院長；提名司法院、考試院、監察院相關人員，經立法院同意後任命。</li></ul></td>
-                        <td><ul><li><strong>外交、國防及內政：</strong>規畫相關政策並加以執行；有向<strong class="highlight-text">立法院</strong>提出施政方針及施政報告之責。</li><li><strong>法律面向：</strong>規畫與執行法律；向立法院通過的決議案提出<strong class="highlight-text">覆議</strong>。</li><li><strong>提案權：</strong>法律案、預算案、決算案。</li><li><strong>人事提名權：</strong>提名行政院副院長及各部會首長、省主席及省諮議會議長。</li></ul></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="comparison-cards-container">
+                <div class="info-card">
+                    <h4><i class="fas fa-user-tie"></i>總統</h4>
+                    <ul>
+                        <li><strong>權力：</strong>行政權</li>
+                        <li><strong>角色：</strong>國家元首、三軍統帥</li>
+                        <li><strong>產生：</strong>人民直選，任期四年，連選得連任一次。</li>
+                        <li><strong>職責：</strong>
+                            <ul>
+                                <li><strong>外交國防：</strong>對外代表國家、統率三軍、決定國安大政方針。</li>
+                                <li><strong>法律面向：</strong>公布法律、發布命令、發布<strong class="highlight-text">緊急命令</strong>。</li>
+                                <li><strong>人事任命：</strong>任命行政院長；提名司、考、監三院人員。</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h4><i class="fas fa-users-cog"></i>行政院</h4>
+                    <ul>
+                        <li><strong>權力：</strong>行政權 (最高行政機關)</li>
+                        <li><strong>角色：</strong>內閣</li>
+                        <li><strong>產生：</strong>院長由總統任命；其餘閣員由院長提請總統任命。</li>
+                        <li><strong>職責：</strong>
+                            <ul>
+                                <li><strong>政策執行：</strong>規畫並執行國家政策；向<strong class="highlight-text">立法院</strong>報告。</li>
+                                <li><strong>法律面向：</strong>規畫執行法律；對立院決議提<strong class="highlight-text">覆議</strong>。</li>
+                                <li><strong>提案權：</strong>法律案、預算案、決算案。</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </section>
 
         <section id="legislative-section">
             <h2 class="section-title"><i class="fas fa-landmark"></i>二、立法院</h2>
-            <table class="comparison-table">
-                <tbody>
-                    <tr><th>權力</th><td colspan="2">立法權：指制定法律與監督政府的權力。</td></tr>
-                    <tr><th>角色</th><td colspan="2">最高立法機關（國會）。</td></tr>
-                    <tr><th>產生方式</th><td colspan="2">1. 正副院長：<strong class="highlight-text">立法委員互選</strong>產生。<br>2. 立法委員：公民直選。</td></tr>
-                    <tr>
-                        <th rowspan="2">職責</th>
-                        <td colspan="2">
-                           <ul>
-                                <li><strong>立法權：</strong>負責制定法律，審查五院提出的法律案。</li>
-                                <li><strong>預算審查權：</strong>審查中央政府總預算案。</li>
-                                <li><strong>監督、質詢權：</strong>監督行政院，質詢行政院政府官員。</li>
-                                <li><strong>人事同意權：</strong>對總統提名的人員行使同意權。</li>
-                                <li><strong>倒閣權：</strong>對行政院院長施政不滿意時，提出<strong class="highlight-text">不信任案</strong>。</li>
-                                <li><strong>提案權：</strong>正副總統彈劾案、罷免案，憲法修正案、領土變更案。</li>
-                           </ul>
-                        </td>
-                    </tr>
-                    <tr><th>法律制訂流程圖</th><td>行政院、立法委員、司法院、考試院、監察院，五院皆可提案 ➡ 立法院審查法案、三讀通過 ➡ 總統公布法律。</td></tr>
-                </tbody>
-            </table>
+            <div class="info-card" style="margin-top:0;">
+                <h4><i class="fas fa-info-circle"></i>基本資訊</h4>
+                <ul>
+                    <li><strong>權力：</strong>立法權 (制定法律、監督政府)</li>
+                    <li><strong>角色：</strong>最高立法機關 (國會)</li>
+                    <li><strong>產生：</strong>正副院長由<strong class="highlight-text">立法委員互選</strong>；委員由公民直選。</li>
+                </ul>
+            </div>
+             <div class="info-card">
+                <h4><i class="fas fa-cogs"></i>主要職責</h4>
+                <ul>
+                    <li><strong>立法權：</strong>制定法律，審查五院提出的法律案。</li>
+                    <li><strong>預算審查權：</strong>審查中央政府總預算案。</li>
+                    <li><strong>監督、質詢權：</strong>監督行政院，質詢政府官員。</li>
+                    <li><strong>人事同意權：</strong>對總統提名的人員行使同意權。</li>
+                    <li><strong>倒閣權：</strong>對行政院長施政不滿意時，提出<strong class="highlight-text">不信任案</strong>。</li>
+                    <li><strong>提案權：</strong>正副總統彈劾案、罷免案，憲法修正案、領土變更案。</li>
+                </ul>
+            </div>
+             <div class="info-card">
+                <h4><i class="fas fa-project-diagram"></i>法律制訂流程</h4>
+                <p>行政院、立法委員、司法院、考試院、監察院，五院皆可提案 ➡ 立法院審查法案、三讀通過 ➡ 總統公布法律。</p>
+            </div>
         </section>
         
         <section id="judicial-etc-section">
             <h2 class="section-title"><i class="fas fa-balance-scale-right"></i>三、司法院、考試院、監察院</h2>
-            <table class="comparison-table">
-                 <thead><tr><th>機關</th><th>司法院</th><th>考試院</th><th>監察院</th></tr></thead>
-                 <tbody>
-                    <tr><th>權力</th><td>解釋、審判及懲戒權等權力。</td><td>政府選拔、任用優秀人才的權力。</td><td>監督官員施政及經費運用之權力。</td></tr>
-                    <tr><th>角色</th><td>最高司法機關</td><td>最高考試機關</td><td>最高監察機關</td></tr>
-                    <tr><th>產生方式</th><td colspan="3">正、副院長、大法官、考試委員、監察委員、審計長，皆由<strong class="highlight-text">總統提名</strong>，經<strong class="highlight-text">立法院同意</strong>後，由<strong class="highlight-text">總統任命</strong>。</td></tr>
-                    <tr>
-                        <th>職責</th>
-                        <td><ul>
-                            <li><strong>解釋權：</strong>由大法官組成憲法法庭，以法庭裁判的方式解釋《憲法》。</li>
-                            <li><strong>審判權：</strong>大法官組成憲法法庭，審理正副總統彈劾案及政黨違憲解散案件；法院審理各類訴訟案件的審判。</li>
-                            <li><strong>懲戒權：</strong>懲戒法院審理公務員的懲戒事務。</li>
-                        </ul></td>
-                        <td><ul>
-                            <li><strong>考選部：</strong>掌理各類公務人員考試（高、普考）、專門職業及技術人員考試（國家證照考試）。</li>
-                            <li><strong>銓敘部：</strong>掌理公務人員的銓敘、保障、撫卹、退休及任免等事項。</li>
-                        </ul></td>
-                        <td><ul>
-                            <li><strong>糾正權：</strong>針對<strong class="highlight-text">行政機關</strong>的不當施政提出糾正。</li>
-                            <li><strong>糾舉權：</strong>糾舉違法或失職的公務人員。</li>
-                            <li><strong>彈劾權：</strong>彈劾違法或失職的公務人員，移送懲戒法院。</li>
-                            <li><strong>審計部：</strong>負責審核政府的決算。</li>
-                        </ul></td>
-                    </tr>
-                 </tbody>
-            </table>
+            <div class="comparison-cards-container grid-3-col">
+                 <div class="info-card">
+                    <h4><i class="fas fa-balance-scale"></i>司法院</h4>
+                    <ul>
+                        <li><strong>權力：</strong>解釋、審判、懲戒</li>
+                        <li><strong>角色：</strong>最高司法機關</li>
+                        <li><strong>職責：</strong>
+                            <ul>
+                                <li><strong>解釋權：</strong>大法官解釋《憲法》。</li>
+                                <li><strong>審判權：</strong>大法官審理總統彈劾案、政黨違憲案；各級法院審理訴訟。</li>
+                                <li><strong>懲戒權：</strong>懲戒法院懲戒公務員。</li>
+                            </ul>
+                        </li>
+                    </ul>
+                 </div>
+                 <div class="info-card">
+                    <h4><i class="fas fa-pen-nib"></i>考試院</h4>
+                     <ul>
+                        <li><strong>權力：</strong>考銓</li>
+                        <li><strong>角色：</strong>最高考試機關</li>
+                        <li><strong>職責：</strong>
+                            <ul>
+                                <li><strong>考選部：</strong>辦理公務員及專技人員考試。</li>
+                                <li><strong>銓敘部：</strong>掌理公務員的任免、退休等事項。</li>
+                            </ul>
+                        </li>
+                    </ul>
+                 </div>
+                 <div class="info-card">
+                    <h4><i class="fas fa-eye"></i>監察院</h4>
+                     <ul>
+                        <li><strong>權力：</strong>監督、彈劾、糾舉、糾正、審計</li>
+                        <li><strong>角色：</strong>最高監察機關</li>
+                        <li><strong>職責：</strong>
+                            <ul>
+                                <li><strong>糾正權：</strong>對<strong class="highlight-text">行政機關</strong>不當施政提出。</li>
+                                <li><strong>彈劾/糾舉權：</strong>對違法失職<strong class="highlight-text">公務員</strong>提出。</li>
+                                <li><strong>審計部：</strong>審核政府決算。</li>
+                            </ul>
+                        </li>
+                    </ul>
+                 </div>
+            </div>
+            <div class="info-card">
+                 <h4><i class="fas fa-user-plus"></i>人員產生</h4>
+                 <p>司法院、考試院、監察院之正副院長、大法官、考試委員、監察委員、審計長，皆由<strong class="highlight-text">總統提名</strong>，經<strong class="highlight-text">立法院同意</strong>後，由<strong class="highlight-text">總統任命</strong>。</p>
+            </div>
         </section>
 
         <section id="concepts-comparison-section">
             <h2 class="section-title"><i class="fas fa-exchange-alt"></i>四、觀念比較</h2>
-            <h4>覆議、不信任案</h4>
-            <table class="comparison-table">
-                <thead><tr><th>項目</th><th>覆議</th><th>不信任案</th></tr></thead>
-                <tbody>
-                    <tr><th>提出者</th><td>行政院</td><td>立法院</td></tr>
-                    <tr><th>時機</th><td>行政院對立法院決議的法律案、預算案、條約案，認為有窒礙難行時。</td><td>立法院對行政院的施政不滿意時。</td></tr>
-                    <tr><th>對象</th><td>立法院的議案</td><td>行政院院長</td></tr>
-                    <tr><th>結果</th><td>1. 通過：否決原法律案、預算案、條約案決議。<br>2. 未通過：行政院接受原決議。</td><td>1. 通過：行政院院長辭職下臺。<br>2. 未通過：一年內不得再對同一行政院院長提不信任案。</td></tr>
-                </tbody>
-            </table>
-            <h4 style="margin-top:2rem;">糾正、糾舉、彈劾</h4>
-            <table class="comparison-table">
-                <thead><tr><th>區分</th><th>糾正</th><th>糾舉</th><th>彈劾</th></tr></thead>
-                <tbody>
-                    <tr><th>行使對象</th><td><strong class="highlight-text">對機關</strong>：行政院及其所屬機關</td><td><strong class="highlight-text">對人</strong>：中央及地方公務人員</td><td><strong class="highlight-text">對人</strong>：中央及地方公務人員</td></tr>
-                    <tr><th>行使原因</th><td>各機關的工作及設施有違法或失職情事</td><td>公務人員有違法或失職行為</td><td>公務人員有違法或失職行為</td></tr>
-                    <tr><th>提出與受理機關</th><td>監察院向「行政院或有關部會」提出</td><td>監察院向公務人員之「主管長官或上級長官」提出</td><td>監察院向「懲戒法院」提出</td></tr>
-                </tbody>
-            </table>
+            <div class="comparison-item" style="margin-top:0;">
+                <h4>覆議 vs. 不信任案</h4>
+                <div class="comparison-cards-container">
+                    <div class="comparison-card"><h5>覆議</h5><ul><li><strong>提出者：</strong>行政院</li><li><strong>時機：</strong>對立法院決議之法案、預算案等窒礙難行時</li><li><strong>結果：</strong>若立法院維持原議，行政院長須接受</li></ul></div>
+                    <div class="comparison-card"><h5>不信任案</h5><ul><li><strong>提出者：</strong>立法院</li><li><strong>時機：</strong>對行政院院長施政不滿意時</li><li><strong>結果：</strong>若通過，行政院長須辭職</li></ul></div>
+                </div>
+            </div>
+             <div class="comparison-item">
+                <h4>糾正 vs. 糾舉 vs. 彈劾</h4>
+                <div class="comparison-cards-container grid-3-col">
+                    <div class="comparison-card"><h5>糾正</h5><p><strong>對象：</strong>對<strong class="highlight-text">機關</strong> (行政院及其部會)<br><strong>原因：</strong>工作及設施違法失職</p></div>
+                    <div class="comparison-card"><h5>糾舉</h5><p><strong>對象：</strong>對<strong class="highlight-text">人</strong> (公務員)<br><strong>原因：</strong>違法失職行為<br><strong>受理：</strong>其主管長官</p></div>
+                    <div class="comparison-card"><h5>彈劾</h5><p><strong>對象：</strong>對<strong class="highlight-text">人</strong> (公務員)<br><strong>原因：</strong>違法失職行為<br><strong>受理：</strong>懲戒法院</p></div>
+                </div>
+            </div>
         </section>
 
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
             <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(112 會考)</span></h3>
+                <h3 class="quiz-title"><i class="fas fa-tasks"></i>模擬神給酷</h3>
+                <div class="info-card" style="margin-top:0;">
+                     <p><strong>下列作為最能表現出民主政治的何種特色？請填入正確代號。</strong></p>
+                     <div class="law-options-list">
+                         <div class="law-option-item"><span class="law-option-label">甲</span> 民意政治</div>
+                         <div class="law-option-item"><span class="law-option-label">乙</span> 法治政治</div>
+                         <div class="law-option-item"><span class="law-option-label">丙</span> 責任政治</div>
+                         <div class="law-option-item"><span class="law-option-label">丁</span> 政黨政治</div>
+                     </div>
+                     <div class="matching-item" data-answer="丙"><p>1. 政府官員因為貪汙而下臺，並遭到國家的刑事制裁。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="乙"><p>2. 政府向人民課稅時，必須依據《所得稅法》規定課徵。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="丁"><p>3. 總統選舉時，在野黨候選人提出政黨輪替執政的訴求。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="甲"><p>4. 市議會舉辦輕軌二階規畫與施工公聽會，蒐集人民意見。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                </div>
+            </div>
+
+            <div class="quiz-container" id="quiz1">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(112 會考)</span></h3>
                 <div class="question">
                     <p>某監察委員看見電視上新聞報導遊行抗議的事件後，便主動申請調查此案，並表示若調查後確認民眾抗議的內容屬實，將依法對布條上抗議對象提出糾正案。下列何者最可能是該委員在新聞中所看見的抗議事件標語？</p>
                     
@@ -353,8 +531,8 @@
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
             
-            <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span>(111 會考)</span></h3>
+            <div class="quiz-container" id="quiz2">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(111 會考)</span></h3>
                 <div class="question">
                     <p>某日阿蔚透過網路觀看立法院的議事實況轉播，根據我國現行法律規定，他最可能看見下列何者的轉播情況？</p>
                 </div>
@@ -368,19 +546,21 @@
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
 
-            <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span>(111 會考)</span></h3>
+            <div class="quiz-container" id="quiz3">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(111 會考)</span></h3>
                 <div class="question">
                     <p>我國立法院、監察院二院分別與司法院於特定事項的處理上有先後順序，當立法院與監察院做出某些決定後，即交由司法院接續下一步的工作。下表為立法院與監察院的部分職權內容，其中哪些職權的行使符合上述關係？</p>
-                    <table class="comparison-table">
-                        <thead><tr><th>中央機關</th><th>職權內容</th></tr></thead>
-                        <tbody>
-                            <tr><td rowspan="2">立法院</td><td>(甲) 提出《憲法》修正案</td></tr>
-                            <tr><td>(乙) 提出總統、副總統彈劾案</td></tr>
-                            <tr><td rowspan="2">監察院</td><td>(丙) 糾正行政機關不當施政</td></tr>
-                            <tr><td>(丁) 彈劾違法公務人員</td></tr>
-                        </tbody>
-                    </table>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead><tr><th>中央機關</th><th>職權內容</th></tr></thead>
+                            <tbody>
+                                <tr><td rowspan="2">立法院</td><td>(甲) 提出《憲法》修正案</td></tr>
+                                <tr><td>(乙) 提出總統、副總統彈劾案</td></tr>
+                                <tr><td rowspan="2">監察院</td><td>(丙) 糾正行政機關不當施政</td></tr>
+                                <tr><td>(丁) 彈劾違法公務人員</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="options">
                     <button class="option-btn" data-correct="false">(A) 甲、丙</button>
@@ -439,7 +619,32 @@
             }, { threshold: 0.1 }); 
             sections.forEach(section => observer.observe(section));
 
-            // Quiz logic
+             // Matching quiz logic
+            const matchingSelects = document.querySelectorAll('.matching-select');
+            matchingSelects.forEach(select => {
+                select.addEventListener('change', (e) => {
+                    const selectedValue = e.target.value;
+                    const item = e.target.closest('.matching-item');
+                    const correctAnswer = item.dataset.answer;
+                    const feedbackIcon = item.querySelector('.feedback-icon');
+                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    feedbackIcon.innerHTML = '';
+                    if (selectedValue === "請選擇") {
+                        feedbackIcon.style.display = 'none';
+                        return;
+                    }
+                    feedbackIcon.style.display = 'inline-block';
+                    if (selectedValue === correctAnswer) {
+                        feedbackIcon.classList.add('icon-correct');
+                        feedbackIcon.innerHTML = '✓';
+                    } else {
+                        feedbackIcon.classList.add('icon-wrong');
+                        feedbackIcon.innerHTML = '✗';
+                    }
+                });
+            });
+
+            // Multiple choice quiz logic
             const allQuizData = {
                 quiz1: {
                     correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>監察院的<strong class="highlight-text">糾正權</strong>是針對「行政院及其所屬各級機關」的不當施政。因此，(B)「財政機關政策失當」是監察院可以提出糾正的對象與事由。其他選項的對象為個人或法律本身，不適用糾正權。</p>`,
@@ -450,7 +655,7 @@
                 quiz2: {
                     correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>立法院是我國的國會，其主要職責之一是監督政府。行政院院長及各部會首長有義務至<strong class="highlight-text">立法院</strong>進行施政報告並備詢，這是最常見的議事實況轉播內容。</p>`,
                     A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 總統、副總統彈劾案是由<strong class="highlight-text">司法院大法官</strong>組成的憲法法庭審理。</p>`,
-                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 糾正案是由<strong class="highlight-text">監察院</strong>提出，送至行政院。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 糾正提案是由<strong class="highlight-text">監察院</strong>提出，送至行政院。</p>`,
                     C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C)</strong> 行政院會議是<strong class="highlight-text">行政院</strong>內部會議，非立法院議事。</p>`
                 },
                 quiz3: {
@@ -461,46 +666,54 @@
                 }
             };
             
-            const quizContainers = document.querySelectorAll('.quiz-container');
-            
-            quizContainers.forEach((container, index) => {
-                const quizId = `quiz${index + 1}`;
-                const optionButtons = container.querySelectorAll('.option-btn');
-                const feedbackArea = container.querySelector('.feedback-area');
-                const resetButton = container.querySelector('.reset-btn');
+            const mcqContainers = document.querySelectorAll('.quiz-container');
+            let mcqIndex = 0;
+            mcqContainers.forEach((container) => {
+                // Find only the MCQ containers
+                if(container.querySelector('.option-btn')) {
+                    mcqIndex++;
+                    const quizId = `quiz${mcqIndex}`; 
+                    container.id = quizId;
+                    const quizData = allQuizData[quizId];
+                    if (!quizData) return;
 
-                optionButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        const isCorrect = button.dataset.correct === 'true';
-                        optionButtons.forEach(btn => btn.disabled = true);
-                        
-                        if (isCorrect) {
-                            button.classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId].correct;
-                            feedbackArea.className = 'feedback-area feedback-correct';
-                        } else {
-                            button.classList.add('wrong');
-                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
-                            const optionLetter = button.textContent.substring(1, 2);
-                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
-                            feedbackArea.className = 'feedback-area feedback-wrong';
-                        }
-                        
-                        feedbackArea.style.display = 'block';
-                        resetButton.style.display = 'block';
-                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    const optionButtons = container.querySelectorAll('.option-btn');
+                    const feedbackArea = container.querySelector('.feedback-area');
+                    const resetButton = container.querySelector('.reset-btn');
+
+                    optionButtons.forEach(button => {
+                        button.addEventListener('click', () => {
+                            const isCorrect = button.dataset.correct === 'true';
+                            optionButtons.forEach(btn => btn.disabled = true);
+                            
+                            if (isCorrect) {
+                                button.classList.add('correct');
+                                feedbackArea.innerHTML = quizData.correct;
+                                feedbackArea.className = 'feedback-area feedback-correct';
+                            } else {
+                                button.classList.add('wrong');
+                                container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                                const optionLetter = button.textContent.substring(1, 2);
+                                feedbackArea.innerHTML = quizData[optionLetter];
+                                feedbackArea.className = 'feedback-area feedback-wrong';
+                            }
+                            
+                            feedbackArea.style.display = 'block';
+                            resetButton.style.display = 'block';
+                            feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        });
                     });
-                });
-                
-                resetButton.addEventListener('click', () => {
-                    optionButtons.forEach(btn => {
-                        btn.disabled = false;
-                        btn.classList.remove('correct', 'wrong');
+                    
+                    resetButton.addEventListener('click', () => {
+                        optionButtons.forEach(btn => {
+                            btn.disabled = false;
+                            btn.classList.remove('correct', 'wrong');
+                        });
+                        feedbackArea.style.display = 'none';
+                        resetButton.style.display = 'none';
+                        container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
                     });
-                    feedbackArea.style.display = 'none';
-                    resetButton.style.display = 'none';
-                    container.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                });
+                }
             });
 
             // Typing Effect and Mascot JS

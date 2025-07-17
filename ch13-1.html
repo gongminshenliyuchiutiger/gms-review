@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>重點13-1：廠商競爭</title>
-    <!-- Font Awesome script is still useful for other icons in the page -->
+    <!-- Font Awesome script -->
     <script src="https://kit.fontawesome.com/62a9d1d113.js" crossorigin="anonymous"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
@@ -12,7 +12,7 @@
         :root {
             --primary-glow: #00f2ea; /* 亮青色 */
             --secondary-glow: #ff00ff; /* 洋紅色 */
-            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --accent-glow: #f0e14a; /* 金黃色 */
             --bg-dark: #0d1b2a;
             --bg-dark-2: #020a12;
             --text-color: #e0e0e0;
@@ -23,16 +23,8 @@
             --accent-border-color: rgba(240, 225, 74, 0.5);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
             background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-2));
@@ -41,25 +33,21 @@
             overflow-x: hidden;
         }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
 
         header {
             text-align: center;
-            padding: 5rem 0;
+            padding: 5rem 1rem;
             border-bottom: 2px solid var(--border-color);
             box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+            overflow: hidden;
         }
 
         header h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3.8rem;
+            font-size: clamp(2.5rem, 4vw, 3.8rem);
             font-weight: 900;
             color: var(--text-color);
-            white-space: nowrap; /* 新增：防止標題換行 */
             text-shadow:
                 0 0 5px #fff,
                 0 0 10px var(--accent-glow),
@@ -70,19 +58,14 @@
 
         @keyframes flicker-orange {
             0%, 18%, 22%, 25%, 53%, 57%, 100% {
-                text-shadow:
-                0 0 4px #fff,
-                0 0 11px var(--accent-glow),
-                0 0 19px var(--accent-glow),
-                0 0 40px var(--accent-glow),
-                0 0 80px var(--accent-glow);
+                text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-glow), 0 0 19px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow);
             }
             20%, 24%, 55% { text-shadow: none; }
         }
 
         header h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
             font-weight: 700;
             color: var(--secondary-glow);
             margin-top: 1rem;
@@ -109,20 +92,13 @@
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
         
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        section.visible { opacity: 1; transform: translateY(0); }
         
-        .highlight-text {
-            font-weight: bold;
-            color: var(--accent-glow);
-            text-shadow: 0 0 5px var(--accent-glow);
-        }
+        .highlight-text { font-weight: bold; color: var(--accent-glow); text-shadow: 0 0 5px var(--accent-glow); }
 
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
             color: var(--primary-glow);
@@ -130,209 +106,168 @@
             align-items: center;
             gap: 1rem;
             text-shadow: 0 0 10px var(--primary-glow);
+            flex-wrap: wrap;
         }
-        
         .section-title i {
-            font-size: 2.2rem;
+            font-size: clamp(1.6rem, 4.5vw, 2.2rem);
             color: var(--accent-glow);
             text-shadow: 0 0 10px var(--accent-glow);
         }
 
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .info-card {
-            background: rgba(0,0,0,0.2);
-            border: 2px solid var(--border-color);
-            border-radius: 15px;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-        }
-        
-        .info-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--accent-glow);
-            box-shadow: 0 15px 30px rgba(240, 225, 74, 0.2);
-        }
-        
-        .info-card h3 {
+        h3 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: clamp(1.5rem, 3vw, 1.8rem);
             color: var(--primary-glow);
-            border-bottom: 3px solid var(--accent-glow);
-            padding-bottom: 0.5rem;
+            margin-top: 2rem;
             margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+        }
+        h3:first-of-type {
+            margin-top: 0;
         }
         
-        .info-card ul {
-            list-style: none;
-            padding-left: 0;
-            flex-grow: 1;
+        .info-card { 
+            background: rgba(0,0,0,0.2); 
+            border: 1px solid var(--border-color); 
+            border-radius: 15px; 
+            padding: 1.5rem;
+        }
+        
+        .info-card h4 { 
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            color: var(--primary-glow);
+            margin: 0 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            padding-bottom: 0.5rem;
+        }
+         .info-card ul {
+            list-style: none; padding-left: 0;
         }
         .info-card li {
-            position: relative;
-            padding-left: 1.5rem;
-            margin-bottom: 0.75rem;
+            position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem;
         }
         .info-card li::before {
-            content: '\f105'; /* Font Awesome angle-right */
-            font-family: 'Font Awesome 5 Free';
-            font-weight: 900;
-            position: absolute;
-            left: 0;
-            top: 2px;
-            color: var(--accent-glow);
-            transition: transform 0.3s;
-        }
-        .info-card:hover li::before {
-            transform: rotate(90deg);
+            content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
+            position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
         
-        .info-card h4 {
-            font-size: 1.2rem;
-            color: var(--primary-glow);
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        .comparison-cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
             margin-top: 1.5rem;
         }
-        th, td {
-            padding: 0.8rem;
-            text-align: left;
+        
+        .comparison-card {
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
             border: 1px solid var(--border-color);
         }
-        th {
-            background-color: rgba(0, 242, 234, 0.1);
-            color: var(--primary-glow);
-            font-family: 'Orbitron', sans-serif;
-        }
-        td {
-             background-color: rgba(13, 27, 42, 0.5);
-        }
-        
-        .highlight-box { background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05)); padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow); font-size: 1.1rem; margin-top: 2rem; box-shadow: inset 0 0 10px rgba(240, 225, 74, 0.2); }
-        .highlight-box strong { color: var(--accent-glow); font-weight: 700; }
-        
-        /* --- FUN STYLES --- */
-        .fun-bg-section {
-            position: relative;
-            min-height: 150px;
-            margin-top: 4rem;
-            margin-bottom: 2rem;
-            border-radius: 20px;
-            background-color: var(--card-bg);
-            border: 2px solid var(--border-color);
-            overflow: hidden;
-            backdrop-filter: blur(5px);
+        .comparison-card h5 {
+            font-size: 1.2rem;
+            margin: 0 0 1rem 0;
+            padding-bottom: 0.5rem;
             display: flex;
-            justify-content: center;
             align-items: center;
-            padding: 2rem;
+            gap: 0.5rem;
+            color: var(--primary-glow);
+            border-bottom: 1px solid var(--border-color);
         }
+        .comparison-card ul {
+             list-style: none; padding-left: 0; font-size: 0.95rem; flex-grow: 1;
+        }
+        
+        .quiz-container { margin-bottom: 3rem; }
+        .quiz-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
+            color: var(--accent-glow);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+        }
+        .quiz-title i { margin-right: 0.75rem; }
+        .quiz-title .quiz-source { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
+        #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
+        
+        #quiz-section .options { display: grid; gap: 1rem; }
+        .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+        .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
+        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark);}
+        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
+        
+        .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
+        .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
+        .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .reset-btn:hover { transform: scale(1.05); }
+        
+        .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect {
-            position: relative;
-            z-index: 5;
-            font-family: 'Orbitron', monospace;
-            font-size: 1.6rem; 
-            font-weight: 700;
-            color: #fff;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            text-align: center;
-            max-width: 100%;
+            position: relative; z-index: 5; font-family: 'Orbitron', monospace;
+            font-size: clamp(1.2rem, 2vw + 0.5rem, 1.6rem); 
+            font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            text-align: center; max-width: 100%;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin: 0;
         }
         .typing-effect .cursor {
-            display: inline-block;
-            background-color: #fff;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            margin-left: 5px;
-            width: 10px;
-            height: 1.6rem;
-            animation: blink-caret 0.75s step-end infinite;
+            display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            margin-left: 5px; width: 10px; height: 1em; animation: blink-caret 0.75s step-end infinite;
         }
-        @keyframes blink-caret {
-            from, to { background-color: transparent; box-shadow: none; }
-            50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); }
-        }
+        @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
         .floating-mascot-bg {
-            position: absolute;
-            width: 250px;
-            height: auto;
-            opacity: 0.15;
+            position: absolute; width: 250px; height: auto; opacity: 0.15;
             animation: floatMascot 15s ease-in-out infinite alternate;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1;
+            top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;
         }
-        @keyframes floatMascot {
-            from { transform: translate(-60%, -60%) rotate(-15deg); }
-            to { transform: translate(-40%, -40%) rotate(15deg); }
-        }
+        @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
         
-        #return-home-btn {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            width: 50px;
-            height: 50px;
-            z-index: 1001;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        #return-home-btn svg {
-            width: 100%;
-            height: 100%;
-            stroke: #ffffff;
-            stroke-width: 2px;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            fill: none;
-            transition: all 0.3s ease;
-            filter: drop-shadow(0 0 6px var(--primary-glow));
-        }
-        #return-home-btn:hover { transform: scale(1.1); }
-        #return-home-btn:hover svg {
-            stroke: var(--primary-glow);
-            filter: drop-shadow(0 0 12px var(--primary-glow));
-            transform: rotate(-10deg);
-        }
-
-        footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
         #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
         #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
         #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
         #mascot-img.enlarged { transform: scale(2.5) !important; }
-        #mascot-speech { position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9); color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3); }
+        #mascot-speech {
+            position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9);
+            color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px;
+            font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3);
+        }
         #mascot-speech.visible { opacity: 1; transform: translateY(0); }
         .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
 
+        #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
+        #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
+        #return-home-btn:hover { transform: scale(1.1); }
+        #return-home-btn:hover svg { stroke: var(--primary-glow); filter: drop-shadow(0 0 12px var(--primary-glow)); transform: rotate(-10deg); }
+        footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+
         @media (max-width: 768px) {
             .container { padding: 1rem; }
-            header { padding: 3rem 0; }
-            header h1 { font-size: 2.5rem; }
-            header h2 { font-size: 1.2rem; }
-            section { padding: 1.5rem; margin-bottom: 2rem; }
-            .section-title { font-size: 2rem; }
-            .content-grid { grid-template-columns: 1fr; }
-            .info-card { margin-bottom: 1.5rem; }
-            .info-card:last-child { margin-bottom: 0; }
-            .typing-effect { font-size: 1.2rem; }
-            .typing-effect .cursor { height: 1.2rem; }
+            section { padding: 1.5rem; }
+            
+            .comparison-cards-container {
+                grid-template-columns: 1fr;
+            }
+            #quiz-section .options { grid-template-columns: 1fr; }
+
             #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
             #mascot-img { width: 80px; }
             #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
         }
-
     </style>
 </head>
 <body>
@@ -348,20 +283,18 @@
         <section id="competition-methods-section">
             <h2 class="section-title"><i class="fas fa-store"></i> 一、廠商的競爭方式</h2>
             <p>廠商為了增加銷貨收入以提高利潤，會與其他廠商競爭，以吸引消費者購買產品。</p>
-            <div class="content-grid">
+            <div class="comparison-cards-container">
                 <div class="info-card">
-                    <h3>價格競爭</h3>
+                    <h4><i class="fas fa-tag"></i>價格競爭</h4>
                     <p>以<strong class="highlight-text">降低產品價格</strong>的方式，提升廠商的競爭力。</p>
-                    <h4>例如</h4>
                     <ul>
-                        <li>降低價格：一杯果汁原價75元，特價60元。</li>
-                        <li>推出優惠方案：買2杯送1杯。</li>
+                        <li><strong>舉例1：</strong>降低價格（一杯果汁原價75元，特價60元）。</li>
+                        <li><strong>舉例2：</strong>推出優惠方案（買2杯送1杯）。</li>
                     </ul>
                 </div>
                 <div class="info-card">
-                    <h3>非價格競爭</h3>
+                    <h4><i class="fas fa-star"></i>非價格競爭</h4>
                     <p>採取<strong class="highlight-text">調整產品價格以外</strong>的方式，吸引消費者購買產品。</p>
-                    <h4>例如</h4>
                     <ul>
                         <li>研發新產品</li>
                         <li>提供外送服務</li>
@@ -373,70 +306,66 @@
 
         <section id="consumer-impact-section">
             <h2 class="section-title"><i class="fas fa-user-shield"></i> 二、對消費者的影響與保障</h2>
-            <div class="info-card" style="margin-bottom: 2rem;">
-                <h3>影響</h3>
+            <div class="info-card" style="margin-top:0;">
+                <h4><i class="fas fa-chart-bar"></i>影響</h4>
                 <ul>
                     <li><strong>競爭程度低</strong>：一家廠商獨占生產某產品 → 消費者缺乏選擇、比較的機會。</li>
                     <li><strong>競爭程度高</strong>：許多家廠商生產某產品 → 眾多競爭 → 消費者有較多選擇、比較的機會。</li>
                 </ul>
-                <p><strong class="highlight-text">對消費者有利的情況是維持廠商間的競爭。</strong></p>
+                <p style="text-align:center; margin-top:1rem;"><strong class="highlight-text">對消費者有利的情況是維持廠商間的競爭。</strong></p>
             </div>
-            <div class="info-card">
-                <h3>保障：法律規範</h3>
-                <p>廠商是產品的製造者，也是商品資訊的擁有者與提供者，若商品資訊標示不完整或不實，消費者的權益就會受到影響。</p>
-                <h4>消費者保護法</h4>
-                 <ul>
-                    <li><strong>制定目的</strong>：保護消費者權益、促進國民消費生活的安全。</li>
-                    <li><strong>主管機關</strong>：中央為行政院設置<strong class="highlight-text">消費者保護處</strong>；地方為各直轄市政府或縣（市）政府，設有<strong class="highlight-text">消費者服務中心</strong>（服務專線1950）及消費者保護官。</li>
-                    <li><strong>案例</strong>：網路購物時，廠商未提供7天的猶豫期，消費者可進行消費申訴。</li>
-                </ul>
-                 <h4>公平交易法</h4>
-                 <ul>
-                    <li><strong>制定目的</strong>：維護交易秩序與消費者利益、確保廠商間公平競爭。</li>
-                    <li><strong>主管機關</strong>：公平交易委員會。</li>
-                    <li><strong>案例</strong>：廠商刊登不實廣告、囤積產品、聯合漲價等。</li>
-                </ul>
-            </div>
-        </section>
-
-        <section id="law-comparison-section">
-            <h2 class="section-title"><i class="fas fa-balance-scale"></i> 三、觀念比較</h2>
-            <div class="highlight-box">
-                <h4>消費者保護法 vs 公平交易法</h4>
-                 <table>
-                    <thead>
-                        <tr>
-                            <th>項目</th>
-                            <th>消費者保護法</th>
-                            <th>公平交易法</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>主要目的</strong></td>
-                            <td>保護消費者權益</td>
-                            <td>確保企業能公平競爭</td>
-                        </tr>
-                        <tr>
-                            <td><strong>規範對象</strong></td>
-                            <td>廠商與消費者間的消費關係</td>
-                            <td>企業之間的競爭關係</td>
-                        </tr>
-                         <tr>
-                            <td><strong>相關內容</strong></td>
-                            <td>重大消費事件的協調處理</td>
-                            <td>制裁不正常的競爭行為</td>
-                        </tr>
-                         <tr>
-                            <td><strong>相關單位</strong></td>
-                            <td>消費者保護處、消費者服務中心</td>
-                            <td>公平交易委員會</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="comparison-cards-container" style="align-items:start;">
+                <div class="info-card">
+                    <h4><i class="fas fa-gavel"></i>消費者保護法</h4>
+                     <ul>
+                        <li><strong>制定目的</strong>：保護消費者權益、促進國民消費生活的安全。</li>
+                        <li><strong>主管機關</strong>：中央為行政院設置<strong class="highlight-text">消費者保護處</strong>；地方為各直轄市政府或縣（市）政府，設有<strong class="highlight-text">消費者服務中心</strong>（服務專線1950）及消費者保護官。</li>
+                        <li><strong>案例</strong>：網路購物時，廠商未提供7天的猶豫期，消費者可進行消費申訴。</li>
+                    </ul>
+                </div>
+                 <div class="info-card">
+                    <h4><i class="fas fa-balance-scale"></i>公平交易法</h4>
+                     <ul>
+                        <li><strong>制定目的</strong>：維護交易秩序與消費者利益、確保廠商間公平競爭。</li>
+                        <li><strong>主管機關</strong>：公平交易委員會。</li>
+                        <li><strong>案例</strong>：廠商刊登不實廣告、囤積產品、聯合漲價等。</li>
+                    </ul>
+                </div>
             </div>
         </section>
 
+        <section id="quiz-section">
+            <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
+            <div class="quiz-container" id="quiz1">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(107 會考)</span></h3>
+                <div class="question">
+                    <p>數家廠商為了避免削價競爭，私下協商聯合調漲價格，但此舉已影響市場交易秩序。上述廠商的行為，應由下列哪一個機關進行調查及處分？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="true">(A) 公平交易委員會</button>
+                    <button class="option-btn" data-correct="false">(B) 消費者保護委員會</button>
+                    <button class="option-btn" data-correct="false">(C) 各縣（市）政府法制局</button>
+                    <button class="option-btn" data-correct="false">(D) 各地方法院檢察署</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            <div class="quiz-container" id="quiz2">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(105 會考)</span></h3>
+                <div class="question">
+                    <p>小美看到一則介紹肉圓的報導，內容如下：「店家採用臺灣本地的溫體豬肉，並且堅持手工製作，使得肉圓的表皮柔軟有彈性，加上獨門的醬料，讓顧客們願意大排長龍購買。」從經濟學的角度來看，上述畫線部分最能凸顯該店家的何種競爭方式？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 壓低進貨成本</button>
+                    <button class="option-btn" data-correct="false">(B) 採取價格競爭</button>
+                    <button class="option-btn" data-correct="true">(C) 提升產品品質</button>
+                    <button class="option-btn" data-correct="false">(D) 增加廣告宣傳</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+        </section>
+        
         <section class="fun-bg-section">
             <h3 class="typing-effect">
                 <span id="typing-text-span"></span><span class="cursor"></span>
@@ -519,11 +448,74 @@
             
             sections.forEach(section => observer.observe(section));
 
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>廠商「聯合調漲價格」屬於不公平的競爭行為，這種行為會影響市場交易秩序。根據《公平交易法》，主管機關為「<strong class="highlight-text">公平交易委員會</strong>」，負責調查並處分這類聯合行為。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 消費者保護委員會</strong>是行政院的會議，實際執行單位是消費者保護處。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 各縣（市）政府法制局</strong>通常處理地方的法規事務或法制諮詢，非主管機關。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 檢察署</strong>是處理刑事案件的機關，聯合漲價屬於行政管制的範圍。</p>`
+                },
+                quiz2: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>店家透過「採用本地溫體豬肉」、「堅持手工製作」和「獨門醬料」等方式來吸引顧客，這些都不是改變價格，而是從產品的<strong class="highlight-text">品質、特色、口味</strong>等方面來進行競爭，屬於非價格競爭中的「提升產品品質」。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 採用本地溫體豬肉可能成本更高，與壓低成本相反。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 價格競爭是透過降價或優惠來吸引顧客，題目未提及。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 題目是媒體「報導」，而非店家自己「刊登廣告」。</p>`
+                }
+            };
+            
+            const quizContainers = document.querySelectorAll('.quiz-container');
+            
+            quizContainers.forEach((container) => {
+                const quizId = container.id;
+                if (!quizId) return;
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
+
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
+
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        
+                        optionButtons.forEach(btn => {
+                            btn.disabled = true;
+                        });
+
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = allQuizData[quizId].correct;
+                            feedbackArea.className = 'feedback-area feedback-correct';
+                        } else {
+                            const optionLetter = button.textContent.substring(1, 2);
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
+                            feedbackArea.className = 'feedback-area feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
+                    });
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+
             const mascotContainer = document.getElementById('mascot-container');
             const mascotImg = document.getElementById('mascot-img');
             const speechBubble = document.getElementById('mascot-speech');
             
-            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！"  ];
+            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
             let messageIndex = 0;
             let clickTimer = null;
             let speechTimeout = null;

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>重點10-2：刑事糾紛的解決</title>
-    <!-- Font Awesome script is still useful for other icons in the page -->
+    <!-- Font Awesome script -->
     <script src="https://kit.fontawesome.com/62a9d1d113.js" crossorigin="anonymous"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
@@ -12,7 +12,7 @@
         :root {
             --primary-glow: #00f2ea; /* 亮青色 */
             --secondary-glow: #ff00ff; /* 洋紅色 */
-            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --accent-glow: #f0e14a; /* 金黃色 */
             --bg-dark: #0d1b2a;
             --bg-dark-2: #020a12;
             --text-color: #e0e0e0;
@@ -23,16 +23,8 @@
             --accent-border-color: rgba(240, 225, 74, 0.5);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
             background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-2));
@@ -41,25 +33,21 @@
             overflow-x: hidden;
         }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
 
         header {
             text-align: center;
-            padding: 5rem 0;
+            padding: 5rem 1rem;
             border-bottom: 2px solid var(--border-color);
             box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+            overflow: hidden;
         }
 
         header h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3.8rem;
+            font-size: clamp(2.5rem, 4vw, 3.8rem);
             font-weight: 900;
             color: var(--text-color);
-            white-space: nowrap; /* 新增：防止標題換行 */
             text-shadow:
                 0 0 5px #fff,
                 0 0 10px var(--accent-glow),
@@ -70,19 +58,14 @@
 
         @keyframes flicker-orange {
             0%, 18%, 22%, 25%, 53%, 57%, 100% {
-                text-shadow:
-                0 0 4px #fff,
-                0 0 11px var(--accent-glow),
-                0 0 19px var(--accent-glow),
-                0 0 40px var(--accent-glow),
-                0 0 80px var(--accent-glow);
+                text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-glow), 0 0 19px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow);
             }
             20%, 24%, 55% { text-shadow: none; }
         }
 
         header h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
             font-weight: 700;
             color: var(--secondary-glow);
             margin-top: 1rem;
@@ -109,20 +92,13 @@
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
         
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        section.visible { opacity: 1; transform: translateY(0); }
         
-        .highlight-text {
-            font-weight: bold;
-            color: var(--accent-glow);
-            text-shadow: 0 0 5px var(--accent-glow);
-        }
+        .highlight-text { font-weight: bold; color: var(--accent-glow); text-shadow: 0 0 5px var(--accent-glow); }
 
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
             color: var(--primary-glow);
@@ -130,232 +106,214 @@
             align-items: center;
             gap: 1rem;
             text-shadow: 0 0 10px var(--primary-glow);
+            flex-wrap: wrap;
         }
-        
         .section-title i {
-            font-size: 2.2rem;
+            font-size: clamp(1.6rem, 4.5vw, 2.2rem);
             color: var(--accent-glow);
             text-shadow: 0 0 10px var(--accent-glow);
         }
 
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .info-card {
-            background: rgba(0,0,0,0.2);
-            border: 2px solid var(--border-color);
-            border-radius: 15px;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-        }
-        
-        .info-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--accent-glow);
-            box-shadow: 0 15px 30px rgba(240, 225, 74, 0.2);
-        }
-        
-        .info-card h3 {
+        h3 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: clamp(1.5rem, 3vw, 1.8rem);
             color: var(--primary-glow);
-            border-bottom: 3px solid var(--accent-glow);
-            padding-bottom: 0.5rem;
+            margin-top: 2rem;
             margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+        }
+        h3:first-of-type {
+            margin-top: 0;
         }
         
-        .info-card ul {
-            list-style: none;
-            padding-left: 0;
-            flex-grow: 1;
+        .info-card { 
+            background: rgba(0,0,0,0.2); 
+            border: 1px solid var(--border-color); 
+            border-radius: 15px; 
+            padding: 1.5rem;
+        }
+        
+        .info-card h4 { 
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            color: var(--primary-glow);
+            margin: 0 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            padding-bottom: 0.5rem;
+        }
+         .info-card ul {
+            list-style: none; padding-left: 0;
         }
         .info-card li {
-            position: relative;
-            padding-left: 1.5rem;
-            margin-bottom: 0.75rem;
+            position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem;
         }
         .info-card li::before {
-            content: '\f105'; /* Font Awesome angle-right */
-            font-family: 'Font Awesome 5 Free';
-            font-weight: 900;
-            position: absolute;
-            left: 0;
-            top: 2px;
-            color: var(--accent-glow);
-            transition: transform 0.3s;
-        }
-        .info-card:hover li::before {
-            transform: rotate(90deg);
-        }
-        
-        .info-card h4 {
-            font-size: 1.2rem;
-            color: var(--primary-glow);
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1.5rem;
-        }
-        th, td {
-            padding: 0.8rem;
-            text-align: left;
-            border: 1px solid var(--border-color);
-        }
-        th {
-            background-color: rgba(0, 242, 234, 0.1);
-            color: var(--primary-glow);
-            font-family: 'Orbitron', sans-serif;
-        }
-        td {
-             background-color: rgba(13, 27, 42, 0.5);
+            content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
+            position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
 
-        .highlight-box { background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05)); padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow); font-size: 1.1rem; margin-top: 2rem; box-shadow: inset 0 0 10px rgba(240, 225, 74, 0.2); }
-        .highlight-box strong { color: var(--accent-glow); font-weight: 700; }
+        .comparison-cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
         
-        /* --- QUIZ STYLES --- */
+        .comparison-card {
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+        .comparison-card h5 {
+            font-size: 1.2rem;
+            margin: 0 0 1rem 0;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-glow);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
         .quiz-container { margin-bottom: 3rem; }
-        .quiz-container:last-child { margin-bottom: 0; }
-        .quiz-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); }
+        .quiz-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
+            color: var(--accent-glow);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+        }
         .quiz-title i { margin-right: 0.75rem; }
-        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
+        .quiz-title .quiz-source { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
         #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
-        #quiz-section .options { display: grid; gap: 1rem; }
         
+        #quiz-section .highlight-box {
+            background-color: rgba(0, 242, 234, 0.08);
+            border: none;
+            border-left: 5px solid var(--primary-glow);
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+        #quiz-section .highlight-box p { margin: 0.5rem 0; }
+        #quiz-section .highlight-box ul { list-style-type: none; padding-left: 1rem; }
+        #quiz-section .highlight-box h4 {
+            color: var(--primary-glow); margin-bottom: 1rem; font-size: 1.2rem;
+            border-bottom: none; padding-bottom: 0;
+        }
+
+        #quiz-section .options { display: grid; gap: 1rem; }
         .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
         .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
-        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark); }
-        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark); }
+        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark);}
+        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
         
         .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
         .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
         .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
         .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
+        .reset-btn:hover { transform: scale(1.05); }
         
-        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
-        .reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--accent-glow); }
-        
-        /* --- FUN STYLES --- */
-        .fun-bg-section {
-            position: relative;
-            min-height: 150px;
-            margin-top: 4rem;
-            margin-bottom: 2rem;
-            border-radius: 20px;
-            background-color: var(--card-bg);
-            border: 2px solid var(--border-color);
-            overflow: hidden;
-            backdrop-filter: blur(5px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
+        .matching-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .matching-item:last-child { border-bottom: none; }
+        .matching-item p { flex-grow: 1; margin: 0; }
+        .matching-select { background-color: var(--bg-dark); color: var(--text-color); border: 1px solid var(--primary-glow); border-radius: 5px; padding: 0.4rem; font-family: inherit; font-size: 1rem; cursor: pointer; }
+        .feedback-icon { font-size: 1.2rem; font-weight: 900; display: none; }
+        .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
+        .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
+
+        .law-options-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
         }
-        .typing-effect {
-            position: relative;
-            z-index: 5;
-            font-family: 'Orbitron', monospace;
-            font-size: 1.6rem; 
-            font-weight: 700;
-            color: #fff;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+        .law-option-item {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
             text-align: center;
-            max-width: 100%;
+            font-size: 0.95rem;
+        }
+        .law-option-label {
+            color: var(--accent-glow);
+            font-weight: 700;
+            margin-right: 0.5em;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
+        .typing-effect {
+            position: relative; z-index: 5; font-family: 'Orbitron', monospace;
+            font-size: clamp(1.2rem, 2vw + 0.5rem, 1.6rem); 
+            font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            text-align: center; max-width: 100%;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin: 0;
         }
         .typing-effect .cursor {
-            display: inline-block;
-            background-color: #fff;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            margin-left: 5px;
-            width: 10px;
-            height: 1.6rem;
-            animation: blink-caret 0.75s step-end infinite;
+            display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            margin-left: 5px; width: 10px; height: 1em; animation: blink-caret 0.75s step-end infinite;
         }
-        @keyframes blink-caret {
-            from, to { background-color: transparent; box-shadow: none; }
-            50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); }
-        }
+        @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
         .floating-mascot-bg {
-            position: absolute;
-            width: 250px;
-            height: auto;
-            opacity: 0.15;
+            position: absolute; width: 250px; height: auto; opacity: 0.15;
             animation: floatMascot 15s ease-in-out infinite alternate;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1;
+            top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;
         }
-        @keyframes floatMascot {
-            from { transform: translate(-60%, -60%) rotate(-15deg); }
-            to { transform: translate(-40%, -40%) rotate(15deg); }
-        }
+        @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
         
-        #return-home-btn {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            width: 50px;
-            height: 50px;
-            z-index: 1001;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        #return-home-btn svg {
-            width: 100%;
-            height: 100%;
-            stroke: #ffffff;
-            stroke-width: 2px;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            fill: none;
-            transition: all 0.3s ease;
-            filter: drop-shadow(0 0 6px var(--primary-glow));
-        }
-        #return-home-btn:hover { transform: scale(1.1); }
-        #return-home-btn:hover svg {
-            stroke: var(--primary-glow);
-            filter: drop-shadow(0 0 12px var(--primary-glow));
-            transform: rotate(-10deg);
-        }
-
-        footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
         #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
         #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
         #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
         #mascot-img.enlarged { transform: scale(2.5) !important; }
-        #mascot-speech { position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9); color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3); }
+        #mascot-speech {
+            position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9);
+            color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px;
+            font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3);
+        }
         #mascot-speech.visible { opacity: 1; transform: translateY(0); }
         .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
 
+        #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
+        #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
+        #return-home-btn:hover { transform: scale(1.1); }
+        #return-home-btn:hover svg { stroke: var(--primary-glow); filter: drop-shadow(0 0 12px var(--primary-glow)); transform: rotate(-10deg); }
+        footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+
         @media (max-width: 768px) {
             .container { padding: 1rem; }
-            header { padding: 3rem 0; }
-            header h1 { font-size: 2.5rem; }
-            header h2 { font-size: 1.2rem; }
-            section { padding: 1.5rem; margin-bottom: 2rem; }
-            .section-title { font-size: 2rem; }
-            .content-grid { grid-template-columns: 1fr; }
-            .info-card { margin-bottom: 1.5rem; }
-            .info-card:last-child { margin-bottom: 0; }
-            .typing-effect { font-size: 1.2rem; }
-            .typing-effect .cursor { height: 1.2rem; }
-            #quiz-section .question, .option-btn { font-size: 1rem; }
+            section { padding: 1.5rem; }
+            .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+            
+            .comparison-cards-container {
+                grid-template-columns: 1fr;
+            }
+
+            .law-options-list {
+                display: flex;
+                flex-direction: column;
+            }
+
             #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
             #mascot-img { width: 80px; }
             #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
         }
-
     </style>
 </head>
 <body>
@@ -371,120 +329,38 @@
         <section id="procedure-section">
             <h2 class="section-title"><i class="fas fa-sitemap"></i> 一、刑事訴訟程序</h2>
             <p>目的在於確認國家對被告是否有刑罰權，確保國家裁判的正當性。主要分為四大階段：</p>
-            <table>
-                <thead>
-                    <tr>
-                        <th>階段</th>
-                        <th>負責人員</th>
-                        <th>說明</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>偵查</strong></td>
-                        <td>檢察官指揮警察</td>
-                        <td>調查犯罪事實及蒐集證據。偵查過程採<strong class="highlight-text">不公開原則</strong>。</td>
-                    </tr>
-                     <tr>
-                        <td><strong>起訴</strong></td>
-                        <td>檢察官 / 被害人、律師</td>
-                        <td><strong>公訴</strong>：檢察官認為證據足以證明被告有犯罪嫌疑時，代表國家向法院提起公訴。<br><strong>自訴</strong>：被害人（及家屬）不經檢察官偵查程序，自行委任律師向法院提起訴訟。</td>
-                    </tr>
-                     <tr>
-                        <td><strong>審判</strong></td>
-                        <td>法官</td>
-                        <td>採<strong class="highlight-text">有罪才罰</strong>原則，法官收到起訴書後才進入審判程序，依據證據進行公正審判。</td>
-                    </tr>
-                     <tr>
-                        <td><strong>執行</strong></td>
-                        <td>檢察官</td>
-                        <td>判決確定後，由檢察官執行，對受刑人施予刑罰。</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="comparison-cards-container">
+                <div class="info-card"><h4><i class="fas fa-search"></i>偵查</h4><p>由<strong class="highlight-text">檢察官指揮警察</strong>，調查犯罪事實及蒐集證據。偵查過程採<strong class="highlight-text">不公開原則</strong>。</p></div>
+                <div class="info-card"><h4><i class="fas fa-file-signature"></i>起訴</h4><p><strong>公訴</strong>：檢察官代表國家向法院提起。<br><strong>自訴</strong>：被害人自行委任律師向法院提起。</p></div>
+                <div class="info-card"><h4><i class="fas fa-gavel"></i>審判</h4><p>由<strong class="highlight-text">法官</strong>依據證據進行公正審判，採<strong class="highlight-text">有罪才罰</strong>原則。</p></div>
+                <div class="info-card"><h4><i class="fas fa-play"></i>執行</h4><p>判決確定後，由<strong class="highlight-text">檢察官</strong>指揮執行，對受刑人施予刑罰。</p></div>
+            </div>
         </section>
 
         <section id="roles-section">
             <h2 class="section-title"><i class="fas fa-user-friends"></i> 二、刑事訴訟的關鍵角色</h2>
-            <div class="highlight-box">
-                <h4><i class="fas-fa-key"></i> 偵查的啟動與起訴的程序</h4>
-                <table>
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th colspan="3">啟動偵查的原因</th>
-                            <th colspan="2">起訴的程序</th>
-                        </tr>
-                        <tr>
-                            <th>項目</th>
-                            <th>告訴</th>
-                            <th>告發</th>
-                            <th>自首</th>
-                            <th>公訴</th>
-                            <th>自訴</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>提出者</strong></td>
-                            <td>被害人及其家屬</td>
-                            <td>任何人</td>
-                            <td>犯罪者</td>
-                            <td>檢察官</td>
-                            <td>被害人(須委任律師)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>目的</strong></td>
-                            <td>請求追訴犯罪</td>
-                            <td>告知犯罪事實</td>
-                            <td>承認犯罪事實</td>
-                            <td>請求法院審判</td>
-                            <td>請求法院審判</td>
-                        </tr>
-                         <tr>
-                            <td><strong>受理機關</strong></td>
-                            <td colspan="3">警察機關或檢察官</td>
-                            <td colspan="2">法院</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="comparison-cards-container">
+                <div class="info-card"><h4><i class="fas fa-user-secret"></i>警察</h4><p>受理民眾報案（包括告訴、告發或自首）。初步蒐集相關證據，協助檢察官偵查犯罪。</p></div>
+                <div class="info-card"><h4><i class="fas fa-user-tie"></i>檢察官</h4><p><strong class="highlight-text">偵查</strong>、追訴犯罪，指揮刑事裁判的執行。代表國家擔任刑事訴訟的原告，向法院<strong class="highlight-text">提起公訴</strong>。</p></div>
+                <div class="info-card"><h4><i class="fas fa-balance-scale"></i>法官</h4><p>超然中立，不受外界干涉，依法進行客觀、公正的審判。採<strong class="highlight-text">無罪推定原則</strong>。</p></div>
+                <div class="info-card"><h4><i class="fas fa-user-graduate"></i>律師</h4><p>受當事人委託，在訴訟中為當事人<strong class="highlight-text">辯護</strong>，維護當事人的權益。</p></div>
             </div>
-            <div class="content-grid" style="margin-top: 2rem;">
-                <div class="info-card">
-                    <h3>警察</h3>
-                    <ul>
-                        <li>受理民眾報案（包括告訴、告發或自首）。</li>
-                        <li>初步蒐集相關證據，協助檢察官偵查犯罪。</li>
-                    </ul>
-                </div>
-                <div class="info-card">
-                    <h3>檢察官</h3>
-                    <ul>
-                        <li><strong class="highlight-text">偵查</strong>、追訴犯罪，指揮刑事裁判的執行。</li>
-                        <li>代表國家擔任刑事訴訟的原告，向法院<strong class="highlight-text">提起公訴</strong>。</li>
-                    </ul>
-                </div>
-                 <div class="info-card">
-                    <h3>法官</h3>
-                    <ul>
-                        <li>超然中立，不受外界干涉，依法進行客觀、公正的審判。</li>
-                        <li>採<strong class="highlight-text">無罪推定原則</strong>：被告未經審判證明有罪確定前，推定其為無罪。</li>
-                    </ul>
-                </div>
-                 <div class="info-card">
-                    <h3>律師</h3>
-                    <ul>
-                        <li>受當事人委託，在訴訟中為當事人<strong class="highlight-text">辯護</strong>，維護當事人的權益。</li>
-                    </ul>
-                </div>
+            
+            <div class="info-card" style="margin-top:1.5rem;">
+                <h4><i class="fas-fa-key"></i>偵查的啟動與起訴的程序</h4>
+                <ul>
+                    <li><strong>告訴：</strong>由<strong class="highlight-text">被害人及其家屬</strong>向警察機關或檢察官提出，請求追訴犯罪。</li>
+                    <li><strong>告發：</strong>由<strong class="highlight-text">任何人</strong>向警察機關或檢察官提出，告知犯罪事實。</li>
+                    <li><strong>自首：</strong>由<strong class="highlight-text">犯罪者</strong>向警察機關或檢察官承認犯罪事實。</li>
+                </ul>
             </div>
         </section>
 
         <section id="court-section">
             <h2 class="section-title"><i class="fas fa-landmark"></i> 三、刑事訴訟法庭席位</h2>
-            <div class="content-grid">
+            <div class="comparison-cards-container">
                  <div class="info-card">
-                    <h3>公訴案件</h3>
+                    <h4>公訴案件</h4>
                     <p>檢察官代表國家起訴，與被告律師地位平等，向法官進行辯論。</p>
                     <ul>
                         <li><strong>原告方</strong>：檢察官</li>
@@ -493,7 +369,7 @@
                     </ul>
                 </div>
                 <div class="info-card">
-                    <h3>自訴案件</h3>
+                    <h4>自訴案件</h4>
                     <p>被害人自己當原告（須委任律師），直接與被告進行攻防。</p>
                      <ul>
                         <li><strong>原告方</strong>：被害人(自訴人)、律師</li>
@@ -507,7 +383,7 @@
 
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
-            <div class="quiz-container">
+            <div class="quiz-container" id="quiz1">
                 <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(111 會考)</span></h3>
                 <div class="question">
                     <p>國中生小安寄了一封陳情信給某位公職人員，信中敘述父親因沉迷賭博，導致家中債臺高築，害他的小母離異、家庭破碎，希望有人能幫幫他，讓父親不再沉溺賭海。該名公職人員收到信後立刻啟動偵辦，循線破獲非法賭場，並依法對賭場業者與賭徒提起公訴。根據上述內容判斷，小安寄信的對象應是下列何者？</p>
@@ -521,14 +397,16 @@
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
-            <div class="quiz-container">
+            <div class="quiz-container" id="quiz2">
                 <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span>(110 會考)</span></h3>
                 <div class="question">
-                    <div class="highlight-box" style="padding:1rem;">
-                        <p><strong>消費者請注意</strong></p>
-                        <p>豪闊公司未經主管機關許可，自國外引進並聲稱具有療效的床墊販售牟利，違反《藥事法》規定，相關單位進行調查後，決定對該公司業務負責人提起公訴。</p>
+                    <div id="quiz-section">
+                        <div class="highlight-box" style="padding:1rem; margin-top:0;">
+                            <p><strong>消費者請注意</strong></p>
+                            <p>豪闊公司未經主管機關許可，自國外引進並聲稱具有療效的床墊販售牟利，違反《藥事法》規定，相關單位進行調查後，決定對該公司業務負責人提起公訴。</p>
+                        </div>
                     </div>
-                    <p>上方是一則網路新聞報導，根據其中內容判斷，在此案的處理過程中，最可能會出現下列何種情況？</p>
+                    <p style="margin-top:1.5rem;">上方是一則網路新聞報導，根據其中內容判斷，在此案的處理過程中，最可能會出現下列何種情況？</p>
                 </div>
                 <div class="options">
                     <button class="option-btn" data-correct="false">(A) 大法官對案件進行公平審理</button>
@@ -640,8 +518,12 @@
             
             const quizContainers = document.querySelectorAll('.quiz-container');
             
-            quizContainers.forEach((container, index) => {
-                const quizId = `quiz${index + 1}`;
+            quizContainers.forEach((container) => {
+                const quizId = container.id;
+                if (!quizId) return; // Skip containers without an ID
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
+
                 const optionButtons = container.querySelectorAll('.option-btn');
                 const feedbackArea = container.querySelector('.feedback-area');
                 const resetButton = container.querySelector('.reset-btn');

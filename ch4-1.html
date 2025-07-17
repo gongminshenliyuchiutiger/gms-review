@@ -12,7 +12,7 @@
         :root {
             --primary-glow: #00f2ea; /* 亮青色 */
             --secondary-glow: #ff00ff; /* 洋紅色 */
-            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --accent-glow: #f0e14a; /* 金黃色 */
             --bg-dark: #0d1b2a;
             --bg-dark-2: #020a12;
             --text-color: #e0e0e0;
@@ -37,17 +37,17 @@
 
         header {
             text-align: center;
-            padding: 5rem 0;
+            padding: 5rem 1rem;
             border-bottom: 2px solid var(--border-color);
             box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+            overflow: hidden;
         }
 
         header h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2.5rem, 5vw + 0.5rem, 3.8rem);
+            font-size: clamp(2.5rem, 4vw, 3.8rem);
             font-weight: 900;
             color: var(--text-color);
-            white-space: nowrap;
             text-shadow:
                 0 0 5px #fff,
                 0 0 10px var(--accent-glow),
@@ -55,7 +55,6 @@
                 0 0 40px var(--accent-glow);
             animation: flicker-orange 3s infinite alternate;
         }
-
 
         @keyframes flicker-orange {
             0%, 18%, 22%, 25%, 53%, 57%, 100% {
@@ -70,7 +69,6 @@
             font-weight: 700;
             color: var(--secondary-glow);
             margin-top: 1rem;
-            white-space: nowrap;
             text-shadow: 0 0 8px var(--secondary-glow);
             animation: bounce 2s infinite;
         }
@@ -96,15 +94,11 @@
         
         section.visible { opacity: 1; transform: translateY(0); }
         
-        .highlight-text {
-            font-weight: bold;
-            color: var(--accent-glow);
-            text-shadow: 0 0 5px var(--accent-glow);
-        }
+        .highlight-text { font-weight: bold; color: var(--accent-glow); text-shadow: 0 0 5px var(--accent-glow); }
 
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(1.8rem, 3vw + 0.5rem, 2.5rem);
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
             color: var(--primary-glow);
@@ -112,72 +106,104 @@
             align-items: center;
             gap: 1rem;
             text-shadow: 0 0 10px var(--primary-glow);
-            white-space: nowrap;
+            flex-wrap: wrap;
         }
-        
         .section-title i {
-            font-size: 2.2rem;
+            font-size: clamp(1.6rem, 4.5vw, 2.2rem);
             color: var(--accent-glow);
             text-shadow: 0 0 10px var(--accent-glow);
         }
-        
-        h3, h4 {
+
+        h3 {
             font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 1.8rem);
             color: var(--primary-glow);
+            margin-top: 2rem;
             margin-bottom: 1rem;
-            white-space: nowrap; /* 新增：確保標題不換行 */
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
         }
-        h3 { 
-            font-size: clamp(1.2rem, 2.5vw + 0.5rem, 1.6rem); /* 修改：使用 clamp 實現響應式字體 */
+        h3:first-of-type {
+            margin-top: 0;
         }
-        h4 { 
-            font-size: clamp(1.1rem, 2vw + 0.5rem, 1.4rem); /* 修改：使用 clamp 實現響應式字體 */
+        
+        h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            color: var(--accent-glow);
+            margin: 0 0 1rem 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        
+        .info-card { 
+            background: rgba(0,0,0,0.2); 
+            border: 1px solid var(--border-color); 
+            border-radius: 15px; 
+            padding: 1.5rem;
+        }
+        
+        .info-card ul {
+            list-style: none; padding-left: 0;
+        }
+        .info-card li {
+            position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem;
+        }
+        .info-card li::before {
+            content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
+            position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
 
-        .info-card {
-            background: rgba(0,0,0,0.2);
-            border: 1px solid var(--border-color);
-            border-radius: 15px;
-            padding: 1.5rem;
+        .comparison-item {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
             margin-top: 1.5rem;
         }
-        .info-card h4 {
-            margin-top: 0;
-            color: var(--accent-glow);
-            border-bottom: 2px solid var(--accent-border-color);
-            padding-bottom: 0.5rem;
+        .comparison-item:last-child {
+            margin-bottom: 0;
         }
-
-        .highlight-box {
-            background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05));
-            padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow);
-            margin-top: 2rem;
+        .comparison-item h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-glow);
+            text-align: center;
+            font-size: clamp(1.3rem, 2.8vw, 1.6rem);
+            margin: 0;
+        }
+        .comparison-cards-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .grid-3-col {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        .comparison-card {
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid transparent;
+        }
+        .comparison-card h5 {
+            font-size: 1.2rem;
+            margin: 0 0 1rem 0;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .comparison-card ul {
+             list-style: none; padding-left: 0; font-size: 0.95rem;
+        }
+        .comparison-card li {
+            position: relative; padding-left: 1.2rem; margin-bottom: 0.3rem;
+        }
+        .comparison-card li::before {
+            content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
+            position: absolute; left: 0; top: 3px;
         }
         
-        .comparison-table {
-            width: 100%; border-collapse: collapse; margin-top: 1.5rem;
-        }
-        .comparison-table th, .comparison-table td {
-            border: 1px solid var(--border-color); padding: 1rem; text-align: center;
-            vertical-align: top;
-        }
-        .comparison-table thead th { background-color: rgba(13, 27, 42, 0.7); color: var(--primary-glow); }
-        .comparison-table tbody th { font-weight: bold; color: var(--accent-glow); }
-        .comparison-table ul { list-style: none; padding: 0; text-align: left;}
-        .comparison-table li { margin-bottom: 0.5rem; }
-
-        .definition-list dt {
-            font-weight: bold; color: var(--primary-glow); margin-top: 1rem;
-        }
-        .definition-list dd {
-            padding-left: 1rem; border-left: 2px solid var(--border-color);
-        }
-        .flowchart {
-            display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-        }
-        .flowchart img { max-width: 100%; height: auto; border-radius: 10px; }
-
-        /* Quiz Styles */
         .quiz-container { margin-bottom: 3rem; }
         .quiz-title {
             font-family: 'Orbitron', sans-serif;
@@ -188,11 +214,13 @@
             border-bottom: 2px solid var(--accent-border-color);
             display: flex;
             align-items: baseline;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
         }
         .quiz-title i { margin-right: 0.75rem; }
-        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
+        .quiz-title .quiz-source { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
         #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
+        
         #quiz-section .options { display: grid; gap: 1rem; }
         .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
         .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
@@ -200,6 +228,7 @@
         .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
         
         .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
+        .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
         .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
         .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
         .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
@@ -213,17 +242,37 @@
         .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
         .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
         
-        /* Mascot & Typing Effect Styles */
-        .fun-bg-section {
-            position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem;
-            border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color);
-            overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem;
+        .law-options-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
         }
+        .law-option-item {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .law-option-label {
+            color: var(--accent-glow);
+            font-weight: 700;
+            margin-right: 0.5em;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect {
             position: relative; z-index: 5; font-family: 'Orbitron', monospace;
             font-size: clamp(1.2rem, 2vw + 0.5rem, 1.6rem); 
             font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
             text-align: center; max-width: 100%;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin: 0;
         }
         .typing-effect .cursor {
             display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
@@ -236,6 +285,7 @@
             top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;
         }
         @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
+        
         #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
         #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
         #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
@@ -249,7 +299,6 @@
         #mascot-speech.visible { opacity: 1; transform: translateY(0); }
         .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
 
-        /* Floating Home Button & Footer */
         #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
         #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
         #return-home-btn:hover { transform: scale(1.1); }
@@ -260,6 +309,12 @@
             .container { padding: 1rem; }
             section { padding: 1.5rem; }
             .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+            
+            .comparison-cards-container.grid-3-col,
+            .comparison-cards-container {
+                grid-template-columns: 1fr;
+            }
+
             #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
             #mascot-img { width: 80px; }
@@ -281,99 +336,133 @@
         <section id="public-affairs-section">
             <h2 class="section-title"><i class="fas fa-comments"></i>一、公共事務參與</h2>
             <h3>公共事務</h3>
-            <ul>
-                <li>涉及與<strong class="highlight-text">眾人利益</strong>有關，無法獨自決定的事務，如公共政策、班級制訂等。</li>
-                <li>每個人依扮演角色不同（國民、公民），權利義務及可參與公共事務的範圍也不同。</li>
-            </ul>
-            <table class="comparison-table">
-                <thead><tr><th>事務</th><th>國民可參與的公共事務</th><th>公民才可參與的公共事務</th></tr></thead>
-                <tbody>
-                    <tr><th>年齡限制</th><td>無</td><td>有</td></tr>
-                    <tr><th>參與者</th><td>國民（具我國國籍的人民）、公民皆可</td><td>公民（具法定資格享有參政權的國民）</td></tr>
-                    <tr><th>舉例</th><td>關心時事、發表意見</td><td>公民投票（須滿18歲）</td></tr>
-                </tbody>
-            </table>
+            <div class="info-card" style="margin-top:0;">
+                <ul>
+                    <li>涉及與<strong class="highlight-text">眾人利益</strong>有關，無法獨自決定的事務，如公共政策、班級制訂等。</li>
+                    <li>每個人依扮演角色不同（國民、公民），權利義務及可參與公共事務的範圍也不同。</li>
+                </ul>
+            </div>
+            <div class="comparison-cards-container" style="margin-top: 1.5rem;">
+                <div class="comparison-card">
+                    <h5><i class="fas fa-users"></i>國民可參與</h5>
+                    <ul>
+                        <li><strong>年齡限制：</strong>無</li>
+                        <li><strong>參與者：</strong>國民（具我國國籍的人民）、公民皆可</li>
+                        <li><strong>舉例：</strong>關心時事、發表意見</li>
+                    </ul>
+                </div>
+                <div class="comparison-card">
+                    <h5><i class="fas fa-user-check"></i>公民才可參與</h5>
+                     <ul>
+                        <li><strong>年齡限制：</strong>有</li>
+                        <li><strong>參與者：</strong>公民（具法定資格享有參政權的國民）</li>
+                        <li><strong>舉例：</strong>公民投票（須滿18歲）</li>
+                    </ul>
+                </div>
+            </div>
+            
             <h3>重要性</h3>
-            <dl class="definition-list">
-                <dt>與成員權益息息相關</dt>
-                <dd>公共事務的決定涉及與群體成員的<strong class="highlight-text">利益分配</strong>與<strong class="highlight-text">權利保障</strong>，可能直接或間接影響成員的生活。</dd>
-                <dt>讓決策貼近成員需求</dt>
-                <dd>每位成員的需求不同，透過參與公共事務，積極表達意見、參與討論，才能讓決策兼顧與貼近所有成員的需求。</dd>
-                <dt>監督防止少數操弄</dt>
-                <dd>群體成員若對公共事務冷漠以待，可能導致少數人決定公共事務，漠視多數人需求，或因缺乏監督，導致資源分配不公或其他人權利受到影響。</dd>
-            </dl>
+            <div class="info-card" style="margin-top:0;">
+                <ul>
+                    <li><strong>與成員權益息息相關：</strong>公共事務的決定涉及與群體成員的<strong class="highlight-text">利益分配</strong>與<strong class="highlight-text">權利保障</strong>，可能直接或間接影響成員的生活。</li>
+                    <li><strong>讓決策貼近成員需求：</strong>每位成員的需求不同，透過參與公共事務，積極表達意見、參與討論，才能讓決策兼顧與貼近所有成員的需求。</li>
+                    <li><strong>監督防止少數操弄：</strong>群體成員若對公共事務冷漠以待，可能導致少數人決定公共事務，漠視多數人需求，或因缺乏監督，導致資源分配不公或其他人權利受到影響。</li>
+                </ul>
+            </div>
         </section>
 
         <section id="people-citizen-section">
             <h2 class="section-title"><i class="fas fa-users"></i>二、國民與公民</h2>
-            <table class="comparison-table">
-                <thead><tr><th style="width: 20%;">項目</th><th style="width: 20%;">條件</th><th>說明</th></tr></thead>
-                <tbody>
-                    <tr>
-                        <th>國民</th>
-                        <td>具備某國國籍</td>
-                        <td>
-                            <p>1. 具備某國國籍，即為該國的國民。</p>
-                            <p>2. 國籍的取得途徑：</p>
-                            <ul>
-                                <li><strong>天生取得：</strong>
-                                    <ul>
-                                        <li>屬人主義（血統主義）：以父母的國籍為準。</li>
-                                        <li>屬地主義（出生地主義）：以出生地為準。</li>
-                                    </ul>
-                                </li>
-                                <li><strong>歸化取得：</strong>因出生以外的原因（如婚姻、認領、收養），自願申請取得他國國籍。</li>
-                            </ul>
-                            <p>※ 我國《國籍法》採<strong class="highlight-text">屬人為主，屬地為輔</strong>的折衷制。</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>狹義<br>公民</th>
-                        <td>符合法定年齡<br>+<br>能行使參政權</td>
-                        <td>
-                            <p>1. 法定年齡：</p>
-                            <ul>
-                                <li>《公民投票法》：年滿<strong class="highlight-text">18歲</strong>。</li>
-                                <li>《中華民國憲法》：年滿<strong class="highlight-text">20歲</strong>，有依法選舉之權。</li>
-                                <li>《公務人員考試法》：年滿<strong class="highlight-text">18歲</strong>，得應本法之考試。</li>
-                            </ul>
-                            <p>2. 參政權：包括選舉、罷免、創制、複決、應考試服公職等權利。</p>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="info-card" style="margin-top:0;">
+                <h4><i class="fas fa-passport"></i>國民</h4>
+                <p><strong>條件：</strong>具備某國國籍</p>
+                <p>具備某國國籍，即為該國的國民。</p>
+                <p><strong>國籍的取得途徑：</strong></p>
+                <ul>
+                    <li><strong>天生取得：</strong>
+                        <ul>
+                            <li>屬人主義（血統主義）：以父母的國籍為準。</li>
+                            <li>屬地主義（出生地主義）：以出生地為準。</li>
+                        </ul>
+                    </li>
+                    <li><strong>歸化取得：</strong>因出生以外的原因（如婚姻、認領、收養），自願申請取得他國國籍。</li>
+                </ul>
+                <p>※ 我國《國籍法》採<strong class="highlight-text">屬人為主，屬地為輔</strong>的折衷制。</p>
+            </div>
+            <div class="info-card" style="margin-top:1.5rem;">
+                <h4><i class="fas fa-vote-yea"></i>狹義公民</h4>
+                <p><strong>條件：</strong>符合法定年齡 + 能行使參政權</p>
+                <p><strong>法定年齡：</strong></p>
+                <ul>
+                    <li>《公民投票法》：年滿<strong class="highlight-text">18歲</strong>。</li>
+                    <li>《中華民國憲法》：年滿<strong class="highlight-text">20歲</strong>，有依法選舉之權。</li>
+                    <li>《公務人員考試法》：年滿<strong class="highlight-text">18歲</strong>，得應本法之考試。</li>
+                </ul>
+                <p><strong>參政權：</strong>包括選舉、罷免、創制、複決、應考試服公職等權利。</p>
+            </div>
         </section>
 
         <section id="civic-virtue-section">
             <h2 class="section-title"><i class="fas fa-gem"></i>三、公民應具備的德性</h2>
-            <table class="comparison-table">
-                <thead><tr><th style="width: 25%;">公民德性</th><th>說明</th></tr></thead>
-                <tbody>
-                    <tr><th>充實知能、積極參與</th><td>1. 參與成員應對公共事務有基本認識與溝通能力。<br>2. 公共事務由眾人決定，成員應積極參與。</td></tr>
-                    <tr><th>遵守法律、發揮道德</th><td>1. 參與公共事務時，個人與政府都應遵守法律規範。<br>2. 法律未規範的範圍，也應發揮私德與公德心，尊重他人的尊嚴與權利。</td></tr>
-                    <tr><th>理性思考、相互尊重</th><td>1. 具備理性思考能力，不盲目附會或反對他人論點。<br>2. 每個人都有表達意見的權利，理解彼此的差異與獨特性，互相接納與尊重。</td></tr>
-                    <tr><th>捍衛正義、促進公益</th><td>1. 若有人權益受損時，應挺身而出為其爭取權益，以實現公平正義。<br>2. 個人可以奉獻自己的心力與資源，從事對他人有利的公益行為。</td></tr>
-                </tbody>
-            </table>
-            <h4>觀念比較：發揮公德、促進公益、捍衛正義</h4>
-            <table class="comparison-table">
-                <thead><tr><th>公民德性</th><th>發揮公德</th><th>促進公益</th><th>捍衛正義</th></tr></thead>
-                <tbody>
-                    <tr><th>強調面向</th><td>培養自制能力、做好自己的本分</td><td>從事對他人有利的行為</td><td>從事對他人有利的行為，強調對象是弱勢群體或權益受損者</td></tr>
-                    <tr><th>舉例</th><td>做好資源回收</td><td>參與淨灘的環保活動</td><td>募款幫助植物人</td></tr>
-                    <tr><th>特性</th><td>較為消極</td><td>較為積極</td><td>較為積極</td></tr>
-                </tbody>
-            </table>
+            <div class="info-card" style="margin-top:0;">
+                <h4><i class="fas fa-brain"></i>充實知能、積極參與</h4>
+                <p>1. 參與成員應對公共事務有基本認識與溝通能力。<br>2. 公共事務由眾人決定，成員應積極參與。</p>
+            </div>
+            <div class="info-card" style="margin-top:1.5rem;">
+                <h4><i class="fas fa-balance-scale"></i>遵守法律、發揮道德</h4>
+                <p>1. 參與公共事務時，個人與政府都應遵守法律規範。<br>2. 法律未規範的範圍，也應發揮私德與公德心，尊重他人的尊嚴與權利。</p>
+            </div>
+            <div class="info-card" style="margin-top:1.5rem;">
+                <h4><i class="fas fa-comments"></i>理性思考、相互尊重</h4>
+                <p>1. 具備理性思考能力，不盲目附會或反對他人論點。<br>2. 每個人都有表達意見的權利，理解彼此的差異與獨特性，互相接納與尊重。</p>
+            </div>
+            <div class="info-card" style="margin-top:1.5rem;">
+                <h4><i class="fas fa-shield-alt"></i>捍衛正義、促進公益</h4>
+                <p>1. 若有人權益受損時，應挺身而出為其爭取權益，以實現公平正義。<br>2. 個人可以奉獻自己的心力與資源，從事對他人有利的公益行為。</p>
+            </div>
+            
+            <div class="comparison-item" style="margin-top:2rem;">
+                <h4>觀念比較：發揮公德、促進公益、捍衛正義</h4>
+                <div class="comparison-cards-container grid-3-col">
+                    <div class="comparison-card">
+                        <h5>發揮公德</h5>
+                        <ul>
+                            <li><strong>強調：</strong>培養自制能力、做好自己的本分</li>
+                            <li><strong>舉例：</strong>做好資源回收</li>
+                            <li><strong>特性：</strong>較為消極</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-card">
+                        <h5>促進公益</h5>
+                         <ul>
+                            <li><strong>強調：</strong>從事對他人有利的行為</li>
+                            <li><strong>舉例：</strong>參與淨灘的環保活動</li>
+                            <li><strong>特性：</strong>較為積極</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-card">
+                        <h5>捍衛正義</h5>
+                         <ul>
+                            <li><strong>強調：</strong>從事對他人有利的行為，強調對象是弱勢群體或權益受損者</li>
+                            <li><strong>舉例：</strong>募款幫助植物人</li>
+                            <li><strong>特性：</strong>較為積極</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
             <div class="quiz-container">
                 <h3 class="quiz-title"><i class="fas fa-tasks"></i>模擬神給酷</h3>
-                <div class="info-card">
-                     <p><strong>下列行為最符合何種公民德性的表現？請填入正確代號。</strong><br>
-                     (甲) 發揮公德 &nbsp;&nbsp; (乙) 促進公益 &nbsp;&nbsp; (丙) 捍衛正義
-                     </p>
+                <div class="info-card" style="margin-top:0;">
+                     <p><strong>下列行為最符合何種公民德性的表現？請填入正確代號。</strong></p>
+                     <div class="law-options-list">
+                         <div class="law-option-item"><span class="law-option-label">甲</span> 發揮公德</div>
+                         <div class="law-option-item"><span class="law-option-label">乙</span> 促進公益</div>
+                         <div class="law-option-item"><span class="law-option-label">丙</span> 捍衛正義</div>
+                     </div>
                      <div class="matching-item" data-answer="乙"><p>1. 小志加入社區巡守隊志工，幫忙巡視社區安全。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
                      <div class="matching-item" data-answer="丙"><p>2. 小珍定期捐款給喜憨兒基金會，為心智障礙者盡心力。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
                      <div class="matching-item" data-answer="甲"><p>3. 小勇搭乘捷運時，會禮讓他人並遵守先下後上的乘車順序。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
@@ -384,7 +473,7 @@
             </div>
 
             <div class="quiz-container" id="quiz1">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(112 會考)</span></h3>
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(112 會考)</span></h3>
                 <div class="question">
                     <p>王伯伯參與里民大會討論時，常常見到少數里民與他意見不同的情況，不過他總是說：「雖然其他人的意見與我不同，但應該要讓大家都有發言的機會，不能剝奪少數意見發聲的權利。」上述王伯伯的做法，最能表現出哪一種公民素養？</p>
                 </div>
@@ -399,7 +488,7 @@
             </div>
 
             <div class="quiz-container" id="quiz2">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span>(111 會考)</span></h3>
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(111 會考)</span></h3>
                 <div class="question">
                     <p>阿泉在餐廳外等候用餐時，看見店門口張貼一張「禁止寵物入內，導盲犬除外」的貼紙，他疑惑視障者應該看不見貼紙，於是好奇地向店家詢問張貼貼紙的用意，店員說明這是為了提醒其他客人，店內出現的狗是正在執行勤務的導盲犬，要請客人注意不要打擾牠。上述店家的作為主要展現下列何項素養？</p>
                 </div>

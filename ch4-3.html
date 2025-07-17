@@ -12,7 +12,7 @@
         :root {
             --primary-glow: #00f2ea; /* 亮青色 */
             --secondary-glow: #ff00ff; /* 洋紅色 */
-            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --accent-glow: #f0e14a; /* 金黃色 */
             --bg-dark: #0d1b2a;
             --bg-dark-2: #020a12;
             --text-color: #e0e0e0;
@@ -37,17 +37,17 @@
 
         header {
             text-align: center;
-            padding: 5rem 0;
+            padding: 5rem 1rem;
             border-bottom: 2px solid var(--border-color);
             box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+            overflow: hidden;
         }
 
         header h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3.8rem;
+            font-size: clamp(2.5rem, 4vw, 3.8rem);
             font-weight: 900;
             color: var(--text-color);
-            white-space: nowrap; /* 新增：防止標題換行 */
             text-shadow:
                 0 0 5px #fff,
                 0 0 10px var(--accent-glow),
@@ -65,7 +65,7 @@
 
         header h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
             font-weight: 700;
             color: var(--secondary-glow);
             margin-top: 1rem;
@@ -94,15 +94,11 @@
         
         section.visible { opacity: 1; transform: translateY(0); }
         
-        .highlight-text {
-            font-weight: bold;
-            color: var(--accent-glow);
-            text-shadow: 0 0 5px var(--accent-glow);
-        }
+        .highlight-text { font-weight: bold; color: var(--accent-glow); text-shadow: 0 0 5px var(--accent-glow); }
 
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
             color: var(--primary-glow);
@@ -110,50 +106,110 @@
             align-items: center;
             gap: 1rem;
             text-shadow: 0 0 10px var(--primary-glow);
+            flex-wrap: wrap;
         }
-        
         .section-title i {
-            font-size: 2.2rem;
+            font-size: clamp(1.6rem, 4.5vw, 2.2rem);
             color: var(--accent-glow);
             text-shadow: 0 0 10px var(--accent-glow);
         }
-        
-        h3, h4 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--primary-glow);
-            margin-bottom: 1rem;
-        }
-        h3 { font-size: 1.6rem; }
-        h4 { font-size: 1.4rem; }
 
-        .info-card {
-            background: rgba(0,0,0,0.2);
-            border: 1px solid var(--border-color);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-top: 1.5rem;
+        h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 1.8rem);
+            color: var(--primary-glow);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
         }
-        .info-card h4 {
+        h3:first-of-type {
             margin-top: 0;
-            color: var(--accent-glow);
         }
-        .info-card ul { list-style: none; padding: 0;}
-        .info-card li { position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem; }
+        
+        h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            color: var(--accent-glow);
+            margin: 0 0 1rem 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        
+        .info-card { 
+            background: rgba(0,0,0,0.2); 
+            border: 1px solid var(--border-color); 
+            border-radius: 15px; 
+            padding: 1.5rem;
+        }
+        
+        .info-card h4 { 
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            color: var(--primary-glow);
+            margin: 0 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            padding-bottom: 0.5rem;
+        }
+         .info-card ul {
+            list-style: none; padding-left: 0;
+        }
+        .info-card li {
+            position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem;
+        }
         .info-card li::before {
             content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
             position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
-        
-        .comparison-table {
-            width: 100%; border-collapse: collapse; margin-top: 1.5rem;
+        .info-card ul ul {
+            padding-left: 1.5rem;
+            margin-top: 0.5rem;
         }
-        .comparison-table th, .comparison-table td {
-            border: 1px solid var(--border-color); padding: 1rem; text-align: left;
-            vertical-align: top;
+        .info-card ul ul li::before {
+            content: '\f0da';
         }
-        .comparison-table thead th { background-color: rgba(13, 27, 42, 0.7); color: var(--primary-glow); text-align: center; }
-        .comparison-table tbody th { font-weight: bold; color: var(--accent-glow); text-align: center; }
 
+        .comparison-item {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            margin-top: 1.5rem;
+        }
+        .comparison-item:last-child {
+            margin-bottom: 0;
+        }
+        .comparison-item h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-glow);
+            text-align: center;
+            font-size: clamp(1.3rem, 2.8vw, 1.6rem);
+            margin: 0;
+        }
+        .comparison-cards-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .comparison-card {
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+        .comparison-card h5 {
+            font-size: 1.2rem;
+            margin: 0 0 1rem 0;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-glow);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
         .flow-container {
             display: flex;
             justify-content: center;
@@ -174,13 +230,24 @@
             font-size: 2rem;
             color: var(--accent-glow);
         }
-
-        /* Quiz Styles */
+        
         .quiz-container { margin-bottom: 3rem; }
-        .quiz-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); }
+        .quiz-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
+            color: var(--accent-glow);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+        }
         .quiz-title i { margin-right: 0.75rem; }
-        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; }
+        .quiz-title .quiz-source { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
         #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
+        
         #quiz-section .options { display: grid; gap: 1rem; }
         .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
         .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
@@ -188,25 +255,25 @@
         .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
         
         .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
+        .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
         .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
         .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
         .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
         .reset-btn:hover { transform: scale(1.05); }
         
-        /* Mascot & Typing Effect Styles */
-        .fun-bg-section {
-            position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem;
-            border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color);
-            overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem;
-        }
+        .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect {
-            position: relative; z-index: 5; font-family: 'Orbitron', monospace; font-size: 1.6rem; 
+            position: relative; z-index: 5; font-family: 'Orbitron', monospace;
+            font-size: clamp(1.2rem, 2vw + 0.5rem, 1.6rem); 
             font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
             text-align: center; max-width: 100%;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin: 0;
         }
         .typing-effect .cursor {
             display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            margin-left: 5px; width: 10px; height: 1.6rem; animation: blink-caret 0.75s step-end infinite;
+            margin-left: 5px; width: 10px; height: 1em; animation: blink-caret 0.75s step-end infinite;
         }
         @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
         .floating-mascot-bg {
@@ -215,6 +282,7 @@
             top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;
         }
         @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
+        
         #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
         #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
         #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
@@ -228,7 +296,6 @@
         #mascot-speech.visible { opacity: 1; transform: translateY(0); }
         .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
 
-        /* Floating Home Button & Footer */
         #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
         #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
         #return-home-btn:hover { transform: scale(1.1); }
@@ -237,14 +304,13 @@
 
         @media (max-width: 768px) {
             .container { padding: 1rem; }
-            header h1 { font-size: 2.5rem; }
             section { padding: 1.5rem; }
-            .section-title { font-size: 2rem; }
-            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
+            
+            .comparison-cards-container {
+                grid-template-columns: 1fr;
+            }
 
-            /* Adjust new elements for mobile */
-            .typing-effect { font-size: 1.2rem; }
-            .typing-effect .cursor { height: 1.2rem; }
+            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
             #mascot-img { width: 80px; }
             #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
@@ -264,7 +330,7 @@
 
         <section id="culture-meaning-section">
             <h2 class="section-title"><i class="fas fa-palette"></i>一、文化的意義與特性</h2>
-            <div class="info-card">
+            <div class="info-card" style="margin-top:0;">
                 <h4><i class="fas fa-info-circle"></i>意義</h4>
                 <ul>
                     <li>指人類為求生存，適應環境所創造的一切生活方式的總稱。</li>
@@ -272,60 +338,59 @@
                 </ul>
             </div>
             <h3 style="margin-top: 2rem;">特性</h3>
-            <table class="comparison-table">
-                <thead><tr><th>普遍性</th><th>差異性</th><th>累積性</th><th>制約性</th></tr></thead>
-                <tbody>
-                    <tr>
-                        <td>每個社會都有文化，有許多<strong class="highlight-text">共通點</strong>。</td>
-                        <td>因應環境不同，形成<strong class="highlight-text">各具特色</strong>的文化。</td>
-                        <td>文化代代延續，不斷<strong class="highlight-text">改進與創新</strong>。</td>
-                        <td><strong class="highlight-text">約束</strong>同一文化的人表現出近似的行為。</td>
-                    </tr>
-                    <tr>
-                        <td>每個社會都有傳統的服飾。</td>
-                        <td>各國傳統服飾有不同樣式。</td>
-                        <td>隨時代進步，布料不斷創新。</td>
-                        <td>伊斯蘭教徒婦女外出會戴上頭巾。</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="comparison-cards-container">
+                <div class="comparison-card">
+                    <h5>普遍性</h5>
+                    <p>每個社會都有文化，有許多<strong class="highlight-text">共通點</strong>。<br><strong>舉例：</strong>每個社會都有傳統的服飾。</p>
+                </div>
+                <div class="comparison-card">
+                    <h5>差異性</h5>
+                    <p>因應環境不同，形成<strong class="highlight-text">各具特色</strong>的文化。<br><strong>舉例：</strong>各國傳統服飾有不同樣式。</p>
+                </div>
+                <div class="comparison-card">
+                    <h5>累積性</h5>
+                    <p>文化代代延續，不斷<strong class="highlight-text">改進與創新</strong>。<br><strong>舉例：</strong>隨時代進步，布料不斷創新。</p>
+                </div>
+                <div class="comparison-card">
+                    <h5>制約性</h5>
+                    <p><strong class="highlight-text">約束</strong>同一文化的人表現出近似的行為。<br><strong>舉例：</strong>伊斯蘭教徒婦女外出會戴上頭巾。</p>
+                </div>
+            </div>
         </section>
 
         <section id="multiculturalism-section">
             <h2 class="section-title"><i class="fas fa-globe-americas"></i>二、多元文化樣貌的形成</h2>
             <p>同一社會中各族群因生活經驗與生命歷程的差異，形成多樣的文化。多元社會並非由單一文化組成，而是主流文化與次文化並存。</p>
-            <table class="comparison-table">
-                <thead>
-                    <tr><th>項目</th><th>主流文化</th><th>次文化</th></tr>
-                </thead>
-                <tbody>
-                    <tr><th>意義</th><td><strong class="highlight-text">多數人</strong>認同或遵循的價值、規範、信仰和風俗等。</td><td>某些群體，因年齡、信仰、價值觀等差異，發展出<strong class="highlight-text">獨特</strong>的文化。</td></tr>
-                    <tr><th>舉例</th><td>一夫一妻制、民主制是臺灣主流文化。</td><td>網路用語：芒果乾(亡國感)、BJ4(不解釋)。</td></tr>
-                    <tr><th>備註</th><td colspan="2" style="text-align: left; padding-left: 2rem;">
-                        1. 次文化的「次」不是次等的意思，也不一定是負面的。<br>
-                        2. 有時次文化也會變成主流文化。
-                    </td></tr>
-                </tbody>
-            </table>
+            <div class="comparison-cards-container" style="margin-top: 1.5rem;">
+                <div class="comparison-card">
+                    <h5>主流文化</h5>
+                    <p><strong class="highlight-text">多數人</strong>認同或遵循的價值、規範、信仰和風俗等。</p>
+                    <p><strong>舉例：</strong>一夫一妻制、民主制是臺灣主流文化。</p>
+                </div>
+                <div class="comparison-card">
+                    <h5>次文化</h5>
+                    <p>某些群體，因年齡、信仰、價值觀等差異，發展出<strong class="highlight-text">獨特</strong>的文化。</p>
+                    <p><strong>舉例：</strong>網路用語：芒果乾(亡國感)、BJ4(不解釋)。</p>
+                </div>
+            </div>
+             <div class="info-card" style="margin-top:1.5rem; text-align: center;">
+                <p><strong>備註：</strong>次文化的「次」不是次等的意思，也不一定是負面的。有時次文化也會變成主流文化。</p>
+            </div>
         </section>
 
         <section id="hierarchy-section">
             <h2 class="section-title"><i class="fas fa-layer-group"></i>三、文化位階與不平等</h2>
-            <div class="info-card">
-                 <ul>
-                    <li><strong>意義：</strong>指文化之間因接觸而產生比較及排序，形成「高、低」、「優雅、粗俗」、「進步、落後」的位階之分。</li>
-                    <li><strong>成因：</strong>
-                        <ul>
-                            <li>資源、權力分配的不平均，不同群體相互競爭，形成優(強)勢、弱勢文化的差異。</li>
-                            <li>文化排序的觀點經長期發展，成為刻板印象。</li>
-                        </ul>
-                    </li>
-                    <li><strong>負面影響：</strong>
-                        <ul>
-                             <li><strong class="highlight-text">文化間產生衝突</strong>：弱勢文化為擺脫劣勢或避免被殖民，採取抵抗引發衝突。</li>
-                             <li><strong class="highlight-text">不利於文化傳承</strong>：弱勢文化受優勢文化影響，不認同自身文化而難以延續，進一步會導致文化多樣性消失。</li>
-                        </ul>
-                    </li>
+            <div class="info-card" style="margin-top:0;">
+                 <p><strong>意義：</strong>指文化之間因接觸而產生比較及排序，形成「高、低」、「優雅、粗俗」、「進步、落後」的位階之分。</p>
+                 <p><strong>成因：</strong></p>
+                <ul>
+                    <li>資源、權力分配的不平均，不同群體相互競爭，形成優(強)勢、弱勢文化的差異。</li>
+                    <li>文化排序的觀點經長期發展，成為刻板印象。</li>
+                </ul>
+                <p><strong>負面影響：</strong></p>
+                <ul>
+                     <li><strong class="highlight-text">文化間產生衝突</strong>：弱勢文化為擺脫劣勢或避免被殖民，採取抵抗引發衝突。</li>
+                     <li><strong class="highlight-text">不利於文化傳承</strong>：弱勢文化受優勢文化影響，不認同自身文化而難以延續，進一步會導致文化多樣性消失。</li>
                 </ul>
             </div>
             <div class="info-card">
@@ -344,35 +409,34 @@
         
         <section id="diversity-society-section">
             <h2 class="section-title"><i class="fas fa-hands-helping"></i>四、營造多元文化社會</h2>
+            <div class="info-card" style="margin-top:0;">
+                <h4><i class="fas fa-award"></i>肯認自我文化</h4>
+                <ul>
+                    <li>透過文化傳承認識自我文化，進而肯定與認同自我文化。</li>
+                    <li>政府制訂<strong class="highlight-text">《文化資產保存法》</strong>，以保存珍貴的文化資產。</li>
+                    <li>與其他文化交流時，不迷失在不同文化中，並將新的元素納入自我文化。</li>
+                </ul>
+            </div>
             <div class="info-card">
+                <h4><i class="fas fa-handshake"></i>建立相互尊重與包容的態度</h4>
                  <ul>
-                    <li><strong>肯認自我文化：</strong>
-                        <ul>
-                            <li>透過文化傳承認識自我文化，進而肯定與認同自我文化。</li>
-                            <li>政府制訂<strong class="highlight-text">《文化資產保存法》</strong>，以保存珍貴的文化資產。</li>
-                            <li>與其他文化交流時，不迷失在不同文化中，並將新的元素納入自我文化。</li>
-                        </ul>
-                    </li>
-                    <li><strong>建立相互尊重與包容的態度：</strong>
-                         <ul>
-                            <li>面對其他文化時，抱持<strong class="highlight-text">尊重與理解</strong>的態度，不以自身文化為價值判斷基準。</li>
-                            <li>每種文化都應受到尊重與平等對待，並排除<strong class="highlight-text">文化差異</strong>造成的歧視與壓抑，讓每種文化都能保有其特質。</li>
-                        </ul>
-                    </li>
-                    <li><strong>制定法律保障多元文化：</strong>
-                         <ul>
-                            <li><strong class="highlight-text">《憲法增修條文》</strong>：國家肯定多元文化，並積極維護發展原住民族語言及文化。</li>
-                            <li><strong class="highlight-text">《原住民族基本法》</strong>：明確保障原住民族的基本權利。</li>
-                        </ul>
-                    </li>
+                    <li>面對其他文化時，抱持<strong class="highlight-text">尊重與理解</strong>的態度，不以自身文化為價值判斷基準。</li>
+                    <li>每種文化都應受到尊重與平等對待，並排除<strong class="highlight-text">文化差異</strong>造成的歧視與壓抑，讓每種文化都能保有其特質。</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h4><i class="fas fa-gavel"></i>制定法律保障多元文化</h4>
+                 <ul>
+                    <li><strong class="highlight-text">《憲法增修條文》</strong>：國家肯定多元文化，並積極維護發展原住民族語言及文化。</li>
+                    <li><strong class="highlight-text">《原住民族基本法》</strong>：明確保障原住民族的基本權利。</li>
                 </ul>
             </div>
         </section>
 
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
-            <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(110 會考)</span></h3>
+            <div class="quiz-container" id="quiz1">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(110 會考)</span></h3>
                 <div class="question">
                     <p>百川參加一場演講，下列是該場演講中的相關內容。根據內容判斷，該主講者在強調下列何者的重要性？</p>
                     <div class="info-card" style="background-color: rgba(0, 242, 234, 0.08);">
@@ -389,8 +453,8 @@
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
             
-            <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span>(109 會考)</span></h3>
+            <div class="quiz-container" id="quiz2">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(109 會考)</span></h3>
                 <div class="question">
                     <p>第二次世界大戰後，許多殖民地脫離原殖民母國獨立而成為新興國家，但由於當初列強占領時未考慮該地區原住民族群、宗教等因素，導致這些新興國家境內常因不同立場、生活方式等而發生衝突。考量何種作法最無助於緩解上述衝突？</p>
                 </div>
@@ -469,8 +533,12 @@
             
             const quizContainers = document.querySelectorAll('.quiz-container');
             
-            quizContainers.forEach((container, index) => {
-                const quizId = `quiz${index + 1}`;
+            quizContainers.forEach((container) => {
+                const quizId = container.id;
+                if (!quizId) return; // Skip containers without an ID
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
+
                 const optionButtons = container.querySelectorAll('.option-btn');
                 const feedbackArea = container.querySelector('.feedback-area');
                 const resetButton = container.querySelector('.reset-btn');
@@ -482,15 +550,13 @@
                         
                         if (isCorrect) {
                             button.classList.add('correct');
-                            // In this specific quiz, C is correct but the explanation describes why the others are wrong.
-                            // The user has selected this as the "correct" display.
-                            feedbackArea.innerHTML = allQuizData[quizId].correct;
+                            feedbackArea.innerHTML = quizData.correct;
                             feedbackArea.className = 'feedback-area feedback-correct';
                         } else {
                             button.classList.add('wrong');
                             container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
                             const optionLetter = button.textContent.substring(1, 2);
-                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
+                            feedbackArea.innerHTML = quizData[optionLetter];
                             feedbackArea.className = 'feedback-area feedback-wrong';
                         }
                         
@@ -507,7 +573,7 @@
                     });
                     feedbackArea.style.display = 'none';
                     resetButton.style.display = 'none';
-                    container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
                 });
             });
 

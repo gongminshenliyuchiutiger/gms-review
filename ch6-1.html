@@ -12,7 +12,7 @@
         :root {
             --primary-glow: #00f2ea; /* 亮青色 */
             --secondary-glow: #ff00ff; /* 洋紅色 */
-            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --accent-glow: #f0e14a; /* 金黃色 */
             --bg-dark: #0d1b2a;
             --bg-dark-2: #020a12;
             --text-color: #e0e0e0;
@@ -37,17 +37,17 @@
 
         header {
             text-align: center;
-            padding: 5rem 0;
+            padding: 5rem 1rem;
             border-bottom: 2px solid var(--border-color);
             box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+            overflow: hidden;
         }
 
         header h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3.8rem;
+            font-size: clamp(2.5rem, 4vw, 3.8rem);
             font-weight: 900;
             color: var(--text-color);
-            white-space: nowrap; /* 新增：防止標題換行 */
             text-shadow:
                 0 0 5px #fff,
                 0 0 10px var(--accent-glow),
@@ -65,7 +65,7 @@
 
         header h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
             font-weight: 700;
             color: var(--secondary-glow);
             margin-top: 1rem;
@@ -94,15 +94,11 @@
         
         section.visible { opacity: 1; transform: translateY(0); }
         
-        .highlight-text {
-            font-weight: bold;
-            color: var(--accent-glow);
-            text-shadow: 0 0 5px var(--accent-glow);
-        }
+        .highlight-text { font-weight: bold; color: var(--accent-glow); text-shadow: 0 0 5px var(--accent-glow); }
 
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
             color: var(--primary-glow);
@@ -110,59 +106,114 @@
             align-items: center;
             gap: 1rem;
             text-shadow: 0 0 10px var(--primary-glow);
+            flex-wrap: wrap;
         }
-        
         .section-title i {
-            font-size: 2.2rem;
+            font-size: clamp(1.6rem, 4.5vw, 2.2rem);
             color: var(--accent-glow);
             text-shadow: 0 0 10px var(--accent-glow);
         }
-        
-        h3, h4 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--primary-glow);
-            margin-bottom: 1rem;
-        }
-        h3 { font-size: 1.6rem; }
-        h4 { font-size: 1.4rem; }
 
-        .info-card {
-            background: rgba(0,0,0,0.2);
-            border: 1px solid var(--border-color);
-            border-radius: 15px;
+        h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 1.8rem);
+            color: var(--primary-glow);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+        }
+        h3:first-of-type {
+            margin-top: 0;
+        }
+        
+        h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            color: var(--accent-glow);
+            margin: 0 0 1rem 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        
+        .info-card { 
+            background: rgba(0,0,0,0.2); 
+            border: 1px solid var(--border-color); 
+            border-radius: 15px; 
             padding: 1.5rem;
+        }
+        
+        .info-card h4 { 
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            color: var(--primary-glow);
+            margin: 0 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            padding-bottom: 0.5rem;
+        }
+         .info-card ul {
+            list-style: none; padding-left: 0;
+        }
+        .info-card li {
+            position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem;
+        }
+        .info-card li::before {
+            content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
+            position: absolute; left: 0; top: 3px; color: var(--primary-glow);
+        }
+
+        .highlight-box { background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05)); padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow); margin-top: 2rem; }
+        
+        .comparison-cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
             margin-top: 1.5rem;
         }
-        .info-card ul { list-style: none; padding-left: 1rem; }
-        .info-card li { margin-bottom: 0.5rem; }
-
-        .highlight-box {
-            background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05));
-            padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow);
-            margin-top: 2rem;
+        .grid-3-col {
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        }
+        .comparison-card {
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+        .comparison-card h5 {
+            font-size: 1.2rem;
+            margin: 0 0 1rem 0;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-glow);
+            border-bottom: 1px solid var(--border-color);
         }
         
-        .comparison-table {
-            width: 100%; border-collapse: collapse; margin-top: 1.5rem;
-        }
-        .comparison-table th, .comparison-table td {
-            border: 1px solid var(--border-color); padding: 1rem; text-align: left;
-            vertical-align: top;
-        }
-        .comparison-table thead th { background-color: rgba(13, 27, 42, 0.7); color: var(--primary-glow); text-align: center; }
-        .comparison-table tbody th { font-weight: bold; color: var(--accent-glow); text-align: center; }
-        .comparison-table ul { list-style: none; padding-left: 0; }
-        
-        /* Quiz Styles */
         .quiz-container { margin-bottom: 3rem; }
-        .quiz-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); }
+        .quiz-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
+            color: var(--accent-glow);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+        }
         .quiz-title i { margin-right: 0.75rem; }
-        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; }
+        .quiz-title .quiz-source { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
         #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
+        
         #quiz-section .diagram-description {
             background-color: rgba(0, 242, 234, 0.08); padding: 1rem; border-radius: 10px; margin-top: 1rem; border: 1px dashed var(--border-color);
         }
         #quiz-section .diagram-description ul { list-style: none; padding: 0; }
+        
         #quiz-section .options { display: grid; gap: 1rem; }
         .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
         .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
@@ -170,11 +221,12 @@
         .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
         
         .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
+        .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
         .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
         .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
         .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
         .reset-btn:hover { transform: scale(1.05); }
-
+        
         .matching-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
         .matching-item:last-child { border-bottom: none; }
         .matching-item p { flex-grow: 1; margin: 0; }
@@ -182,21 +234,42 @@
         .feedback-icon { font-size: 1.2rem; font-weight: 900; display: none; }
         .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
         .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
-        
-        /* Mascot & Typing Effect Styles */
-        .fun-bg-section {
-            position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem;
-            border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color);
-            overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem;
+
+        .law-options-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
         }
+        .law-option-item {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .law-option-label {
+            color: var(--accent-glow);
+            font-weight: 700;
+            margin-right: 0.5em;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect {
-            position: relative; z-index: 5; font-family: 'Orbitron', monospace; font-size: 1.6rem; 
+            position: relative; z-index: 5; font-family: 'Orbitron', monospace;
+            font-size: clamp(1.2rem, 2vw + 0.5rem, 1.6rem); 
             font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
             text-align: center; max-width: 100%;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin: 0;
         }
         .typing-effect .cursor {
             display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            margin-left: 5px; width: 10px; height: 1.6rem; animation: blink-caret 0.75s step-end infinite;
+            margin-left: 5px; width: 10px; height: 1em; animation: blink-caret 0.75s step-end infinite;
         }
         @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
         .floating-mascot-bg {
@@ -205,6 +278,7 @@
             top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;
         }
         @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
+        
         #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
         #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
         #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
@@ -218,7 +292,6 @@
         #mascot-speech.visible { opacity: 1; transform: translateY(0); }
         .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
 
-        /* Floating Home Button & Footer */
         #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
         #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
         #return-home-btn:hover { transform: scale(1.1); }
@@ -227,14 +300,14 @@
 
         @media (max-width: 768px) {
             .container { padding: 1rem; }
-            header h1 { font-size: 2.5rem; }
             section { padding: 1.5rem; }
-            .section-title { font-size: 2rem; }
-            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
+            
+            .comparison-cards-container.grid-3-col,
+            .comparison-cards-container {
+                grid-template-columns: 1fr;
+            }
 
-            /* Adjust new elements for mobile */
-            .typing-effect { font-size: 1.2rem; }
-            .typing-effect .cursor { height: 1.2rem; }
+            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
             #mascot-img { width: 80px; }
             #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
@@ -254,30 +327,12 @@
 
         <section id="state-elements-section">
             <h2 class="section-title"><i class="fas fa-landmark"></i>一、國家的組成要素</h2>
-            <table class="comparison-table">
-                <thead><tr><th style="width: 15%">要素</th><th style="width: 25%">定義</th><th>說明</th></tr></thead>
-                <tbody>
-                    <tr>
-                        <th>人民</th><td>生活在國內的成員</td><td>主要由國民組成，而具備某國國籍，即為該國的<strong class="highlight-text">國民</strong>。</td>
-                    </tr>
-                    <tr>
-                        <th>領土</th><td>國家統治權所及的地理區域</td><td>
-                            領土的範圍包含：
-                            <ul>
-                                <li><strong>領陸：</strong>國家所有的陸地，包括大陸和所屬島嶼等。</li>
-                                <li><strong>領海：</strong>由海岸基線向外延伸<strong class="highlight-text">12</strong>浬間的海域。</li>
-                                <li><strong>領空：</strong>領陸與領海的上空。</li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>政府</th><td>國家的統治機關</td><td>包括中央政府和各級地方政府，分層負責制定及執行政策，並管理公共事務。</td>
-                    </tr>
-                    <tr>
-                        <th>主權</th><td>國家的最高權力</td><td>對內具有<strong class="highlight-text">最高性</strong>，在決策與執行政策上擁有至高無上的權威。對外具有<strong class="highlight-text">獨立性</strong>，決策不受他國或國際組織之干涉。</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="comparison-cards-container">
+                <div class="comparison-card"><h5><i class="fas fa-users"></i>人民</h5><p>生活在國內的成員，主要由<strong class="highlight-text">國民</strong>組成。</p></div>
+                <div class="comparison-card"><h5><i class="fas fa-map-marked-alt"></i>領土</h5><p>國家統治權所及的地理區域，包含領陸、領海(<strong class="highlight-text">12浬</strong>)、領空。</p></div>
+                <div class="comparison-card"><h5><i class="fas fa-university"></i>政府</h5><p>國家的統治機關，負責制定及執行政策。</p></div>
+                <div class="comparison-card"><h5><i class="fas fa-crown"></i>主權</h5><p>國家的最高權力，對內具最高性，對外具獨立性。</p></div>
+            </div>
             <div class="highlight-box">
                 <p><i class="fas fa-exclamation-triangle"></i> <strong>注意：</strong>國家組成要素缺一不可，任一要素不存在，便不能稱為國家。</p>
             </div>
@@ -285,63 +340,77 @@
 
         <section id="concepts-comparison1-section">
             <h2 class="section-title"><i class="fas fa-water"></i>二、觀念比較：領海、專屬經濟海域、公海</h2>
-            <table class="comparison-table">
-                <thead><tr><th>項目</th><th>領海</th><th>專屬經濟海域</th><th>公海</th></tr></thead>
-                <tbody>
-                    <tr><th>海域範圍</th><td>海岸基線向外延伸<br><strong class="highlight-text">12 浬</strong></td><td>海岸基線向外延伸<br><strong class="highlight-text">200 浬</strong></td><td>距海岸基線 <strong class="highlight-text">200 浬以外</strong></td></tr>
-                    <tr><th>歸屬</th><td>屬於領土</td><td>不屬於領土</td><td>不屬於領土</td></tr>
-                    <tr><th>說明</th><td>國家對其擁有完全的主權</td><td>國家享有天然資源勘探、開發利用、管理等權力</td><td>任何國籍的船舶均有航行權，也可捕撈漁業資源</td></tr>
-                </tbody>
-            </table>
+            <div class="comparison-cards-container grid-3-col">
+                <div class="comparison-card"><h5>領海</h5><p>海岸基線向外延伸<strong class="highlight-text">12 浬</strong>。<br>屬於國家領土，擁有完全主權。</p></div>
+                <div class="comparison-card"><h5>專屬經濟海域</h5><p>海岸基線向外延伸<strong class="highlight-text">200 浬</strong>。<br>不屬領土，但享有天然資源探勘、開發等權力。</p></div>
+                <div class="comparison-card"><h5>公海</h5><p>距海岸基線 <strong class="highlight-text">200 浬以外</strong>。<br>不屬領土，任何國籍船舶均有航行權。</p></div>
+            </div>
         </section>
 
         <section id="state-purpose-section">
             <h2 class="section-title"><i class="fas fa-bullseye"></i>三、國家存在的目的</h2>
-            <table class="comparison-table">
-                <thead><tr><th>目的</th><th>意涵</th><th>作為</th></tr></thead>
-                <tbody>
-                    <tr><th>保衛國家安全 (安全)</th><td>維護領土完整與主權獨立，降低敵國威脅，保衛人民生命財產的安全，免受外來侵略。</td><td>推動國防、組織軍隊、推動外交。</td></tr>
-                    <tr><th>維持社會秩序 (秩序)</th><td>以公權力除暴安良，維持社會秩序的安定。</td><td>建立警察系統。</td></tr>
-                    <tr><th>保障基本人權 (人權)</th><td>確保人民的基本權利，不受政府或他人非法侵害。</td><td>制定法律、行政機關依法行政。</td></tr>
-                    <tr><th>發展社會福利 (福利)</th><td>照顧人民的基本生活，扶助弱勢群體。</td><td>推動社會福利政策或措施（如長照政策）。</td></tr>
-                    <tr><th>伸張司法正義 (正義)</th><td>透過公正的審判，使權利受侵害的人民獲得救濟。</td><td>設置獨立的司法機關。</td></tr>
-                    <tr><th>促進經濟發展 (經濟)</th><td>提升國家的競爭力，使人民享有富裕生活。</td><td>推動經濟建設或政策（如發放振興券）。</td></tr>
-                    <tr><th>保存文化傳統 (文化)</th><td>改善教育與文化環境，維護與傳承文化資產。</td><td>制定教育與文化政策，並推動文化資產保存。</td></tr>
-                </tbody>
-            </table>
+             <div class="comparison-cards-container">
+                <div class="info-card"><h4><i class="fas fa-shield-alt"></i>保衛國家安全</h4><p>維護領土與主權，推動國防、外交。</p></div>
+                <div class="info-card"><h4><i class="fas fa-user-shield"></i>維持社會秩序</h4><p>以公權力除暴安良，建立警察系統。</p></div>
+                <div class="info-card"><h4><i class="fas fa-gavel"></i>保障基本人權</h4><p>確保人民權利不受非法侵害，依法行政。</p></div>
+                <div class="info-card"><h4><i class="fas fa-hand-holding-heart"></i>發展社會福利</h4><p>照顧人民基本生活，扶助弱勢群體。</p></div>
+                <div class="info-card"><h4><i class="fas fa-balance-scale"></i>伸張司法正義</h4><p>透過公正審判，使權利受侵害者獲救濟。</p></div>
+                <div class="info-card"><h4><i class="fas fa-chart-line"></i>促進經濟發展</h4><p>提升國家競爭力，讓人民享有富裕生活。</p></div>
+                <div class="info-card"><h4><i class="fas fa-palette"></i>保存文化傳統</h4><p>維護與傳承文化資產，推動教育文化政策。</p></div>
+            </div>
         </section>
         
         <section id="state-gov-relation-section">
             <h2 class="section-title"><i class="fas fa-link"></i>四、國家與政府的關係</h2>
-            <table class="comparison-table">
-                 <thead><tr><th>概念</th><th>國家</th><th>政府</th></tr></thead>
-                 <tbody>
-                    <tr><th>定義</th><td>指一群人在特定領土內組織政府，擁有主權的政治性團體。</td><td>泛指國家的統治機關。</td></tr>
-                    <tr><th>特性</th><td><strong class="highlight-text">較抽象</strong>：表示一個整體。</td><td><strong class="highlight-text">較具體</strong>：指統治機關及其中的公職人員。</td></tr>
-                    <tr><th>範圍</th><td><strong class="highlight-text">較廣</strong>：包括所有公共領域、制度與成員。</td><td><strong class="highlight-text">較小</strong>：僅為國家的組成的要素之一。</td></tr>
-                    <tr><th>權力</th><td>擁有<strong class="highlight-text">主權</strong>。</td><td>擁有統治權（<strong class="highlight-text">公權力</strong>）。</td></tr>
-                    <tr><th>持續性</th><td>具有<strong class="highlight-text">永久性</strong>與持續性。</td><td>可能因選舉、革命或制度變遷而<strong class="highlight-text">更替</strong>。</td></tr>
-                 </tbody>
-            </table>
-             <h4 style="margin-top:2rem;">觀念比較：主權 vs 統治權</h4>
-            <table class="comparison-table">
-                 <thead><tr><th>項目</th><th>主權</th><th>統治權</th></tr></thead>
-                 <tbody>
-                    <tr><th>目的</th><td>國家的最高權力</td><td>政府執行國家事務的權力</td></tr>
-                    <tr><th>歸屬</th><td>國民全體</td><td>政府（執政黨）</td></tr>
-                    <tr><th>是否轉移</th><td>不會因統治權變革而轉移</td><td>會因選舉或革命而轉移行使對象</td></tr>
-                 </tbody>
-            </table>
+            <div class="comparison-cards-container">
+                <div class="comparison-card">
+                    <h5><i class="fas fa-flag-usa"></i>國家</h5>
+                    <ul>
+                        <li><strong>定義：</strong>政治性團體</li>
+                        <li><strong>特性：</strong>較抽象</li>
+                        <li><strong>範圍：</strong>較廣</li>
+                        <li><strong>權力：</strong>主權</li>
+                        <li><strong>持續性：</strong>永久性</li>
+                    </ul>
+                </div>
+                <div class="comparison-card">
+                    <h5><i class="fas fa-university"></i>政府</h5>
+                    <ul>
+                        <li><strong>定義：</strong>國家的統治機關</li>
+                        <li><strong>特性：</strong>較具體</li>
+                        <li><strong>範圍：</strong>較小 (國家要素之一)</li>
+                        <li><strong>權力：</strong>統治權 (公權力)</li>
+                        <li><strong>持續性：</strong>可更替</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="comparison-item">
+                <h4>觀念比較：主權 vs 統治權</h4>
+                <div class="comparison-cards-container">
+                     <div class="comparison-card">
+                        <h5>主權</h5>
+                        <p>國家的最高權力，歸屬於<strong class="highlight-text">國民全體</strong>，不會因政權更迭而轉移。</p>
+                    </div>
+                     <div class="comparison-card">
+                        <h5>統治權</h5>
+                        <p>政府執行國家事務的權力，歸屬於<strong class="highlight-text">政府</strong>，會因選舉或革命而轉移。</p>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
             <div class="quiz-container">
                 <h3 class="quiz-title"><i class="fas fa-tasks"></i>模擬神給酷</h3>
-                <div class="info-card">
-                     <p><strong>下列各項政府施政主要是為達成哪項國家存在的目的？</strong><br>
-                     (甲) 安全 &nbsp;&nbsp; (乙) 秩序 &nbsp;&nbsp; (丙) 人權 &nbsp;&nbsp; (丁) 福利
-                     </p>
+                <div class="info-card" style="margin-top:0;">
+                     <p><strong>下列各項政府施政主要是為達成哪項國家存在的目的？</strong></p>
+                     <div class="law-options-list">
+                         <div class="law-option-item"><span class="law-option-label">甲</span> 安全</div>
+                         <div class="law-option-item"><span class="law-option-label">乙</span> 秩序</div>
+                         <div class="law-option-item"><span class="law-option-label">丙</span> 人權</div>
+                         <div class="law-option-item"><span class="law-option-label">丁</span> 福利</div>
+                     </div>
                      <div class="matching-item" data-answer="丁"><p>1. 政府提供生活扶助，讓低所得家庭能度過難關。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
                      <div class="matching-item" data-answer="乙"><p>2. 政府禁止民眾攜帶具危害性、類似真槍之玩具槍。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
                      <div class="matching-item" data-answer="丙"><p>3. 政府制定《集會遊行法》，保障民眾的集會自由。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
@@ -349,20 +418,22 @@
                 </div>
             </div>
 
-            <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(112 會考)</span></h3>
+            <div class="quiz-container" id="quiz1">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(112 會考)</span></h3>
                 <div class="question">
                     <p>右圖為某島國周邊範圍的示意圖，甲區為該國的土地、乙區為環繞在甲周圍的海域，而丁、戊、己區則分別為甲、乙、丙區所對應大氣層中的空中領域。根據圖中內容判斷，該國完整的領土範圍應為下列何者？</p>
-                    <div class="diagram-description">
-                        <h4>示意圖描述</h4>
-                        <ul>
-                            <li>甲：島嶼陸地</li>
-                            <li>乙：環繞甲的海域 (至12浬)</li>
-                            <li>丙：環繞乙的海域 (12至200浬)</li>
-                            <li>丁：甲上方的領空</li>
-                            <li>戊：乙上方的領空</li>
-                            <li>己：丙上方的空中領域</li>
-                        </ul>
+                    <div id="quiz-section">
+                        <div class="diagram-description">
+                            <h4>示意圖描述</h4>
+                            <ul>
+                                <li>甲：島嶼陸地</li>
+                                <li>乙：環繞甲的海域 (至12浬)</li>
+                                <li>丙：環繞乙的海域 (12至200浬)</li>
+                                <li>丁：甲上方的領空</li>
+                                <li>戊：乙上方的領空</li>
+                                <li>己：丙上方的空中領域</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <div class="options">
@@ -375,8 +446,8 @@
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
 
-            <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span>(109 會考)</span></h3>
+            <div class="quiz-container" id="quiz2">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(109 會考)</span></h3>
                 <div class="question">
                     <p>自2002年起，歐盟部分會員國先後同意放棄原有的貨幣，改採「歐元」作為共同的交易媒介，希望透過經濟的合作，而後逐步達成政治上更緊密的整合。在上述歐盟經濟合作的過程中，首先受到影響的是下列何者？</p>
                 </div>
@@ -390,14 +461,14 @@
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
 
-             <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span>(康軒模擬題)</span></h3>
+             <div class="quiz-container" id="quiz3">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(康軒模擬題)</span></h3>
                 <div class="question">
                     <p>下列是一則針對希臘選舉結果的新聞報導：</p>
                     <div class="info-card" style="background-color: rgba(0, 242, 234, 0.08);">
                         希臘的國會大選於2019年7月舉行，原本執政的左翼聯盟並未取得國會過半的席次，因此將會由在野新民主黨取代執政，組成新政府。新民主黨黨魁米佐塔基斯承諾選民，希臘與北馬其頓達成國名協議，將是新政府外交工作的優先事項。
                     </div>
-                     <p>根據內容判斷，下列四位同學針對該報導所做的敘述，何者正確？</p>
+                     <p style="margin-top:1rem;">根據內容判斷，下列四位同學針對該報導所做的敘述，何者正確？</p>
                 </div>
                 <div class="options">
                     <button class="option-btn" data-correct="false">(A) 小新：「新政府透過選舉出後，人民的主權轉移給政府。」</button>
@@ -465,6 +536,7 @@
                     const correctAnswer = item.dataset.answer;
                     const feedbackIcon = item.querySelector('.feedback-icon');
                     feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    feedbackIcon.innerHTML = '';
                     if (selectedValue === "請選擇") {
                         feedbackIcon.style.display = 'none';
                         return;
@@ -502,12 +574,18 @@
                 }
             };
             
-            const quizContainers = document.querySelectorAll('.quiz-container');
+            const mcqContainers = document.querySelectorAll('.quiz-container');
             let mcqIndex = 0;
-            quizContainers.forEach((container, index) => {
-                if(container.querySelector('.option-btn')) { // Only process MCQs
+            mcqContainers.forEach((container) => {
+                // Find only the MCQ containers
+                if(container.querySelector('.option-btn')) {
                     mcqIndex++;
                     const quizId = `quiz${mcqIndex}`; 
+                    container.id = quizId; // Assign ID
+                    
+                    const quizData = allQuizData[quizId];
+                    if (!quizData) return;
+
                     const optionButtons = container.querySelectorAll('.option-btn');
                     const feedbackArea = container.querySelector('.feedback-area');
                     const resetButton = container.querySelector('.reset-btn');
@@ -519,13 +597,13 @@
                             
                             if (isCorrect) {
                                 button.classList.add('correct');
-                                feedbackArea.innerHTML = allQuizData[quizId].correct;
+                                feedbackArea.innerHTML = quizData.correct;
                                 feedbackArea.className = 'feedback-area feedback-correct';
                             } else {
                                 button.classList.add('wrong');
                                 container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
                                 const optionLetter = button.textContent.substring(1, 2);
-                                feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
+                                feedbackArea.innerHTML = quizData[optionLetter];
                                 feedbackArea.className = 'feedback-area feedback-wrong';
                             }
                             
@@ -542,7 +620,7 @@
                         });
                         feedbackArea.style.display = 'none';
                         resetButton.style.display = 'none';
-                        container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
                     });
                 }
             });

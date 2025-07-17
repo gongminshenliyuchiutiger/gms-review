@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>重點14-1：貨幣與支付方式</title>
-    <!-- Font Awesome script is still useful for other icons in the page -->
+    <!-- Font Awesome script -->
     <script src="https://kit.fontawesome.com/62a9d1d113.js" crossorigin="anonymous"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
@@ -12,7 +12,7 @@
         :root {
             --primary-glow: #00f2ea; /* 亮青色 */
             --secondary-glow: #ff00ff; /* 洋紅色 */
-            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --accent-glow: #f0e14a; /* 金黃色 */
             --bg-dark: #0d1b2a;
             --bg-dark-2: #020a12;
             --text-color: #e0e0e0;
@@ -23,16 +23,8 @@
             --accent-border-color: rgba(240, 225, 74, 0.5);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
             background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-2));
@@ -41,25 +33,21 @@
             overflow-x: hidden;
         }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
 
         header {
             text-align: center;
-            padding: 5rem 0;
+            padding: 5rem 1rem;
             border-bottom: 2px solid var(--border-color);
             box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+            overflow: hidden;
         }
 
         header h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3.8rem;
+            font-size: clamp(2.5rem, 4vw, 3.8rem);
             font-weight: 900;
             color: var(--text-color);
-            white-space: nowrap; /* 新增：防止標題換行 */
             text-shadow:
                 0 0 5px #fff,
                 0 0 10px var(--accent-glow),
@@ -70,19 +58,14 @@
 
         @keyframes flicker-orange {
             0%, 18%, 22%, 25%, 53%, 57%, 100% {
-                text-shadow:
-                0 0 4px #fff,
-                0 0 11px var(--accent-glow),
-                0 0 19px var(--accent-glow),
-                0 0 40px var(--accent-glow),
-                0 0 80px var(--accent-glow);
+                text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-glow), 0 0 19px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow);
             }
             20%, 24%, 55% { text-shadow: none; }
         }
 
         header h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
             font-weight: 700;
             color: var(--secondary-glow);
             margin-top: 1rem;
@@ -109,20 +92,13 @@
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
         
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        section.visible { opacity: 1; transform: translateY(0); }
         
-        .highlight-text {
-            font-weight: bold;
-            color: var(--accent-glow);
-            text-shadow: 0 0 5px var(--accent-glow);
-        }
+        .highlight-text { font-weight: bold; color: var(--accent-glow); text-shadow: 0 0 5px var(--accent-glow); }
 
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
             color: var(--primary-glow);
@@ -130,235 +106,179 @@
             align-items: center;
             gap: 1rem;
             text-shadow: 0 0 10px var(--primary-glow);
+            flex-wrap: wrap;
         }
-        
         .section-title i {
-            font-size: 2.2rem;
+            font-size: clamp(1.6rem, 4.5vw, 2.2rem);
             color: var(--accent-glow);
             text-shadow: 0 0 10px var(--accent-glow);
         }
 
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .info-card {
-            background: rgba(0,0,0,0.2);
-            border: 2px solid var(--border-color);
-            border-radius: 15px;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-        }
-        
-        .info-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--accent-glow);
-            box-shadow: 0 15px 30px rgba(240, 225, 74, 0.2);
-        }
-        
-        .info-card h3 {
+        h3 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: clamp(1.5rem, 3vw, 1.8rem);
             color: var(--primary-glow);
-            border-bottom: 3px solid var(--accent-glow);
-            padding-bottom: 0.5rem;
+            margin-top: 2rem;
             margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+        }
+        h3:first-of-type {
+            margin-top: 0;
         }
         
-        .info-card ul {
-            list-style: none;
-            padding-left: 0;
-            flex-grow: 1;
+        .info-card { 
+            background: rgba(0,0,0,0.2); 
+            border: 1px solid var(--border-color); 
+            border-radius: 15px; 
+            padding: 1.5rem;
+        }
+        
+        .info-card h4 { 
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            color: var(--primary-glow);
+            margin: 0 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            padding-bottom: 0.5rem;
+        }
+         .info-card ul {
+            list-style: none; padding-left: 0;
         }
         .info-card li {
-            position: relative;
-            padding-left: 1.5rem;
-            margin-bottom: 0.75rem;
+            position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem;
         }
         .info-card li::before {
-            content: '\f105'; /* Font Awesome angle-right */
-            font-family: 'Font Awesome 5 Free';
-            font-weight: 900;
-            position: absolute;
-            left: 0;
-            top: 2px;
-            color: var(--accent-glow);
-            transition: transform 0.3s;
-        }
-        .info-card:hover li::before {
-            transform: rotate(90deg);
-        }
-        
-        .info-card h4 {
-            font-size: 1.2rem;
-            color: var(--primary-glow);
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
+            content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
+            position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
 
-        .table-container {
-            overflow-x: auto;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        .comparison-cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
             margin-top: 1.5rem;
         }
-        th, td {
-            padding: 0.8rem;
-            text-align: left;
+        
+        .comparison-card {
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
             border: 1px solid var(--border-color);
         }
-        th {
-            background-color: rgba(0, 242, 234, 0.1);
+        .comparison-card h5 {
+            font-size: 1.2rem;
+            margin: 0 0 1rem 0;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             color: var(--primary-glow);
-            font-family: 'Orbitron', sans-serif;
+            border-bottom: 1px solid var(--border-color);
         }
-        td {
-             background-color: rgba(13, 27, 42, 0.5);
+        .comparison-card ul {
+             list-style: none; padding-left: 0; font-size: 0.95rem;
         }
         
-        .highlight-box { background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05)); padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow); font-size: 1.1rem; margin-top: 2rem; box-shadow: inset 0 0 10px rgba(240, 225, 74, 0.2); }
-        .highlight-box strong { color: var(--accent-glow); font-weight: 700; }
-        
-        /* --- QUIZ STYLES --- */
         .quiz-container { margin-bottom: 3rem; }
-        .quiz-container:last-child { margin-bottom: 0; }
-        .quiz-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); }
+        .quiz-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
+            color: var(--accent-glow);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+        }
         .quiz-title i { margin-right: 0.75rem; }
-        .quiz-title span { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; margin-left: 1rem; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
+        .quiz-title .quiz-source { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
         #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
-        #quiz-section .options { display: grid; gap: 1rem; }
         
+        #quiz-section .highlight-box {
+            background-color: rgba(0, 242, 234, 0.08);
+            border: none;
+            border-left: 5px solid var(--primary-glow);
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+        #quiz-section .highlight-box table {
+            margin-top: 0;
+        }
+
+        #quiz-section .options { display: grid; gap: 1rem; }
         .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
         .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
-        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark); }
-        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark); }
+        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark);}
+        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
         
         .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
         .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
         .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
         .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
-        
         .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
-        .reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--accent-glow); }
+        .reset-btn:hover { transform: scale(1.05); }
         
-        /* --- FUN STYLES --- */
-        .fun-bg-section {
-            position: relative;
-            min-height: 150px;
-            margin-top: 4rem;
-            margin-bottom: 2rem;
-            border-radius: 20px;
-            background-color: var(--card-bg);
-            border: 2px solid var(--border-color);
-            overflow: hidden;
-            backdrop-filter: blur(5px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-        }
+        .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect {
-            position: relative;
-            z-index: 5;
-            font-family: 'Orbitron', monospace;
-            font-size: 1.6rem; 
-            font-weight: 700;
-            color: #fff;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            text-align: center;
-            max-width: 100%;
+            position: relative; z-index: 5; font-family: 'Orbitron', monospace;
+            font-size: clamp(1.2rem, 2vw + 0.5rem, 1.6rem); 
+            font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            text-align: center; max-width: 100%;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin: 0;
         }
         .typing-effect .cursor {
-            display: inline-block;
-            background-color: #fff;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            margin-left: 5px;
-            width: 10px;
-            height: 1.6rem;
-            animation: blink-caret 0.75s step-end infinite;
+            display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
+            margin-left: 5px; width: 10px; height: 1em; animation: blink-caret 0.75s step-end infinite;
         }
-        @keyframes blink-caret {
-            from, to { background-color: transparent; box-shadow: none; }
-            50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); }
-        }
+        @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
         .floating-mascot-bg {
-            position: absolute;
-            width: 250px;
-            height: auto;
-            opacity: 0.15;
+            position: absolute; width: 250px; height: auto; opacity: 0.15;
             animation: floatMascot 15s ease-in-out infinite alternate;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1;
+            top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;
         }
-        @keyframes floatMascot {
-            from { transform: translate(-60%, -60%) rotate(-15deg); }
-            to { transform: translate(-40%, -40%) rotate(15deg); }
-        }
+        @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
         
-        #return-home-btn {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            width: 50px;
-            height: 50px;
-            z-index: 1001;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        #return-home-btn svg {
-            width: 100%;
-            height: 100%;
-            stroke: #ffffff;
-            stroke-width: 2px;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            fill: none;
-            transition: all 0.3s ease;
-            filter: drop-shadow(0 0 6px var(--primary-glow));
-        }
-        #return-home-btn:hover { transform: scale(1.1); }
-        #return-home-btn:hover svg {
-            stroke: var(--primary-glow);
-            filter: drop-shadow(0 0 12px var(--primary-glow));
-            transform: rotate(-10deg);
-        }
-
-        footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
         #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
         #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
         #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
         #mascot-img.enlarged { transform: scale(2.5) !important; }
-        #mascot-speech { position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9); color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3); }
+        #mascot-speech {
+            position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9);
+            color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px;
+            font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3);
+        }
         #mascot-speech.visible { opacity: 1; transform: translateY(0); }
         .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
 
+        #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
+        #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
+        #return-home-btn:hover { transform: scale(1.1); }
+        #return-home-btn:hover svg { stroke: var(--primary-glow); filter: drop-shadow(0 0 12px var(--primary-glow)); transform: rotate(-10deg); }
+        footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+
         @media (max-width: 768px) {
             .container { padding: 1rem; }
-            header { padding: 3rem 0; }
-            header h1 { font-size: 2.5rem; }
-            header h2 { font-size: 1.2rem; }
-            section { padding: 1.5rem; margin-bottom: 2rem; }
-            .section-title { font-size: 2rem; }
-            .content-grid { grid-template-columns: 1fr; }
-            .info-card { margin-bottom: 1.5rem; }
-            .info-card:last-child { margin-bottom: 0; }
-            .typing-effect { font-size: 1.2rem; }
-            .typing-effect .cursor { height: 1.2rem; }
-            #quiz-section .question, .option-btn { font-size: 1rem; }
+            section { padding: 1.5rem; }
+            
+            .comparison-cards-container {
+                grid-template-columns: 1fr;
+            }
+            #quiz-section .options { grid-template-columns: 1fr; }
+
             #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
             #mascot-img { width: 80px; }
             #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
         }
-
     </style>
 </head>
 <body>
@@ -373,39 +293,27 @@
     <main class="container">
         <section id="money-function-section">
             <h2 class="section-title"><i class="fas fa-coins"></i> 一、貨幣的四大功能</h2>
-            <div class="content-grid">
-                <div class="info-card">
-                    <h3>交易媒介</h3>
-                    <p>作為買賣行為的支付工具。</p>
-                </div>
-                <div class="info-card">
-                    <h3>價值衡量</h3>
-                    <p>作為計算價值的單位。</p>
-                </div>
-                 <div class="info-card">
-                    <h3>價值儲存</h3>
-                    <p>儲存貨幣供未來使用。</p>
-                </div>
-                 <div class="info-card">
-                    <h3>債務清償</h3>
-                    <p>計算及清償債務的工具。</p>
-                </div>
+            <div class="comparison-cards-container">
+                <div class="info-card"><h4><i class="fas fa-exchange-alt"></i>交易媒介</h4><p>作為買賣行為的支付工具。</p></div>
+                <div class="info-card"><h4><i class="fas fa-calculator"></i>價值衡量</h4><p>作為計算價值的單位。</p></div>
+                 <div class="info-card"><h4><i class="fas fa-piggy-bank"></i>價值儲存</h4><p>儲存貨幣供未來使用。</p></div>
+                 <div class="info-card"><h4><i class="fas fa-file-invoice-dollar"></i>債務清償</h4><p>計算及清償債務的工具。</p></div>
             </div>
         </section>
 
         <section id="payment-tools-section">
             <h2 class="section-title"><i class="fas fa-credit-card"></i> 二、其他常見的支付工具</h2>
             <p>這些支付方式本身不具貨幣功能，最終仍須以貨幣償還款項。</p>
-            <div class="info-card" style="margin-bottom: 1.5rem;">
-                <h3>儲值卡</h3>
+            <div class="info-card" style="margin-top:1.5rem;">
+                <h4><i class="fas fa-wallet"></i>儲值卡</h4>
                 <p>使用前須先將貨幣儲存進卡片，才能進行消費，屬於「<strong class="highlight-text">先儲值後消費</strong>」。</p>
             </div>
-             <div class="info-card" style="margin-bottom: 1.5rem;">
-                <h3>信用卡</h3>
+             <div class="info-card">
+                <h4><i class="far fa-credit-card"></i>信用卡</h4>
                 <p>使用時由發卡銀行先行代墊消費款項，仍須以貨幣償還。持卡人屬於欠款狀態，待向銀行還清欠款，屬於「<strong class="highlight-text">先消費後付款</strong>」，有延後支付的功能。</p>
             </div>
              <div class="info-card">
-                <h3>行動支付</h3>
+                <h4><i class="fas fa-mobile-alt"></i>行動支付</h4>
                 <p>使用行動裝置，如手機、平板進行付款，須注意個資外洩問題。</p>
             </div>
         </section>
@@ -414,48 +322,35 @@
             <h2 class="section-title"><i class="fas fa-globe-asia"></i> 三、外匯與匯率</h2>
             <p><strong>外匯</strong>：進行國際貿易時，作為國際支付的工具，如美金、歐元。<br>
                <strong>匯率</strong>：一個國家與另一個國家的貨幣兌換比率。</p>
-            <div class="table-container">
-                 <table>
-                    <thead>
-                        <tr>
-                            <th>項目</th>
-                            <th>本國貨幣升值 (外國貨幣貶值)</th>
-                            <th>本國貨幣貶值 (外國貨幣升值)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>說明</strong></td>
-                            <td>向國外換可兌換的本國貨幣變少。<br>例：匯率由 1:30 下降至 1:28。</td>
-                            <td>向國外換可兌換的本國貨幣變多。<br>例：匯率由 1:30 上升至 1:32。</td>
-                        </tr>
-                        <tr>
-                            <td><strong>購買力</strong></td>
-                            <td>本國貨幣購買力<strong class="highlight-text">變強</strong>。</td>
-                            <td>本國貨幣購買力<strong class="highlight-text">變弱</strong>。</td>
-                        </tr>
-                        <tr>
-                            <td><strong>商品價格</strong></td>
-                            <td>進口商品變便宜 (成本下降)<br>出口商品變貴 (利潤減少)</td>
-                            <td>進口商品變貴 (成本上升)<br>出口商品變便宜 (利潤增加)</td>
-                        </tr>
-                         <tr>
-                            <td><strong>進出口影響</strong></td>
-                            <td><strong class="highlight-text">有利進口，不利出口</strong></td>
-                            <td><strong class="highlight-text">有利出口，不利進口</strong></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="comparison-cards-container" style="margin-top:1.5rem;">
+                <div class="comparison-card">
+                    <h5><i class="fas fa-arrow-up"></i>本國貨幣升值</h5>
+                    <ul>
+                        <li><strong>說明：</strong>向國外換可兌換的本國貨幣變少。<br>例：匯率由 1:30 下降至 1:28。</li>
+                        <li><strong>購買力：</strong>本國貨幣購買力<strong class="highlight-text">變強</strong>。</li>
+                        <li><strong>商品價格：</strong>進口商品變便宜；出口商品變貴。</li>
+                        <li><strong>影響：</strong><strong class="highlight-text">有利進口，不利出口</strong>。</li>
+                    </ul>
+                </div>
+                <div class="comparison-card">
+                    <h5><i class="fas fa-arrow-down"></i>本國貨幣貶值</h5>
+                     <ul>
+                        <li><strong>說明：</strong>向國外換可兌換的本國貨幣變多。<br>例：匯率由 1:30 上升至 1:32。</li>
+                        <li><strong>購買力：</strong>本國貨幣購買力<strong class="highlight-text">變弱</strong>。</li>
+                        <li><strong>商品價格：</strong>進口商品變貴；出口商品變便宜。</li>
+                        <li><strong>影響：</strong><strong class="highlight-text">有利出口，不利進口</strong>。</li>
+                    </ul>
+                </div>
             </div>
         </section>
 
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
-            <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(112 會考)</span></h3>
+            <div class="quiz-container" id="quiz1">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(112 會考)</span></h3>
                 <div class="question">
                     <p>右表是甲、乙兩國匯率變動的情形。根據表中內容判斷，若其他條件不變，且所有成本完全反應在商品售價上，相較於去年，在今年甲、乙兩國的市場中，最可能出現下列何種情形？</p>
-                    <div class="highlight-box" style="padding:1rem;">
+                    <div id="quiz-section" class="highlight-box" style="padding:1rem;">
                         <table>
                             <thead><tr><th>時間</th><th>1 甲幣可兌換的乙幣</th></tr></thead>
                             <tbody>
@@ -474,8 +369,8 @@
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
-            <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span>(113 會考)</span></h3>
+            <div class="quiz-container" id="quiz2">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(113 會考)</span></h3>
                 <div class="question">
                     <p>下表是小津整理的交易媒介比較表，表中甲、乙最可能為下列哪一組合？</p>
                      <div class="table-container">
@@ -492,8 +387,8 @@
                 <div class="options">
                     <button class="option-btn" data-correct="false">(A) 商品貨幣與儲值卡</button>
                     <button class="option-btn" data-correct="false">(B) 商品貨幣與信用卡</button>
-                    <button class="option-btn" data-correct="false">(C) 法定貨幣與儲值卡</button>
-                    <button class="option-btn" data-correct="true">(D) 法定貨幣與信用卡</button>
+                    <button class="option-btn" data-correct="true">(C) 法定貨幣與儲值卡</button>
+                    <button class="option-btn" data-correct="false">(D) 法定貨幣與信用卡</button>
                 </div>
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
@@ -590,7 +485,7 @@
                     D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>甲幣升值，乙國進口甲國商品會變貴，價格會上升。</p>`
                 },
                 quiz2: {
-                    correct: `<h3 style="color: var(--wrong-color);">🤔 再想想... 更正：(C) 才是正確答案</h3><p><strong>解題關鍵：</strong>甲的特色是「由國家發行」、「可直接支付」，這符合<strong class="highlight-text">法定貨幣</strong>的定義。乙的特色是「須事先存入足夠金額」、「多由民間企業發行」，這符合<strong class="highlight-text">儲值卡</strong>的定義。因此，組合應為(C)法定貨幣與儲值卡。(D)信用卡是先消費後付款，不需事先存入金額。</p>`,
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>甲的特色是「由國家發行」、「可直接支付」，這符合<strong class="highlight-text">法定貨幣</strong>的定義。乙的特色是「須事先存入足夠金額」、「多由民間企業發行」，這符合<strong class="highlight-text">儲值卡</strong>的定義。因此，組合應為(C)法定貨幣與儲值卡。</p>`,
                     A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>商品貨幣不是由國家發行，不符合甲的特色。</p>`,
                     B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>商品貨幣不符合甲的特色；信用卡不需事先存入金額，不符合乙的特色。</p>`,
                     D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>信用卡是「先消費後付款」，不符合乙「須事先存入足夠金額」的特色。</p>`
@@ -599,8 +494,12 @@
             
             const quizContainers = document.querySelectorAll('.quiz-container');
             
-            quizContainers.forEach((container, index) => {
-                const quizId = `quiz${index + 1}`;
+            quizContainers.forEach((container) => {
+                const quizId = container.id;
+                if (!quizId) return;
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
+
                 const optionButtons = container.querySelectorAll('.option-btn');
                 const feedbackArea = container.querySelector('.feedback-area');
                 const resetButton = container.querySelector('.reset-btn');
@@ -620,30 +519,14 @@
                         } else {
                             const optionLetter = button.textContent.substring(1, 2);
                             button.classList.add('wrong');
-                            // In quiz 2, C is the correct answer, not D
-                            if (quizId === 'quiz2') {
-                                container.querySelector('.option-btn[data-correct-letter="C"]').classList.add('correct');
-                            } else {
-                                container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
-                            }
-                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter] || allQuizData[quizId].correct.replace('🎉 答對了！', '🤔 正確答案是...');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
+                            feedbackArea.className = 'feedback-area feedback-wrong';
                         }
                         feedbackArea.style.display = 'block';
                         resetButton.style.display = 'block';
                         feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     });
-                });
-                
-                // Add correct letter data attribute for quiz 2
-                const quiz2Options = quizContainers[1].querySelectorAll('.option-btn');
-                quiz2Options.forEach(btn => {
-                    const letter = btn.textContent.substring(1, 2);
-                    btn.dataset.correctLetter = letter;
-                    if(letter === 'C') {
-                        btn.dataset.correct = 'true';
-                    } else {
-                         btn.dataset.correct = 'false';
-                    }
                 });
                 
                 resetButton.addEventListener('click', () => {

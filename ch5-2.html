@@ -12,7 +12,7 @@
         :root {
             --primary-glow: #00f2ea; /* 亮青色 */
             --secondary-glow: #ff00ff; /* 洋紅色 */
-            --accent-glow: #f0e14a; /* 金黃色 (橘光) */
+            --accent-glow: #f0e14a; /* 金黃色 */
             --bg-dark: #0d1b2a;
             --bg-dark-2: #020a12;
             --text-color: #e0e0e0;
@@ -37,17 +37,17 @@
 
         header {
             text-align: center;
-            padding: 5rem 0;
+            padding: 5rem 1rem;
             border-bottom: 2px solid var(--border-color);
             box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+            overflow: hidden;
         }
 
         header h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3.8rem;
+            font-size: clamp(2.5rem, 4vw, 3.8rem);
             font-weight: 900;
             color: var(--text-color);
-            white-space: nowrap; /* 新增：防止標題換行 */
             text-shadow:
                 0 0 5px #fff,
                 0 0 10px var(--accent-glow),
@@ -65,7 +65,7 @@
 
         header h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
             font-weight: 700;
             color: var(--secondary-glow);
             margin-top: 1rem;
@@ -94,15 +94,11 @@
         
         section.visible { opacity: 1; transform: translateY(0); }
         
-        .highlight-text {
-            font-weight: bold;
-            color: var(--accent-glow);
-            text-shadow: 0 0 5px var(--accent-glow);
-        }
+        .highlight-text { font-weight: bold; color: var(--accent-glow); text-shadow: 0 0 5px var(--accent-glow); }
 
         .section-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
             font-weight: 700;
             margin-bottom: 1.5rem;
             color: var(--primary-glow);
@@ -110,48 +106,106 @@
             align-items: center;
             gap: 1rem;
             text-shadow: 0 0 10px var(--primary-glow);
+            flex-wrap: wrap;
         }
-        
         .section-title i {
-            font-size: 2.2rem;
+            font-size: clamp(1.6rem, 4.5vw, 2.2rem);
             color: var(--accent-glow);
             text-shadow: 0 0 10px var(--accent-glow);
         }
-        
-        h3, h4 {
+
+        h3 {
             font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 1.8rem);
             color: var(--primary-glow);
+            margin-top: 2rem;
             margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
         }
-        h3 { font-size: 1.6rem; }
-        h4 { font-size: 1.4rem; }
+        h3:first-of-type {
+            margin-top: 0;
+        }
         
-        .comparison-table {
-            width: 100%; border-collapse: collapse; margin-top: 1.5rem;
+        .info-card { 
+            background: rgba(0,0,0,0.2); 
+            border: 1px solid var(--border-color); 
+            border-radius: 15px; 
+            padding: 1.5rem;
         }
-        .comparison-table th, .comparison-table td {
-            border: 1px solid var(--border-color); padding: 1rem; text-align: left;
-            vertical-align: top;
-        }
-        .comparison-table thead th { background-color: rgba(13, 27, 42, 0.7); color: var(--primary-glow); text-align: center; }
-        .comparison-table tbody th { font-weight: bold; color: var(--accent-glow); text-align: center; }
-        .comparison-table ul { list-style: none; padding-left: 0; }
-        .comparison-table li { margin-bottom: 0.5rem; }
         
-        /* Mascot & Typing Effect Styles */
-        .fun-bg-section {
-            position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem;
-            border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color);
-            overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem;
+        .info-card h4 { 
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            color: var(--primary-glow);
+            margin: 0 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            padding-bottom: 0.5rem;
         }
+         .info-card ul {
+            list-style: none; padding-left: 0;
+        }
+        .info-card li {
+            position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem;
+        }
+        .info-card li::before {
+            content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
+            position: absolute; left: 0; top: 3px; color: var(--primary-glow);
+        }
+        
+        .comparison-cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .quiz-container { margin-bottom: 3rem; }
+        .quiz-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
+            color: var(--accent-glow);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-border-color);
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+        }
+        .quiz-title i { margin-right: 0.75rem; }
+        .quiz-title .quiz-source { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
+        #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
+        
+        #quiz-section .options { display: grid; gap: 1rem; }
+        .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+        .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
+        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark);}
+        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
+        
+        .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
+        .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
+        .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
+        .reset-btn:hover { transform: scale(1.05); }
+        
+        .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect {
-            position: relative; z-index: 5; font-family: 'Orbitron', monospace; font-size: 1.6rem; 
+            position: relative; z-index: 5; font-family: 'Orbitron', monospace;
+            font-size: clamp(1.2rem, 2vw + 0.5rem, 1.6rem); 
             font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
             text-align: center; max-width: 100%;
+            border-bottom: none;
+            padding-bottom: 0;
+            margin: 0;
         }
         .typing-effect .cursor {
             display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            margin-left: 5px; width: 10px; height: 1.6rem; animation: blink-caret 0.75s step-end infinite;
+            margin-left: 5px; width: 10px; height: 1em; animation: blink-caret 0.75s step-end infinite;
         }
         @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
         .floating-mascot-bg {
@@ -160,6 +214,7 @@
             top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;
         }
         @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
+        
         #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
         #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
         #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
@@ -173,7 +228,6 @@
         #mascot-speech.visible { opacity: 1; transform: translateY(0); }
         .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
 
-        /* Floating Home Button & Footer */
         #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
         #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
         #return-home-btn:hover { transform: scale(1.1); }
@@ -182,14 +236,13 @@
 
         @media (max-width: 768px) {
             .container { padding: 1rem; }
-            header h1 { font-size: 2.5rem; }
             section { padding: 1.5rem; }
-            .section-title { font-size: 2rem; }
-            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
+            
+            .comparison-cards-container {
+                grid-template-columns: 1fr;
+            }
 
-            /* Adjust new elements for mobile */
-            .typing-effect { font-size: 1.2rem; }
-            .typing-effect .cursor { height: 1.2rem; }
+            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
             #mascot-img { width: 80px; }
             #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
@@ -209,64 +262,63 @@
 
         <section id="injustice-cause-section">
             <h2 class="section-title"><i class="fas fa-exclamation-circle"></i>一、造成不公平的原因 — 社會地位</h2>
-            <table class="comparison-table">
-                <thead>
-                    <tr><th style="width: 20%;">項目</th><th>說明</th></tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>社會地位</th>
-                        <td>
-                            <ul>
-                                <li>一個人在社會中所處的位置，常以其所擁有的權力、財富與聲望來決定。</li>
-                                <li><strong class="highlight-text">社會地位是構成社會階級的最主要因素。</strong></li>
-                                <li>社會地位的高低，會對個人取得的機會與能力產生影響。</li>
-                                <li>若僅以社會地位來決定資源分配或取得機會，就會讓部分族群面臨不公平處境。</li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>原因</th>
-                        <td>
-                            <p><strong>天生的：</strong>與生俱來，或由傳承而來的社會地位。</p>
-                            <ul><li>如性別、種族、家世背景等。此種社會地位通常無法改變。</li></ul>
-                            <p style="margin-top: 1rem;"><strong>後天的：</strong>須經由<strong class="highlight-text">個人努力</strong>，才可以取得的社會地位。</p>
-                            <ul><li>如所得、職業、教育程度等。是一種成就的展現。</li></ul>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="info-card" style="margin-top:0;">
+                <h4><i class="fas fa-layer-group"></i>社會地位</h4>
+                <ul>
+                    <li>一個人在社會中所處的位置，常以其所擁有的權力、財富與聲望來決定。</li>
+                    <li><strong class="highlight-text">社會地位是構成社會階級的最主要因素。</strong></li>
+                    <li>社會地位的高低，會對個人取得的機會與能力產生影響。</li>
+                    <li>若僅以社會地位來決定資源分配或取得機會，就會讓部分族群面臨不公平處境。</li>
+                </ul>
+            </div>
+            <div class="info-card" style="margin-top:1.5rem;">
+                <h4><i class="fas fa-question-circle"></i>原因</h4>
+                <p><strong>天生的：</strong>與生俱來，或由傳承而來的社會地位。</p>
+                <ul><li>如性別、種族、家世背景等。此種社會地位通常無法改變。</li></ul>
+                <p style="margin-top: 1rem;"><strong>後天的：</strong>須經由<strong class="highlight-text">個人努力</strong>，才可以取得的社會地位。</p>
+                <ul><li>如所得、職業、教育程度等。是一種成就的展現。</li></ul>
+            </div>
         </section>
 
         <section id="unjust-situations-section">
             <h2 class="section-title"><i class="fas fa-balance-scale-left"></i>二、不公平處境</h2>
-            <h3>(一) 族群、身心障礙、性別面向的不公平處境</h3>
-            <table class="comparison-table">
-                <thead>
-                    <tr><th>面向</th><th>說明</th><th>不公平處境</th></tr>
-                </thead>
-                <tbody>
-                    <tr><th>族群</th><td>優勢族群掌握政治和經濟資源，對政策的制訂較具影響力。</td><td>1. 新住民或移工對臺灣經濟的貢獻未受肯定。<br>2. 政策忽略原住民族生活與發展上的需求。</td></tr>
-                    <tr><th>身心障礙</th><td>社會制度與生活設備、基礎建設等，多從<strong class="highlight-text">身心健康者</strong>的角度出發。</td><td>身心障礙者通行上出現不便、職場上的努力容易受到忽視。</td></tr>
-                    <tr><th>性別</th><td>社會普遍有<strong class="highlight-text">男尊女卑</strong>的觀念。</td><td>1. 女性承擔較多家庭責任。<br>2. 職場待遇不對等。</td></tr>
-                </tbody>
-            </table>
+            <h3>(一) 不同面向的不公平處境</h3>
+            <div class="comparison-cards-container">
+                <div class="info-card">
+                    <h4><i class="fas fa-users"></i>族群</h4>
+                    <p>優勢族群掌握政治和經濟資源，對政策的制訂較具影響力。</p>
+                    <p><strong>處境：</strong><br>1. 新住民或移工對臺灣經濟的貢獻未受肯定。<br>2. 政策忽略原住民族生活與發展上的需求。</p>
+                </div>
+                <div class="info-card">
+                    <h4><i class="fas fa-wheelchair"></i>身心障礙</h4>
+                    <p>社會制度與生活設備、基礎建設等，多從<strong class="highlight-text">身心健康者</strong>的角度出發。</p>
+                    <p><strong>處境：</strong>身心障礙者通行上出現不便、職場上的努力容易受到忽視。</p>
+                </div>
+                 <div class="info-card">
+                    <h4><i class="fas fa-venus-mars"></i>性別</h4>
+                    <p>社會普遍有<strong class="highlight-text">男尊女卑</strong>的觀念。</p>
+                    <p><strong>處境：</strong><br>1. 女性承擔較多家庭責任。<br>2. 職場待遇不對等。</p>
+                </div>
+            </div>
 
             <h3 style="margin-top: 2rem;">(二) 共同面臨的不公平處境：資源分配不均</h3>
-             <table class="comparison-table">
-                <thead>
-                    <tr><th style="width: 20%;">類型</th><th>說明</th><th>不公平處境</th></tr>
-                </thead>
-                <tbody>
-                    <tr><th>城鄉差距</th><td>偏遠與都會地區，在教育、就業或醫療上的資源（利益）分配不均，出現<strong class="highlight-text">偏鄉與都會地區</strong>的差距。</td><td>偏鄉地區缺乏充足的公共資源：<br>1. 醫療設備及人力匱乏。<br>2. 缺乏公共運輸、教育設備等。</td></tr>
-                    <tr><th>貧富差距</th><td>群體中每個人之間的經濟資產、財富或收入的分配不均等，出現<strong class="highlight-text">窮人與富人</strong>的差距。</td><td>1. 富人有較多學習資源，窮人因經濟資源不足而發展受限。<br>2. 低所得家庭出現世代間的惡性循環。</td></tr>
-                </tbody>
-            </table>
+            <div class="comparison-cards-container">
+                 <div class="info-card">
+                    <h4><i class="fas fa-city"></i>城鄉差距</h4>
+                    <p>偏遠與都會地區，在教育、就業或醫療上的資源（利益）分配不均，出現<strong class="highlight-text">偏鄉與都會地區</strong>的差距。</p>
+                    <p><strong>處境：</strong>偏鄉地區缺乏充足的公共資源，如醫療設備及人力匱乏、缺乏公共運輸、教育設備等。</p>
+                </div>
+                <div class="info-card">
+                    <h4><i class="fas fa-hand-holding-usd"></i>貧富差距</h4>
+                    <p>群體中每個人之間的經濟資產、財富或收入的分配不均等，出現<strong class="highlight-text">窮人與富人</strong>的差距。</p>
+                    <p><strong>處境：</strong><br>1. 富人有較多學習資源，窮人因經濟資源不足而發展受限。<br>2. 低所得家庭出現世代間的惡性循環。</p>
+                </div>
+            </div>
         </section>
 
         <section id="promoting-justice-section">
             <h2 class="section-title"><i class="fas fa-gavel"></i>三、促進公平正義</h2>
-            <div class="info-card">
+            <div class="info-card" style="margin-top:0;">
                 <h4><i class="fas fa-lightbulb"></i>公平正義的內涵</h4>
                 <ul>
                     <li>每個人得到<strong class="highlight-text">均等</strong>的機會。</li>
@@ -274,26 +326,69 @@
                 </ul>
             </div>
             <h3 style="margin-top: 2rem;">途徑</h3>
-            <table class="comparison-table">
-                <thead><tr><th style="width: 20%;">途徑</th><th>作為</th><th>舉例</th></tr></thead>
-                <tbody>
-                    <tr>
-                        <th>個人努力</th>
-                        <td>關心、維護弱勢群體的權益。</td>
-                        <td>關心或連署支持公共議題、積極參與社會運動。</td>
-                    </tr>
-                    <tr>
-                        <th>民間團體投入</th>
-                        <td>1. 透過傳播媒體或集會遊行監督政府施政。<br>2. 採取具體行動改善問題。</td>
-                        <td>1. 民間研發並生產身心障礙者的生活輔具，改善其行動不便。<br>2. 台灣人權促進會持續聲援、捍衛原住民權益。</td>
-                    </tr>
-                    <tr>
-                        <th>政府施政</th>
-                        <td>1. 立法機關制定法律推動。<br>2. 行政部門妥善規畫與執行政策。</td>
-                        <td>1. 政府制定性別平等相關法律，保障不同性別者的權益。<br>2. 制定公平稅制，縮短貧富差距。</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="info-card" style="margin-top:0;">
+                <h4><i class="fas fa-user"></i>個人努力</h4>
+                <p>關心、維護弱勢群體的權益。</p>
+                <p><strong>舉例：</strong>關心或連署支持公共議題、積極參與社會運動。</p>
+            </div>
+            <div class="info-card">
+                <h4><i class="fas fa-hands-helping"></i>民間團體投入</h4>
+                <p>1. 透過傳播媒體或集會遊行監督政府施政。<br>2. 採取具體行動改善問題。</p>
+                <p><strong>舉例：</strong><br>1. 民間研發並生產身心障礙者的生活輔具，改善其行動不便。<br>2. 台灣人權促進會持續聲援、捍衛原住民權益。</p>
+            </div>
+            <div class="info-card">
+                <h4><i class="fas fa-university"></i>政府施政</h4>
+                <p>1. 立法機關制定法律推動。<br>2. 行政部門妥善規畫與執行政策。</p>
+                <p><strong>舉例：</strong><br>1. 政府制定性別平等相關法律，保障不同性別者的權益。<br>2. 制定公平稅制，縮短貧富差距。</p>
+            </div>
+        </section>
+
+        <section id="quiz-section">
+            <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
+            <div class="quiz-container" id="quiz1">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(111 會考)</span></h3>
+                <div class="question">
+                    <p>我國《離島建設條例》規定：「為照顧離島地區居民，對居住於離島地區之居民，其國、內外或離島間之航空票價或交通費用，應由中央政府編列預算補貼。」此規定的主要目的最可能是為了解決下列何項問題？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 貧富差距</button>
+                    <button class="option-btn" data-correct="true">(B) 城鄉差距</button>
+                    <button class="option-btn" data-correct="false">(C) 文化差異</button>
+                    <button class="option-btn" data-correct="false">(D) 性別不平等</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            
+            <div class="quiz-container" id="quiz2">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(107 會考)</span></h3>
+                <div class="question">
+                    <p>我國為保障身心障礙者的就業權利，規定各級政府機關、公立學校及公營事業機構，員工總人數在三十四人以上者，進用具有就業能力的身心障礙者人數，不得低於員工總人數的百分之三。此規定最能彰顯下列何種價值？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 提升社會流動</button>
+                    <button class="option-btn" data-correct="false">(B) 強化社會福利</button>
+                    <button class="option-btn" data-correct="true">(C) 實踐社會正義</button>
+                    <button class="option-btn" data-correct="false">(D) 維護社會秩序</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            
+            <div class="quiz-container" id="quiz3">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(概念題)</span></h3>
+                <div class="question">
+                    <p>有些國家的法律規定，企業在錄取員工時，必須達到一定的女性員工比例，以保障女性的就業機會。這項政策的主要目的是為了實現下列何者？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 經濟效率</button>
+                    <button class="option-btn" data-correct="false">(B) 文化傳承</button>
+                    <button class="option-btn" data-correct="false">(C) 社會流動</button>
+                    <button class="option-btn" data-correct="true">(D) 公平正義</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
         </section>
         
         <!-- Fun BG Section -->
@@ -341,7 +436,75 @@
                 });
             }, { threshold: 0.1 }); 
             sections.forEach(section => observer.observe(section));
+
+            // Quiz logic
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>政府針對「離島地區」居民提供交通補貼，是為了彌補他們因地理位置偏遠而需負擔較高交通成本的不利情況。這項政策旨在縮小「都市」與「離島（偏鄉）」之間因資源分配不均所產生的差距，也就是解決<strong class="highlight-text">城鄉差距</strong>問題。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 貧富差距</strong>：補貼對象是所有離島居民，而非僅針對經濟弱勢者，因此主要目的不是解決貧富問題。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 文化差異</strong>：交通補貼與文化差異沒有直接關聯。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 性別不平等</strong>：此政策的對象是地區居民，與性別無關。</p>`
+                },
+                quiz2: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>政府立法強制規定進用一定比例的身心障礙者，是為了保障他們（弱勢群體）的就業機會，彌補他們在就業市場上可能面臨的不利處境。這種透過制度設計來保障弱勢者權益、追求實質平等的作法，正是<strong class="highlight-text">社會正義</strong>的具體實踐。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 社會流動</strong>：雖然就業有助於社會流動，但此政策的核心是「保障弱勢」，而非促進整體的階級流動。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 社會福利</strong>：保障就業權是一種積極性的權利保障，層次高於單純的金錢補助等社會福利措施。此政策的核心精神是正義。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 維護社會秩序</strong>：此規定與維持公共安全或秩序沒有直接關聯。</p>`
+                },
+                quiz3: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>這項政策的目的是為了彌補女性在就業市場上可能因性別刻板印象或結構性因素所造成的不利處境。透過法律規定保障名額，讓弱勢者得到更多的照顧與機會，這正是<strong class="highlight-text">公平正義</strong>的內涵。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 經濟效率</strong>：這項政策考慮的是公平，而非單純的經濟效率，有時兩者甚至可能衝突。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 文化傳承</strong>：此政策與保存或傳承特定文化無關。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 社會流動</strong>：雖然就業有助於社會流動，但此政策的核心精神是「保障弱勢」，這是更精確的答案。</p>`
+                }
+            };
             
+            const quizContainers = document.querySelectorAll('.quiz-container');
+            
+            quizContainers.forEach((container) => {
+                const quizId = container.id;
+                if (!quizId) return; // Skip containers without an ID
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
+
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
+
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        optionButtons.forEach(btn => btn.disabled = true);
+                        
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = quizData.correct;
+                            feedbackArea.className = 'feedback-area feedback-correct';
+                        } else {
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            const optionLetter = button.textContent.substring(1, 2);
+                            feedbackArea.innerHTML = quizData[optionLetter];
+                            feedbackArea.className = 'feedback-area feedback-wrong';
+                        }
+                        
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
+                    });
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+
             // Typing Effect and Mascot JS
             const typingSentences = [
                 "公民好神！我會遵守公民神會員守則！",
