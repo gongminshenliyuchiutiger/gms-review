@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第二冊：重要名詞解釋</title>
+    <script src="https://kit.fontawesome.com/62a9d1d113.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
+
+        :root {
+            --primary-glow: #00f2ea; /* 亮青色 */
+            --secondary-glow: #ff00ff; /* 洋紅色 */
+            --accent-glow: #f0e14a; /* 金黃色 */
+            --bg-dark: #0d1b2a;
+            --bg-dark-2: #020a12;
+            --text-color: #e0e0e0;
+            --card-bg: rgba(23, 37, 51, 0.7);
+            --border-color: rgba(0, 242, 234, 0.3);
+            --accent-border-color: rgba(240, 225, 74, 0.5);
+        }
+
+        /* --- 基本樣式 --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
+            background-color: #000; /* 純黑底色 */
+            color: var(--text-color);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* --- 高效能 CSS 星空背景 --- */
+        @keyframes move-stars {
+            from { transform: translateY(0); }
+            to { transform: translateY(-2000px); }
+        }
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2000px;
+            background-repeat: repeat;
+            background-size: cover;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+            z-index: -1;
+        }
+        #stars1 {
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="2000"><circle cx="100" cy="300" r="1.5" fill="white"/><circle cx="400" cy="600" r="1" fill="white"/><circle cx="900" cy="200" r="0.8" fill="white"/><circle cx="1200" cy="800" r="1.2" fill="white"/><circle cx="1600" cy="1100" r="1.5" fill="white"/><circle cx="1800" cy="1500" r="1" fill="white"/><circle cx="500" cy="1400" r="0.9" fill="white"/><circle cx="1100" cy="1800" r="1.1" fill="white"/></svg>');
+            animation-name: move-stars;
+            animation-duration: 150s;
+        }
+        #stars2 {
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="2000"><circle cx="250" cy="450" r="1.2" fill="white"/><circle cx="650" cy="850" r="0.9" fill="white"/><circle cx="1050" cy="50" r="1.3" fill="white"/><circle cx="1350" ancy="1050" r="1" fill="white"/><circle cx="1750" cy="1350" r="1.1" fill="white"/><circle cx="1950" cy="1750" r="0.8" fill="white"/><circle cx="150" cy="1250" r="1.4" fill="white"/><circle cx="850" cy="1950" r="1" fill="white"/></svg>');
+            animation-name: move-stars;
+            animation-duration: 100s;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; position: relative; z-index: 1; }
+
+        /* --- Header --- */
+        header {
+            text-align: center;
+            padding: 5rem 1rem;
+            border-bottom: 2px solid var(--border-color);
+            box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+            background-color: rgba(13, 27, 42, 0.5);
+            border-radius: 0 0 20px 20px;
+            overflow: hidden;
+        }
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 900;
+            color: var(--text-color);
+            text-shadow: 0 0 5px #fff, 0 0 10px var(--accent-glow), 0 0 20px var(--accent-glow), 0 0 40px var(--accent-glow);
+            animation: flicker-orange 3s infinite alternate;
+        }
+        @keyframes flicker-orange {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% { text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-glow), 0 0 19px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow); }
+            20%, 24%, 55% { text-shadow: none; }
+        }
+        header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
+            font-weight: 700;
+            color: var(--secondary-glow);
+            margin-top: 1rem;
+            text-shadow: 0 0 8px var(--secondary-glow);
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-8px);}
+        }
+
+        /* --- 內容 Section --- */
+        section { margin-bottom: 4rem; padding: 2.5rem; }
+        .section-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 1rem; color: var(--primary-glow); text-align: center; text-shadow: 0 0 10px var(--primary-glow); }
+        .instructions { text-align: center; color: var(--accent-glow); font-size: 1.1rem; margin-bottom: 1rem; }
+        .highlight-text { font-weight: bold; color: var(--accent-glow); text-shadow: 0 0 5px var(--accent-glow); }
+        
+        /* --- 控制按鈕 --- */
+        .card-controls { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
+        .control-btn { padding: 0.8rem 2rem; font-family: 'Orbitron', sans-serif; font-size: 1rem; font-weight: 700; color: var(--bg-dark); background: var(--accent-glow); border: none; border-radius: 50px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .control-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--accent-glow); }
+
+        /* --- 翻牌卡樣式 --- */
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+        
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            height: 380px; /* 稍微加高以容納更多文字 */
+            perspective: 1500px;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: card-enter 0.5s ease-out forwards;
+        }
+        @keyframes card-enter { to { opacity: 1; transform: translateY(0); } }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s ease-in-out;
+            transform-style: preserve-3d;
+        }
+        .flip-card-inner.is-flipped { transform: rotateY(180deg); }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            background: linear-gradient(145deg, rgba(23, 37, 51, 0.8), rgba(13, 27, 42, 0.9));
+            box-shadow: 0 8px 32px 0 rgba(0, 242, 234, 0.1);
+            
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            overflow: hidden;
+        }
+        .flip-card-front::before, .flip-card-back::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 80%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 242, 234, 0.15), transparent);
+            transform: skewX(-25deg);
+            transition: left 0.7s;
+        }
+        .flip-card:hover .flip-card-front::before, .flip-card:hover .flip-card-back::before { left: 150%; }
+
+        /* 正面樣式 */
+        .flip-card-front { justify-content: center; align-items: center; text-align: center; }
+        .card-category { font-size: 1rem; color: var(--primary-glow); font-weight: 600; margin-bottom: 1rem; border: 1px solid var(--border-color); padding: 0.2rem 0.8rem; border-radius: 20px; }
+        .card-term { font-family: 'Orbitron', sans-serif; font-size: clamp(1.8rem, 4vw, 2.2rem); color: var(--accent-glow); font-weight: 900; }
+
+        /* 背面樣式 */
+        .flip-card-back { transform: rotateY(180deg); justify-content: flex-start; align-items: flex-start; text-align: left; }
+        .card-back-title { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: var(--primary-glow); margin-bottom: 0.8rem; width: 100%; padding-bottom: 0.5rem; border-bottom: 1px solid var(--accent-border-color); }
+        .definition-text { font-size: 1.05rem; margin-bottom: 1rem; }
+        .definition-text ul { list-style: none; padding-left: 0; }
+        .definition-text li { margin-bottom: 0.5rem; }
+        .explanation-text { font-size: 0.95rem; color: #ccc; margin-top: auto; padding-top: 1rem; width: 100%; border-top: 1px dashed rgba(255,255,255,0.2); }
+        
+        /* --- 其他元件 --- */
+        #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
+        #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
+        #return-home-btn:hover { transform: scale(1.1); }
+        #return-home-btn:hover svg { stroke: var(--primary-glow); filter: drop-shadow(0 0 12px var(--primary-glow)); transform: rotate(-10deg); }
+
+        footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); position: relative; z-index: 1; }
+        #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
+        #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
+        #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
+        #mascot-img.enlarged { transform: scale(2.5) !important; }
+        #mascot-speech { position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9); color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3); }
+        #mascot-speech.visible { opacity: 1; transform: translateY(0); }
+        .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
+        
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .card-grid { grid-template-columns: 1fr; }
+            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
+            #mascot-container { right: 15px; bottom: 15px; }
+            #mascot-img { width: 80px; }
+            #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars1"></div>
+    <div class="stars" id="stars2"></div>
+
+    <header>
+        <div class="container">
+            <h1>第二冊 重要名詞解釋</h1>
+            <h2>邱俐瑜公民，成為公民神不再只是夢想！</h2>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="flashcard-section">
+            <h2 class="section-title"><i class="fas fa-layer-group"></i> 總複習翻卡</h2>
+            <p class="instructions"><i class="fas fa-mouse-pointer"></i> 滑鼠懸浮體驗3D特效，點擊卡片翻面學習！</p>
+            
+            <div class="card-controls">
+                <button id="flip-all-btn" class="control-btn">全部翻面</button>
+                <button id="shuffle-btn" class="control-btn">隨機排序</button>
+            </div>
+
+            <div class="card-grid">
+                
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">公民德性</div> <div class="card-term">國民</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">具有某國國籍，即為該國的國民。</p> <p class="explanation-text"><strong>範圍：</strong> 國民 > 狹義公民</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">公民德性</div> <div class="card-term">公民</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text"><ul><li>1. <strong class="highlight-text">廣義公民：</strong>全體國民。</li><li>2. <strong class="highlight-text">狹義公民：</strong>具備法定資格，能行使參政權的國民。</li></ul></p> <p class="explanation-text"><strong>範圍：</strong> 國民 > 狹義公民</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">公民德性</div> <div class="card-term">參政權</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">包括選舉、罷免、創制、複決、應考試服公職等權利。</p> <p class="explanation-text"><strong>說明：</strong>選舉、罷免權：滿 <span class="highlight-text">20</span> 歲<br>公民投票權：滿 <span class="highlight-text">18</span> 歲</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">志願結社</div> <div class="card-term">志願結社</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">人民依自由意願組成或參與持續運作的團體。</p> <p class="explanation-text"><strong>對比集會：</strong>結社具有<span class="highlight-text">持續性</span>的組織。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">志願結社</div> <div class="card-term">集會</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">於公共場所或公眾得出入之場所舉行會議、演說或其他聚眾活動。</p> <p class="explanation-text"><strong>對比結社：</strong>集會為特定目的的<span class="highlight-text">短時間</span>的聚集。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會文化</div> <div class="card-term">主流文化</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">在社會中被大多數人遵循與認同的文化。</p> <p class="explanation-text"><strong>說明：</strong>「次」非負面的意思，有時次文化會成為主流文化。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會文化</div> <div class="card-term">次文化</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">某些群體因年齡、信仰或價值觀差異，發展出獨特的文化。</p> <p class="explanation-text"><strong>說明：</strong>「次」非負面的意思，有時次文化會成為主流文化。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會文化</div> <div class="card-term">文化位階</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">文化之間因接觸產生比較與排序，形成高、低、優、劣、進步、落後的位階之分。</p> <p class="explanation-text"><strong>影響：</strong>導致文化不平等現象，可能使文化多樣性消失。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會文化</div> <div class="card-term">文化傳承</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">保存傳統文化，並將其傳承給下一代。</p> <p class="explanation-text"><strong>現象：</strong>著重文化的<span class="highlight-text">延續</span>現象。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會文化</div> <div class="card-term">文化交流</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">因戰爭、殖民等因素，與交通、媒體的發展，使不同文化相互接觸、影響。</p> <p class="explanation-text"><strong>現象：</strong>著重文化<span class="highlight-text">接觸、影響</span>的過程。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會文化</div> <div class="card-term">文化創新</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">在傳統文化上注入新元素，以嶄新風貌不斷累積發展。</p> <p class="explanation-text"><strong>現象：</strong>著重文化發展出<span class="highlight-text">新風貌</span>的現象。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會文化</div> <div class="card-term">文化衝突</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">受原有文化影響，對另一種文化無法認同，而產生衝突。</p> <p class="explanation-text"><strong>現象：</strong>著重文化的<span class="highlight-text">排斥、對立</span>現象。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會規範</div> <div class="card-term">風俗習慣</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">長久累積、約定俗成的生活經驗。</p> <p class="explanation-text"><strong>性質：</strong>非正式規範。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會規範</div> <div class="card-term">倫理道德</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">人與人間相處的應對進退之道，與判斷是非、善惡的標準。</p> <p class="explanation-text"><strong>性質：</strong>非正式規範。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會規範</div> <div class="card-term">宗教信仰</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">透過超自然力量，以教義或戒律約束行為。</p> <p class="explanation-text"><strong>性質：</strong>非正式規範。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會規範</div> <div class="card-term">法律</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">經一定程序制定的規範，具明確性，並以公權力為後盾。</p> <p class="explanation-text"><strong>性質：</strong>正式規範。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">公平正義</div> <div class="card-term">社會變遷</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">人類社會中，器物、制度、理念等層次不斷改變的過程。</p> <p class="explanation-text"><strong>影響：</strong><span class="highlight-text">科技發展</span>會加速社會變遷。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">公平正義</div> <div class="card-term">公平正義</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">確保每個人得到均等的機會，並讓弱勢者得到更多照顧。</p> <p class="explanation-text"><strong>說明：</strong>有賴個人、團體投入，與政府制訂政策落實。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會福利</div> <div class="card-term">社會救助</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">確保貧困國民民眾生活所需之經濟資源。</p> <p class="explanation-text"><strong>目的：</strong>保障<span class="highlight-text">生存權</span>。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會福利</div> <div class="card-term">社會保險</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">轉移個人風險，由社會共同分攤，保障人民年老、死亡、發生意外時，享有現金給付。</p> <p class="explanation-text"><strong>目的：</strong>確保民眾的<span class="highlight-text">經濟安全</span>。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會福利</div> <div class="card-term">社會津貼</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">彌補社會保險的不足。</p> <p class="explanation-text"><strong>目的：</strong>提供<span class="highlight-text">現金給付</span>。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會福利</div> <div class="card-term">福利服務</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">滿足民眾因年齡、性別、身心狀況等差異產生的需求，透過需求的滿足促進健全發展。</p> <p class="explanation-text"><strong>目的：</strong>滿足<span class="highlight-text">不同群體</span>的需求。</p> </div> </div> </div>
+
+            </div>
+        </section>
+    </main>
+
+    <a href="index.html" id="return-home-btn" title="返回主頁">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+    </a>
+    
+    <div id="mascot-container">
+        <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
+        <div id="mascot-speech">點擊卡片，成為公民記憶神！</div>
+    </div>
+
+    <footer>
+        <p>Copyright © Liyuchiutiger Gongminshen</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const cards = document.querySelectorAll('.flip-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 80}ms`;
+                const cardInner = card.querySelector('.flip-card-inner');
+                
+                card.addEventListener('click', () => {
+                    cardInner.classList.toggle('is-flipped');
+                    if (cardInner.classList.contains('is-flipped')) {
+                        cardInner.style.transform = 'rotateY(180deg)';
+                    } else {
+                        cardInner.style.transform = '';
+                    }
+                });
+                
+                card.addEventListener('mousemove', (e) => {
+                    if (cardInner.classList.contains('is-flipped')) return;
+                    const { left, top, width, height } = card.getBoundingClientRect();
+                    const x = e.clientX - left;
+                    const y = e.clientY - top;
+                    const rotateY = 15 * ((x - width / 2) / (width / 2));
+                    const rotateX = -15 * ((y - height / 2) / (height / 2));
+                    cardInner.style.transform = `scale(1.05) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    if (!cardInner.classList.contains('is-flipped')) {
+                       cardInner.style.transform = '';
+                    }
+                });
+            });
+
+            const flipAllBtn = document.getElementById('flip-all-btn');
+            const shuffleBtn = document.getElementById('shuffle-btn');
+            const cardGrid = document.querySelector('.card-grid');
+
+            flipAllBtn.addEventListener('click', () => {
+                const allInners = cardGrid.querySelectorAll('.flip-card-inner');
+                const isAllFlipped = allInners[0] && allInners[0].classList.contains('is-flipped');
+                allInners.forEach(inner => {
+                    if (isAllFlipped) {
+                        inner.classList.remove('is-flipped');
+                        inner.style.transform = '';
+                    } else {
+                        inner.classList.add('is-flipped');
+                        inner.style.transform = 'rotateY(180deg)';
+                    }
+                });
+            });
+
+            shuffleBtn.addEventListener('click', () => {
+                const cardsArray = Array.from(cardGrid.children);
+                for (let i = cardsArray.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [cardsArray[i], cardsArray[j]] = [cardsArray[j], cardsArray[i]];
+                }
+                cardGrid.innerHTML = '';
+                cardsArray.forEach((card, index) => {
+                    card.style.animation = 'none'; // 重置動畫
+                    card.offsetHeight; // 觸發重繪
+                    card.style.opacity = '0'; 
+                    card.style.animation = `card-enter 0.5s ease-out forwards ${index * 50}ms`;
+                    cardGrid.appendChild(card);
+                });
+            });
+
+            const mascotContainer = document.getElementById('mascot-container');
+            const mascotImg = document.getElementById('mascot-img');
+            const speechBubble = document.getElementById('mascot-speech');
+            
+            const messages = [ "點擊卡片，成為公民記憶神！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            let messageIndex = 0;
+            let clickTimer = null;
+            let speechTimeout = null;
+
+            mascotContainer.addEventListener('click', () => {
+                clearTimeout(clickTimer);
+                clickTimer = setTimeout(() => {
+                    speechBubble.textContent = messages[messageIndex];
+                    speechBubble.classList.add('visible');
+                    messageIndex = (messageIndex + 1) % messages.length;
+                    clearTimeout(speechTimeout);
+                    speechTimeout = setTimeout(() => speechBubble.classList.remove('visible'), 4000);
+                }, 250);
+            });
+
+            mascotContainer.addEventListener('dblclick', () => {
+                clearTimeout(clickTimer);
+                speechBubble.classList.remove('visible');
+                triggerExplosion();
+            });
+
+            function triggerExplosion() {
+                mascotImg.classList.add('enlarged');
+                const particleCount = 40;
+                const particleColors = [ 'var(--primary-glow)', 'var(--secondary-glow)', 'var(--accent-glow)', '#ffffff' ];
+
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    mascotContainer.appendChild(particle);
+                    const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+                    const angle = Math.random() * 360;
+                    const radius = Math.random() * 120 + 50;
+                    const x = Math.cos(angle * Math.PI / 180) * radius;
+                    const y = Math.sin(angle * Math.PI / 180) * radius;
+                    particle.style.background = color;
+                    requestAnimationFrame(() => {
+                        particle.style.transform = `translate(${x}px, ${y}px) scale(0)`;
+                        particle.style.opacity = '0';
+                    });
+                    setTimeout(() => particle.remove(), 1000);
+                }
+                setTimeout(() => mascotImg.classList.remove('enlarged'), 300);
+            }
+        });
+    </script>
+</body>
+</html>

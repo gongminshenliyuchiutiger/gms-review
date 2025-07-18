@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第四冊：重要名詞解釋</title>
+    <script src="https://kit.fontawesome.com/62a9d1d113.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
+
+        :root {
+            --primary-glow: #00f2ea; /* 亮青色 */
+            --secondary-glow: #ff00ff; /* 洋紅色 */
+            --accent-glow: #f0e14a; /* 金黃色 */
+            --bg-dark: #0d1b2a;
+            --bg-dark-2: #020a12;
+            --text-color: #e0e0e0;
+            --card-bg: rgba(23, 37, 51, 0.7);
+            --border-color: rgba(0, 242, 234, 0.3);
+            --accent-border-color: rgba(240, 225, 74, 0.5);
+            --correct-color: #00ff87;
+            --wrong-color: #ff2a6d;
+        }
+
+        /* --- 基本樣式 --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
+            background-color: #000; /* 純黑底色 */
+            color: var(--text-color);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* --- 高效能 CSS 星空背景 --- */
+        @keyframes move-stars {
+            from { transform: translateY(0); }
+            to { transform: translateY(-2000px); }
+        }
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2000px;
+            background-repeat: repeat;
+            background-size: cover;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+            z-index: -1;
+        }
+        #stars1 {
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="2000"><circle cx="100" cy="300" r="1.5" fill="white"/><circle cx="400" cy="600" r="1" fill="white"/><circle cx="900" cy="200" r="0.8" fill="white"/><circle cx="1200" cy="800" r="1.2" fill="white"/><circle cx="1600" cy="1100" r="1.5" fill="white"/><circle cx="1800" cy="1500" r="1" fill="white"/><circle cx="500" cy="1400" r="0.9" fill="white"/><circle cx="1100" cy="1800" r="1.1" fill="white"/></svg>');
+            animation-name: move-stars;
+            animation-duration: 150s;
+        }
+        #stars2 {
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="2000"><circle cx="250" cy="450" r="1.2" fill="white"/><circle cx="650" cy="850" r="0.9" fill="white"/><circle cx="1050" cy="50" r="1.3" fill="white"/><circle cx="1350" ancy="1050" r="1" fill="white"/><circle cx="1750" cy="1350" r="1.1" fill="white"/><circle cx="1950" cy="1750" r="0.8" fill="white"/><circle cx="150" cy="1250" r="1.4" fill="white"/><circle cx="850" cy="1950" r="1" fill="white"/></svg>');
+            animation-name: move-stars;
+            animation-duration: 100s;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; position: relative; z-index: 1; }
+
+        /* --- Header --- */
+        header {
+            text-align: center;
+            padding: 5rem 1rem;
+            border-bottom: 2px solid var(--border-color);
+            box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+            background-color: rgba(13, 27, 42, 0.5);
+            border-radius: 0 0 20px 20px;
+            overflow: hidden;
+        }
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 900;
+            color: var(--text-color);
+            text-shadow: 0 0 5px #fff, 0 0 10px var(--accent-glow), 0 0 20px var(--accent-glow), 0 0 40px var(--accent-glow);
+            animation: flicker-orange 3s infinite alternate;
+        }
+        @keyframes flicker-orange {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% { text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-glow), 0 0 19px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow); }
+            20%, 24%, 55% { text-shadow: none; }
+        }
+        header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
+            font-weight: 700;
+            color: var(--secondary-glow);
+            margin-top: 1rem;
+            text-shadow: 0 0 8px var(--secondary-glow);
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-8px);}
+        }
+
+        /* --- 內容 Section --- */
+        section { margin-bottom: 4rem; padding: 2.5rem; }
+        .section-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 1rem; color: var(--primary-glow); text-align: center; text-shadow: 0 0 10px var(--primary-glow); }
+        .instructions { text-align: center; color: var(--accent-glow); font-size: 1.1rem; margin-bottom: 1rem; }
+        .highlight-text { font-weight: bold; color: var(--accent-glow); text-shadow: 0 0 5px var(--accent-glow); }
+        
+        /* --- 控制按鈕 --- */
+        .card-controls { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
+        .control-btn { padding: 0.8rem 2rem; font-family: 'Orbitron', sans-serif; font-size: 1rem; font-weight: 700; color: var(--bg-dark); background: var(--accent-glow); border: none; border-radius: 50px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .control-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--accent-glow); }
+
+        /* --- 翻牌卡樣式 --- */
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+        
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            height: 420px; /* 維持稍高高度以容納內容 */
+            perspective: 1500px;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: card-enter 0.5s ease-out forwards;
+        }
+        @keyframes card-enter { to { opacity: 1; transform: translateY(0); } }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s ease-in-out;
+            transform-style: preserve-3d;
+        }
+        .flip-card-inner.is-flipped { transform: rotateY(180deg); }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            background: linear-gradient(145deg, rgba(23, 37, 51, 0.8), rgba(13, 27, 42, 0.9));
+            box-shadow: 0 8px 32px 0 rgba(0, 242, 234, 0.1);
+            
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            overflow: hidden; /* 【關鍵修正】將 auto 改為 hidden，移除滾動條 */
+        }
+        .flip-card-front::before, .flip-card-back::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 80%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 242, 234, 0.15), transparent);
+            transform: skewX(-25deg);
+            transition: left 0.7s;
+        }
+        .flip-card:hover .flip-card-front::before, .flip-card:hover .flip-card-back::before { left: 150%; }
+
+        /* 正面樣式 */
+        .flip-card-front { justify-content: center; align-items: center; text-align: center; }
+        .card-category { font-size: 1rem; color: var(--primary-glow); font-weight: 600; margin-bottom: 1rem; border: 1px solid var(--border-color); padding: 0.2rem 0.8rem; border-radius: 20px; }
+        .card-term { font-family: 'Orbitron', sans-serif; font-size: clamp(1.8rem, 4vw, 2.2rem); color: var(--accent-glow); font-weight: 900; }
+
+        /* 背面樣式 */
+        .flip-card-back { transform: rotateY(180deg); justify-content: flex-start; align-items: flex-start; text-align: left; }
+        .card-back-title { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: var(--primary-glow); margin-bottom: 0.8rem; width: 100%; padding-bottom: 0.5rem; border-bottom: 1px solid var(--accent-border-color); }
+        .definition-text { font-size: 1.05rem; margin-bottom: 1rem; }
+        .definition-text ul { list-style: none; padding-left: 1rem; }
+        .definition-text li { position:relative; margin-bottom: 0.5rem; }
+        .definition-text li::before { content: '→'; color: var(--accent-glow); position: absolute; left: -1rem; }
+        .explanation-text { font-size: 0.95rem; color: #ccc; margin-top: auto; padding-top: 1rem; width: 100%; border-top: 1px dashed rgba(255,255,255,0.2); }
+        .explanation-text ul { list-style: none; padding-left: 0; }
+        .explanation-text li { margin-bottom: 0.3rem; }
+
+        /* 特殊表格樣式 */
+        .comparison-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; text-align: center; margin-top: 0.5rem; }
+        .comparison-table th, .comparison-table td { border: 1px solid var(--border-color); padding: 0.3rem; }
+        .comparison-table th { background: rgba(0,0,0,0.3); color: var(--primary-glow); font-weight: normal;}
+        .comparison-table td.symbol-correct { color: var(--correct-color); font-weight: bold; font-size: 1.1rem; }
+        .comparison-table td.symbol-wrong { color: var(--wrong-color); font-weight: bold; font-size: 1.1rem; }
+        
+        /* --- 其他元件 --- */
+        #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
+        #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round; fill: none; transition: all 0.3s ease; filter: drop-shadow(0 0 6px var(--primary-glow)); }
+        #return-home-btn:hover { transform: scale(1.1); }
+        #return-home-btn:hover svg { stroke: var(--primary-glow); filter: drop-shadow(0 0 12px var(--primary-glow)); transform: rotate(-10deg); }
+
+        footer { text-align: center; padding: 2rem; margin-top: 0; color: #777; font-size: 0.9rem; border-top: 1px solid var(--border-color); position: relative; z-index: 1; }
+        #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
+        #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
+        #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
+        #mascot-img.enlarged { transform: scale(2.5) !important; }
+        #mascot-speech { position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9); color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3); }
+        #mascot-speech.visible { opacity: 1; transform: translateY(0); }
+        .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
+        
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .card-grid { grid-template-columns: 1fr; }
+            #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
+            #mascot-container { right: 15px; bottom: 15px; }
+            #mascot-img { width: 80px; }
+            #mascot-speech { max-width: 180px; font-size: 0.8rem; padding: 8px 12px; bottom: 90px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars1"></div>
+    <div class="stars" id="stars2"></div>
+
+    <header>
+        <div class="container">
+            <h1>第四冊 重要名詞解釋</h1>
+            <h2>邱俐瑜公民，成為公民神不再只是夢想！</h2>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="flashcard-section">
+            <h2 class="section-title"><i class="fas fa-layer-group"></i> 總複習翻卡</h2>
+            <p class="instructions"><i class="fas fa-mouse-pointer"></i> 滑鼠懸浮體驗3D特效，點擊卡片翻面學習！</p>
+            
+            <div class="card-controls">
+                <button id="flip-all-btn" class="control-btn">全部翻面</button>
+                <button id="shuffle-btn" class="control-btn">隨機排序</button>
+            </div>
+
+            <div class="card-grid">
+                
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">憲法、民法與刑法</div> <div class="card-term">平等權</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">人民在法律上享有同等權利、負擔相同義務，不得任意為差別對待。</p> <p class="explanation-text">我國憲法追求<span class="highlight-text">實質平等</span>，給予弱勢團體合理的差別待遇。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">憲法、民法與刑法</div> <div class="card-term">自由權</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">人民在憲法保障下，有自行決定做哪些事，或不做哪些事的權利。</p> <p class="explanation-text"><ul><li>人身自由</li><li>居住與遷徙自由</li><li>表現自由</li><li>祕密通訊自由</li><li>信仰宗教自由</li><li>集會與結社自由</li></ul></p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">憲法、民法與刑法</div> <div class="card-term">受益權</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">人民有請求國家積極作為，享受利益的權利。</p> <p class="explanation-text"><ul><li>生存權、工作權、財產權</li><li>請願權、訴願權、訴訟權</li><li>受國民教育權</li></ul></p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">憲法、民法與刑法</div> <div class="card-term">參政權</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">人民參與政治的權利，又稱為<span class="highlight-text">公民權</span>。</p> <p class="explanation-text"><ul><li><strong class="highlight-text">對人：</strong>選舉權、罷免權</li><li><strong class="highlight-text">對法案或政策：</strong>創制權、複決權</li><li><strong class="highlight-text">對公職：</strong>應考試、服公職權</li></ul></p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">憲法、民法與刑法</div> <div class="card-term">行為能力</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">行為人能否依其意思使法律行為發生效果的能力。</p> <p class="explanation-text"><ul><li><strong>無行為能力：</strong>未滿 7 歲</li><li><strong>限制行為能力：</strong>7 歲以上，未滿 18 歲</li><li><strong>完全行為能力：</strong>年滿 18 歲</li></ul></p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">憲法、民法與刑法</div> <div class="card-term">責任能力</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">行為人能否分辨是非，以及是否具有負擔刑罰的資格與能力。</p> <p class="explanation-text"><ul><li><strong>無責任能力：</strong>未滿 14 歲</li><li><strong>限制責任能力：</strong>14 歲以上未滿 18 歲，或 80 歲以上</li><li><strong>完全責任能力：</strong>18 歲以上未滿 80 歲</li></ul></p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">憲法、民法與刑法</div> <div class="card-term">違法 vs 犯罪</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">區別</h4> <p class="definition-text"><ul><li><strong class="highlight-text">違法：</strong>違反任何法律的行為。</li><li><strong class="highlight-text">犯罪：</strong>行為觸犯《刑法》相關的規範。</li></ul></p> <p class="explanation-text">犯罪行為<span class="highlight-text">必定是</span>違法行為；<br>但違法行為<span class="highlight-text">不一定</span>是犯罪行為。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">民事與刑事糾紛的解決</div> <div class="card-term">和解</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">當事人約定互相讓步，以解決糾紛。分為<span class="highlight-text">訴訟外和解</span>(私下)與<span class="highlight-text">訴訟上和解</span>(法官試行)。</p> 
+                <table class="comparison-table"><thead><tr><th>方式</th><th>效力</th><th>民事</th><th>告訴乃論</th><th>非告訴乃論</th></tr></thead><tbody><tr><td>訴訟外和解</td><td>民事契約</td><td class="symbol-correct">✓</td><td class="symbol-correct">✓</td><td class="symbol-wrong">✗</td></tr><tr><td>訴訟上和解</td><td>確定判決</td><td class="symbol-correct">✓</td><td class="symbol-wrong">✗</td><td class="symbol-wrong">✗</td></tr><tr><td>調解</td><td>確定判決</td><td class="symbol-correct">✓</td><td class="symbol-correct">✓</td><td class="symbol-wrong">✗</td></tr><tr><td>訴訟</td><td>確定判決</td><td class="symbol-correct">✓</td><td class="symbol-correct">✓</td><td class="symbol-correct">✓</td></tr></tbody></table>
+                </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">民事與刑事糾紛的解決</div> <div class="card-term">調解</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">當事人申請後，透過<span class="highlight-text">公正第三人</span>(如調解委員會)協調，以解決紛爭。</p> <p class="explanation-text">調解成立後，效力同於<span class="highlight-text">確定判決</span>。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">民事與刑事糾紛的解決</div> <div class="card-term">訴訟</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">依照法定程序，請求<span class="highlight-text">法院</span>公正判決。</p> <p class="explanation-text">是解決紛爭的最後、最正式的途徑。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">民事與刑事糾紛的解決</div> <div class="card-term">自訴 vs 公訴</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">區別</h4> <p class="definition-text"><ul><li><strong class="highlight-text">自訴：</strong>被害人不經檢察官偵查，自行委託律師向法院提起訴訟。</li><li><strong class="highlight-text">公訴：</strong>檢察官代表國家，針對犯罪嫌疑人向法院提起訴訟。</li></ul></p> <p class="explanation-text">提出訴訟者：<br>自訴 → <span class="highlight-text">被害人</span> (委任律師)<br>公訴 → <span class="highlight-text">檢察官</span></p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">行政法與兒少法律</div> <div class="card-term">行政行為</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">行政機關為了達成行政任務，而作成的各種行為。</p> <p class="explanation-text"><strong>範圍關係：</strong><br>行政行為 > 行政管制 > 行政處分 > 行政罰</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">行政法與兒少法律</div> <div class="card-term">行政管制</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">行政機關依職權限制人民自由、干涉人民權利的行政行為。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">行政法與兒少法律</div> <div class="card-term">行政處分</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">行政機關對<span class="highlight-text">個人</span>所做的<span class="highlight-text">具體決定</span>，會影響到個人的權利義務。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">行政法與兒少法律</div> <div class="card-term">行政罰</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">人民違反行政法規定義務時，接受行政機關的處罰。</p> </div> </div> </div>
+
+            </div>
+        </section>
+    </main>
+
+    <a href="index.html" id="return-home-btn" title="返回主頁">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+    </a>
+    
+    <div id="mascot-container">
+        <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
+        <div id="mascot-speech">點擊卡片，成為公民記憶神！</div>
+    </div>
+
+    <footer>
+        <p>Copyright © Liyuchiutiger Gongminshen</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const cards = document.querySelectorAll('.flip-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 80}ms`;
+                const cardInner = card.querySelector('.flip-card-inner');
+                
+                card.addEventListener('click', () => {
+                    cardInner.classList.toggle('is-flipped');
+                    if (cardInner.classList.contains('is-flipped')) {
+                        cardInner.style.transform = 'rotateY(180deg)';
+                    } else {
+                        cardInner.style.transform = '';
+                    }
+                });
+                
+                card.addEventListener('mousemove', (e) => {
+                    if (cardInner.classList.contains('is-flipped')) return;
+                    const { left, top, width, height } = card.getBoundingClientRect();
+                    const x = e.clientX - left;
+                    const y = e.clientY - top;
+                    const rotateY = 15 * ((x - width / 2) / (width / 2));
+                    const rotateX = -15 * ((y - height / 2) / (height / 2));
+                    cardInner.style.transform = `scale(1.05) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    if (!cardInner.classList.contains('is-flipped')) {
+                       cardInner.style.transform = '';
+                    }
+                });
+            });
+
+            const flipAllBtn = document.getElementById('flip-all-btn');
+            const shuffleBtn = document.getElementById('shuffle-btn');
+            const cardGrid = document.querySelector('.card-grid');
+
+            flipAllBtn.addEventListener('click', () => {
+                const allInners = cardGrid.querySelectorAll('.flip-card-inner');
+                const isAllFlipped = allInners[0] && allInners[0].classList.contains('is-flipped');
+                allInners.forEach(inner => {
+                    if (isAllFlipped) {
+                        inner.classList.remove('is-flipped');
+                        inner.style.transform = '';
+                    } else {
+                        inner.classList.add('is-flipped');
+                        inner.style.transform = 'rotateY(180deg)';
+                    }
+                });
+            });
+
+            shuffleBtn.addEventListener('click', () => {
+                const cardsArray = Array.from(cardGrid.children);
+                for (let i = cardsArray.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [cardsArray[i], cardsArray[j]] = [cardsArray[j], cardsArray[i]];
+                }
+                cardGrid.innerHTML = '';
+                cardsArray.forEach((card, index) => {
+                    card.style.animation = 'none';
+                    card.offsetHeight;
+                    card.style.opacity = '0'; 
+                    card.style.animation = `card-enter 0.5s ease-out forwards ${index * 50}ms`;
+                    cardGrid.appendChild(card);
+                });
+            });
+
+            const mascotContainer = document.getElementById('mascot-container');
+            const mascotImg = document.getElementById('mascot-img');
+            const speechBubble = document.getElementById('mascot-speech');
+            
+            const messages = [ "點擊卡片，成為公民記憶神！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            let messageIndex = 0;
+            let clickTimer = null;
+            let speechTimeout = null;
+
+            mascotContainer.addEventListener('click', () => {
+                clearTimeout(clickTimer);
+                clickTimer = setTimeout(() => {
+                    speechBubble.textContent = messages[messageIndex];
+                    speechBubble.classList.add('visible');
+                    messageIndex = (messageIndex + 1) % messages.length;
+                    clearTimeout(speechTimeout);
+                    speechTimeout = setTimeout(() => speechBubble.classList.remove('visible'), 4000);
+                }, 250);
+            });
+
+            mascotContainer.addEventListener('dblclick', () => {
+                clearTimeout(clickTimer);
+                speechBubble.classList.remove('visible');
+                triggerExplosion();
+            });
+
+            function triggerExplosion() {
+                mascotImg.classList.add('enlarged');
+                const particleCount = 40;
+                const particleColors = [ 'var(--primary-glow)', 'var(--secondary-glow)', 'var(--accent-glow)', '#ffffff' ];
+
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    mascotContainer.appendChild(particle);
+                    const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+                    const angle = Math.random() * 360;
+                    const radius = Math.random() * 120 + 50;
+                    const x = Math.cos(angle * Math.PI / 180) * radius;
+                    const y = Math.sin(angle * Math.PI / 180) * radius;
+                    particle.style.background = color;
+                    requestAnimationFrame(() => {
+                        particle.style.transform = `translate(${x}px, ${y}px) scale(0)`;
+                        particle.style.opacity = '0';
+                    });
+                    setTimeout(() => particle.remove(), 1000);
+                }
+                setTimeout(() => mascotImg.classList.remove('enlarged'), 300);
+            }
+        });
+    </script>
+</body>
+</html>

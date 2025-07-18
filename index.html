@@ -327,6 +327,25 @@
             font-weight: 600;
         }
 
+        /* --- 【新增】標題右側圖示連結樣式 --- */
+        .title-link-icon {
+            margin-left: auto; /* 關鍵：將圖示推到最右側 */
+            color: var(--secondary-glow);
+            text-decoration: none;
+            font-size: clamp(1.8rem, 5vw, 2.2rem);
+            transition: all 0.3s ease;
+            opacity: 0.7;
+        }
+        .title-link-icon:hover,
+        .title-link-icon:focus-visible {
+            opacity: 1;
+            color: var(--accent-glow);
+            text-shadow: 0 0 12px var(--accent-glow);
+            transform: scale(1.15) rotate(15deg);
+            outline: none;
+        }
+        /* ------------------------------------ */
+
         #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; user-select: none; }
         #mascot-btn { background: none; border: none; padding: 0; cursor: pointer; border-radius: 50%; }
         #mascot-btn:focus-visible { outline: 3px solid var(--primary-glow); outline-offset: 2px; }
@@ -400,12 +419,66 @@
 
     <main class="container">
         <!-- Sections will be populated by JS -->
-        <section id="book1" data-book="1"><h2 class="section-title"><i class="fas fa-child"></i> 第一冊・自我、家庭與社區</h2><div class="chapter-grid" id="book1-grid"></div></section>
-        <section id="book2" data-book="2"><h2 class="section-title"><i class="fas fa-hands-helping"></i> 第二冊・社會生活與公民德性</h2><div class="chapter-grid" id="book2-grid"></div></section>
-        <section id="book3" data-book="3"><h2 class="section-title"><i class="fas fa-landmark"></i> 第三冊・政府、民主與政治參與</h2><div class="chapter-grid" id="book3-grid"></div></section>
-        <section id="book4" data-book="4"><h2 class="section-title"><i class="fas fa-gavel"></i> 第四冊・憲法、人權與法律</h2><div class="chapter-grid" id="book4-grid"></div></section>
-        <section id="book5" data-book="5"><h2 class="section-title"><i class="fas fa-chart-line"></i> 第五冊・經濟選擇與市場</h2><div class="chapter-grid" id="book5-grid"></div></section>
-        <section id="book6" data-book="6"><h2 class="section-title"><i class="fas fa-globe-asia"></i> 第六冊・科技、媒體與全球化</h2><div class="chapter-grid" id="book6-grid"></div></section>
+        <section id="book1" data-book="1">
+            <h2 class="section-title">
+                <i class="fas fa-child"></i> 第一冊・自我、家庭與社區
+                <!-- 【關鍵修改】新增圖示連結 -->
+                <a href="b1.html" class="title-link-icon" title="總複習：第一冊名詞解釋" aria-label="總複習：第一冊名詞解釋">
+                    <i class="fas fa-layer-group"></i>
+                </a>
+            </h2>
+            <div class="chapter-grid" id="book1-grid"></div>
+        </section>
+        <section id="book2" data-book="2">
+            <h2 class="section-title">
+                <i class="fas fa-hands-helping"></i> 第二冊・社會生活與公民德性
+                 <!-- 【關鍵修改】新增圖示連結 -->
+                <a href="b2.html" class="title-link-icon" title="總複習：第二冊名詞解釋" aria-label="總複習：第二冊名詞解釋">
+                    <i class="fas fa-layer-group"></i>
+                </a>
+            </h2>
+            <div class="chapter-grid" id="book2-grid"></div>
+        </section>
+        <section id="book3" data-book="3">
+            <h2 class="section-title">
+                <i class="fas fa-landmark"></i> 第三冊・政府、民主與政治參與
+                 <!-- 【關鍵修改】新增圖示連結 -->
+                <a href="b3.html" class="title-link-icon" title="總複習：第三冊名詞解釋" aria-label="總複習：第三冊名詞解釋">
+                    <i class="fas fa-layer-group"></i>
+                </a>
+            </h2>
+            <div class="chapter-grid" id="book3-grid"></div>
+        </section>
+        <section id="book4" data-book="4">
+            <h2 class="section-title">
+                <i class="fas fa-gavel"></i> 第四冊・憲法、人權與法律
+                 <!-- 【關鍵修改】新增圖示連結 -->
+                <a href="b4.html" class="title-link-icon" title="總複習：第四冊名詞解釋" aria-label="總複習：第四冊名詞解釋">
+                    <i class="fas fa-layer-group"></i>
+                </a>
+            </h2>
+            <div class="chapter-grid" id="book4-grid"></div>
+        </section>
+        <section id="book5" data-book="5">
+            <h2 class="section-title">
+                <i class="fas fa-chart-line"></i> 第五冊・經濟選擇與市場
+                 <!-- 【關鍵修改】新增圖示連結 -->
+                <a href="b5.html" class="title-link-icon" title="總複習：第五冊名詞解釋" aria-label="總複習：第五冊名詞解釋">
+                    <i class="fas fa-layer-group"></i>
+                </a>
+            </h2>
+            <div class="chapter-grid" id="book5-grid"></div>
+        </section>
+        <section id="book6" data-book="6">
+            <h2 class="section-title">
+                <i class="fas fa-globe-asia"></i> 第六冊・科技、媒體與全球化
+                 <!-- 【關鍵修改】新增圖示連結 -->
+                <a href="b6.html" class="title-link-icon" title="總複習：第六冊名詞解釋" aria-label="總複習：第六冊名詞解釋">
+                    <i class="fas fa-layer-group"></i>
+                </a>
+            </h2>
+            <div class="chapter-grid" id="book6-grid"></div>
+        </section>
 
         <div id="no-results-message">
             <i class="fas fa-ghost"></i> 找不到符合的章節...
