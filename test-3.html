@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>公民神總複習挑戰 (單元三)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
+
+        :root {
+            --primary-glow: #00f2ea; --secondary-glow: #ff00ff; --accent-glow: #f0e14a; --bg-dark: #0d1b2a; --bg-dark-2: #020a12; --text-color: #e0e0e0; --card-bg: rgba(23, 37, 51, 0.7); --correct-color: #00ff87; --wrong-color: #ff2a6d; --border-color: rgba(0, 242, 234, 0.3); --accent-border-color: rgba(240, 225, 74, 0.5);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; 
+            color: var(--text-color); 
+            line-height: 1.8; 
+            overflow-x: hidden;
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-2));
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; position: relative; z-index: 2; }
+
+        header { 
+            text-align: center; padding: 4rem 1rem; border-bottom: 2px solid var(--border-color); 
+            background: rgba(13,27,42,0.5); backdrop-filter: blur(5px);
+        }
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 900;
+            color: var(--text-color);
+            text-shadow:
+                0 0 5px #fff,
+                0 0 10px var(--accent-glow),
+                0 0 20px var(--accent-glow),
+                0 0 40px var(--accent-glow);
+            animation: flicker-orange 3s infinite alternate;
+        }
+
+        @keyframes flicker-orange {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-glow), 0 0 19px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow);
+            }
+            20%, 24%, 55% { text-shadow: none; }
+        }
+
+        header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
+            font-weight: 700;
+            color: var(--secondary-glow);
+            margin-top: 1rem;
+            text-shadow: 0 0 8px var(--secondary-glow);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-8px);}
+        }
+
+        #results-container {
+            display: none; padding: 2rem; margin: 2rem 0;
+            background-color: rgba(0, 242, 234, 0.1); border: 2px solid var(--primary-glow);
+            border-radius: 20px; text-align: center; box-shadow: 0 0 30px rgba(0,242,234,0.3);
+        }
+        #results-container h2 { font-family: 'Orbitron', sans-serif; color: var(--primary-glow); font-size: 2rem; margin-bottom: 0.5rem; }
+        #score-display { 
+            font-size: 3rem; font-weight: 900; color: var(--accent-glow); margin-bottom: 1rem;
+            animation: score-flicker 2s infinite alternate;
+        }
+        @keyframes score-flicker {
+            0%, 100% { text-shadow: 0 0 8px var(--accent-glow), 0 0 20px var(--accent-glow); }
+            50% { text-shadow: 0 0 8px var(--accent-glow), 0 0 30px #fff; }
+        }
+        #score-message { font-size: 1.2rem; }
+
+        .quiz-section { 
+            background-color: var(--card-bg); border-radius: 20px; border: 2px solid var(--border-color); 
+            backdrop-filter: blur(10px); padding: 2.5rem; transition: box-shadow 0.3s ease;
+        }
+        .quiz-section:hover { box-shadow: 0 0 25px rgba(0,242,234,0.2); }
+        
+        .quiz-container { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px dashed var(--border-color); }
+        .quiz-container:last-of-type { border-bottom: none; margin-bottom: 0; }
+        .question-title { font-family: 'Orbitron', sans-serif; font-size: 1.3rem; color: var(--accent-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.8rem; }
+        .question-text { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .question-text p { margin-bottom: 1rem; }
+
+        /* --- Custom Radio & Checkbox --- */
+        .answer-area .option-label {
+            display: block; position: relative;
+            background-color: rgba(0,0,0,0.2); padding: 0.8rem 1.2rem 0.8rem 2.8rem; 
+            margin-bottom: 0.8rem; border-radius: 8px; border: 1px solid var(--border-color); 
+            cursor: pointer; transition: all 0.2s;
+        }
+        .answer-area .option-label:hover { background-color: rgba(0, 242, 234, 0.2); border-color: var(--primary-glow); }
+        .quiz-container.graded .answer-area .option-label:hover { background-color: rgba(0,0,0,0.2); border-color: var(--border-color); } /* Lock hover effect when graded */
+        .quiz-container.graded .answer-area .option-label { cursor: not-allowed; opacity: 0.7; }
+
+        .answer-area input[type="radio"], .answer-area input[type="checkbox"] {
+            position: absolute; opacity: 0; cursor: pointer; height: 0; width: 0;
+        }
+        .custom-marker {
+            position: absolute; top: 50%; left: 1rem; transform: translateY(-50%);
+            height: 20px; width: 20px; background-color: transparent;
+            border: 2px solid var(--primary-glow); transition: all 0.2s;
+        }
+        .custom-radio .custom-marker { border-radius: 50%; }
+        .custom-checkbox .custom-marker { border-radius: 4px; }
+        input:checked ~ .option-label .custom-marker {
+            background-color: var(--primary-glow);
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+        .custom-checkbox .custom-marker::after {
+            content: ""; position: absolute; display: none;
+            left: 6px; top: 2px; width: 5px; height: 10px;
+            border: solid var(--bg-dark); border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+        }
+        .custom-checkbox input:checked ~ .option-label .custom-marker::after { display: block; }
+        
+        /* --- Custom Fill-in-the-Blank --- */
+        .fill-in-wrapper {
+            position: relative; display: inline-block;
+            margin: 0 0.5rem;
+        }
+        .fill-in-blank-input { 
+            background: transparent; border: none;
+            border-bottom: 2px solid var(--border-color);
+            color: var(--text-color); padding: 0.5rem; text-align: center;
+            font-size: 1.1rem; width: 180px; transition: border-color 0.3s;
+        }
+        .fill-in-blank-input:focus { 
+            outline: none; border-color: var(--primary-glow);
+        }
+        
+        /* Other input types */
+        .matching-grid, .sequencing-grid { display: grid; gap: 1rem; align-items: center; }
+        .matching-grid { grid-template-columns: 1fr auto 1fr; }
+        .matching-item { padding: 0.8rem; background: rgba(0,0,0,0.1); border-radius: 5px; text-align: center; }
+        .matching-select, .sequencing-input { width: 100%; padding: 0.6rem; font-size: 1rem; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); color: var(--text-color); border-radius: 5px; }
+        .sequencing-grid { grid-template-columns: 50px 1fr; }
+        .sequencing-input { text-align: center; font-family: 'Orbitron', sans-serif; font-weight: bold; }
+        input[type="number"]:disabled, .matching-select:disabled, .fill-in-blank-input:disabled { opacity: 0.7; cursor: not-allowed; }
+
+        .feedback { display: none; margin-top: 1rem; padding: 1rem; border-radius: 8px; border-left: 5px solid; }
+        .feedback.correct { background-color: rgba(0, 255, 135, 0.1); border-color: var(--correct-color); color: var(--correct-color); }
+        .feedback.wrong { background-color: rgba(255, 42, 109, 0.1); border-color: var(--wrong-color); color: var(--wrong-color); }
+        .feedback p { color: var(--text-color); } .highlight-text { font-weight: bold; color: var(--accent-glow); }
+
+        .single-check-wrapper { text-align: right; margin-top: 1rem; }
+        .check-single-btn { padding: 0.5rem 1.5rem; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--bg-dark); background: var(--primary-glow); border: none; border-radius: 5px; cursor: pointer; transition: all 0.2s; }
+        .check-single-btn:hover { background: #fff; box-shadow: 0 0 15px var(--primary-glow); }
+
+        .control-buttons { display: flex; justify-content: center; gap: 1.5rem; margin-top: 3rem; }
+        .control-btn { padding: 0.8rem 2.5rem; font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--bg-dark); background: var(--accent-glow); border: none; border-radius: 50px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .control-btn:hover { transform: scale(1.05); box-shadow: 0 0 25px var(--accent-glow); }
+        .control-btn#reset-btn { background: var(--secondary-glow); }
+        .control-btn#reset-btn:hover { box-shadow: 0 0 25px var(--secondary-glow); }
+        .control-btn:disabled { background: #555; color: #999; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; }
+        #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; fill: none; filter: drop-shadow(0 0 6px var(--primary-glow)); transition: all 0.3s ease; }
+        #return-home-btn:hover svg { stroke: var(--primary-glow); transform: rotate(-10deg) scale(1.1); }
+        
+        /* Mascot Styles */
+        #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; user-select: none; }
+        #mascot-btn { background: none; border: none; padding: 0; cursor: pointer; border-radius: 50%; }
+        #mascot-btn:focus-visible { outline: 3px solid var(--primary-glow); outline-offset: 2px; }
+        #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; display: block; }
+        #mascot-btn:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
+        #mascot-img.enlarged { transform: scale(2.5) !important; }
+        #mascot-speech { position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9); color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3); }
+        #mascot-speech.visible { opacity: 1; transform: translateY(0); }
+        .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
+        
+        footer {
+            display: flex; justify-content: center; align-items: center; padding: 2.5rem 1rem; margin-top: 4rem; color: rgba(224, 224, 224, 0.6); font-size: 0.9rem; border-top: 1px solid var(--border-color); background: linear-gradient(to top, rgba(13, 27, 42, 0.5), transparent);
+        }
+        footer p { text-shadow: 0 0 5px rgba(0, 242, 234, 0.2); }
+
+        @media (max-width: 768px) { .container { padding: 1rem; } #mascot-img { width: 80px; } #mascot-speech { max-width: 180px; bottom: 90px; } .matching-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>公民神總複習挑戰 (單元三)</h1>
+            <h2>邱俐瑜公民，成為公民神不再只是夢想！</h2>
+        </div>
+    </header>
+
+    <main class="container">
+        <form id="quiz-form">
+            <div id="results-container">
+                <h2 id="result-title">批改完成！</h2>
+                <div id="score-display">-- / 20</div>
+                <p id="score-message">準備好看看你的成果了嗎？</p>
+            </div>
+
+            <div class="quiz-section">
+                <div class="quiz-intro">
+                    <h2>綜合測驗：學校、社區與部落</h2>
+                    <p>共 20 題，涵蓋多種題型。完成後請點擊最下方的「批改計分」。</p>
+                </div>
+
+                <div class="quiz-container" data-quiz-id="q1"><h3 class="question-title"><i class="fas fa-question-circle"></i>第一題：選擇題</h3><div class="question-text"><p>學生在學校享有權利，也應負擔相對的責任。當學生行使「受教權」時，他應負擔的最直接責任是什麼？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q1a" name="q1" value="A"><label for="q1a" class="option-label"><span class="custom-marker"></span>(A) 不霸凌他人</label></div><div class="custom-radio"><input type="radio" id="q1b" name="q1" value="B"><label for="q1b" class="option-label"><span class="custom-marker"></span>(B) 不任意窺探他人隱私</label></div><div class="custom-radio"><input type="radio" id="q1c" name="q1" value="C"><label for="q1c" class="option-label"><span class="custom-marker"></span>(C) 不干擾其他同學的學習權</label></div><div class="custom-radio"><input type="radio" id="q1d" name="q1" value="D"><label for="q1d" class="option-label"><span class="custom-marker"></span>(D) 不攜帶妨害教學的物品</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q2"><h3 class="question-title"><i class="fas fa-question-circle"></i>第二題：選擇題</h3><div class="question-text"><p>學生自治的第一步，通常是先成立自治組織，其後續的發展步驟，何者正確？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q2a" name="q2" value="A"><label for="q2a" class="option-label"><span class="custom-marker"></span>(A) 推展活動 → 訂定規範</label></div><div class="custom-radio"><input type="radio" id="q2b" name="q2" value="B"><label for="q2b" class="option-label"><span class="custom-marker"></span>(B) 訂定規範 → 推展活動</label></div><div class="custom-radio"><input type="radio" id="q2c" name="q2" value="C"><label for="q2c" class="option-label"><span class="custom-marker"></span>(C) 直接推展活動，不需規範</label></div><div class="custom-radio"><input type="radio" id="q2d" name="q2" value="D"><label for="q2d" class="option-label"><span class="custom-marker"></span>(D) 只需訂定規範，不必有活動</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q3"><h3 class="question-title"><i class="fas fa-question-circle"></i>第三題：選擇題</h3><div class="question-text"><p>在班會進行中，如果突然有同學大聲喧嘩、離題發言，影響了會議秩序，主席應如何處理？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q3a" name="q3" value="A"><label for="q3a" class="option-label"><span class="custom-marker"></span>(A) 立即宣布散會</label></div><div class="custom-radio"><input type="radio" id="q3b" name="q3" value="B"><label for="q3b" class="option-label"><span class="custom-marker"></span>(B) 提出臨時動議</label></div><div class="custom-radio"><input type="radio" id="q3c" name="q3" value="C"><label for="q3c" class="option-label"><span class="custom-marker"></span>(C) 處理秩序問題，請同學遵守規則</label></div><div class="custom-radio"><input type="radio" id="q3d" name="q3" value="D"><label for="q3d" class="option-label"><span class="custom-marker"></span>(D) 直接進入表決程序</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q4"><h3 class="question-title"><i class="fas fa-question-circle"></i>第四題：選擇題</h3><div class="question-text"><p>「社區」是由一群居住在特定地區的人們，因共同關係與互動所形成的。下列何者「不是」組成社區的必要構成要素？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q4a" name="q4" value="A"><label for="q4a" class="option-label"><span class="custom-marker"></span>(A) 居民</label></div><div class="custom-radio"><input type="radio" id="q4b" name="q4" value="B"><label for="q4b" class="option-label"><span class="custom-marker"></span>(B) 地區</label></div><div class="custom-radio"><input type="radio" id="q4c" name="q4" value="C"><label for="q4c" class="option-label"><span class="custom-marker"></span>(C) 共同關係</label></div><div class="custom-radio"><input type="radio" id="q4d" name="q4" value="D"><label for="q4d" class="option-label"><span class="custom-marker"></span>(D) 共同信仰</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q5"><h3 class="question-title"><i class="fas fa-question-circle"></i>第五題：選擇題</h3><div class="question-text"><p>原住民族的「部落」，除了是傳統信仰與祭祀的中心，也扮演著重要的政治與經濟角色。下列何者最能體現部落的「生產分配中心」功能？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q5a" name="q5" value="A"><label for="q5a" class="option-label"><span class="custom-marker"></span>(A) 舉辦傳統祭儀</label></div><div class="custom-radio"><input type="radio" id="q5b" name="q5" value="B"><label for="q5b" class="option-label"><span class="custom-marker"></span>(B) 召開部落會議</label></div><div class="custom-radio"><input type="radio" id="q5c" name="q5" value="C"><label for="q5c" class="option-label"><span class="custom-marker"></span>(C) 與大自然和諧共存，並共享勞動成果</label></div><div class="custom-radio"><input type="radio" id="q5d" name="q5" value="D"><label for="q5d" class="option-label"><span class="custom-marker"></span>(D) 參與部落活動以傳承語言文化</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q6"><h3 class="question-title"><i class="fas fa-check-square"></i>第六題：是非題</h3><div class="question-text"><p>學生在學校的財產權，是指學生可以任意攜帶任何私人物品到校，不受任何限制。</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q6t" name="q6" value="true"><label for="q6t" class="option-label"><span class="custom-marker"></span>(O) 是</label></div><div class="custom-radio"><input type="radio" id="q6f" name="q6" value="false"><label for="q6f" class="option-label"><span class="custom-marker"></span>(X) 非</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q7"><h3 class="question-title"><i class="fas fa-check-square"></i>第七題：是非題</h3><div class="question-text"><p>在開會程序中，「臨時動議」是指可以在會議的任何時間隨意提出，不需依照順序。</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q7t" name="q7" value="true"><label for="q7t" class="option-label"><span class="custom-marker"></span>(O) 是</label></div><div class="custom-radio"><input type="radio" id="q7f" name="q7" value="false"><label for="q7f" class="option-label"><span class="custom-marker"></span>(X) 非</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q8"><h3 class="question-title"><i class="fas fa-check-square"></i>第八題：是非題</h3><div class="question-text"><p>居民參與社區事務的主要目的，是為了藉此獲得個人的經濟利益。</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q8t" name="q8" value="true"><label for="q8t" class="option-label"><span class="custom-marker"></span>(O) 是</label></div><div class="custom-radio"><input type="radio" id="q8f" name="q8" value="false"><label for="q8f" class="option-label"><span class="custom-marker"></span>(X) 非</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q9"><h3 class="question-title"><i class="fas fa-pen"></i>第九題：填空題</h3><div class="question-text"><p>學生的基本權利與責任是相對應的，例如擁有「身體自主權」的同時，也負有不<span class="fill-in-wrapper"><input type="text" class="fill-in-blank-input" id="q9-input" placeholder="輸入答案"></span>他人的責任。</p></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q10"><h3 class="question-title"><i class="fas fa-pen"></i>第十題：填空題</h3><div class="question-text"><p>開會時，在討論完議案並進行表決後，會議的下一個正式程序通常是<span class="fill-in-wrapper"><input type="text" class="fill-in-blank-input" id="q10-input" placeholder="輸入答案"></span>。</p></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q11"><h3 class="question-title"><i class="fas fa-pen"></i>第十一題：填空題</h3><div class="question-text"><p>一群人對某個特定地區產生認同感與歸屬感，這種心理層面的連結稱為<span class="fill-in-wrapper"><input type="text" class="fill-in-blank-input" id="q11-input" placeholder="輸入答案"></span>。</p></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q12"><h3 class="question-title"><i class="fas fa-question-circle"></i>第十二題：選擇題</h3><div class="question-text"><p>部落是原住民族重要的社會單位，其最基本的政治組織是什麼？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q12a" name="q12" value="A"><label for="q12a" class="option-label"><span class="custom-marker"></span>(A) 宗親會</label></div><div class="custom-radio"><input type="radio" id="q12b" name="q12" value="B"><label for="q12b" class="option-label"><span class="custom-marker"></span>(B) 部落會議</label></div><div class="custom-radio"><input type="radio" id="q12c" name="q12" value="C"><label for="q12c" class="option-label"><span class="custom-marker"></span>(C) 社區發展協會</label></div><div class="custom-radio"><input type="radio" id="q12d" name="q12" value="D"><label for="q12d" class="option-label"><span class="custom-marker"></span>(D) 地方政府</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q13"><h3 class="question-title"><i class="fas fa-link"></i>第十三至十五題：配合題</h3><div class="question-text"><p>請將左方的「學生權利」與右方相對應的「責任」進行配對。</p></div><div class="answer-area matching-grid"><div class="matching-item">(13) 名譽權與隱私權</div> <i class="fas fa-arrows-alt-h"></i><select class="matching-select" id="q13-select"> <option value="">請選擇...</option> <option value="A">A. 不霸凌他人</option> <option value="B">B. 不任意窺探他人隱私</option> <option value="C">C. 不干擾教學或學習</option> </select><div class="matching-item">(14) 財產權</div> <i class="fas fa-arrows-alt-h"></i><select class="matching-select" id="q14-select"> <option value="">請選擇...</option> <option value="A">A. 不霸凌他人</option> <option value="B">B. 不任意窺探他人隱私</option> <option value="C">C. 不干擾教學或學習</option> </select><div class="matching-item">(15) 身體自主權</div> <i class="fas fa-arrows-alt-h"></i><select class="matching-select" id="q15-select"> <option value="">請選擇...</option> <option value="A">A. 不霸凌他人</option> <option value="B">B. 不任意窺探他人隱私</option> <option value="C">C. 不干擾教學或學習</option> </select></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q16"><h3 class="question-title"><i class="fas fa-sort-numeric-up"></i>第十六題：排序題</h3><div class="question-text"><p>請將班會的開會程序，由先到後填入數字 1、2、3、4 進行排序。</p></div><div class="answer-area sequencing-grid"><input type="number" class="sequencing-input" id="q16-report" min="1" max="4"> <label>報告事項</label><input type="number" class="sequencing-input" id="q16-discuss" min="1" max="4"> <label>討論事項 (提議、討論、表決)</label><input type="number" class="sequencing-input" id="q16-open" min="1" max="4"> <label>宣布開會</label><input type="number" class="sequencing-input" id="q16-temp" min="1" max="4"> <label>臨時動議</label></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q17"><h3 class="question-title"><i class="fas fa-tasks"></i>第十七題：複選題</h3><div class="question-text"><p>下列哪些是「社區」的組成要素？(答案可多選)</p></div><div class="answer-area"><div class="custom-checkbox"><input type="checkbox" id="q17a" name="q17" value="A"><label for="q17a" class="option-label"><span class="custom-marker"></span>(A) 地區</label></div><div class="custom-checkbox"><input type="checkbox" id="q17b" name="q17" value="B"><label for="q17b" class="option-label"><span class="custom-marker"></span>(B) 社區意識</label></div><div class="custom-checkbox"><input type="checkbox" id="q17c" name="q17" value="C"><label for="q17c" class="option-label"><span class="custom-marker"></span>(C) 共同利益</label></div><div class="custom-checkbox"><input type="checkbox" id="q17d" name="q17" value="D"><label for="q17d" class="option-label"><span class="custom-marker"></span>(D) 居民</label></div><div class="custom-checkbox"><input type="checkbox" id="q17e" name="q17" value="E"><label for="q17e" class="option-label"><span class="custom-marker"></span>(E) 共同關係</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q18"><h3 class="question-title"><i class="fas fa-tasks"></i>第十八題：複選題</h3><div class="question-text"><p>部落對於原住民族的生活至關重要，其重要性體現在哪些方面？(答案可多選)</p></div><div class="answer-area"><div class="custom-checkbox"><input type="checkbox" id="q18a" name="q18" value="A"><label for="q18a" class="option-label"><span class="custom-marker"></span>(A) 傳統信仰中心</label></div><div class="custom-checkbox"><input type="checkbox" id="q18b" name="q18" value="B"><label for="q18b" class="option-label"><span class="custom-marker"></span>(B) 語言文化傳承</label></div><div class="custom-checkbox"><input type="checkbox" id="q18c" name="q18" value="C"><label for="q18c" class="option-label"><span class="custom-marker"></span>(C) 基本政治組織</label></div><div class="custom-checkbox"><input type="checkbox" id="q18d" name="q18" value="D"><label for="q18d" class="option-label"><span class="custom-marker"></span>(D) 脫離自然獨自發展</label></div><div class="custom-checkbox"><input type="checkbox" id="q18e" name="q18" value="E"><label for="q18e" class="option-label"><span class="custom-marker"></span>(E) 生產分配中心</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q19"><h3 class="question-title"><i class="fas fa-gavel"></i>第十九題：情境選擇題</h3><div class="question-text"><p>班會正在討論校慶園遊會的攤位主題，此時冷氣突然故障，教室非常悶熱。同學若想立即處理這個問題，應該提出何種動議？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q19a" name="q19" value="A"><label for="q19a" class="option-label"><span class="custom-marker"></span>(A) 秩序問題</label></div><div class="custom-radio"><input type="radio" id="q19b" name="q19" value="B"><label for="q19b" class="option-label"><span class="custom-marker"></span>(B) 權宜問題</label></div><div class="custom-radio"><input type="radio" id="q19c" name="q19" value="C"><label for="q19c" class="option-label"><span class="custom-marker"></span>(C) 臨時動議</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q20"><h3 class="question-title"><i class="fas fa-question-circle"></i>第二十題：選擇題</h3><div class="question-text"><p>原住民族可以透過何種方式來爭取相關權益，並達到部落營造的目的？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q20a" name="q20" value="A"><label for="q20a" class="option-label"><span class="custom-marker"></span>(A) 完全依賴政府補助</label></div><div class="custom-radio"><input type="radio" id="q20b" name="q20" value="B"><label for="q20b" class="option-label"><span class="custom-marker"></span>(B) 發起社會運動</label></div><div class="custom-radio"><input type="radio" id="q20c" name="q20" value="C"><label for="q20c" class="option-label"><span class="custom-marker"></span>(C) 僅在部落內部開會</label></div><div class="custom-radio"><input type="radio" id="q20d" name="q20" value="D"><label for="q20d" class="option-label"><span class="custom-marker"></span>(D) 脫離傳統文化</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+
+                <div class="control-buttons">
+                    <button type="button" id="submit-btn" class="control-btn">批改計分</button>
+                    <button type="reset" id="reset-btn" class="control-btn">重新作答</button>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <a href="index.html" id="return-home-btn" title="返回主頁">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+    </a>
+    
+    <div id="mascot-container">
+        <button id="mascot-btn" aria-label="與吉祥物互動">
+            <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
+        </button>
+        <div id="mascot-speech">來挑戰吧！</div>
+    </div>
+
+    <footer>
+        <p>Copyright © Liyuchiutiger Gongminshen</p>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Mascot Interaction (No changes) ---
+        const mascotContainer = document.getElementById('mascot-container');
+        const mascotBtn = document.getElementById('mascot-btn');
+        const mascotImg = document.getElementById('mascot-img');
+        const speechBubble = document.getElementById('mascot-speech');
+        const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+        let messageIndex = 0; let clickTimer = null; let speechTimeout = null;
+        mascotBtn.addEventListener('click', () => {
+            clearTimeout(clickTimer);
+            clickTimer = setTimeout(() => {
+                speechBubble.textContent = messages[messageIndex];
+                speechBubble.classList.add('visible');
+                messageIndex = (messageIndex + 1) % messages.length;
+                clearTimeout(speechTimeout);
+                speechTimeout = setTimeout(() => speechBubble.classList.remove('visible'), 4000);
+            }, 250);
+        });
+        mascotBtn.addEventListener('dblclick', (e) => {
+            e.preventDefault();
+            clearTimeout(clickTimer);
+            speechBubble.classList.remove('visible');
+            triggerExplosion();
+        });
+        function triggerExplosion() {
+            mascotImg.classList.add('enlarged');
+            const particleCount = 40; const particleColors = [ 'var(--primary-glow)', 'var(--secondary-glow)', 'var(--accent-glow)', '#ffffff' ];
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div'); particle.classList.add('particle'); mascotContainer.appendChild(particle);
+                const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+                const angle = Math.random() * 360; const radius = Math.random() * 120 + 50;
+                const x = Math.cos(angle * Math.PI / 180) * radius; const y = Math.sin(angle * Math.PI / 180) * radius;
+                particle.style.background = color;
+                requestAnimationFrame(() => { particle.style.transform = `translate(${x}px, ${y}px) scale(0)`; particle.style.opacity = '0'; });
+                setTimeout(() => particle.remove(), 1000);
+            }
+            setTimeout(() => mascotImg.classList.remove('enlarged'), 300);
+        }
+
+        // --- Quiz Logic ---
+        const quizForm = document.getElementById('quiz-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const resultsContainer = document.getElementById('results-container');
+        const scoreDisplay = document.getElementById('score-display');
+        const scoreMessage = document.getElementById('score-message');
+
+        const correctAnswers = {
+            q1: 'C', q2: 'B', q3: 'C', q4: 'D', q5: 'C', q6: 'false', q7: 'false', q8: 'false',
+            q9: '霸凌', q10: '臨時動議', q11: '社區意識', 
+            q12: 'B',
+            q13: 'B', q14: 'C', q15: 'A',
+            q16: { open: '1', report: '2', discuss: '3', temp: '4' },
+            q17: ['A', 'B', 'D', 'E'], q18: ['A', 'B', 'C', 'E'],
+            q19: 'B', q20: 'B'
+        };
+
+        const feedbackText = {
+             q1: "學生的「受教權」對應的責任是<span class='highlight-text'>不干擾他人學習</span>。(A)對應身體自主權、(B)對應隱私權、(D)對應財產權。",
+             q2: "學生自治的步驟為：成立自治組織 → <span class='highlight-text'>訂定自治規範</span> → 推展自治活動。",
+             q3: "影響會議秩序屬於程序問題，應由主席或與會者提出<span class='highlight-text'>秩序問題</span>，以維持會議順利進行。",
+             q4: "組成社區的五大要素為：居民、地區、共同關係、社區意識、社區組織。不必然要有<span class='highlight-text'>共同信仰</span>。",
+             q5: "部落與大自然共存、共享狩獵或採集的成果，體現了其作為<span class='highlight-text'>生產與分配中心</span>的功能。",
+             q6: "錯誤。學生的財產權應在<span class='highlight-text'>不妨害教學或干擾學習</span>的前提下行使，並非毫無限制。",
+             q7: "錯誤。臨時動議必須在<span class='highlight-text'>討論事項之後、散會之前</span>提出，有其固定順序。",
+             q8: "錯誤。居民參與社區事務是為了<span class='highlight-text'>解決社區共同問題、提升生活品質</span>，而非為個人私利。",
+             q9: "正確答案是「霸凌」或相近詞「欺凌」。",
+             q10: "正確答案是「臨時動議」。",
+             q11: "正確答案是「社區意識」。",
+             q12: "部落的基本政治組織是<span class='highlight-text'>部落會議</span>，用以決定部落的公共事務。",
+             q13: "正確答案是 (13)→B, (14)→C, (15)→A。配合題需一起批改。",
+             q14: "正確答案是 (13)→B, (14)→C, (15)→A。配合題需一起批改。",
+             q15: "正確答案是 (13)→B, (14)→C, (15)→A。配合題需一起批改。",
+             q16: "正確順序是 1.宣布開會 → 2.報告事項 → 3.討論事項 → 4.臨時動議。",
+             q17: "正確答案是(A), (B), (D), (E)。(C)共同利益是共同關係的一種，但不是並列的獨立要素。",
+             q18: "正確答案是(A), (B), (C), (E)。部落強調<span class='highlight-text'>與自然和諧共存</span>，而非脫離自然。",
+             q19: "處理會場突發的、有關與會者便利或舒適的問題，應提出<span class='highlight-text'>權宜問題</span>。",
+             q20: "除了部落內部營造，原住民族也可以透過<span class='highlight-text'>發起社會運動</span>等公民參與方式，向外部爭取權益。"
+        };
+        
+        function disableInputs(container, disable = true) {
+            container.classList.toggle('graded', disable);
+            const inputs = container.querySelectorAll('input, select');
+            inputs.forEach(input => input.disabled = disable);
+        }
+        
+        function gradeQuestion(qId) {
+            const container = document.querySelector(`.quiz-container[data-quiz-id="${qId}"]`);
+            if (!container || container.classList.contains('graded')) return null;
+
+            const feedbackEl = container.querySelector('.feedback');
+            let isCorrect = false;
+
+            // Handle combined question (q13-15)
+            if (['q13', 'q14', 'q15'].includes(qId)) {
+                const q13User = container.querySelector('#q13-select').value;
+                const q14User = container.querySelector('#q14-select').value;
+                const q15User = container.querySelector('#q15-select').value;
+                isCorrect = q13User === correctAnswers.q13 && q14User === correctAnswers.q14 && q15User === correctAnswers.q15;
+                if(isCorrect) { return { isCorrect: true, score: 3 }; } 
+                else { return { isCorrect: false, score: 0 }; }
+            }
+
+            if (['q1', 'q2', 'q3', 'q4', 'q5', 'q12', 'q19', 'q20'].includes(qId) || ['q6', 'q7', 'q8'].includes(qId)) {
+                const userAnswer = container.querySelector(`input[name="${qId}"]:checked`)?.value;
+                isCorrect = (userAnswer === correctAnswers[qId]);
+            } else if (['q9', 'q10', 'q11'].includes(qId)) {
+                const userAnswer = container.querySelector(`#${qId}-input`).value.trim();
+                isCorrect = userAnswer.includes(correctAnswers[qId]);
+            } else if (qId === 'q16') {
+                const o_val = container.querySelector('#q16-open').value;
+                const r_val = container.querySelector('#q16-report').value;
+                const d_val = container.querySelector('#q16-discuss').value;
+                const t_val = container.querySelector('#q16-temp').value;
+                isCorrect = o_val === correctAnswers.q16.open && r_val === correctAnswers.q16.report && d_val === correctAnswers.q16.discuss && t_val === correctAnswers.q16.temp;
+            } else if (['q17', 'q18'].includes(qId)) {
+                const userAnswers = Array.from(container.querySelectorAll(`input[name="${qId}"]:checked`)).map(cb => cb.value).sort();
+                const correctAns = [...correctAnswers[qId]].sort();
+                isCorrect = JSON.stringify(userAnswers) === JSON.stringify(correctAns);
+            }
+            
+            feedbackEl.style.display = 'block';
+            feedbackEl.className = `feedback ${isCorrect ? 'correct' : 'wrong'}`;
+            feedbackEl.innerHTML = `<i class="fas ${isCorrect ? 'fa-check-circle' : 'fa-times-circle'}"></i> ${isCorrect ? '正確！' : '錯誤。'} <p>${feedbackText[qId]}</p>`;
+            
+            disableInputs(container, true);
+            container.querySelector('.check-single-btn').style.display = 'none';
+            
+            return { isCorrect: isCorrect, score: isCorrect ? 1 : 0 };
+        }
+
+        // Event listener for single check buttons
+        quizForm.addEventListener('click', (e) => {
+            if (e.target.classList.contains('check-single-btn')) {
+                const container = e.target.closest('.quiz-container');
+                const qId = container.dataset.quizId;
+                gradeQuestion(qId);
+            }
+        });
+
+        submitBtn.addEventListener('click', () => {
+            let score = 0;
+            const allQuestions = Object.keys(correctAnswers);
+            const processed = new Set(); 
+
+            allQuestions.forEach(qId => {
+                if (processed.has(qId)) return;
+
+                const container = document.querySelector(`.quiz-container[data-quiz-id="${qId}"]`);
+                if (container && container.classList.contains('graded')) {
+                    const feedback = container.querySelector('.feedback');
+                    if (feedback && feedback.classList.contains('correct')) {
+                        if (['q13', 'q14', 'q15'].includes(qId)) {
+                             score += 3;
+                        } else {
+                             score += 1;
+                        }
+                    }
+                } else {
+                    const result = gradeQuestion(qId);
+                    if (result !== null) {
+                        score += result.score;
+                    }
+                }
+                
+                if (['q13', 'q14', 'q15'].includes(qId)) {
+                    processed.add('q13');
+                    processed.add('q14');
+                    processed.add('q15');
+                }
+            });
+
+            resultsContainer.style.display = 'block';
+            scoreDisplay.textContent = `${score} / 20`;
+            if (score >= 18) {
+                scoreMessage.innerHTML = '太強了！你就是<span class="highlight-text">公民神</span>！';
+            } else if (score >= 12) {
+                scoreMessage.innerHTML = '表現不錯！再加把勁，你離公民神不遠了！';
+            } else {
+                scoreMessage.innerHTML = '別灰心，複習詳解後再挑戰一次吧！';
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            submitBtn.disabled = true;
+            resetBtn.disabled = false;
+        });
+        
+        resetBtn.addEventListener('click', () => {
+            document.querySelectorAll('.quiz-container').forEach(container => {
+                disableInputs(container, false);
+                container.querySelector('.feedback').style.display = 'none';
+                container.querySelector('.check-single-btn').style.display = 'inline-block';
+            });
+            resultsContainer.style.display = 'none';
+            submitBtn.disabled = false;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    });
+    </script>
+</body>
+</html>

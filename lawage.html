@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>法律與年齡的關係 - 公民神複習系統</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
+
+        /* --- 全域變數與基本設定 --- */
+        :root {
+            --primary-glow: #00f2ea; --secondary-glow: #ff00ff; --accent-glow: #f0e14a; --bg-dark: #0d1b2a; --bg-dark-2: #020a12; --text-color: #e0e0e0; --card-bg: rgba(23, 37, 51, 0.85); --border-color: rgba(0, 242, 234, 0.3);
+            --civil-color: #2a9d8f; --criminal-color: #e76f51; --election-color: #3a86ff; --child-law-color: #e63946;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; 
+            color: var(--text-color); 
+            line-height: 1.8; 
+            overflow-x: hidden;
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-2));
+        }
+        .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+
+        /* --- Header & Footer --- */
+        header {
+            text-align: center;
+            padding: 4rem 1rem;
+            background: rgba(13,27,42,0.5);
+            border-bottom: 2px solid var(--border-color);
+            box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
+        }
+         header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 900;
+            color: var(--text-color);
+            text-shadow:
+                0 0 5px #fff,
+                0 0 10px var(--accent-glow),
+                0 0 20px var(--accent-glow),
+                0 0 40px var(--accent-glow);
+            animation: flicker-orange 3s infinite alternate;
+        }
+
+        @keyframes flicker-orange {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-glow), 0 0 19px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow);
+            }
+            20%, 24%, 55% { text-shadow: none; }
+        }
+
+        header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
+            font-weight: 700;
+            color: var(--secondary-glow);
+            margin-top: 1rem;
+            text-shadow: 0 0 8px var(--secondary-glow);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-8px);}
+        }
+
+        footer { display: flex; justify-content: center; align-items: center; padding: 2.5rem 1rem; margin-top: 4rem; color: rgba(224, 224, 224, 0.6); font-size: 0.9rem; border-top: 1px solid var(--border-color); background: linear-gradient(to top, rgba(13, 27, 42, 0.5), transparent); }
+        footer p { text-shadow: 0 0 5px rgba(0, 242, 234, 0.2); }
+
+        /* --- 時間軸核心結構 (精準堆疊定位) --- */
+        .timeline-container { position: relative; margin: 50px auto; }
+        .timeline-center-line { position: absolute; top: 0; bottom: 0; left: 50%; transform: translateX(-50%); width: 4px; }
+        .timeline-track { height: 100%; background-color: rgba(0, 242, 234, 0.2); z-index: 0; }
+        .timeline-progress { position: absolute; top: 0; width: 100%; background: var(--primary-glow); height: 0; z-index: 1; }
+
+        .timeline-event {
+            padding: 10px 40px; position: relative; width: 50%;
+            margin-bottom: 20px;
+            opacity: 0; transform: translateY(50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .timeline-event.visible { opacity: 1; transform: translateY(0); }
+        .timeline-event:nth-child(odd) { left: 0; }
+        .timeline-event:nth-child(even) { left: 50%; }
+
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0, 242, 234, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(0, 242, 234, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 242, 234, 0); } }
+        .timeline-dot {
+            position: absolute; top: 30px; transform: translateY(-50%);
+            width: 50px; height: 50px; 
+            background-color: var(--bg-dark-2); /* 實心背景，這是遮擋線條的關鍵 */
+            border: 4px solid var(--primary-glow); border-radius: 50%; 
+            z-index: 2; /* 確保在最上層 */
+            display: flex; justify-content: center; align-items: center;
+            font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: bold;
+            cursor: pointer; transition: all 0.3s ease;
+        }
+        .timeline-event:nth-child(odd) .timeline-dot { right: -25px; }
+        .timeline-event:nth-child(even) .timeline-dot { left: -25px; }
+
+        .timeline-content {
+            padding: 20px 30px; 
+            background: linear-gradient(145deg, rgba(30, 50, 68, 0.8), rgba(23, 37, 51, 0.9));
+            backdrop-filter: blur(10px); border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+        .law-subsection { margin-bottom: 1.5rem; padding: 0.8rem 1.2rem; border-left: 4px solid; border-radius: 5px; background-color: rgba(0,0,0,0.2); }
+        .timeline-event:nth-child(odd) .law-subsection { text-align: right; border-left: none; border-right: 4px solid; }
+        .law-subsection:last-child { margin-bottom: 0; }
+        .law-subsection h3 { font-weight: bold; font-size: 1.2rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .timeline-event:nth-child(odd) .law-subsection h3 { flex-direction: row-reverse; }
+        .law-subsection ul { list-style: none; padding-left: 0; }
+        .law-subsection li { margin-bottom: 0.5rem; }
+
+        .timeline-event:hover .timeline-dot, .timeline-dot.active {
+            transform: translateY(-50%) scale(1.15); background-color: var(--primary-glow); color: var(--bg-dark); box-shadow: 0 0 25px var(--primary-glow); animation: pulse 2s infinite;
+        }
+        .timeline-event:hover .timeline-content {
+            border-color: var(--accent-glow); transform: scale(1.02); box-shadow: 0 0 25px rgba(240, 225, 74, 0.3), inset 0 0 20px rgba(0,0,0,0.3);
+        }
+
+        /* --- 響應式設計 --- */
+        @media screen and (max-width: 768px) {
+            .timeline-center-line { left: 30px; }
+            .timeline-event, .timeline-event:nth-child(even) { width: 100%; left: 0; padding-left: 70px; padding-right: 15px; }
+            .timeline-dot, .timeline-event:nth-child(even) .timeline-dot { left: 30px; transform: translateX(-50%) translateY(-50%); }
+            .timeline-event:hover .timeline-dot, .timeline-dot.active { transform: translateX(-50%) translateY(-50%) scale(1.15); }
+            .law-subsection, .timeline-event:nth-child(odd) .law-subsection { text-align: left; border-right: none; border-left: 4px solid; }
+            .law-subsection h3, .timeline-event:nth-child(odd) .law-subsection h3 { flex-direction: row; }
+        }
+        
+        /* --- 懸浮 UI 元件 & 吉祥物 --- */
+        #return-home-btn, #scroll-top-btn { position: fixed; width: 50px; height: 50px; z-index: 1001; transition: opacity 0.3s, transform 0.3s; }
+        #return-home-btn { bottom: 20px; left: 20px; }
+        #scroll-top-btn { bottom: 20px; right: 20px; background: var(--primary-glow); color: var(--bg-dark); border: none; border-radius: 50%; font-size: 1.5rem; cursor: pointer; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; }
+        #scroll-top-btn.visible { opacity: 1; pointer-events: auto; }
+        #scroll-top-btn:hover { transform: scale(1.1); box-shadow: 0 0 15px var(--primary-glow); }
+        #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; fill: none; filter: drop-shadow(0 0 6px var(--primary-glow)); transition: all 0.3s ease; }
+        #return-home-btn:hover svg { stroke: var(--primary-glow); transform: rotate(-10deg) scale(1.1); }
+        #mascot-container { position: fixed; bottom: 80px; right: 20px; z-index: 1000; user-select: none; }
+        #mascot-btn { background: none; border: none; padding: 0; cursor: pointer; border-radius: 50%; }
+        #mascot-btn:focus-visible { outline: 3px solid var(--primary-glow); outline-offset: 2px; }
+        #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; display: block; }
+        #mascot-btn:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
+        #mascot-img.enlarged { transform: scale(2.5) !important; }
+        #mascot-speech { position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9); color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3); }
+        #mascot-speech.visible { opacity: 1; transform: translateY(0); }
+        .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
+        .law-subsection.civil-law { border-color: var(--civil-color); } .law-subsection.civil-law h3 { color: var(--civil-color); }
+        .law-subsection.criminal-law { border-color: var(--criminal-color); } .law-subsection.criminal-law h3 { color: var(--criminal-color); }
+        .law-subsection.election-law { border-color: var(--election-color); } .law-subsection.election-law h3 { color: var(--election-color); }
+        .law-subsection.child-law { border-color: var(--child-law-color); } .law-subsection.child-law h3 { color: var(--child-law-color); }
+    </style>
+</head>
+<body>
+    <header><div class="container"><h1>法律與年齡的關係</h1><h2>邱俐瑜公民，成為公民神不再只是夢想！</h2></div></header>
+
+    <main class="container">
+        <div class="timeline-container">
+            <div class="timeline-center-line"><div class="timeline-track"></div><div class="timeline-progress"></div></div>
+            
+            <div class="timeline-event" id="event-7"><div class="timeline-dot" data-target="event-7">7</div><div class="timeline-content"><div class="law-subsection civil-law"><h3><i class="fas fa-balance-scale"></i>《民法》</h3><ul><li><b>進入「限制行為能力人」階段</b> (7歲至未滿18歲)</li><li>法律行為須經法定代理人同意，但純獲利益或日常生活必需者除外。</li><li>(未滿7歲為「無行為能力人」)</li></ul></div></div></div>
+            <div class="timeline-event" id="event-12"><div class="timeline-dot" data-target="event-12">12</div><div class="timeline-content"><div class="law-subsection child-law"><h3><i class="fas fa-child"></i>《少年事件處理法》、《兒童及少年福利與權益保障法》、《兒童及少年性剝削防制條例》</h3><ul><li><b>身份轉為「少年」</b> (12歲至未滿18歲)</li><li>(未滿12歲為「兒童」)</li></ul></div></div></div>
+            <div class="timeline-event" id="event-14"><div class="timeline-dot" data-target="event-14">14</div><div class="timeline-content"><div class="law-subsection criminal-law"><h3><i class="fas fa-gavel"></i>《刑法》</h3><ul><li><b>進入「限制責任能力人」階段</b></li><li>行為得減輕其刑。適用《少年事件處理法》。</li><li>(未滿14歲為「無責任能力人」，不罰)</li></ul></div></div></div>
+            <div class="timeline-event" id="event-15"><div class="timeline-dot" data-target="event-15">15</div><div class="timeline-content"><div class="law-subsection child-law"><h3><i class="fas fa-briefcase"></i>《勞動基準法》</h3><ul><li><b>可被視為「童工」</b> (15歲至未滿16歲)</li><li>工作受特別保護，未滿15歲者原則上不得工作。</li></ul></div></div></div>
+            <div class="timeline-event" id="event-17"><div class="timeline-dot" data-target="event-17">17</div><div class="timeline-content"><div class="law-subsection civil-law"><h3><i class="fas fa-balance-scale"></i>《民法》</h3><ul><li><b>可以訂婚</b> (男女皆須年滿17歲)</li></ul></div></div></div>
+            <div class="timeline-event" id="event-18"><div class="timeline-dot" data-target="event-18">18</div><div class="timeline-content"><div class="law-subsection civil-law"><h3><i class="fas fa-balance-scale"></i>《民法》</h3><ul><li><b>成為「完全行為能力人」</b></li><li><b>可以結婚</b> (男女皆須年滿18歲)</li></ul></div><div class="law-subsection criminal-law"><h3><i class="fas fa-gavel"></i>《刑法》</h3><ul><li><b>成為「完全責任能力人」</b>，負完全刑事責任。</li></ul></div><div class="law-subsection election-law"><h3><i class="fas fa-vote-yea"></i>《公民投票法》</h3><ul><li><b>擁有「公民投票權」</b></li></ul></div></div></div>
+            <div class="timeline-event" id="event-20"><div class="timeline-dot" data-target="event-20">20</div><div class="timeline-content"><div class="law-subsection election-law"><h3><i class="fas fa-vote-yea"></i>《憲法》</h3><ul><li><b>擁有「選舉權」</b></li></ul></div></div></div>
+            <div class="timeline-event" id="event-23"><div class="timeline-dot" data-target="event-23">23</div><div class="timeline-content"><div class="law-subsection election-law"><h3><i class="fas fa-vote-yea"></i>《公職人員選舉罷免法》</h3><ul><li><b>擁有被選舉權：</b>立法委員、民意代表、村里長等。</li></ul></div></div></div>
+            <div class="timeline-event" id="event-26"><div class="timeline-dot" data-target="event-26">26</div><div class="timeline-content"><div class="law-subsection election-law"><h3><i class="fas fa-vote-yea"></i>《公職人員選舉罷免法》</h3><ul><li><b>擁有被選舉權：</b>鄉(鎮、市)長。</li></ul></div></div></div>
+            <div class="timeline-event" id="event-30"><div class="timeline-dot" data-target="event-30">30</div><div class="timeline-content"><div class="law-subsection election-law"><h3><i class="fas fa-vote-yea"></i>《公職人員選舉罷免法》</h3><ul><li><b>擁有被選舉權：</b>直轄市長、縣(市)長。</li></ul></div></div></div>
+            <div class="timeline-event" id="event-40"><div class="timeline-dot" data-target="event-40">40</div><div class="timeline-content"><div class="law-subsection election-law"><h3><i class="fas fa-vote-yea"></i>《總統副總統選舉罷免法》</h3><ul><li><b>擁有被選舉權：</b>總統、副總統。</li></ul></div></div></div>
+            <div class="timeline-event" id="event-80"><div class="timeline-dot" data-target="event-80">80</div><div class="timeline-content"><div class="law-subsection criminal-law"><h3><i class="fas fa-gavel"></i>《刑法》</h3><ul><li><b>再次成為「限制責任能力人」</b></li><li>行為得減輕其刑。</li></ul></div></div></div>
+        </div>
+    </main>
+
+    <a href="index.html" id="return-home-btn" title="返回主頁"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></a>
+    <button id="scroll-top-btn" title="回到頂部"><i class="fas fa-chevron-up"></i></button>
+    <div id="mascot-container"><button id="mascot-btn" aria-label="與吉祥物互動"><img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物"></button><div id="mascot-speech">來探索法律與年齡的奧秘吧！</div></div>
+    
+    <footer><p>Copyright © Liyuchiutiger Gongminshen</p></footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- 初始化函式 ---
+        setupTimeline();
+        setupUIWidgets();
+        setupMascot();
+    });
+
+    function setupTimeline() {
+        const timelineContainer = document.querySelector('.timeline-container');
+        const timelineProgress = document.querySelector('.timeline-progress');
+        const timelineEvents = document.querySelectorAll('.timeline-event');
+        const allDots = document.querySelectorAll('.timeline-dot');
+
+        function updateProgress() {
+            const containerRect = timelineContainer.getBoundingClientRect();
+            const containerTop = window.scrollY + containerRect.top;
+            const scrollableHeight = timelineContainer.scrollHeight - window.innerHeight;
+            let progress = (window.scrollY - containerTop) / scrollableHeight;
+            progress = Math.min(1, Math.max(0, progress));
+            timelineProgress.style.height = `${progress * 100}%`;
+        }
+
+        const fadeInObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        timelineEvents.forEach(item => fadeInObserver.observe(item));
+
+        const activeStateObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const dot = document.querySelector(`.timeline-dot[data-target="${entry.target.id}"]`);
+                if (dot) dot.classList.toggle('active', entry.isIntersecting);
+            });
+        }, { rootMargin: "-48% 0px -48% 0px" });
+        timelineEvents.forEach(item => activeStateObserver.observe(item));
+        
+        allDots.forEach(dot => {
+            dot.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetElement = document.getElementById(dot.dataset.target);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            });
+        });
+
+        window.addEventListener('scroll', updateProgress);
+        updateProgress();
+    }
+
+    function setupUIWidgets() {
+        const scrollTopBtn = document.getElementById('scroll-top-btn');
+        window.addEventListener('scroll', () => {
+            scrollTopBtn.classList.toggle('visible', window.scrollY > 300);
+        });
+        scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    }
+
+    function setupMascot() {
+        const mascotContainer = document.getElementById('mascot-container');
+        const mascotBtn = document.getElementById('mascot-btn');
+        const mascotImg = document.getElementById('mascot-img');
+        const speechBubble = document.getElementById('mascot-speech');
+        const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！"];
+        let messageIndex = 0, clickTimer = null, speechTimeout = null;
+
+        mascotBtn.addEventListener('click', () => {
+            clearTimeout(clickTimer);
+            clickTimer = setTimeout(() => {
+                speechBubble.textContent = messages[messageIndex];
+                speechBubble.classList.add('visible');
+                messageIndex = (messageIndex + 1) % messages.length;
+                clearTimeout(speechTimeout);
+                speechTimeout = setTimeout(() => speechBubble.classList.remove('visible'), 4000);
+            }, 250);
+        });
+
+        mascotBtn.addEventListener('dblclick', (e) => {
+            e.preventDefault(); clearTimeout(clickTimer); speechBubble.classList.remove('visible');
+            triggerExplosion();
+        });
+
+        function triggerExplosion() {
+            mascotImg.classList.add('enlarged');
+            const particleCount = 40, particleColors = [ 'var(--primary-glow)', 'var(--secondary-glow)', 'var(--accent-glow)', '#ffffff' ];
+            for (let i = 0; i < particleCount; i++) {
+                const p = document.createElement('div'); p.classList.add('particle'); mascotContainer.appendChild(p);
+                const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+                const angle = Math.random() * 360, r = Math.random() * 120 + 50;
+                const x = Math.cos(angle * Math.PI / 180) * r, y = Math.sin(angle * Math.PI / 180) * r;
+                p.style.background = color;
+                requestAnimationFrame(() => {
+                    p.style.transform = `translate(${x}px, ${y}px) scale(0)`;
+                    p.style.opacity = '0';
+                });
+                setTimeout(() => p.remove(), 1000);
+            }
+            setTimeout(() => mascotImg.classList.remove('enlarged'), 300);
+        }
+    }
+    </script>
+</body>
+</html>

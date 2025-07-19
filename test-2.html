@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>公民神總複習挑戰 (單元二)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
+
+        :root {
+            --primary-glow: #00f2ea; --secondary-glow: #ff00ff; --accent-glow: #f0e14a; --bg-dark: #0d1b2a; --bg-dark-2: #020a12; --text-color: #e0e0e0; --card-bg: rgba(23, 37, 51, 0.7); --correct-color: #00ff87; --wrong-color: #ff2a6d; --border-color: rgba(0, 242, 234, 0.3); --accent-border-color: rgba(240, 225, 74, 0.5);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; 
+            color: var(--text-color); 
+            line-height: 1.8; 
+            overflow-x: hidden;
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-2));
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; position: relative; z-index: 2; }
+
+        header { 
+            text-align: center; padding: 4rem 1rem; border-bottom: 2px solid var(--border-color); 
+            background: rgba(13,27,42,0.5); backdrop-filter: blur(5px);
+        }
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 900;
+            color: var(--text-color);
+            text-shadow:
+                0 0 5px #fff,
+                0 0 10px var(--accent-glow),
+                0 0 20px var(--accent-glow),
+                0 0 40px var(--accent-glow);
+            animation: flicker-orange 3s infinite alternate;
+        }
+
+        @keyframes flicker-orange {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-glow), 0 0 19px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow);
+            }
+            20%, 24%, 55% { text-shadow: none; }
+        }
+
+        header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
+            font-weight: 700;
+            color: var(--secondary-glow);
+            margin-top: 1rem;
+            text-shadow: 0 0 8px var(--secondary-glow);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-8px);}
+        }
+
+        #results-container {
+            display: none; padding: 2rem; margin: 2rem 0;
+            background-color: rgba(0, 242, 234, 0.1); border: 2px solid var(--primary-glow);
+            border-radius: 20px; text-align: center; box-shadow: 0 0 30px rgba(0,242,234,0.3);
+        }
+        #results-container h2 { font-family: 'Orbitron', sans-serif; color: var(--primary-glow); font-size: 2rem; margin-bottom: 0.5rem; }
+        #score-display { 
+            font-size: 3rem; font-weight: 900; color: var(--accent-glow); margin-bottom: 1rem;
+            animation: score-flicker 2s infinite alternate;
+        }
+        @keyframes score-flicker {
+            0%, 100% { text-shadow: 0 0 8px var(--accent-glow), 0 0 20px var(--accent-glow); }
+            50% { text-shadow: 0 0 8px var(--accent-glow), 0 0 30px #fff; }
+        }
+        #score-message { font-size: 1.2rem; }
+
+        .quiz-section { 
+            background-color: var(--card-bg); border-radius: 20px; border: 2px solid var(--border-color); 
+            backdrop-filter: blur(10px); padding: 2.5rem; transition: box-shadow 0.3s ease;
+        }
+        .quiz-section:hover { box-shadow: 0 0 25px rgba(0,242,234,0.2); }
+        
+        .quiz-container { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px dashed var(--border-color); }
+        .quiz-container:last-of-type { border-bottom: none; margin-bottom: 0; }
+        .question-title { font-family: 'Orbitron', sans-serif; font-size: 1.3rem; color: var(--accent-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.8rem; }
+        .question-text { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .question-text p { margin-bottom: 1rem; }
+
+        /* --- Custom Radio & Checkbox --- */
+        .answer-area .option-label {
+            display: block; position: relative;
+            background-color: rgba(0,0,0,0.2); padding: 0.8rem 1.2rem 0.8rem 2.8rem; 
+            margin-bottom: 0.8rem; border-radius: 8px; border: 1px solid var(--border-color); 
+            cursor: pointer; transition: all 0.2s;
+        }
+        .answer-area .option-label:hover { background-color: rgba(0, 242, 234, 0.2); border-color: var(--primary-glow); }
+        .quiz-container.graded .answer-area .option-label:hover { background-color: rgba(0,0,0,0.2); border-color: var(--border-color); } /* Lock hover effect when graded */
+        .quiz-container.graded .answer-area .option-label { cursor: not-allowed; opacity: 0.7; }
+
+        .answer-area input[type="radio"], .answer-area input[type="checkbox"] {
+            position: absolute; opacity: 0; cursor: pointer; height: 0; width: 0;
+        }
+        .custom-marker {
+            position: absolute; top: 50%; left: 1rem; transform: translateY(-50%);
+            height: 20px; width: 20px; background-color: transparent;
+            border: 2px solid var(--primary-glow); transition: all 0.2s;
+        }
+        .custom-radio .custom-marker { border-radius: 50%; }
+        .custom-checkbox .custom-marker { border-radius: 4px; }
+        input:checked ~ .option-label .custom-marker {
+            background-color: var(--primary-glow);
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+        .custom-checkbox .custom-marker::after {
+            content: ""; position: absolute; display: none;
+            left: 6px; top: 2px; width: 5px; height: 10px;
+            border: solid var(--bg-dark); border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+        }
+        .custom-checkbox input:checked ~ .option-label .custom-marker::after { display: block; }
+        
+        /* --- Custom Fill-in-the-Blank --- */
+        .fill-in-wrapper {
+            position: relative; display: inline-block;
+            margin: 0 0.5rem;
+        }
+        .fill-in-blank-input { 
+            background: transparent; border: none;
+            border-bottom: 2px solid var(--border-color);
+            color: var(--text-color); padding: 0.5rem; text-align: center;
+            font-size: 1.1rem; width: 180px; transition: border-color 0.3s;
+        }
+        .fill-in-blank-input:focus { 
+            outline: none; border-color: var(--primary-glow);
+        }
+        
+        /* Other input types */
+        .matching-grid, .sequencing-grid { display: grid; gap: 1rem; align-items: center; }
+        .matching-grid { grid-template-columns: 1fr auto 1fr; }
+        .matching-item { padding: 0.8rem; background: rgba(0,0,0,0.1); border-radius: 5px; text-align: center; }
+        .matching-select, .sequencing-input { width: 100%; padding: 0.6rem; font-size: 1rem; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); color: var(--text-color); border-radius: 5px; }
+        .sequencing-grid { grid-template-columns: 50px 1fr; }
+        .sequencing-input { text-align: center; font-family: 'Orbitron', sans-serif; font-weight: bold; }
+        input[type="number"]:disabled, .matching-select:disabled, .fill-in-blank-input:disabled { opacity: 0.7; cursor: not-allowed; }
+
+        .feedback { display: none; margin-top: 1rem; padding: 1rem; border-radius: 8px; border-left: 5px solid; }
+        .feedback.correct { background-color: rgba(0, 255, 135, 0.1); border-color: var(--correct-color); color: var(--correct-color); }
+        .feedback.wrong { background-color: rgba(255, 42, 109, 0.1); border-color: var(--wrong-color); color: var(--wrong-color); }
+        .feedback p { color: var(--text-color); } .highlight-text { font-weight: bold; color: var(--accent-glow); }
+
+        .single-check-wrapper { text-align: right; margin-top: 1rem; }
+        .check-single-btn { padding: 0.5rem 1.5rem; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--bg-dark); background: var(--primary-glow); border: none; border-radius: 5px; cursor: pointer; transition: all 0.2s; }
+        .check-single-btn:hover { background: #fff; box-shadow: 0 0 15px var(--primary-glow); }
+
+        .control-buttons { display: flex; justify-content: center; gap: 1.5rem; margin-top: 3rem; }
+        .control-btn { padding: 0.8rem 2.5rem; font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--bg-dark); background: var(--accent-glow); border: none; border-radius: 50px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .control-btn:hover { transform: scale(1.05); box-shadow: 0 0 25px var(--accent-glow); }
+        .control-btn#reset-btn { background: var(--secondary-glow); }
+        .control-btn#reset-btn:hover { box-shadow: 0 0 25px var(--secondary-glow); }
+        .control-btn:disabled { background: #555; color: #999; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; }
+        #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; fill: none; filter: drop-shadow(0 0 6px var(--primary-glow)); transition: all 0.3s ease; }
+        #return-home-btn:hover svg { stroke: var(--primary-glow); transform: rotate(-10deg) scale(1.1); }
+        
+        /* Mascot Styles */
+        #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; user-select: none; }
+        #mascot-btn { background: none; border: none; padding: 0; cursor: pointer; border-radius: 50%; }
+        #mascot-btn:focus-visible { outline: 3px solid var(--primary-glow); outline-offset: 2px; }
+        #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; display: block; }
+        #mascot-btn:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
+        #mascot-img.enlarged { transform: scale(2.5) !important; }
+        #mascot-speech { position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9); color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3); }
+        #mascot-speech.visible { opacity: 1; transform: translateY(0); }
+        .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
+        
+        footer {
+            display: flex; justify-content: center; align-items: center; padding: 2.5rem 1rem; margin-top: 4rem; color: rgba(224, 224, 224, 0.6); font-size: 0.9rem; border-top: 1px solid var(--border-color); background: linear-gradient(to top, rgba(13, 27, 42, 0.5), transparent);
+        }
+        footer p { text-shadow: 0 0 5px rgba(0, 242, 234, 0.2); }
+
+        @media (max-width: 768px) { .container { padding: 1rem; } #mascot-img { width: 80px; } #mascot-speech { max-width: 180px; bottom: 90px; } .matching-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>公民神總複習挑戰 (單元二)</h1>
+            <h2>邱俐瑜公民，成為公民神不再只是夢想！</h2>
+        </div>
+    </header>
+
+    <main class="container">
+        <form id="quiz-form">
+            <div id="results-container">
+                <h2 id="result-title">批改完成！</h2>
+                <div id="score-display">-- / 20</div>
+                <p id="score-message">準備好看看你的成果了嗎？</p>
+            </div>
+
+            <div class="quiz-section">
+                <div class="quiz-intro">
+                    <h2>綜合測驗：家庭生活</h2>
+                    <p>共 20 題，涵蓋多種題型。完成後請點擊最下方的「批改計分」。</p>
+                </div>
+
+                <div class="quiz-container" data-quiz-id="q1"><h3 class="question-title"><i class="fas fa-question-circle"></i>第一題：選擇題</h3><div class="question-text"><p>親屬關係可分為配偶、血親與姻親。其中，因收養而成立的親子關係，在法律上稱為什麼？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q1a" name="q1" value="A"><label for="q1a" class="option-label"><span class="custom-marker"></span>(A) 自然血親</label></div><div class="custom-radio"><input type="radio" id="q1b" name="q1" value="B"><label for="q1b" class="option-label"><span class="custom-marker"></span>(B) 法定血親</label></div><div class="custom-radio"><input type="radio" id="q1c" name="q1" value="C"><label for="q1c" class="option-label"><span class="custom-marker"></span>(C) 直系姻親</label></div><div class="custom-radio"><input type="radio" id="q1d" name="q1" value="D"><label for="q1d" class="option-label"><span class="custom-marker"></span>(D) 旁系姻親</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q2"><h3 class="question-title"><i class="fas fa-question-circle"></i>第二題：選擇題</h3><div class="question-text"><p>小林與父母、祖父母一同居住，這種三代同堂的家庭型態，屬於下列何者？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q2a" name="q2" value="A"><label for="q2a" class="option-label"><span class="custom-marker"></span>(A) 小家庭 (核心家庭)</label></div><div class="custom-radio"><input type="radio" id="q2b" name="q2" value="B"><label for="q2b" class="option-label"><span class="custom-marker"></span>(B) 大家庭 (聯合家庭)</label></div><div class="custom-radio"><input type="radio" id="q2c" name="q2" value="C"><label for="q2c" class="option-label"><span class="custom-marker"></span>(C) 折衷家庭 (主幹家庭)</label></div><div class="custom-radio"><input type="radio" id="q2d" name="q2" value="D"><label for="q2d" class="option-label"><span class="custom-marker"></span>(D) 重組家庭</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q3"><h3 class="question-title"><i class="fas fa-question-circle"></i>第三題：選擇題</h3><div class="question-text"><p>所謂「頂客家庭」(DINK) 是指現代社會中的一種家庭模式，其最主要的特徵是什麼？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q3a" name="q3" value="A"><label for="q3a" class="option-label"><span class="custom-marker"></span>(A) 夫妻雙方都有工作收入</label></div><div class="custom-radio"><input type="radio" id="q3b" name="q3" value="B"><label for="q3b" class="option-label"><span class="custom-marker"></span>(B) 祖父母負責教養孫子女</label></div><div class="custom-radio"><input type="radio" id="q3c" name="q3" value="C"><label for="q3c" class="option-label"><span class="custom-marker"></span>(C) 夫妻雙方婚後分居兩地</label></div><div class="custom-radio"><input type="radio" id="q3d" name="q3" value="D"><label for="q3d" class="option-label"><span class="custom-marker"></span>(D) 夫妻雙薪且自願不生育子女</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q4"><h3 class="question-title"><i class="fas fa-question-circle"></i>第四題：選擇題</h3><div class="question-text"><p>傳統家庭重要的「經濟功能」主要是指自給自足，而在現代社會中，家庭的經濟功能已轉變為下列何者？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q4a" name="q4" value="A"><label for="q4a" class="option-label"><span class="custom-marker"></span>(A) 依賴政府的全面補助</label></div><div class="custom-radio"><input type="radio" id="q4b" name="q4" value="B"><label for="q4b" class="option-label"><span class="custom-marker"></span>(B) 提供情感支持與保護</label></div><div class="custom-radio"><input type="radio" id="q4c" name="q4" value="C"><label for="q4c" class="option-label"><span class="custom-marker"></span>(C) 作為市場消費與滿足需求的基本單位</label></div><div class="custom-radio"><input type="radio" id="q4d" name="q4" value="D"><label for="q4d" class="option-label"><span class="custom-marker"></span>(D) 負責所有的教育工作</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q5"><h3 class="question-title"><i class="fas fa-question-circle"></i>第五題：選擇題</h3><div class="question-text"><p>若法院判定父母對子女有嚴重疏忽或虐待行為，依法可以暫時或永久停止其親權。這項規定的主要法律依據是？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q5a" name="q5" value="A"><label for="q5a" class="option-label"><span class="custom-marker"></span>(A) 《民法》</label></div><div class="custom-radio"><input type="radio" id="q5b" name="q5" value="B"><label for="q5b" class="option-label"><span class="custom-marker"></span>(B) 《刑法》</label></div><div class="custom-radio"><input type="radio" id="q5c" name="q5" value="C"><label for="q5c" class="option-label"><span class="custom-marker"></span>(C) 《家庭暴力防治法》</label></div><div class="custom-radio"><input type="radio" id="q5d" name="q5" value="D"><label for="q5d" class="option-label"><span class="custom-marker"></span>(D) 《兒童及少年福利與權益保障法》</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q6"><h3 class="question-title"><i class="fas fa-check-square"></i>第六題：是非題</h3><div class="question-text"><p>我太太的哥哥的太太（嫂嫂的姊姊），與我具有姻親關係。</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q6t" name="q6" value="true"><label for="q6t" class="option-label"><span class="custom-marker"></span>(O) 是</label></div><div class="custom-radio"><input type="radio" id="q6f" name="q6" value="false"><label for="q6f" class="option-label"><span class="custom-marker"></span>(X) 非</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q7"><h3 class="question-title"><i class="fas fa-check-square"></i>第七題：是非題</h3><div class="question-text"><p>在現代平權觀念下，子女被視為父母的財產或附屬品，應完全服從父母的安排。</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q7t" name="q7" value="true"><label for="q7t" class="option-label"><span class="custom-marker"></span>(O) 是</label></div><div class="custom-radio"><input type="radio" id="q7f" name="q7" value="false"><label for="q7f" class="option-label"><span class="custom-marker"></span>(X) 非</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q8"><h3 class="question-title"><i class="fas fa-check-square"></i>第八題：是非題</h3><div class="question-text"><p>隨著社會變遷，家庭的教育功能影響力逐漸加深，已完全取代學校和媒體的地位。</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q8t" name="q8" value="true"><label for="q8t" class="option-label"><span class="custom-marker"></span>(O) 是</label></div><div class="custom-radio"><input type="radio" id="q8f" name="q8" value="false"><label for="q8f" class="option-label"><span class="custom-marker"></span>(X) 非</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q9"><h3 class="question-title"><i class="fas fa-pen"></i>第九題：填空題</h3><div class="question-text"><p>因為工作而與家人分居兩地，僅在假日團聚的家庭，稱為<span class="fill-in-wrapper"><input type="text" class="fill-in-blank-input" id="q9-input" placeholder="輸入答案"></span>家庭。</p></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q10"><h3 class="question-title"><i class="fas fa-pen"></i>第十題：填空題</h3><div class="question-text"><p>家庭成員若遭受身體或精神上的不法侵害，可以依據《<span class="fill-in-wrapper"><input type="text" class="fill-in-blank-input" id="q10-input" placeholder="輸入答案"></span>法》向法院聲請保護令。</p></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q11"><h3 class="question-title"><i class="fas fa-pen"></i>第十一題：填空題</h3><div class="question-text"><p>政府為了因應高齡化社會，協助家庭的保護與照顧功能，大力推動「<span class="fill-in-wrapper"><input type="text" class="fill-in-blank-input" id="q11-input" placeholder="輸入答案"></span>計畫」。</p></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q12"><h3 class="question-title"><i class="fas fa-question-circle"></i>第十二題：選擇題</h3><div class="question-text"><p>建立「平權家庭」是現代社會的目標，強調家庭成員間的平等。下列何者「並非」平權家庭所追求的核心概念？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q12a" name="q12" value="A"><label for="q12a" class="option-label"><span class="custom-marker"></span>(A) 配偶平權</label></div><div class="custom-radio"><input type="radio" id="q12b" name="q12" value="B"><label for="q12b" class="option-label"><span class="custom-marker"></span>(B) 親子平權</label></div><div class="custom-radio"><input type="radio" id="q12c" name="q12" value="C"><label for="q12c" class="option-label"><span class="custom-marker"></span>(C) 手足平權</label></div><div class="custom-radio"><input type="radio" id="q12d" name="q12" value="D"><label for="q12d" class="option-label"><span class="custom-marker"></span>(D) 鄰里平權</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q13"><h3 class="question-title"><i class="fas fa-link"></i>第十三至十五題：配合題</h3><div class="question-text"><p>請將左方的「社會問題」與右方政府最直接的「輔助政策」進行配對，以協助家庭發揮功能。</p></div><div class="answer-area matching-grid"><div class="matching-item">(13) 少子化問題</div> <i class="fas fa-arrows-alt-h"></i><select class="matching-select" id="q13-select"> <option value="">請選擇...</option> <option value="A">A. 提供就業輔導與經濟援助</option> <option value="B">B. 開設識字班與生活適應班</option> <option value="C">C. 提供生育給付、育兒津貼</option> </select><div class="matching-item">(14) 弱勢家庭經濟困難</div> <i class="fas fa-arrows-alt-h"></i><select class="matching-select" id="q14-select"> <option value="">請選擇...</option> <option value="A">A. 提供就業輔導與經濟援助</option> <option value="B">B. 開設識字班與生活適應班</option> <option value="C">C. 提供生育給付、育兒津貼</option> </select><div class="matching-item">(15) 跨國婚姻適應問題</div> <i class="fas fa-arrows-alt-h"></i><select class="matching-select" id="q15-select"> <option value="">請選擇...</option> <option value="A">A. 提供就業輔導與經濟援助</option> <option value="B">B. 開設識字班與生活適應班</option> <option value="C">C. 提供生育給付、育兒津貼</option> </select></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q16"><h3 class="question-title"><i class="fas fa-sort-numeric-up"></i>第十六題：排序題</h3><div class="question-text"><p>請將一般人成立家庭後，各種親屬關係形成的先後順序，填入數字 1、2、3 進行排序。</p></div><div class="answer-area sequencing-grid"><input type="number" class="sequencing-input" id="q16-blood" min="1" max="3"> <label>血親關係 (生育子女)</label><input type="number" class="sequencing-input" id="q16-spouse" min="1" max="3"> <label>配偶關係 (結婚)</label><input type="number" class="sequencing-input" id="q16-inlaw" min="1" max="3"> <label>姻親關係 (因婚姻而與對方親屬產生)</label></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q17"><h3 class="question-title"><i class="fas fa-tasks"></i>第十七題：複選題</h3><div class="question-text"><p>現代社會家庭型態趨於多元，下列哪些屬於多元化的家庭模式？(答案可多選)</p></div><div class="answer-area"><div class="custom-checkbox"><input type="checkbox" id="q17a" name="q17" value="A"><label for="q17a" class="option-label"><span class="custom-marker"></span>(A) 單親家庭</label></div><div class="custom-checkbox"><input type="checkbox" id="q17b" name="q17" value="B"><label for="q17b" class="option-label"><span class="custom-marker"></span>(B) 隔代教養家庭</label></div><div class="custom-checkbox"><input type="checkbox" id="q17c" name="q17" value="C"><label for="q17c" class="option-label"><span class="custom-marker"></span>(C) 三代同堂的大家庭</label></div><div class="custom-checkbox"><input type="checkbox" id="q17d" name="q17" value="D"><label for="q17d" class="option-label"><span class="custom-marker"></span>(D) 重組家庭</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q18"><h3 class="question-title"><i class="fas fa-tasks"></i>第十八題：複選題</h3><div class="question-text"><p>家庭具有多樣的功能，下列哪些是家庭主要的功能？(答案可多選)</p></div><div class="answer-area"><div class="custom-checkbox"><input type="checkbox" id="q18a" name="q18" value="A"><label for="q18a" class="option-label"><span class="custom-marker"></span>(A) 生育功能</label></div><div class="custom-checkbox"><input type="checkbox" id="q18b" name="q18" value="B"><label for="q18b" class="option-label"><span class="custom-marker"></span>(B) 政治參與功能</label></div><div class="custom-checkbox"><input type="checkbox" id="q18c" name="q18" value="C"><label for="q18c" class="option-label"><span class="custom-marker"></span>(C) 經濟功能</label></div><div class="custom-checkbox"><input type="checkbox" id="q18d" name="q18" value="D"><label for="q18d" class="option-label"><span class="custom-marker"></span>(D) 保護與照顧功能</label></div><div class="custom-checkbox"><input type="checkbox" id="q18e" name="q18" value="E"><label for="q18e" class="option-label"><span class="custom-marker"></span>(E) 教育功能</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q19"><h3 class="question-title"><i class="fas fa-gavel"></i>第十九題：情境選擇題</h3><div class="question-text"><p>小華的父親長期對母親實施言語暴力與精神虐待，母親決定尋求法律協助。在此情況下，母親最應優先採取的法律行動是？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q19a" name="q19" value="A"><label for="q19a" class="option-label"><span class="custom-marker"></span>(A) 依《民法》請求離婚</label></div><div class="custom-radio"><input type="radio" id="q19b" name="q19" value="B"><label for="q19b" class="option-label"><span class="custom-marker"></span>(B) 依《家庭暴力防治法》聲請保護令</label></div><div class="custom-radio"><input type="radio" id="q19c" name="q19" value="C"><label for="q19c" class="option-label"><span class="custom-marker"></span>(C) 依《刑法》提出傷害告訴</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q20"><h3 class="question-title"><i class="fas fa-question-circle"></i>第二十題：選擇題</h3><div class="question-text"><p>下列哪一項是傳統「男主外、女主內」觀念，在現代平權思潮下最主要的轉變？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q20a" name="q20" value="A"><label for="q20a" class="option-label"><span class="custom-marker"></span>(A) 法律強制規定夫妻必須一同工作</label></div><div class="custom-radio"><input type="radio" id="q20b" name="q20" value="B"><label for="q20b" class="option-label"><span class="custom-marker"></span>(B) 鼓勵女性就業，並尊重多元的家庭分工模式</label></div><div class="custom-radio"><input type="radio" id="q20c" name="q20" value="C"><label for="q20c" class="option-label"><span class="custom-marker"></span>(C) 男性完全退出職場，改由女性負擔家計</label></div><div class="custom-radio"><input type="radio" id="q20d" name="q20" value="D"><label for="q20d" class="option-label"><span class="custom-marker"></span>(D) 家庭完全不需具備經濟功能</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+
+                <div class="control-buttons">
+                    <button type="button" id="submit-btn" class="control-btn">批改計分</button>
+                    <button type="reset" id="reset-btn" class="control-btn">重新作答</button>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <a href="index.html" id="return-home-btn" title="返回主頁">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+    </a>
+    
+    <div id="mascot-container">
+        <button id="mascot-btn" aria-label="與吉祥物互動">
+            <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
+        </button>
+        <div id="mascot-speech">來挑戰吧！</div>
+    </div>
+
+    <footer>
+        <p>Copyright © Liyuchiutiger Gongminshen</p>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Mascot Interaction (No changes) ---
+        const mascotContainer = document.getElementById('mascot-container');
+        const mascotBtn = document.getElementById('mascot-btn');
+        const mascotImg = document.getElementById('mascot-img');
+        const speechBubble = document.getElementById('mascot-speech');
+        const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+        let messageIndex = 0; let clickTimer = null; let speechTimeout = null;
+        mascotBtn.addEventListener('click', () => {
+            clearTimeout(clickTimer);
+            clickTimer = setTimeout(() => {
+                speechBubble.textContent = messages[messageIndex];
+                speechBubble.classList.add('visible');
+                messageIndex = (messageIndex + 1) % messages.length;
+                clearTimeout(speechTimeout);
+                speechTimeout = setTimeout(() => speechBubble.classList.remove('visible'), 4000);
+            }, 250);
+        });
+        mascotBtn.addEventListener('dblclick', (e) => {
+            e.preventDefault();
+            clearTimeout(clickTimer);
+            speechBubble.classList.remove('visible');
+            triggerExplosion();
+        });
+        function triggerExplosion() {
+            mascotImg.classList.add('enlarged');
+            const particleCount = 40; const particleColors = [ 'var(--primary-glow)', 'var(--secondary-glow)', 'var(--accent-glow)', '#ffffff' ];
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div'); particle.classList.add('particle'); mascotContainer.appendChild(particle);
+                const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+                const angle = Math.random() * 360; const radius = Math.random() * 120 + 50;
+                const x = Math.cos(angle * Math.PI / 180) * radius; const y = Math.sin(angle * Math.PI / 180) * radius;
+                particle.style.background = color;
+                requestAnimationFrame(() => { particle.style.transform = `translate(${x}px, ${y}px) scale(0)`; particle.style.opacity = '0'; });
+                setTimeout(() => particle.remove(), 1000);
+            }
+            setTimeout(() => mascotImg.classList.remove('enlarged'), 300);
+        }
+
+        // --- Quiz Logic ---
+        const quizForm = document.getElementById('quiz-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const resultsContainer = document.getElementById('results-container');
+        const scoreDisplay = document.getElementById('score-display');
+        const scoreMessage = document.getElementById('score-message');
+
+        const correctAnswers = {
+            q1: 'B', q2: 'C', q3: 'D', q4: 'C', q5: 'A', q6: 'false', q7: 'false', q8: 'false',
+            q9: '兩地', q10: '家庭暴力防治', q11: '長期照顧十年', 
+            q12: 'D',
+            q13: 'C', q14: 'A', q15: 'B',
+            q16: { spouse: '1', blood: '2', inlaw: '3' },
+            q17: ['A', 'B', 'D'], q18: ['A', 'C', 'D', 'E'],
+            q19: 'B', q20: 'B'
+        };
+
+        const feedbackText = {
+             q1: "透過收養程序，使無血緣者在法律上成立親子關係，稱為<span class='highlight-text'>法定血親</span>，又稱擬制血親。",
+             q2: "由夫妻與其父母、未婚子女組成的三代同堂家庭，稱為<span class='highlight-text'>折衷家庭</span>。",
+             q3: "DINK是「Double Income, No Kids」的縮寫，指<span class='highlight-text'>夫妻雙薪且無子女</span>的家庭模式。",
+             q4: "現代家庭成員多外出工作賺取薪資，再到市場上購買所需商品，因此家庭是<span class='highlight-text'>消費與滿足需求</span>的單位。",
+             q5: "停止親權的規定主要來自於<span class='highlight-text'>《民法》</span>中關於父母權利義務的規範。",
+             q6: "錯誤。姻親僅限於「血親的配偶」、「配偶的血親」及「配偶的血親的配偶」。<span class='highlight-text'>配偶的姻親（例如嫂嫂的姊姊）與自己沒有姻親關係</span>。",
+             q7: "錯誤。這是傳統觀念。現代平權觀念強調<span class='highlight-text'>親子平權</span>，子女是獨立的個體，而非父母的附屬品。",
+             q8: "錯誤。隨著專業分工，家庭的教育功能影響力<span class='highlight-text'>逐漸被學校、媒體等單位所取代</span>。",
+             q9: "正確答案是「兩地」家庭，也稱通勤家庭。",
+             q10: "正確答案是《<span class='highlight-text'>家庭暴力防治</span>法》。",
+             q11: "正確答案是「<span class='highlight-text'>長期照顧十年</span>計畫」，簡稱長照計畫。",
+             q12: "平權家庭追求的是配偶、親子、手足間的平等，<span class='highlight-text'>不包含鄰里關係</span>。",
+             q13: "正確答案是 (13)→C, (14)→A, (15)→B。配合題需一起批改。",
+             q14: "正確答案是 (13)→C, (14)→A, (15)→B。配合題需一起批改。",
+             q15: "正確答案是 (13)→C, (14)→A, (15)→B。配合題需一起批改。",
+             q16: "一般而言，是先<span class='highlight-text'>結婚(1)</span>，再生育<span class='highlight-text'>子女(2)</span>，並因此與對方家人產生<span class='highlight-text'>姻親關係(3)</span>。",
+             q17: "正確答案是(A), (B), (D)。(C)大家庭屬於<span class='highlight-text'>傳統基本型態</span>，而非現代多元模式。",
+             q18: "正確答案是(A), (C), (D), (E)。(B)政治參與<span class='highlight-text'>並非家庭的主要功能</span>。",
+             q19: "精神虐待也屬於家庭暴力，應優先依據<span class='highlight-text'>《家庭暴力防治法》</span>聲請保護令以確保安全。",
+             q20: "平權觀念並非否定傳統分工，而是<span class='highlight-text'>尊重個人選擇與多元的家庭分工模式</span>，不再將特定角色強加於特定性別。"
+        };
+        
+        function disableInputs(container, disable = true) {
+            container.classList.toggle('graded', disable);
+            const inputs = container.querySelectorAll('input, select');
+            inputs.forEach(input => input.disabled = disable);
+        }
+        
+        function gradeQuestion(qId) {
+            const container = document.querySelector(`.quiz-container[data-quiz-id="${qId}"]`);
+            if (!container || container.classList.contains('graded')) return null;
+
+            const feedbackEl = container.querySelector('.feedback');
+            let isCorrect = false;
+
+            // Handle combined question (q13-15)
+            if (['q13', 'q14', 'q15'].includes(qId)) {
+                const q13User = container.querySelector('#q13-select').value;
+                const q14User = container.querySelector('#q14-select').value;
+                const q15User = container.querySelector('#q15-select').value;
+                isCorrect = q13User === correctAnswers.q13 && q14User === correctAnswers.q14 && q15User === correctAnswers.q15;
+                if(isCorrect) { return { isCorrect: true, score: 3 }; } 
+                else { return { isCorrect: false, score: 0 }; }
+            }
+
+            if (['q1', 'q2', 'q3', 'q4', 'q5', 'q12', 'q19', 'q20'].includes(qId) || ['q6', 'q7', 'q8'].includes(qId)) {
+                const userAnswer = container.querySelector(`input[name="${qId}"]:checked`)?.value;
+                isCorrect = (userAnswer === correctAnswers[qId]);
+            } else if (['q9', 'q10', 'q11'].includes(qId)) {
+                const userAnswer = container.querySelector(`#${qId}-input`).value.trim().replace(/計畫$/, '').replace(/法$/, '').replace(/家庭$/, '');
+                const correctAnswer = correctAnswers[qId].replace(/計畫$/, '').replace(/法$/, '').replace(/家庭$/, '');
+                isCorrect = (userAnswer === correctAnswer);
+            } else if (qId === 'q16') {
+                const spouse_val = container.querySelector('#q16-spouse').value;
+                const blood_val = container.querySelector('#q16-blood').value;
+                const inlaw_val = container.querySelector('#q16-inlaw').value;
+                isCorrect = (spouse_val === correctAnswers.q16.spouse && blood_val === correctAnswers.q16.blood && inlaw_val === correctAnswers.q16.inlaw);
+            } else if (['q17', 'q18'].includes(qId)) {
+                const userAnswers = Array.from(container.querySelectorAll(`input[name="${qId}"]:checked`)).map(cb => cb.value).sort();
+                const correctAns = [...correctAnswers[qId]].sort();
+                isCorrect = JSON.stringify(userAnswers) === JSON.stringify(correctAns);
+            }
+            
+            feedbackEl.style.display = 'block';
+            feedbackEl.className = `feedback ${isCorrect ? 'correct' : 'wrong'}`;
+            feedbackEl.innerHTML = `<i class="fas ${isCorrect ? 'fa-check-circle' : 'fa-times-circle'}"></i> ${isCorrect ? '正確！' : '錯誤。'} <p>${feedbackText[qId]}</p>`;
+            
+            disableInputs(container, true);
+            container.querySelector('.check-single-btn').style.display = 'none';
+            
+            return { isCorrect: isCorrect, score: isCorrect ? 1 : 0 };
+        }
+
+        // Event listener for single check buttons
+        quizForm.addEventListener('click', (e) => {
+            if (e.target.classList.contains('check-single-btn')) {
+                const container = e.target.closest('.quiz-container');
+                const qId = container.dataset.quizId;
+                gradeQuestion(qId);
+            }
+        });
+
+        submitBtn.addEventListener('click', () => {
+            let score = 0;
+            const allQuestions = Object.keys(correctAnswers);
+            const processed = new Set(); // To handle grouped questions
+
+            allQuestions.forEach(qId => {
+                if (processed.has(qId)) return;
+
+                const container = document.querySelector(`.quiz-container[data-quiz-id="${qId}"]`);
+                // Calculate score only for already graded questions
+                if (container && container.classList.contains('graded')) {
+                    const feedback = container.querySelector('.feedback');
+                    if (feedback && feedback.classList.contains('correct')) {
+                        if (['q13', 'q14', 'q15'].includes(qId)) {
+                             score += 3;
+                        } else {
+                             score += 1;
+                        }
+                    }
+                } else { // Grade the remaining questions
+                    const result = gradeQuestion(qId);
+                    if (result !== null) {
+                        score += result.score;
+                    }
+                }
+                
+                if (['q13', 'q14', 'q15'].includes(qId)) {
+                    processed.add('q13');
+                    processed.add('q14');
+                    processed.add('q15');
+                }
+            });
+
+            resultsContainer.style.display = 'block';
+            scoreDisplay.textContent = `${score} / 20`;
+            if (score >= 18) {
+                scoreMessage.innerHTML = '太強了！你就是<span class="highlight-text">公民神</span>！';
+            } else if (score >= 12) {
+                scoreMessage.innerHTML = '表現不錯！再加把勁，你離公民神不遠了！';
+            } else {
+                scoreMessage.innerHTML = '別灰心，複習詳解後再挑戰一次吧！';
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Disable main buttons after final submission
+            submitBtn.disabled = true;
+            resetBtn.disabled = false; // Keep reset enabled
+        });
+        
+        resetBtn.addEventListener('click', () => {
+            // form.reset() is called automatically by the button's type="reset"
+            document.querySelectorAll('.quiz-container').forEach(container => {
+                disableInputs(container, false); // Re-enable inputs
+                container.querySelector('.feedback').style.display = 'none';
+                container.querySelector('.check-single-btn').style.display = 'inline-block';
+            });
+            resultsContainer.style.display = 'none';
+            submitBtn.disabled = false;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    });
+    </script>
+</body>
+</html>

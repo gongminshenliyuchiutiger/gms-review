@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>第六冊：重要名詞解釋</title>
+    <title>第二冊：名詞神解釋</title>
     <script src="https://kit.fontawesome.com/62a9d1d113.js" crossorigin="anonymous"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
@@ -115,7 +115,7 @@
         .flip-card {
             background-color: transparent;
             width: 100%;
-            height: 420px;
+            height: 380px; /* 稍微加高以容納更多文字 */
             perspective: 1500px;
             cursor: pointer;
             opacity: 0;
@@ -171,19 +171,9 @@
         .flip-card-back { transform: rotateY(180deg); justify-content: flex-start; align-items: flex-start; text-align: left; }
         .card-back-title { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: var(--primary-glow); margin-bottom: 0.8rem; width: 100%; padding-bottom: 0.5rem; border-bottom: 1px solid var(--accent-border-color); }
         .definition-text { font-size: 1.05rem; margin-bottom: 1rem; }
-        .definition-text ul { list-style: none; padding-left: 1rem; }
-        .definition-text li { position:relative; margin-bottom: 0.5rem; }
-        .definition-text li::before { content: '→'; color: var(--accent-glow); position: absolute; left: -1rem; }
+        .definition-text ul { list-style: none; padding-left: 0; }
+        .definition-text li { margin-bottom: 0.5rem; }
         .explanation-text { font-size: 0.95rem; color: #ccc; margin-top: auto; padding-top: 1rem; width: 100%; border-top: 1px dashed rgba(255,255,255,0.2); }
-        .explanation-text ul { list-style: none; padding-left: 0; }
-        .explanation-text li { margin-bottom: 0.3rem; }
-
-        /* 特殊表格樣式 */
-        .info-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left; margin-top: 0.5rem; }
-        .info-table th, .info-table td { border: 1px solid var(--border-color); padding: 0.4rem; }
-        .info-table th { background: rgba(0,0,0,0.3); color: var(--primary-glow); font-weight: normal; text-align: center;}
-        .info-table td { text-align: center; }
-        .info-table td:first-child { text-align: left; font-weight: bold; color: var(--accent-glow); }
         
         /* --- 其他元件 --- */
         #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
@@ -216,7 +206,7 @@
 
     <header>
         <div class="container">
-            <h1>第六冊 重要名詞解釋</h1>
+            <h1>第二冊 名詞神解釋</h1>
             <h2>邱俐瑜公民，成為公民神不再只是夢想！</h2>
         </div>
     </header>
@@ -233,23 +223,28 @@
 
             <div class="card-grid">
                 
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">科技發展與媒體</div> <div class="card-term">資訊科技</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">指透過電腦網路和電信傳輸等資訊系統，迅速傳遞、蒐集、儲存圖文影音與訊息的技術。</p> <p class="explanation-text"><strong>隱憂：</strong><ul><li>資訊內容真偽難辨</li><li>網路犯罪層出不窮</li><li>資訊公開侵擾隱私</li></ul></p> </div> </div> </div>
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">科技發展與媒體</div> <div class="card-term">智慧財產</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">是創作者花費心力與智慧，透過構思、創作、發明等過程而產生價值的無形產物。</p> <p class="explanation-text">智慧財產是<span class="highlight-text">無形產物</span>。</p> </div> </div> </div>
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">科技發展與媒體</div> <div class="card-term">智慧財產權</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">人類因智慧財產的成果而受法律保護的權利。</p> <p class="explanation-text">又稱為<span class="highlight-text">無體財產權</span>。</p> </div> </div> </div>
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">科技發展與媒體</div> <div class="card-term">著作財產權</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">保護著作者所產生的<span class="highlight-text">財產上利益</span>。其中最常見的是<span class="highlight-text">重製權</span>，即禁止他人未經著作權人同意，複印、錄音等方式重製其著作。</p> <p class="explanation-text">著作人擁有自完成作品開始至其死亡後<span class="highlight-text">50年</span>的權利，超過期限，任何人皆可自由利用。</p> </div> </div> </div>
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">科技發展與媒體</div> <div class="card-term">著作權的合理使用</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">允許利用人未經授權，在一定的範圍內「合理使用」他人著作。</p>
-                <table class="info-table"><thead><tr><th colspan="2">判斷基準</th></tr></thead><tbody><tr><td>利用目的</td><td>利用的目的與性質是否具商業性質</td></tr><tr><td>利用比例</td><td>利用質量占整個著作的比例</td></tr><tr><td>市場價值</td><td>利用結果是否影響著作的潛在市場與現存價值</td></tr></tbody></table>
-                </div> </div> </div>
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">科技發展與媒體</div> <div class="card-term">第四權</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">是指媒體能監督政府，防止政府濫權。</p> <p class="explanation-text">在行政、立法、司法權以外的第四種制衡力量。</p> </div> </div> </div>
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">科技發展與媒體</div> <div class="card-term">媒體接近使用權</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">媒體報導有誤或有失公允，我們可要求其更正，或者自己產製優良內容，再透過媒體與他人分享。</p> <p class="explanation-text"><ul><li><strong>接近權：</strong>報導有誤或不公，可要求其更正(<span class="highlight-text">更正權</span>)。</li><li><strong>使用權：</strong>自行製作節目，要求媒體播放傳送。</li></ul></p> </div> </div> </div>
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">全球化與國際社會</div> <div class="card-term">全球化</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">國與國之間的商品、技術、資金、文化、人口、資訊等呈現跨國界流動的現象。</p> <p class="explanation-text">自然災害不屬於全球化現象。</p> </div> </div> </div>
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">全球化與國際社會</div> <div class="card-term">國際援助</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">對於受災或低度開發國家，提供經濟、技術或人道賑災等協助。</p> <p class="explanation-text">此為國際社會<span class="highlight-text">互動</span>的方式之一。</p> </div> </div> </div>
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">全球化與國際社會</div> <div class="card-term">國際合作</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">國與國間透過結盟、簽條約等方式，以實現共同利益與目標。</p> <p class="explanation-text">主要為<span class="highlight-text">政府間</span>的合作，且通常會簽約。</p> </div> </div> </div>
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">全球化與國際社會</div> <div class="card-term">國際交流</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">國與國間，透過政府或是民間團體，進行經濟貿易、學術文化、體育競賽等活動的交流。</p> <p class="explanation-text">政府或民間團體都可進行，且不一定會簽約。</p> </div> </div> </div>
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">全球化與國際社會</div> <div class="card-term">國際衝突</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">國與國間產生糾紛或衝突。</p> <p class="explanation-text">此為國際社會<span class="highlight-text">互動</span>的方式之一。</p> </div> </div> </div>
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">全球化與國際社會</div> <div class="card-term">國際組織</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">是由參與成員透過條約或協議的方式組成。</p>
-                <table class="info-table"><thead><tr><th>種類</th><th>全球性</th><th>區域性</th></tr></thead><tbody><tr><td>政府的</td><td>聯合國、世界貿易組織</td><td>亞太經合會、東南亞國協</td></tr><tr><td>非政府的</td><td>無國界醫生</td><td>阿拉伯律師聯盟</td></tr></tbody></table>
-                </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">公民德性</div> <div class="card-term">國民</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">具有某國國籍，即為該國的國民。</p> <p class="explanation-text"><strong>範圍：</strong> 國民 > 狹義公民</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">公民德性</div> <div class="card-term">公民</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text"><ul><li>1. <strong class="highlight-text">廣義公民：</strong>全體國民。</li><li>2. <strong class="highlight-text">狹義公民：</strong>具備法定資格，能行使參政權的國民。</li></ul></p> <p class="explanation-text"><strong>範圍：</strong> 國民 > 狹義公民</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">公民德性</div> <div class="card-term">參政權</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">包括選舉、罷免、創制、複決、應考試服公職等權利。</p> <p class="explanation-text"><strong>說明：</strong>選舉、罷免權：滿 <span class="highlight-text">20</span> 歲<br>公民投票權：滿 <span class="highlight-text">18</span> 歲</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">志願結社</div> <div class="card-term">志願結社</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">人民依自由意願組成或參與持續運作的團體。</p> <p class="explanation-text"><strong>對比集會：</strong>結社具有<span class="highlight-text">持續性</span>的組織。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">志願結社</div> <div class="card-term">集會</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">於公共場所或公眾得出入之場所舉行會議、演說或其他聚眾活動。</p> <p class="explanation-text"><strong>對比結社：</strong>集會為特定目的的<span class="highlight-text">短時間</span>的聚集。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會文化</div> <div class="card-term">主流文化</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">在社會中被大多數人遵循與認同的文化。</p> <p class="explanation-text"><strong>說明：</strong>「次」非負面的意思，有時次文化會成為主流文化。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會文化</div> <div class="card-term">次文化</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">某些群體因年齡、信仰或價值觀差異，發展出獨特的文化。</p> <p class="explanation-text"><strong>說明：</strong>「次」非負面的意思，有時次文化會成為主流文化。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會文化</div> <div class="card-term">文化位階</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">文化之間因接觸產生比較與排序，形成高、低、優、劣、進步、落後的位階之分。</p> <p class="explanation-text"><strong>影響：</strong>導致文化不平等現象，可能使文化多樣性消失。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會文化</div> <div class="card-term">文化傳承</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">保存傳統文化，並將其傳承給下一代。</p> <p class="explanation-text"><strong>現象：</strong>著重文化的<span class="highlight-text">延續</span>現象。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會文化</div> <div class="card-term">文化交流</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">因戰爭、殖民等因素，與交通、媒體的發展，使不同文化相互接觸、影響。</p> <p class="explanation-text"><strong>現象：</strong>著重文化<span class="highlight-text">接觸、影響</span>的過程。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會文化</div> <div class="card-term">文化創新</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">在傳統文化上注入新元素，以嶄新風貌不斷累積發展。</p> <p class="explanation-text"><strong>現象：</strong>著重文化發展出<span class="highlight-text">新風貌</span>的現象。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會文化</div> <div class="card-term">文化衝突</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">受原有文化影響，對另一種文化無法認同，而產生衝突。</p> <p class="explanation-text"><strong>現象：</strong>著重文化的<span class="highlight-text">排斥、對立</span>現象。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會規範</div> <div class="card-term">風俗習慣</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">長久累積、約定俗成的生活經驗。</p> <p class="explanation-text"><strong>性質：</strong>非正式規範。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會規範</div> <div class="card-term">倫理道德</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">人與人間相處的應對進退之道，與判斷是非、善惡的標準。</p> <p class="explanation-text"><strong>性質：</strong>非正式規範。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會規範</div> <div class="card-term">宗教信仰</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">透過超自然力量，以教義或戒律約束行為。</p> <p class="explanation-text"><strong>性質：</strong>非正式規範。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會規範</div> <div class="card-term">法律</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">經一定程序制定的規範，具明確性，並以公權力為後盾。</p> <p class="explanation-text"><strong>性質：</strong>正式規範。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">公平正義</div> <div class="card-term">社會變遷</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">人類社會中，器物、制度、理念等層次不斷改變的過程。</p> <p class="explanation-text"><strong>影響：</strong><span class="highlight-text">科技發展</span>會加速社會變遷。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">公平正義</div> <div class="card-term">公平正義</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">確保每個人得到均等的機會，並讓弱勢者得到更多照顧。</p> <p class="explanation-text"><strong>說明：</strong>有賴個人、團體投入，與政府制訂政策落實。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會福利</div> <div class="card-term">社會救助</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">確保貧困國民民眾生活所需之經濟資源。</p> <p class="explanation-text"><strong>目的：</strong>保障<span class="highlight-text">生存權</span>。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會福利</div> <div class="card-term">社會保險</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">轉移個人風險，由社會共同分攤，保障人民年老、死亡、發生意外時，享有現金給付。</p> <p class="explanation-text"><strong>目的：</strong>確保民眾的<span class="highlight-text">經濟安全</span>。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會福利</div> <div class="card-term">社會津貼</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">彌補社會保險的不足。</p> <p class="explanation-text"><strong>目的：</strong>提供<span class="highlight-text">現金給付</span>。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">社會福利</div> <div class="card-term">福利服務</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">滿足民眾因年齡、性別、身心狀況等差異產生的需求，透過需求的滿足促進健全發展。</p> <p class="explanation-text"><strong>目的：</strong>滿足<span class="highlight-text">不同群體</span>的需求。</p> </div> </div> </div>
 
             </div>
         </section>
@@ -331,8 +326,8 @@
                 }
                 cardGrid.innerHTML = '';
                 cardsArray.forEach((card, index) => {
-                    card.style.animation = 'none';
-                    card.offsetHeight;
+                    card.style.animation = 'none'; // 重置動畫
+                    card.offsetHeight; // 觸發重繪
                     card.style.opacity = '0'; 
                     card.style.animation = `card-enter 0.5s ease-out forwards ${index * 50}ms`;
                     cardGrid.appendChild(card);
@@ -343,7 +338,7 @@
             const mascotImg = document.getElementById('mascot-img');
             const speechBubble = document.getElementById('mascot-speech');
             
-            const messages = [ "點擊卡片，成為公民記憶神！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
             let messageIndex = 0;
             let clickTimer = null;
             let speechTimeout = null;

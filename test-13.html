@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>公民神總複習挑戰 (單元十三)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
+
+        :root {
+            --primary-glow: #00f2ea; --secondary-glow: #ff00ff; --accent-glow: #f0e14a; --bg-dark: #0d1b2a; --bg-dark-2: #020a12; --text-color: #e0e0e0; --card-bg: rgba(23, 37, 51, 0.7); --correct-color: #00ff87; --wrong-color: #ff2a6d; --border-color: rgba(0, 242, 234, 0.3); --accent-border-color: rgba(240, 225, 74, 0.5);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; 
+            color: var(--text-color); 
+            line-height: 1.8; 
+            overflow-x: hidden;
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-2));
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; position: relative; z-index: 2; }
+
+        header { 
+            text-align: center; padding: 4rem 1rem; border-bottom: 2px solid var(--border-color); 
+            background: rgba(13,27,42,0.5); backdrop-filter: blur(5px);
+        }
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 900;
+            color: var(--text-color);
+            text-shadow:
+                0 0 5px #fff,
+                0 0 10px var(--accent-glow),
+                0 0 20px var(--accent-glow),
+                0 0 40px var(--accent-glow);
+            animation: flicker-orange 3s infinite alternate;
+        }
+
+        @keyframes flicker-orange {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-glow), 0 0 19px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow);
+            }
+            20%, 24%, 55% { text-shadow: none; }
+        }
+
+        header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
+            font-weight: 700;
+            color: var(--secondary-glow);
+            margin-top: 1rem;
+            text-shadow: 0 0 8px var(--secondary-glow);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-8px);}
+        }
+
+        #results-container {
+            display: none; padding: 2rem; margin: 2rem 0;
+            background-color: rgba(0, 242, 234, 0.1); border: 2px solid var(--primary-glow);
+            border-radius: 20px; text-align: center; box-shadow: 0 0 30px rgba(0,242,234,0.3);
+        }
+        #results-container h2 { font-family: 'Orbitron', sans-serif; color: var(--primary-glow); font-size: 2rem; margin-bottom: 0.5rem; }
+        #score-display { 
+            font-size: 3rem; font-weight: 900; color: var(--accent-glow); margin-bottom: 1rem;
+            animation: score-flicker 2s infinite alternate;
+        }
+        @keyframes score-flicker {
+            0%, 100% { text-shadow: 0 0 8px var(--accent-glow), 0 0 20px var(--accent-glow); }
+            50% { text-shadow: 0 0 8px var(--accent-glow), 0 0 30px #fff; }
+        }
+        #score-message { font-size: 1.2rem; }
+
+        .quiz-section { 
+            background-color: var(--card-bg); border-radius: 20px; border: 2px solid var(--border-color); 
+            backdrop-filter: blur(10px); padding: 2.5rem; transition: box-shadow 0.3s ease;
+        }
+        .quiz-section:hover { box-shadow: 0 0 25px rgba(0,242,234,0.2); }
+        
+        .quiz-container { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px dashed var(--border-color); }
+        .quiz-container:last-of-type { border-bottom: none; margin-bottom: 0; }
+        .question-title { font-family: 'Orbitron', sans-serif; font-size: 1.3rem; color: var(--accent-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.8rem; }
+        .question-text { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .question-text p { margin-bottom: 1rem; }
+
+        /* --- Custom UI --- */
+        .answer-area .option-label { display: block; position: relative; background-color: rgba(0,0,0,0.2); padding: 0.8rem 1.2rem 0.8rem 2.8rem; margin-bottom: 0.8rem; border-radius: 8px; border: 1px solid var(--border-color); cursor: pointer; transition: all 0.2s; }
+        .answer-area .option-label:hover { background-color: rgba(0, 242, 234, 0.2); border-color: var(--primary-glow); }
+        .quiz-container.graded .answer-area .option-label:hover { background-color: rgba(0,0,0,0.2); border-color: var(--border-color); }
+        .quiz-container.graded .answer-area .option-label { cursor: not-allowed; opacity: 0.7; }
+        .answer-area input[type="radio"], .answer-area input[type="checkbox"] { position: absolute; opacity: 0; cursor: pointer; height: 0; width: 0; }
+        .custom-marker { position: absolute; top: 50%; left: 1rem; transform: translateY(-50%); height: 20px; width: 20px; background-color: transparent; border: 2px solid var(--primary-glow); transition: all 0.2s; }
+        .custom-radio .custom-marker { border-radius: 50%; }
+        .custom-checkbox .custom-marker { border-radius: 4px; }
+        input:checked ~ .option-label .custom-marker { background-color: var(--primary-glow); box-shadow: 0 0 10px var(--primary-glow); }
+        .custom-checkbox .custom-marker::after { content: ""; position: absolute; display: none; left: 6px; top: 2px; width: 5px; height: 10px; border: solid var(--bg-dark); border-width: 0 3px 3px 0; transform: rotate(45deg); }
+        .custom-checkbox input:checked ~ .option-label .custom-marker::after { display: block; }
+        .fill-in-wrapper { position: relative; display: inline-block; margin: 0 0.5rem; }
+        .fill-in-blank-input { background: transparent; border: none; border-bottom: 2px solid var(--border-color); color: var(--text-color); padding: 0.5rem; text-align: center; font-size: 1.1rem; width: 180px; transition: border-color 0.3s; }
+        .fill-in-blank-input:focus { outline: none; border-color: var(--primary-glow); }
+        .matching-grid, .sequencing-grid { display: grid; gap: 1rem; align-items: center; }
+        .matching-grid { grid-template-columns: 1fr auto 1fr; }
+        .matching-item { padding: 0.8rem; background: rgba(0,0,0,0.1); border-radius: 5px; text-align: center; }
+        .matching-select, .sequencing-input { width: 100%; padding: 0.6rem; font-size: 1rem; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); color: var(--text-color); border-radius: 5px; }
+        .sequencing-grid { grid-template-columns: 50px 1fr; }
+        .sequencing-input { text-align: center; font-family: 'Orbitron', sans-serif; font-weight: bold; }
+        input[type="number"]:disabled, .matching-select:disabled, .fill-in-blank-input:disabled { opacity: 0.7; cursor: not-allowed; }
+
+        .feedback { display: none; margin-top: 1rem; padding: 1rem; border-radius: 8px; border-left: 5px solid; }
+        .feedback.correct { background-color: rgba(0, 255, 135, 0.1); border-color: var(--correct-color); color: var(--correct-color); }
+        .feedback.wrong { background-color: rgba(255, 42, 109, 0.1); border-color: var(--wrong-color); color: var(--wrong-color); }
+        .feedback p { color: var(--text-color); } .highlight-text { font-weight: bold; color: var(--accent-glow); }
+
+        .single-check-wrapper { text-align: right; margin-top: 1rem; }
+        .check-single-btn { padding: 0.5rem 1.5rem; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--bg-dark); background: var(--primary-glow); border: none; border-radius: 5px; cursor: pointer; transition: all 0.2s; }
+        .check-single-btn:hover { background: #fff; box-shadow: 0 0 15px var(--primary-glow); }
+
+        .control-buttons { display: flex; justify-content: center; gap: 1.5rem; margin-top: 3rem; }
+        .control-btn { padding: 0.8rem 2.5rem; font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--bg-dark); background: var(--accent-glow); border: none; border-radius: 50px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .control-btn:hover { transform: scale(1.05); box-shadow: 0 0 25px var(--accent-glow); }
+        .control-btn#reset-btn { background: var(--secondary-glow); }
+        .control-btn#reset-btn:hover { box-shadow: 0 0 25px var(--secondary-glow); }
+        .control-btn:disabled { background: #555; color: #999; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; }
+        #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; fill: none; filter: drop-shadow(0 0 6px var(--primary-glow)); transition: all 0.3s ease; }
+        #return-home-btn:hover svg { stroke: var(--primary-glow); transform: rotate(-10deg) scale(1.1); }
+        
+        /* Mascot Styles */
+        #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; user-select: none; }
+        #mascot-btn { background: none; border: none; padding: 0; cursor: pointer; border-radius: 50%; }
+        #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; display: block; }
+        #mascot-btn:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
+        #mascot-img.enlarged { transform: scale(2.5) !important; }
+        #mascot-speech { position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9); color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3); }
+        #mascot-speech.visible { opacity: 1; transform: translateY(0); }
+        .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
+
+        footer { display: flex; justify-content: center; align-items: center; padding: 2.5rem 1rem; margin-top: 4rem; color: rgba(224, 224, 224, 0.6); font-size: 0.9rem; border-top: 1px solid var(--border-color); background: linear-gradient(to top, rgba(13, 27, 42, 0.5), transparent); }
+        footer p { text-shadow: 0 0 5px rgba(0, 242, 234, 0.2); }
+
+        @media (max-width: 768px) { .container { padding: 1rem; } #mascot-img { width: 80px; } #mascot-speech { max-width: 180px; bottom: 90px; } .matching-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>公民神總複習挑戰 (單元十三)</h1>
+            <h2>邱俐瑜公民，成為公民神不再只是夢想！</h2>
+        </div>
+    </header>
+
+    <main class="container">
+        <form id="quiz-form">
+            <div id="results-container">
+                <h2 id="result-title">批改完成！</h2>
+                <div id="score-display">-- / 20</div>
+                <p id="score-message">準備好看看你的成果了嗎？</p>
+            </div>
+
+            <div class="quiz-section">
+                <div class="quiz-intro">
+                    <h2>綜合測驗：廠商競爭與市場交易</h2>
+                    <p>共 20 題，涵蓋多種題型。完成後請點擊最下方的「批改計分」。</p>
+                </div>
+
+                <div class="quiz-container" data-quiz-id="q1"><h3 class="question-title"><i class="fas fa-question-circle"></i>第一題：選擇題</h3><div class="question-text"><p>廠商為了吸引顧客，推出「買一送一」的促銷活動。這種競爭方式屬於下列何者？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q1a" name="q1" value="A"><label for="q1a" class="option-label"><span class="custom-marker"></span>(A) 價格競爭</label></div><div class="custom-radio"><input type="radio" id="q1b" name="q1" value="B"><label for="q1b" class="option-label"><span class="custom-marker"></span>(B) 非價格競爭</label></div><div class="custom-radio"><input type="radio" id="q1c" name="q1" value="C"><label for="q1c" class="option-label"><span class="custom-marker"></span>(C) 聯合壟斷</label></div><div class="custom-radio"><input type="radio" id="q1d" name="q1" value="D"><label for="q1d" class="option-label"><span class="custom-marker"></span>(D) 品牌競爭</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q2"><h3 class="question-title"><i class="fas fa-question-circle"></i>第二題：選擇題</h3><div class="question-text"><p>當市場上的廠商數量稀少時，最可能對消費者造成何種影響？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q2a" name="q2" value="A"><label for="q2a" class="option-label"><span class="custom-marker"></span>(A) 競爭激烈，價格下降</label></div><div class="custom-radio"><input type="radio" id="q2b" name="q2" value="B"><label for="q2b" class="option-label"><span class="custom-marker"></span>(B) 消費者有較多選擇與比較的機會</label></div><div class="custom-radio"><input type="radio" id="q2c" name="q2" value="C"><label for="q2c" class="option-label"><span class="custom-marker"></span>(C) 競爭程度降低，消費者缺乏選擇</label></div><div class="custom-radio"><input type="radio" id="q2d" name="q2" value="D"><label for="q2d" class="option-label"><span class="custom-marker"></span>(D) 服務品質必定會提升</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q3"><h3 class="question-title"><i class="fas fa-question-circle"></i>第三題：選擇題</h3><div class="question-text"><p>哪一部法律的主要目的在於「維護交易秩序與消費者利益，確保廠商之間自由公平競爭」？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q3a" name="q3" value="A"><label for="q3a" class="option-label"><span class="custom-marker"></span>(A) 《消費者保護法》</label></div><div class="custom-radio"><input type="radio" id="q3b" name="q3" value="B"><label for="q3b" class="option-label"><span class="custom-marker"></span>(B) 《公平交易法》</label></div><div class="custom-radio"><input type="radio" id="q3c" name="q3" value="C"><label for="q3c" class="option-label"><span class="custom-marker"></span>(C) 《民法》</label></div><div class="custom-radio"><input type="radio" id="q3d" name="q3" value="D"><label for="q3d" class="option-label"><span class="custom-marker"></span>(D) 《公司法》</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q4"><h3 class="question-title"><i class="fas fa-question-circle"></i>第四題：選擇題</h3><div class="question-text"><p>「市場」是指買賣雙方進行交易的場合。下列何者屬於「無形市場」？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q4a" name="q4" value="A"><label for="q4a" class="option-label"><span class="custom-marker"></span>(A) 百貨公司</label></div><div class="custom-radio"><input type="radio" id="q4b" name="q4" value="B"><label for="q4b" class="option-label"><span class="custom-marker"></span>(B) 傳統菜市場</label></div><div class="custom-radio"><input type="radio" id="q4c" name="q4" value="C"><label for="q4c" class="option-label"><span class="custom-marker"></span>(C) 網路購物平台</label></div><div class="custom-radio"><input type="radio" id="q4d" name="q4" value="D"><label for="q4d" class="option-label"><span class="custom-marker"></span>(D) 超級市場</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q5"><h3 class="question-title"><i class="fas fa-question-circle"></i>第五題：選擇題</h3><div class="question-text"><p>如果臺灣生產的某項商品，其國內價格高於國際市場價格，那麼開放進口後，對我國的消費者和生產者會產生什麼影響？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q5a" name="q5" value="A"><label for="q5a" class="option-label"><span class="custom-marker"></span>(A) 對消費者有利，對生產者不利</label></div><div class="custom-radio"><input type="radio" id="q5b" name="q5" value="B"><label for="q5b" class="option-label"><span class="custom-marker"></span>(B) 對消費者不利，對生產者有利</label></div><div class="custom-radio"><input type="radio" id="q5c" name="q5" value="C"><label for="q5c" class="option-label"><span class="custom-marker"></span>(C) 對雙方都有利</label></div><div class="custom-radio"><input type="radio" id="q5d" name="q5" value="D"><label for="q5d" class="option-label"><span class="custom-marker"></span>(D) 對雙方都不利</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q6"><h3 class="question-title"><i class="fas fa-check-square"></i>第六題：是非題</h3><div class="question-text"><p>市場上廠商數量越多，競爭越激烈，消費者的選擇就越少。</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q6t" name="q6" value="true"><label for="q6t" class="option-label"><span class="custom-marker"></span>(O) 是</label></div><div class="custom-radio"><input type="radio" id="q6f" name="q6" value="false"><label for="q6f" class="option-label"><span class="custom-marker"></span>(X) 非</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q7"><h3 class="question-title"><i class="fas fa-check-square"></i>第七題：是非題</h3><div class="question-text"><p>人們之所以會選擇市場交易，而非所有東西都自行生產，是因為自行生產的機會成本通常較低。</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q7t" name="q7" value="true"><label for="q7t" class="option-label"><span class="custom-marker"></span>(O) 是</label></div><div class="custom-radio"><input type="radio" id="q7f" name="q7" value="false"><label for="q7f" class="option-label"><span class="custom-marker"></span>(X) 非</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q8"><h3 class="question-title"><i class="fas fa-check-square"></i>第八題：是非題</h3><div class="question-text"><p>「分工」是指每個人都各自生產自己機會成本較低的產品，再透過交易換取所需，這有助於形成專業化生產。</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q8t" name="q8" value="true"><label for="q8t" class="option-label"><span class="custom-marker"></span>(O) 是</label></div><div class="custom-radio"><input type="radio" id="q8f" name="q8" value="false"><label for="q8f" class="option-label"><span class="custom-marker"></span>(X) 非</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q9"><h3 class="question-title"><i class="fas fa-pen"></i>第九題：填空題</h3><div class="question-text"><p>餐廳推出集點卡或抽獎活動，這種不直接降低價格，而是透過提升附加價值來吸引顧客的方式，稱為「<span class="fill-in-wrapper"><input type="text" class="fill-in-blank-input" id="q9-input" placeholder="輸入答案"></span>競爭」。</p></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q10"><h3 class="question-title"><i class="fas fa-pen"></i>第十題：填空題</h3><div class="question-text"><p>《消費者保護法》的中央主管機關是行政院<span class="fill-in-wrapper"><input type="text" class="fill-in-blank-input" id="q10-input" placeholder="輸入答案"></span>。</p></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q11"><h3 class="question-title"><i class="fas fa-pen"></i>第十一題：填空題</h3><div class="question-text"><p>傳統市場或夜市，因為有具體的買賣場所，所以屬於「<span class="fill-in-wrapper"><input type="text" class="fill-in-blank-input" id="q11-input" placeholder="輸入答案"></span>市場」。</p></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q12"><h3 class="question-title"><i class="fas fa-question-circle"></i>第十二題：選擇題</h3><div class="question-text"><p>《公平交易法》的主管機關是下列何者？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q12a" name="q12" value="A"><label for="q12a" class="option-label"><span class="custom-marker"></span>(A) 行政院消費者保護處</label></div><div class="custom-radio"><input type="radio" id="q12b" name="q12" value="B"><label for="q12b" class="option-label"><span class="custom-marker"></span>(B) 各直轄市政府</label></div><div class="custom-radio"><input type="radio" id="q12c" name="q12" value="C"><label for="q12c" class="option-label"><span class="custom-marker"></span>(C) 行政院公平交易委員會</label></div><div class="custom-radio"><input type="radio" id="q12d" name="q12" value="D"><label for="q12d" class="option-label"><span class="custom-marker"></span>(D) 經濟部</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q13"><h3 class="question-title"><i class="fas fa-link"></i>第十三至十五題：配合題</h3><div class="question-text"><p>請將左方的「法律」與右方最主要的「立法目的」進行配對。</p></div><div class="answer-area matching-grid"><div class="matching-item">(13) 《消費者保護法》</div> <i class="fas fa-arrows-alt-h"></i><select class="matching-select" id="q13-select"> <option value="">請選擇...</option> <option value="A">A. 維護廠商間的公平競爭</option> <option value="B">B. 保護消費者權益與安全</option> <option value="C">C. 規範買賣雙方的契約關係</option> </select><div class="matching-item">(14) 《公平交易法》</div> <i class="fas fa-arrows-alt-h"></i><select class="matching-select" id="q14-select"> <option value="">請選擇...</option> <option value="A">A. 維護廠商間的公平競爭</option> <option value="B">B. 保護消費者權益與安全</option> <option value="C">C. 規範買賣雙方的契約關係</option> </select><div class="matching-item">(15) 《民法》債篇</div> <i class="fas fa-arrows-alt-h"></i><select class="matching-select" id="q15-select"> <option value="">請選擇...</option> <option value="A">A. 維護廠商間的公平競爭</option> <option value="B">B. 保護消費者權益與安全</option> <option value="C">C. 規範買賣雙方的契約關係</option> </select></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q16"><h3 class="question-title"><i class="fas fa-sort-numeric-up"></i>第十六題：排序題</h3><div class="question-text"><p>請將「分工」與「專業化生產」的因果關係，由先到後填入數字 1、2 進行排序。</p></div><div class="answer-area sequencing-grid"><input type="number" class="sequencing-input" id="q16-specialization" min="1" max="2"> <label>形成專業化生產</label><input type="number" class="sequencing-input" id="q16-division" min="1" max="2"> <label>個人依機會成本較低的原則進行分工</label></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q17"><h3 class="question-title"><i class="fas fa-tasks"></i>第十七題：複選題</h3><div class="question-text"><p>下列哪些屬於「非價格競爭」的手段？(答案可多選)</p></div><div class="answer-area"><div class="custom-checkbox"><input type="checkbox" id="q17a" name="q17" value="A"><label for="q17a" class="option-label"><span class="custom-marker"></span>(A) 提升服務品質</label></div><div class="custom-checkbox"><input type="checkbox" id="q17b" name="q17" value="B"><label for="q17b" class="option-label"><span class="custom-marker"></span>(B) 舉辦抽獎活動</label></div><div class="custom-checkbox"><input type="checkbox" id="q17c" name="q17" value="C"><label for="q17c" class="option-label"><span class="custom-marker"></span>(C) 商品降價促銷</label></div><div class="custom-checkbox"><input type="checkbox" id="q17d" name="q17" value="D"><label for="q17d" class="option-label"><span class="custom-marker"></span>(D) 推出季節限定商品</label></div><div class="custom-checkbox"><input type="checkbox" id="q17e" name="q17" value="E"><label for="q17e" class="option-label"><span class="custom-marker"></span>(E) 商品買二送一</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q18"><h3 class="question-title"><i class="fas fa-tasks"></i>第十八題：複選題</h3><div class="question-text"><p>若我國生產晶片的國內價格低於國際價格，開放貿易後會產生哪些結果？(答案可多選)</p></div><div class="answer-area"><div class="custom-checkbox"><input type="checkbox" id="q18a" name="q18" value="A"><label for="q18a" class="option-label"><span class="custom-marker"></span>(A) 我國會出口晶片</label></div><div class="custom-checkbox"><input type="checkbox" id="q18b" name="q18" value="B"><label for="q18b" class="option-label"><span class="custom-marker"></span>(B) 我國會進口晶片</label></div><div class="custom-checkbox"><input type="checkbox" id="q18c" name="q18" value="C"><label for="q18c" class="option-label"><span class="custom-marker"></span>(C) 有利於我國晶片生產者</label></div><div class="custom-checkbox"><input type="checkbox" id="q18d" name="q18" value="D"><label for="q18d" class="option-label"><span class="custom-marker"></span>(D) 有利於我國晶片消費者</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q19"><h3 class="question-title"><i class="fas fa-gavel"></i>第十九題：情境選擇題</h3><div class="question-text"><p>小華購買了一台號稱功能正常的二手手機，回家後卻發現無法開機，且賣家拒絕處理。小華可以向哪個機關申訴以保障自身權益？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q19a" name="q19" value="A"><label for="q19a" class="option-label"><span class="custom-marker"></span>(A) 行政院公平交易委員會</label></div><div class="custom-radio"><input type="radio" id="q19b" name="q19" value="B"><label for="q19b" class="option-label"><span class="custom-marker"></span>(B) 行政院消費者保護處</label></div><div class="custom-radio"><input type="radio" id="q19c" name="q19" value="C"><label for="q19c" class="option-label"><span class="custom-marker"></span>(C) 警察局</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q20"><h3 class="question-title"><i class="fas fa-question-circle"></i>第二十題：選擇題</h3><div class="question-text"><p>從事專業分工可以讓個人有更多時間從事其他活動，這主要是從哪個角度衡量分工所帶來的好處？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q20a" name="q20" value="A"><label for="q20a" class="option-label"><span class="custom-marker"></span>(A) 從機會成本衡量</label></div><div class="custom-radio"><input type="radio" id="q20b" name="q20" value="B"><label for="q20b" class="option-label"><span class="custom-marker"></span>(B) 從產品與生活品質衡量</label></div><div class="custom-radio"><input type="radio" id="q20c" name="q20" value="C"><label for="q20c" class="option-label"><span class="custom-marker"></span>(C) 從交易成本衡量</label></div><div class="custom-radio"><input type="radio" id="q20d" name="q20" value="D"><label for="q20d" class="option-label"><span class="custom-marker"></span>(D) 從國際貿易衡量</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+
+                <div class="control-buttons">
+                    <button type="button" id="submit-btn" class="control-btn">批改計分</button>
+                    <button type="reset" id="reset-btn" class="control-btn">重新作答</button>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <a href="index.html" id="return-home-btn" title="返回主頁">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+    </a>
+    
+    <div id="mascot-container">
+        <button id="mascot-btn" aria-label="與吉祥物互動">
+            <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
+        </button>
+        <div id="mascot-speech">來挑戰吧！</div>
+    </div>
+
+    <footer>
+        <p>Copyright © Liyuchiutiger Gongminshen</p>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Mascot Interaction (No changes) ---
+        const mascotContainer = document.getElementById('mascot-container');
+        const mascotBtn = document.getElementById('mascot-btn');
+        const mascotImg = document.getElementById('mascot-img');
+        const speechBubble = document.getElementById('mascot-speech');
+        const messages = ["公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！"];
+        let messageIndex = 0; let clickTimer = null; let speechTimeout = null;
+        mascotBtn.addEventListener('click', () => { clearTimeout(clickTimer); clickTimer = setTimeout(() => { speechBubble.textContent = messages[messageIndex]; speechBubble.classList.add('visible'); messageIndex = (messageIndex + 1) % messages.length; clearTimeout(speechTimeout); speechTimeout = setTimeout(() => speechBubble.classList.remove('visible'), 4000); }, 250); });
+        mascotBtn.addEventListener('dblclick', (e) => { e.preventDefault(); clearTimeout(clickTimer); speechBubble.classList.remove('visible'); triggerExplosion(); });
+        function triggerExplosion() {
+            mascotImg.classList.add('enlarged');
+            const particleCount = 40; const particleColors = [ 'var(--primary-glow)', 'var(--secondary-glow)', 'var(--accent-glow)', '#ffffff' ];
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div'); particle.classList.add('particle'); mascotContainer.appendChild(particle);
+                const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+                const angle = Math.random() * 360; const radius = Math.random() * 120 + 50;
+                const x = Math.cos(angle * Math.PI / 180) * radius; const y = Math.sin(angle * Math.PI / 180) * radius;
+                particle.style.background = color;
+                requestAnimationFrame(() => { particle.style.transform = `translate(${x}px, ${y}px) scale(0)`; particle.style.opacity = '0'; });
+                setTimeout(() => particle.remove(), 1000);
+            }
+            setTimeout(() => mascotImg.classList.remove('enlarged'), 300);
+        }
+
+        // --- Quiz Logic ---
+        const quizForm = document.getElementById('quiz-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const resultsContainer = document.getElementById('results-container');
+        const scoreDisplay = document.getElementById('score-display');
+        const scoreMessage = document.getElementById('score-message');
+
+        const correctAnswers = {
+            q1: 'A', q2: 'C', q3: 'B', q4: 'C', q5: 'A', q6: 'false', q7: 'false', q8: 'true',
+            q9: '非價格', q10: '消費者保護處', q11: '有形', 
+            q12: 'C',
+            q13: 'B', q14: 'A', q15: 'C',
+            q16: { division: '1', specialization: '2' },
+            q17: ['A', 'B', 'D'], q18: ['A', 'C'],
+            q19: 'B', q20: 'B'
+        };
+
+        const feedbackText = {
+             q1: "「買一送一」是透過降低平均價格來吸引顧客，屬於<span class='highlight-text'>價格競爭</span>。",
+             q2: "當廠商數量少，競爭程度會降低，導致<span class='highlight-text'>消費者缺乏選擇，比較的機會也變少</span>。",
+             q3: "<span class='highlight-text'>《公平交易法》</span>旨在確保市場上的自由與公平競爭，防止聯合壟斷、不公平競爭等行為。",
+             q4: "<span class='highlight-text'>網路購物平台</span>沒有實體的店面或買賣場所，屬於無形市場。",
+             q5: "開放進口會讓國內市場出現更便宜的商品，因此<span class='highlight-text'>對消費者有利</span>；但國內生產相同商品的廠商會面臨價格壓力，利潤降低，故<span class='highlight-text'>對生產者不利</span>。",
+             q6: "錯誤。廠商數量越多，競爭越激烈，為了爭取顧客，消費者通常會有<span class='highlight-text'>更多元的選擇</span>與更優惠的價格。",
+             q7: "錯誤。人們選擇交易是因為自行生產所有物品的<span class='highlight-text'>機會成本太高</span>，透過交易反而更有效率。",
+             q8: "正確。這就是「專業分工」的核心概念，能提升整體生產效率。",
+             q9: "正確答案是「非價格」競爭。",
+             q10: "正確答案是「消費者保護處」。",
+             q11: "正確答案是「有形」市場。",
+             q12: "《公平交易法》的主管機關是<span class='highlight-text'>行政院公平交易委員會</span>。",
+             q13: "正確答案是 (13)→B, (14)→A, (15)→C。配合題需一起批改。",
+             q14: "正確答案是 (13)→B, (14)→A, (15)→C。配合題需一起批改。",
+             q15: "正確答案是 (13)→B, (14)→A, (15)→C。配合題需一起批改。",
+             q16: "正確順序是 1.先進行<span class='highlight-text'>分工</span> → 2.才能<span class='highlight-text'>形成專業化生產</span>。",
+             q17: "正確答案是(A), (B), (D)。(C)和(E)都是直接影響價格的手段，屬於<span class='highlight-text'>價格競爭</span>。",
+             q18: "正確答案是(A)和(C)。國內價格較低代表具生產優勢，因此會<span class='highlight-text'>出口</span>該商品，對<span class='highlight-text'>國內生產者有利</span>。但國內消費者可能會面臨價格上漲。",
+             q19: "處理消費糾紛，應向主管機關<span class='highlight-text'>行政院消費者保護處</span>（或地方政府的消保官）申訴。",
+             q20: "專業分工能節省時間，讓個人有餘裕從事休閒、學習等其他活動，這是從<span class='highlight-text'>產品與生活品質</span>的角度來衡量的好處。"
+        };
+        
+        function disableInputs(container, disable = true) {
+            container.classList.toggle('graded', disable);
+            const inputs = container.querySelectorAll('input, select');
+            inputs.forEach(input => input.disabled = disable);
+        }
+        
+        function gradeQuestion(qId) {
+            const container = document.querySelector(`.quiz-container[data-quiz-id="${qId}"]`);
+            if (!container || container.classList.contains('graded')) return null;
+
+            const feedbackEl = container.querySelector('.feedback');
+            let isCorrect = false;
+
+            if (['q13', 'q14', 'q15'].includes(qId)) {
+                const q13User = container.querySelector('#q13-select').value;
+                const q14User = container.querySelector('#q14-select').value;
+                const q15User = container.querySelector('#q15-select').value;
+                isCorrect = q13User === correctAnswers.q13 && q14User === correctAnswers.q14 && q15User === correctAnswers.q15;
+                if(isCorrect) { return { isCorrect: true, score: 3 }; } 
+                else { return { isCorrect: false, score: 0 }; }
+            }
+
+            if (['q1', 'q2', 'q3', 'q4', 'q5', 'q12', 'q19', 'q20'].includes(qId) || ['q6', 'q7', 'q8'].includes(qId)) {
+                const userAnswer = container.querySelector(`input[name="${qId}"]:checked`)?.value;
+                isCorrect = (userAnswer === correctAnswers[qId]);
+            } else if (['q9', 'q10', 'q11'].includes(qId)) {
+                const userAnswer = container.querySelector(`#${qId}-input`).value.trim().replace(/處$/, '');
+                isCorrect = correctAnswers[qId].includes(userAnswer) && userAnswer.length > 1;
+            } else if (qId === 'q16') {
+                const d_val = container.querySelector('#q16-division').value;
+                const s_val = container.querySelector('#q16-specialization').value;
+                isCorrect = (d_val === correctAnswers.q16.division && s_val === correctAnswers.q16.specialization);
+            } else if (['q17', 'q18'].includes(qId)) {
+                const userAnswers = Array.from(container.querySelectorAll(`input[name="${qId}"]:checked`)).map(cb => cb.value).sort();
+                const correctAns = [...correctAnswers[qId]].sort();
+                isCorrect = JSON.stringify(userAnswers) === JSON.stringify(correctAns);
+            }
+            
+            feedbackEl.style.display = 'block';
+            feedbackEl.className = `feedback ${isCorrect ? 'correct' : 'wrong'}`;
+            feedbackEl.innerHTML = `<i class="fas ${isCorrect ? 'fa-check-circle' : 'fa-times-circle'}"></i> ${isCorrect ? '正確！' : '錯誤。'} <p>${feedbackText[qId]}</p>`;
+            
+            disableInputs(container, true);
+            container.querySelector('.check-single-btn').style.display = 'none';
+            
+            return { isCorrect: isCorrect, score: isCorrect ? 1 : 0 };
+        }
+
+        quizForm.addEventListener('click', (e) => {
+            if (e.target.classList.contains('check-single-btn')) {
+                const container = e.target.closest('.quiz-container');
+                const qId = container.dataset.quizId;
+                gradeQuestion(qId);
+            }
+        });
+
+        submitBtn.addEventListener('click', () => {
+            let score = 0;
+            const allQuestions = Object.keys(correctAnswers);
+            const processed = new Set(); 
+
+            allQuestions.forEach(qId => {
+                if (processed.has(qId)) return;
+
+                const container = document.querySelector(`.quiz-container[data-quiz-id="${qId}"]`);
+                if (container && container.classList.contains('graded')) {
+                    const feedback = container.querySelector('.feedback');
+                    if (feedback && feedback.classList.contains('correct')) {
+                        if (['q13', 'q14', 'q15'].includes(qId)) {
+                             score += 3;
+                        } else {
+                             score += 1;
+                        }
+                    }
+                } else {
+                    const result = gradeQuestion(qId);
+                    if (result !== null) {
+                        score += result.score;
+                    }
+                }
+                
+                if (['q13', 'q14', 'q15'].includes(qId)) {
+                    processed.add('q13');
+                    processed.add('q14');
+                    processed.add('q15');
+                }
+            });
+
+            resultsContainer.style.display = 'block';
+            scoreDisplay.textContent = `${score} / 20`;
+            if (score >= 18) {
+                scoreMessage.innerHTML = '太強了！你就是<span class="highlight-text">公民神</span>！';
+            } else if (score >= 12) {
+                scoreMessage.innerHTML = '表現不錯！再加把勁，你離公民神不遠了！';
+            } else {
+                scoreMessage.innerHTML = '別灰心，複習詳解後再挑戰一次吧！';
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            submitBtn.disabled = true;
+            resetBtn.disabled = false;
+        });
+        
+        resetBtn.addEventListener('click', () => {
+            document.querySelectorAll('.quiz-container').forEach(container => {
+                disableInputs(container, false);
+                container.querySelector('.feedback').style.display = 'none';
+                if (container.querySelector('.check-single-btn')) {
+                    container.querySelector('.check-single-btn').style.display = 'inline-block';
+                }
+            });
+            resultsContainer.style.display = 'none';
+            submitBtn.disabled = false;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    });
+    </script>
+</body>
+</html>

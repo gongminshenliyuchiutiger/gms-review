@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>第四冊：重要名詞解釋</title>
+    <title>第三冊：名詞神解釋</title>
     <script src="https://kit.fontawesome.com/62a9d1d113.js" crossorigin="anonymous"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
@@ -117,7 +117,7 @@
         .flip-card {
             background-color: transparent;
             width: 100%;
-            height: 420px; /* 維持稍高高度以容納內容 */
+            height: 380px;
             perspective: 1500px;
             cursor: pointer;
             opacity: 0;
@@ -149,7 +149,7 @@
             display: flex;
             flex-direction: column;
             padding: 1.5rem;
-            overflow: hidden; /* 【關鍵修正】將 auto 改為 hidden，移除滾動條 */
+            overflow: hidden;
         }
         .flip-card-front::before, .flip-card-back::before {
             content: '';
@@ -178,14 +178,13 @@
         .definition-text li::before { content: '→'; color: var(--accent-glow); position: absolute; left: -1rem; }
         .explanation-text { font-size: 0.95rem; color: #ccc; margin-top: auto; padding-top: 1rem; width: 100%; border-top: 1px dashed rgba(255,255,255,0.2); }
         .explanation-text ul { list-style: none; padding-left: 0; }
-        .explanation-text li { margin-bottom: 0.3rem; }
 
-        /* 特殊表格樣式 */
-        .comparison-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; text-align: center; margin-top: 0.5rem; }
-        .comparison-table th, .comparison-table td { border: 1px solid var(--border-color); padding: 0.3rem; }
-        .comparison-table th { background: rgba(0,0,0,0.3); color: var(--primary-glow); font-weight: normal;}
-        .comparison-table td.symbol-correct { color: var(--correct-color); font-weight: bold; font-size: 1.1rem; }
-        .comparison-table td.symbol-wrong { color: var(--wrong-color); font-weight: bold; font-size: 1.1rem; }
+        /* 特殊表格樣式 (勾叉修正) */
+        .rights-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: center; margin-top: 0.5rem; }
+        .rights-table th, .rights-table td { border: 1px solid var(--border-color); padding: 0.4rem; }
+        .rights-table th { background: rgba(0,0,0,0.3); color: var(--primary-glow); font-weight: normal;}
+        .rights-table td.symbol-correct { color: var(--correct-color); font-weight: bold; font-size: 1.2rem; }
+        .rights-table td.symbol-wrong { color: var(--wrong-color); font-weight: bold; font-size: 1.2rem; }
         
         /* --- 其他元件 --- */
         #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; cursor: pointer; transition: transform 0.3s ease; }
@@ -218,7 +217,7 @@
 
     <header>
         <div class="container">
-            <h1>第四冊 重要名詞解釋</h1>
+            <h1>第三冊 名詞神解釋</h1>
             <h2>邱俐瑜公民，成為公民神不再只是夢想！</h2>
         </div>
     </header>
@@ -235,23 +234,27 @@
 
             <div class="card-grid">
                 
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">憲法、民法與刑法</div> <div class="card-term">平等權</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">人民在法律上享有同等權利、負擔相同義務，不得任意為差別對待。</p> <p class="explanation-text">我國憲法追求<span class="highlight-text">實質平等</span>，給予弱勢團體合理的差別待遇。</p> </div> </div> </div>
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">憲法、民法與刑法</div> <div class="card-term">自由權</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">人民在憲法保障下，有自行決定做哪些事，或不做哪些事的權利。</p> <p class="explanation-text"><ul><li>人身自由</li><li>居住與遷徙自由</li><li>表現自由</li><li>祕密通訊自由</li><li>信仰宗教自由</li><li>集會與結社自由</li></ul></p> </div> </div> </div>
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">憲法、民法與刑法</div> <div class="card-term">受益權</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">人民有請求國家積極作為，享受利益的權利。</p> <p class="explanation-text"><ul><li>生存權、工作權、財產權</li><li>請願權、訴願權、訴訟權</li><li>受國民教育權</li></ul></p> </div> </div> </div>
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">憲法、民法與刑法</div> <div class="card-term">參政權</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">人民參與政治的權利，又稱為<span class="highlight-text">公民權</span>。</p> <p class="explanation-text"><ul><li><strong class="highlight-text">對人：</strong>選舉權、罷免權</li><li><strong class="highlight-text">對法案或政策：</strong>創制權、複決權</li><li><strong class="highlight-text">對公職：</strong>應考試、服公職權</li></ul></p> </div> </div> </div>
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">憲法、民法與刑法</div> <div class="card-term">行為能力</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">行為人能否依其意思使法律行為發生效果的能力。</p> <p class="explanation-text"><ul><li><strong>無行為能力：</strong>未滿 7 歲</li><li><strong>限制行為能力：</strong>7 歲以上，未滿 18 歲</li><li><strong>完全行為能力：</strong>年滿 18 歲</li></ul></p> </div> </div> </div>
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">憲法、民法與刑法</div> <div class="card-term">責任能力</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">行為人能否分辨是非，以及是否具有負擔刑罰的資格與能力。</p> <p class="explanation-text"><ul><li><strong>無責任能力：</strong>未滿 14 歲</li><li><strong>限制責任能力：</strong>14 歲以上未滿 18 歲，或 80 歲以上</li><li><strong>完全責任能力：</strong>18 歲以上未滿 80 歲</li></ul></p> </div> </div> </div>
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">憲法、民法與刑法</div> <div class="card-term">違法 vs 犯罪</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">區別</h4> <p class="definition-text"><ul><li><strong class="highlight-text">違法：</strong>違反任何法律的行為。</li><li><strong class="highlight-text">犯罪：</strong>行為觸犯《刑法》相關的規範。</li></ul></p> <p class="explanation-text">犯罪行為<span class="highlight-text">必定是</span>違法行為；<br>但違法行為<span class="highlight-text">不一定</span>是犯罪行為。</p> </div> </div> </div>
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">民事與刑事糾紛的解決</div> <div class="card-term">和解</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">當事人約定互相讓步，以解決糾紛。分為<span class="highlight-text">訴訟外和解</span>(私下)與<span class="highlight-text">訴訟上和解</span>(法官試行)。</p> 
-                <table class="comparison-table"><thead><tr><th>方式</th><th>效力</th><th>民事</th><th>告訴乃論</th><th>非告訴乃論</th></tr></thead><tbody><tr><td>訴訟外和解</td><td>民事契約</td><td class="symbol-correct">✓</td><td class="symbol-correct">✓</td><td class="symbol-wrong">✗</td></tr><tr><td>訴訟上和解</td><td>確定判決</td><td class="symbol-correct">✓</td><td class="symbol-wrong">✗</td><td class="symbol-wrong">✗</td></tr><tr><td>調解</td><td>確定判決</td><td class="symbol-correct">✓</td><td class="symbol-correct">✓</td><td class="symbol-wrong">✗</td></tr><tr><td>訴訟</td><td>確定判決</td><td class="symbol-correct">✓</td><td class="symbol-correct">✓</td><td class="symbol-correct">✓</td></tr></tbody></table>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">國家與民主</div> <div class="card-term">領陸</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">國家所有的陸地，包括大陸與島嶼。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">國家與民主</div> <div class="card-term">領海</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">由海岸基線向外延伸 12 浬間的海域。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">國家與民主</div> <div class="card-term">領空</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">領陸與領海的上空。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">國家與民主</div> <div class="card-term">權力</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">上對下的支配力量，或職權內的強制力量。</p> <p class="explanation-text">政府具有<span class="highlight-text">公權力</span>。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">國家與民主</div> <div class="card-term">權利</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">人民依法享有的各種利益。</p> <p class="explanation-text">人民享有<span class="highlight-text">權利</span>。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">權力分立與政府</div> <div class="card-term">三權分立</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">將政府權力分為行政、立法、司法三權，由三個不同機關獨立行使。</p> <p class="explanation-text"><ul><li><strong class="highlight-text">行政權</strong>兼考試權</li><li><strong class="highlight-text">立法權</strong>兼監察權</li></ul></p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">權力分立與政府</div> <div class="card-term">五權分立</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">將政府權力分為行政、立法、司法、考試、監察五權，由五個不同機關獨立行使。</p> <p class="explanation-text"><ul><li><strong class="highlight-text">考試權</strong>獨立 → 避免濫用私人</li><li><strong class="highlight-text">監察權</strong>獨立 → 避免議會專制</li></ul></p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">權力分立與政府</div> <div class="card-term">糾舉</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text"><ul><li>中央或地方公務人員違法失職。</li><li>監察院向其上級長官提出。</li><li>先停職或做其他處分。</li></ul></p> <p class="explanation-text"><strong>關聯：</strong>皆由<span class="highlight-text">監察院</span>行使。<br><strong>區分：</strong>糾舉、彈劾 → 對<span class="highlight-text">人</span></p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">權力分立與政府</div> <div class="card-term">糾正</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text"><ul><li>行政院與所屬機關的工作違法失職。</li><li>監察院向行政院或有關部會提出。</li><li>促進改善。</li></ul></p> <p class="explanation-text"><strong>關聯：</strong>皆由<span class="highlight-text">監察院</span>行使。<br><strong>區分：</strong>糾正 → 對<span class="highlight-text">行政機關</span></p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">權力分立與政府</div> <div class="card-term">彈劾 (監察院)</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text"><ul><li>中央或地方公務人員違法失職。</li><li>監察院向懲戒法院提出。</li><li>予以懲戒或處分。</li></ul></p> <p class="explanation-text"><strong>關聯：</strong>皆由<span class="highlight-text">監察院</span>行使。<br><strong>區分：</strong>糾舉、彈劾 → 對<span class="highlight-text">人</span></p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">權力分立與政府</div> <div class="card-term">正副總統彈劾案</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text"><ul><li>正副總統違法失職。</li><li>立法院委員決議提出彈劾案。</li><li>司法院憲法法庭審理。</li></ul></p> <p class="explanation-text">總統<span class="highlight-text">有罪</span>：適用彈劾，負起<span class="highlight-text">法律責任</span>。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">權力分立與政府</div> <div class="card-term">正副總統罷免案</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text"><ul><li>正副總統背離民意。</li><li>立法院委員提出罷免案。</li><li>公民複決 (選舉人投票決定)。</li></ul></p> <p class="explanation-text">總統<span class="highlight-text">無罪</span>：適用罷免，負起<span class="highlight-text">政治責任</span>。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">公共意見與政治參與</div> <div class="card-term">公共意見</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">一群民眾在某段時間內，公開表達的集體意見。</p> <p class="explanation-text"><strong>又稱為：</strong><span class="highlight-text">民意</span></p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">公共意見與政治參與</div> <div class="card-term">選舉</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">人民透過選舉，選出公職人員，代表人民管理國家事務。</p> <p class="explanation-text"><strong>說明：</strong>對<span class="highlight-text">人</span>的投票，行使<span class="highlight-text">選舉、罷免權</span>。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">公共意見與政治參與</div> <div class="card-term">公民投票</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">人民透過投票，直接對法律、政策形成決議。</p> <p class="explanation-text"><strong>說明：</strong>對<span class="highlight-text">事</span>的投票，行使<span class="highlight-text">創制、複決權</span>。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">公共意見與政治參與</div> <div class="card-term">受監護宣告</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">因精神障礙或心智缺陷，由法院宣告必須受到監護。</p>
+                <table class="rights-table"><thead><tr><th>權利</th><th>選舉</th><th>被選舉</th><th>罷免</th><th>創制</th><th>複決</th><th>應考試</th><th>服公職</th></tr></thead><tbody><tr><td>有無</td><td class="symbol-correct">✓</td><td class="symbol-wrong">✗</td><td class="symbol-correct">✓</td><td class="symbol-wrong">✗</td><td class="symbol-wrong">✗</td><td class="symbol-wrong">✗</td><td class="symbol-wrong">✗</td></tr></tbody></table>
                 </div> </div> </div>
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">民事與刑事糾紛的解決</div> <div class="card-term">調解</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">當事人申請後，透過<span class="highlight-text">公正第三人</span>(如調解委員會)協調，以解決紛爭。</p> <p class="explanation-text">調解成立後，效力同於<span class="highlight-text">確定判決</span>。</p> </div> </div> </div>
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">民事與刑事糾紛的解決</div> <div class="card-term">訴訟</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">依照法定程序，請求<span class="highlight-text">法院</span>公正判決。</p> <p class="explanation-text">是解決紛爭的最後、最正式的途徑。</p> </div> </div> </div>
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">民事與刑事糾紛的解決</div> <div class="card-term">自訴 vs 公訴</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">區別</h4> <p class="definition-text"><ul><li><strong class="highlight-text">自訴：</strong>被害人不經檢察官偵查，自行委託律師向法院提起訴訟。</li><li><strong class="highlight-text">公訴：</strong>檢察官代表國家，針對犯罪嫌疑人向法院提起訴訟。</li></ul></p> <p class="explanation-text">提出訴訟者：<br>自訴 → <span class="highlight-text">被害人</span> (委任律師)<br>公訴 → <span class="highlight-text">檢察官</span></p> </div> </div> </div>
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">行政法與兒少法律</div> <div class="card-term">行政行為</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">行政機關為了達成行政任務，而作成的各種行為。</p> <p class="explanation-text"><strong>範圍關係：</strong><br>行政行為 > 行政管制 > 行政處分 > 行政罰</p> </div> </div> </div>
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">行政法與兒少法律</div> <div class="card-term">行政管制</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">行政機關依職權限制人民自由、干涉人民權利的行政行為。</p> </div> </div> </div>
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">行政法與兒少法律</div> <div class="card-term">行政處分</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">行政機關對<span class="highlight-text">個人</span>所做的<span class="highlight-text">具體決定</span>，會影響到個人的權利義務。</p> </div> </div> </div>
-                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">行政法與兒少法律</div> <div class="card-term">行政罰</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">人民違反行政法規定義務時，接受行政機關的處罰。</p> </div> </div> </div>
+                <div class="flip-card"> <div class="flip-card-inner"> <div class="flip-card-front"> <div class="card-category">公共意見與政治參與</div> <div class="card-term">褫奪公權</div> </div> <div class="flip-card-back"> <h4 class="card-back-title">定義</h4> <p class="definition-text">因犯罪被判刑而失去擔任公職候選人與公務員的資格。</p>
+                <table class="rights-table"><thead><tr><th>權利</th><th>選舉</th><th>被選舉</th><th>罷免</th><th>創制</th><th>複決</th><th>應考試</th><th>服公職</th></tr></thead><tbody><tr><td>有無</td><td class="symbol-correct">✓</td><td class="symbol-wrong">✗</td><td class="symbol-correct">✓</td><td class="symbol-correct">✓</td><td class="symbol-correct">✓</td><td class="symbol-wrong">✗</td><td class="symbol-wrong">✗</td></tr></tbody></table>
+                </div> </div> </div>
 
             </div>
         </section>
@@ -345,7 +348,7 @@
             const mascotImg = document.getElementById('mascot-img');
             const speechBubble = document.getElementById('mascot-speech');
             
-            const messages = [ "點擊卡片，成為公民記憶神！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
             let messageIndex = 0;
             let clickTimer = null;
             let speechTimeout = null;

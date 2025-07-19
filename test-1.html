@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>公民神總複習挑戰 (單元一)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
+
+        :root {
+            --primary-glow: #00f2ea; --secondary-glow: #ff00ff; --accent-glow: #f0e14a; --bg-dark: #0d1b2a; --bg-dark-2: #020a12; --text-color: #e0e0e0; --card-bg: rgba(23, 37, 51, 0.7); --correct-color: #00ff87; --wrong-color: #ff2a6d; --border-color: rgba(0, 242, 234, 0.3); --accent-border-color: rgba(240, 225, 74, 0.5);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; 
+            color: var(--text-color); 
+            line-height: 1.8; 
+            overflow-x: hidden;
+            background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-2));
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; position: relative; z-index: 2; }
+
+        header { 
+            text-align: center; padding: 4rem 1rem; border-bottom: 2px solid var(--border-color); 
+            background: rgba(13,27,42,0.5); backdrop-filter: blur(5px);
+        }
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 900;
+            color: var(--text-color);
+            text-shadow:
+                0 0 5px #fff,
+                0 0 10px var(--accent-glow),
+                0 0 20px var(--accent-glow),
+                0 0 40px var(--accent-glow);
+            animation: flicker-orange 3s infinite alternate;
+        }
+
+        @keyframes flicker-orange {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-glow), 0 0 19px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow);
+            }
+            20%, 24%, 55% { text-shadow: none; }
+        }
+
+        header h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(0.8rem, 1.5vw + 0.4rem, 1.5rem);
+            font-weight: 700;
+            color: var(--secondary-glow);
+            margin-top: 1rem;
+            text-shadow: 0 0 8px var(--secondary-glow);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-8px);}
+        }
+
+        #results-container {
+            display: none; padding: 2rem; margin: 2rem 0;
+            background-color: rgba(0, 242, 234, 0.1); border: 2px solid var(--primary-glow);
+            border-radius: 20px; text-align: center; box-shadow: 0 0 30px rgba(0,242,234,0.3);
+        }
+        #results-container h2 { font-family: 'Orbitron', sans-serif; color: var(--primary-glow); font-size: 2rem; margin-bottom: 0.5rem; }
+        #score-display { 
+            font-size: 3rem; font-weight: 900; color: var(--accent-glow); margin-bottom: 1rem;
+            animation: score-flicker 2s infinite alternate;
+        }
+        @keyframes score-flicker {
+            0%, 100% { text-shadow: 0 0 8px var(--accent-glow), 0 0 20px var(--accent-glow); }
+            50% { text-shadow: 0 0 8px var(--accent-glow), 0 0 30px #fff; }
+        }
+        #score-message { font-size: 1.2rem; }
+
+        .quiz-section { 
+            background-color: var(--card-bg); border-radius: 20px; border: 2px solid var(--border-color); 
+            backdrop-filter: blur(10px); padding: 2.5rem; transition: box-shadow 0.3s ease;
+        }
+        .quiz-section:hover { box-shadow: 0 0 25px rgba(0,242,234,0.2); }
+        
+        .quiz-container { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px dashed var(--border-color); }
+        .quiz-container:last-of-type { border-bottom: none; margin-bottom: 0; }
+        .question-title { font-family: 'Orbitron', sans-serif; font-size: 1.3rem; color: var(--accent-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.8rem; }
+        .question-text { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .question-text p { margin-bottom: 1rem; }
+
+        /* --- Custom Radio & Checkbox --- */
+        .answer-area .option-label {
+            display: block; position: relative;
+            background-color: rgba(0,0,0,0.2); padding: 0.8rem 1.2rem 0.8rem 2.8rem; 
+            margin-bottom: 0.8rem; border-radius: 8px; border: 1px solid var(--border-color); 
+            cursor: pointer; transition: all 0.2s;
+        }
+        .answer-area .option-label:hover { background-color: rgba(0, 242, 234, 0.2); border-color: var(--primary-glow); }
+        .quiz-container.graded .answer-area .option-label:hover { background-color: rgba(0,0,0,0.2); border-color: var(--border-color); } /* Lock hover effect when graded */
+        .quiz-container.graded .answer-area .option-label { cursor: not-allowed; opacity: 0.7; }
+
+        .answer-area input[type="radio"], .answer-area input[type="checkbox"] {
+            position: absolute; opacity: 0; cursor: pointer; height: 0; width: 0;
+        }
+        .custom-marker {
+            position: absolute; top: 50%; left: 1rem; transform: translateY(-50%);
+            height: 20px; width: 20px; background-color: transparent;
+            border: 2px solid var(--primary-glow); transition: all 0.2s;
+        }
+        .custom-radio .custom-marker { border-radius: 50%; }
+        .custom-checkbox .custom-marker { border-radius: 4px; }
+        input:checked ~ .option-label .custom-marker {
+            background-color: var(--primary-glow);
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+        .custom-checkbox .custom-marker::after {
+            content: ""; position: absolute; display: none;
+            left: 6px; top: 2px; width: 5px; height: 10px;
+            border: solid var(--bg-dark); border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+        }
+        .custom-checkbox input:checked ~ .option-label .custom-marker::after { display: block; }
+        
+        /* --- Custom Fill-in-the-Blank --- */
+        .fill-in-wrapper {
+            position: relative; display: inline-block;
+            margin: 0 0.5rem;
+        }
+        .fill-in-wrapper::before, .fill-in-wrapper::after {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            font-family: 'Orbitron', sans-serif; color: var(--primary-glow);
+            font-size: 1.2rem; transition: text-shadow 0.3s;
+        }
+        .fill-in-wrapper::before { content: '《'; left: -1rem; }
+        .fill-in-wrapper::after { content: '》'; right: -1rem; }
+
+        .fill-in-blank-input { 
+            background: transparent; border: none;
+            border-bottom: 2px solid var(--border-color);
+            color: var(--text-color); padding: 0.5rem; text-align: center;
+            font-size: 1.1rem; width: 180px; transition: border-color 0.3s;
+        }
+        .fill-in-blank-input:focus { 
+            outline: none; border-color: var(--primary-glow);
+        }
+        .fill-in-blank-input:focus + .fill-in-wrapper::before,
+        .fill-in-blank-input:focus + .fill-in-wrapper::after,
+        .fill-in-wrapper:focus-within::before,
+        .fill-in-wrapper:focus-within::after {
+            text-shadow: 0 0 8px var(--primary-glow);
+        }
+        
+        /* Other input types */
+        .matching-grid, .sequencing-grid { display: grid; gap: 1rem; align-items: center; }
+        .matching-grid { grid-template-columns: 1fr auto 1fr; }
+        .matching-item { padding: 0.8rem; background: rgba(0,0,0,0.1); border-radius: 5px; text-align: center; }
+        .matching-select, .sequencing-input { width: 100%; padding: 0.6rem; font-size: 1rem; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); color: var(--text-color); border-radius: 5px; }
+        .sequencing-grid { grid-template-columns: 50px 1fr; }
+        .sequencing-input { text-align: center; font-family: 'Orbitron', sans-serif; font-weight: bold; }
+        input[type="number"]:disabled, .matching-select:disabled, .fill-in-blank-input:disabled { opacity: 0.7; cursor: not-allowed; }
+
+        .feedback { display: none; margin-top: 1rem; padding: 1rem; border-radius: 8px; border-left: 5px solid; }
+        .feedback.correct { background-color: rgba(0, 255, 135, 0.1); border-color: var(--correct-color); color: var(--correct-color); }
+        .feedback.wrong { background-color: rgba(255, 42, 109, 0.1); border-color: var(--wrong-color); color: var(--wrong-color); }
+        .feedback p { color: var(--text-color); } .highlight-text { font-weight: bold; color: var(--accent-glow); }
+
+        .single-check-wrapper { text-align: right; margin-top: 1rem; }
+        .check-single-btn { padding: 0.5rem 1.5rem; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--bg-dark); background: var(--primary-glow); border: none; border-radius: 5px; cursor: pointer; transition: all 0.2s; }
+        .check-single-btn:hover { background: #fff; box-shadow: 0 0 15px var(--primary-glow); }
+
+        .control-buttons { display: flex; justify-content: center; gap: 1.5rem; margin-top: 3rem; }
+        .control-btn { padding: 0.8rem 2.5rem; font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--bg-dark); background: var(--accent-glow); border: none; border-radius: 50px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .control-btn:hover { transform: scale(1.05); box-shadow: 0 0 25px var(--accent-glow); }
+        .control-btn#reset-btn { background: var(--secondary-glow); }
+        .control-btn#reset-btn:hover { box-shadow: 0 0 25px var(--secondary-glow); }
+        .control-btn:disabled { background: #555; color: #999; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        #return-home-btn { position: fixed; bottom: 20px; left: 20px; width: 50px; height: 50px; z-index: 1001; }
+        #return-home-btn svg { width: 100%; height: 100%; stroke: #ffffff; stroke-width: 2px; fill: none; filter: drop-shadow(0 0 6px var(--primary-glow)); transition: all 0.3s ease; }
+        #return-home-btn:hover svg { stroke: var(--primary-glow); transform: rotate(-10deg) scale(1.1); }
+        
+        /* Mascot Styles */
+        #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; user-select: none; }
+        #mascot-btn { background: none; border: none; padding: 0; cursor: pointer; border-radius: 50%; }
+        #mascot-btn:focus-visible { outline: 3px solid var(--primary-glow); outline-offset: 2px; }
+        #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; display: block; }
+        #mascot-btn:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
+        #mascot-img.enlarged { transform: scale(2.5) !important; }
+        #mascot-speech { position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9); color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3); }
+        #mascot-speech.visible { opacity: 1; transform: translateY(0); }
+        .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
+        
+        footer {
+            display: flex; justify-content: center; align-items: center; padding: 2.5rem 1rem; margin-top: 4rem; color: rgba(224, 224, 224, 0.6); font-size: 0.9rem; border-top: 1px solid var(--border-color); background: linear-gradient(to top, rgba(13, 27, 42, 0.5), transparent);
+        }
+        footer p { text-shadow: 0 0 5px rgba(0, 242, 234, 0.2); }
+
+        @media (max-width: 768px) { .container { padding: 1rem; } #mascot-img { width: 80px; } #mascot-speech { max-width: 180px; bottom: 90px; } .matching-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>公民神總複習挑戰 (單元一)</h1>
+            <h2>邱俐瑜公民，成為公民神不再只是夢想！</h2>
+        </div>
+    </header>
+
+    <main class="container">
+        <form id="quiz-form">
+            <div id="results-container">
+                <h2 id="result-title">批改完成！</h2>
+                <div id="score-display">-- / 20</div>
+                <p id="score-message">準備好看看你的成果了嗎？</p>
+            </div>
+
+            <div class="quiz-section">
+                <div class="quiz-intro">
+                    <h2>綜合測驗：人性尊嚴與性別</h2>
+                    <p>共 20 題，涵蓋多種題型。完成後請點擊最下方的「批改計分」。</p>
+                </div>
+
+                <!-- questions will be placed here -->
+                <div class="quiz-container" data-quiz-id="q1"><h3 class="question-title"><i class="fas fa-question-circle"></i>第一題：選擇題</h3><div class="question-text"><p>「人性尊嚴」是指人與生俱來的基本價值，而保障人權則是實現人性尊嚴的方式。下列何者最能體現人性尊嚴中的「存在價值」？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q1a" name="q1" value="A"><label for="q1a" class="option-label"><span class="custom-marker"></span>(A) 每個人都能決定自己的職業和生活方式。</label></div><div class="custom-radio"><input type="radio" id="q1b" name="q1" value="B"><label for="q1b" class="option-label"><span class="custom-marker"></span>(B) 不論貧富貴賤，每個人的生命都同樣寶貴。</label></div><div class="custom-radio"><input type="radio" id="q1c" name="q1" value="C"><label for="q1c" class="option-label"><span class="custom-marker"></span>(C) 在法律面前，人人皆為平等。</label></div><div class="custom-radio"><input type="radio" id="q1d" name="q1" value="D"><label for="q1d" class="option-label"><span class="custom-marker"></span>(D) 人不是物品，不能被當作工具使用。</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q2"><h3 class="question-title"><i class="fas fa-question-circle"></i>第二題：選擇題</h3><div class="question-text"><p>「社會性別」是指社會文化對不同性別所期待的特質與行為，例如「男生勇敢、女生溫柔」。這種對不同性別的固定看法，最符合下列哪個概念？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q2a" name="q2" value="A"><label for="q2a" class="option-label"><span class="custom-marker"></span>(A) 生理性別</label></div><div class="custom-radio"><input type="radio" id="q2b" name="q2" value="B"><label for="q2b" class="option-label"><span class="custom-marker"></span>(B) 性別偏見</label></div><div class="custom-radio"><input type="radio" id="q2c" name="q2" value="C"><label for="q2c" class="option-label"><span class="custom-marker"></span>(C) 性別刻板印象</label></div><div class="custom-radio"><input type="radio" id="q2d" name="q2" value="D"><label for="q2d" class="option-label"><span class="custom-marker"></span>(D) 性別歧視</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q3"><h3 class="question-title"><i class="fas fa-question-circle"></i>第三題：選擇題</h3><div class="question-text"><p>「認為『在家帶小孩的爸爸』是吃軟飯。」這種帶有負面評價的想法，是屬於性別不平等產生過程中的哪一階段？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q3a" name="q3" value="A"><label for="q3a" class="option-label"><span class="custom-marker"></span>(A) 性別刻板印象</label></div><div class="custom-radio"><input type="radio" id="q3b" name="q3" value="B"><label for="q3b" class="option-label"><span class="custom-marker"></span>(B) 性別偏見</label></div><div class="custom-radio"><input type="radio" id="q3c" name="q3" value="C"><label for="q3c" class="option-label"><span class="custom-marker"></span>(C) 性別歧視</label></div><div class="custom-radio"><input type="radio" id="q3d" name="q3" value="D"><label for="q3d" class="option-label"><span class="custom-marker"></span>(D) 社會性別</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q4"><h3 class="question-title"><i class="fas fa-question-circle"></i>第四題：選擇題</h3><div class="question-text"><p>某公司在招聘時，明確表示「本職位限男性」，導致符合資格的女性求職者無法應徵。此行為最貼切的描述是？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q4a" name="q4" value="A"><label for="q4a" class="option-label"><span class="custom-marker"></span>(A) 性別偏見</label></div><div class="custom-radio"><input type="radio" id="q4b" name="q4" value="B"><label for="q4b" class="option-label"><span class="custom-marker"></span>(B) 生理性別差異</label></div><div class="custom-radio"><input type="radio" id="q4c" name="q4" value="C"><label for="q4c" class="option-label"><span class="custom-marker"></span>(C) 社會性別分工</label></div><div class="custom-radio"><input type="radio" id="q4d" name="q4" value="D"><label for="q4d" class="option-label"><span class="custom-marker"></span>(D) 性別歧視</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q5"><h3 class="question-title"><i class="fas fa-question-circle"></i>第五題：選擇題</h3><div class="question-text"><p>老師在分配實驗材料時，因為小華的操作能力較強，所以給他較多的材料。這項分配最主要是基於哪一項公平原則？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q5a" name="q5" value="A"><label for="q5a" class="option-label"><span class="custom-marker"></span>(A) 責任承擔</label></div><div class="custom-radio"><input type="radio" id="q5b" name="q5" value="B"><label for="q5b" class="option-label"><span class="custom-marker"></span>(B) 貢獻肯定</label></div><div class="custom-radio"><input type="radio" id="q5c" name="q5" value="C"><label for="q5c" class="option-label"><span class="custom-marker"></span>(C) 利益分配</label></div><div class="custom-radio"><input type="radio" id="q5d" name="q5" value="D"><label for="q5d" class="option-label"><span class="custom-marker"></span>(D) 需求滿足</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q6"><h3 class="question-title"><i class="fas fa-check-square"></i>第六題：是非題</h3><div class="question-text"><p>人性尊嚴是需要透過後天努力與良好表現才能獲得的。</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q6t" name="q6" value="true"><label for="q6t" class="option-label"><span class="custom-marker"></span>(O) 是</label></div><div class="custom-radio"><input type="radio" id="q6f" name="q6" value="false"><label for="q6f" class="option-label"><span class="custom-marker"></span>(X) 非</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q7"><h3 class="question-title"><i class="fas fa-check-square"></i>第七題：是非題</h3><div class="question-text"><p>「社會性別」是天生的，例如男性有喉結、女性胸部隆起。</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q7t" name="q7" value="true"><label for="q7t" class="option-label"><span class="custom-marker"></span>(O) 是</label></div><div class="custom-radio"><input type="radio" id="q7f" name="q7" value="false"><label for="q7f" class="option-label"><span class="custom-marker"></span>(X) 非</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q8"><h3 class="question-title"><i class="fas fa-check-square"></i>第八題：是非題</h3><div class="question-text"><p>《性別平等工作法》的適用對象僅限於已經在職的員工，不包含求職者。</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q8t" name="q8" value="true"><label for="q8t" class="option-label"><span class="custom-marker"></span>(O) 是</label></div><div class="custom-radio"><input type="radio" id="q8f" name="q8" value="false"><label for="q8f" class="option-label"><span class="custom-marker"></span>(X) 非</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q9"><h3 class="question-title"><i class="fas fa-question-circle"></i>第九題：選擇題</h3><div class="question-text"><p>透過制定「法律、憲法、世界人權宣言」等方式，主要是為了達成下列何種目的？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q9a" name="q9" value="A"><label for="q9a" class="option-label"><span class="custom-marker"></span>(A) 增加國家稅收</label></div><div class="custom-radio"><input type="radio" id="q9b" name="q9" value="B"><label for="q9b" class="option-label"><span class="custom-marker"></span>(B) 具體保障人權</label></div><div class="custom-radio"><input type="radio" id="q9c" name="q9" value="C"><label for="q9c" class="option-label"><span class="custom-marker"></span>(C) 區分社會階級</label></div><div class="custom-radio"><input type="radio" id="q9d" name="q9" value="D"><label for="q9d" class="option-label"><span class="custom-marker"></span>(D) 強調文化差異</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q10"><h3 class="question-title"><i class="fas fa-pen"></i>第十題：填空題</h3><div class="question-text"><p>性別不平等的產生，是由「性別刻板印象」導致「性別偏見」，最後演變成具體行動的<span class="fill-in-wrapper"><input type="text" class="fill-in-blank-input" id="q10-input" placeholder="輸入答案"></span>。</p></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q11"><h3 class="question-title"><i class="fas fa-pen"></i>第十一題：填空題</h3><div class="question-text"><p>為了防治性騷擾與性侵害，政府制定了俗稱「性平三法」的法律，除了《性別平等工作法》及《性別平等教育法》外，還有<span class="fill-in-wrapper"><input type="text" class="fill-in-blank-input" id="q11-input" placeholder="輸入答案">法</span>。</p></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q12"><h3 class="question-title"><i class="fas fa-question-circle"></i>第十二題：選擇題</h3><div class="question-text"><p>在判斷一件事是否「公平」時，通常會考量多項原則。下列何者「並非」判斷公平的常見原則？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q12a" name="q12" value="A"><label for="q12a" class="option-label"><span class="custom-marker"></span>(A) 責任承擔</label></div><div class="custom-radio"><input type="radio" id="q12b" name="q12" value="B"><label for="q12b" class="option-label"><span class="custom-marker"></span>(B) 需求滿足</label></div><div class="custom-radio"><input type="radio" id="q12c" name="q12" value="C"><label for="q12c" class="option-label"><span class="custom-marker"></span>(C) 貢獻肯定</label></div><div class="custom-radio"><input type="radio" id="q12d" name="q12" value="D"><label for="q12d" class="option-label"><span class="custom-marker"></span>(D) 天生差異</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q13"><h3 class="question-title"><i class="fas fa-link"></i>第十三至十五題：配合題</h3><div class="question-text"><p>請將左方的「性平三法」與右方最適合的「適用範圍」進行配對。</p></div><div class="answer-area matching-grid"><div class="matching-item">(13) 性別平等工作法</div> <i class="fas fa-arrows-alt-h"></i><select class="matching-select" id="q13-select"> <option value="">請選擇...</option> <option value="A">A. 校園事件</option> <option value="B">B. 其他事件</option> <option value="C">C. 職場事件</option> </select><div class="matching-item">(14) 性別平等教育法</div> <i class="fas fa-arrows-alt-h"></i><select class="matching-select" id="q14-select"> <option value="">請選擇...</option> <option value="A">A. 校園事件</option> <option value="B">B. 其他事件</option> <option value="C">C. 職場事件</option> </select><div class="matching-item">(15) 性騷擾防治法</div> <i class="fas fa-arrows-alt-h"></i><select class="matching-select" id="q15-select"> <option value="">請選擇...</option> <option value="A">A. 校園事件</option> <option value="B">B. 其他事件</option> <option value="C">C. 職場事件</option> </select></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q16"><h3 class="question-title"><i class="fas fa-sort-numeric-up"></i>第十六題：排序題</h3><div class="question-text"><p>請將性別不平等的產生過程，由先到後填入數字 1、2、3 進行排序。</p></div><div class="answer-area sequencing-grid"><input type="number" class="sequencing-input" id="q16-prejudice" min="1" max="3"> <label>性別偏見 (負面評價)</label><input type="number" class="sequencing-input" id="q16-stereotype" min="1" max="3"> <label>性別刻板印象 (固定看法)</label><input type="number" class="sequencing-input" id="q16-discrimination" min="1" max="3"> <label>性別歧視 (具體行動)</label></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q17"><h3 class="question-title"><i class="fas fa-tasks"></i>第十七題：複選題</h3><div class="question-text"><p>下列哪些屬於天生的「生理性別」差異？(答案可多選)</p></div><div class="answer-area"><div class="custom-checkbox"><input type="checkbox" id="q17a" name="q17" value="A"><label for="q17a" class="option-label"><span class="custom-marker"></span>(A) 男生有喉結</label></div><div class="custom-checkbox"><input type="checkbox" id="q17b" name="q17" value="B"><label for="q17b" class="option-label"><span class="custom-marker"></span>(B) 女生比較溫柔</label></div><div class="custom-checkbox"><input type="checkbox" id="q17c" name="q17" value="C"><label for="q17c" class="option-label"><span class="custom-marker"></span>(C) 女生胸部隆起</label></div><div class="custom-checkbox"><input type="checkbox" id="q17d" name="q17" value="D"><label for="q17d" class="option-label"><span class="custom-marker"></span>(D) 男生比較勇敢</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q18"><h3 class="question-title"><i class="fas fa-tasks"></i>第十八題：複選題</h3><div class="question-text"><p>人性尊嚴的維護，主要體現在哪幾個面向？(答案可多選)</p></div><div class="answer-area"><div class="custom-checkbox"><input type="checkbox" id="q18a" name="q18" value="A"><label for="q18a" class="option-label"><span class="custom-marker"></span>(A) 受到平等尊重</label></div><div class="custom-checkbox"><input type="checkbox" id="q18b" name="q18" value="B"><label for="q18b" class="option-label"><span class="custom-marker"></span>(B) 擁有財富地位</label></div><div class="custom-checkbox"><input type="checkbox" id="q18c" name="q18" value="C"><label for="q18c" class="option-label"><span class="custom-marker"></span>(C) 獨立個體</label></div><div class="custom-checkbox"><input type="checkbox" id="q18d" name="q18" value="D"><label for="q18d" class="option-label"><span class="custom-marker"></span>(D) 存在價值</label></div><div class="custom-checkbox"><input type="checkbox" id="q18e" name="q18" value="E"><label for="q18e" class="option-label"><span class="custom-marker"></span>(E) 自由選擇行動</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q19"><h3 class="question-title"><i class="fas fa-gavel"></i>第十九題：情境選擇題</h3><div class="question-text"><p>一位男同學向學校老師表示自己想參加家政社，卻被老師以「那是女生在學的」為由拒絕。請問此案例中，老師的行為最優先適用哪一部法律來處理？</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q19a" name="q19" value="A"><label for="q19a" class="option-label"><span class="custom-marker"></span>(A) 性別平等工作法</label></div><div class="custom-radio"><input type="radio" id="q19b" name="q19" value="B"><label for="q19b" class="option-label"><span class="custom-marker"></span>(B) 性別平等教育法</label></div><div class="custom-radio"><input type="radio" id="q19c" name="q19" value="C"><label for="q19c" class="option-label"><span class="custom-marker"></span>(C) 性騷擾防治法</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                <div class="quiz-container" data-quiz-id="q20"><h3 class="question-title"><i class="fas fa-check-square"></i>第二十題：是非題</h3><div class="question-text"><p>促進性別平等的最終目標，是希望消弭不同性別間的「生理差異」，讓所有人都變得一模一樣。</p></div><div class="answer-area"><div class="custom-radio"><input type="radio" id="q20t" name="q20" value="true"><label for="q20t" class="option-label"><span class="custom-marker"></span>(O) 是</label></div><div class="custom-radio"><input type="radio" id="q20f" name="q20" value="false"><label for="q20f" class="option-label"><span class="custom-marker"></span>(X) 非</label></div></div><div class="single-check-wrapper"><button type="button" class="check-single-btn">單題批改</button></div><div class="feedback"></div></div>
+                
+                <div class="control-buttons">
+                    <button type="button" id="submit-btn" class="control-btn">批改計分</button>
+                    <button type="reset" id="reset-btn" class="control-btn">重新作答</button>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <a href="index.html" id="return-home-btn" title="返回主頁">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+    </a>
+    
+    <div id="mascot-container">
+        <button id="mascot-btn" aria-label="與吉祥物互動">
+            <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
+        </button>
+        <div id="mascot-speech">來挑戰吧！</div>
+    </div>
+
+    <footer>
+        <p>Copyright © Liyuchiutiger Gongminshen</p>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Mascot Interaction (No changes) ---
+        const mascotContainer = document.getElementById('mascot-container');
+        const mascotBtn = document.getElementById('mascot-btn');
+        const mascotImg = document.getElementById('mascot-img');
+        const speechBubble = document.getElementById('mascot-speech');
+        const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+        let messageIndex = 0; let clickTimer = null; let speechTimeout = null;
+        mascotBtn.addEventListener('click', () => {
+            clearTimeout(clickTimer);
+            clickTimer = setTimeout(() => {
+                speechBubble.textContent = messages[messageIndex];
+                speechBubble.classList.add('visible');
+                messageIndex = (messageIndex + 1) % messages.length;
+                clearTimeout(speechTimeout);
+                speechTimeout = setTimeout(() => speechBubble.classList.remove('visible'), 4000);
+            }, 250);
+        });
+        mascotBtn.addEventListener('dblclick', (e) => {
+            e.preventDefault();
+            clearTimeout(clickTimer);
+            speechBubble.classList.remove('visible');
+            triggerExplosion();
+        });
+        function triggerExplosion() {
+            mascotImg.classList.add('enlarged');
+            const particleCount = 40; const particleColors = [ 'var(--primary-glow)', 'var(--secondary-glow)', 'var(--accent-glow)', '#ffffff' ];
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div'); particle.classList.add('particle'); mascotContainer.appendChild(particle);
+                const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+                const angle = Math.random() * 360; const radius = Math.random() * 120 + 50;
+                const x = Math.cos(angle * Math.PI / 180) * radius; const y = Math.sin(angle * Math.PI / 180) * radius;
+                particle.style.background = color;
+                requestAnimationFrame(() => { particle.style.transform = `translate(${x}px, ${y}px) scale(0)`; particle.style.opacity = '0'; });
+                setTimeout(() => particle.remove(), 1000);
+            }
+            setTimeout(() => mascotImg.classList.remove('enlarged'), 300);
+        }
+
+        // --- Quiz Logic ---
+        const quizForm = document.getElementById('quiz-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const resultsContainer = document.getElementById('results-container');
+        const scoreDisplay = document.getElementById('score-display');
+        const scoreMessage = document.getElementById('score-message');
+
+        const correctAnswers = {
+            q1: 'B', q2: 'C', q3: 'B', q4: 'D', q5: 'B', q6: 'false', q7: 'false', q8: 'false',
+            q9: 'B', q10: '性別歧視', q11: '性騷擾防治', q12: 'D',
+            q13: 'C', q14: 'A', q15: 'B',
+            q16: { stereotype: '1', prejudice: '2', discrimination: '3' },
+            q17: ['A', 'C'], q18: ['A', 'C', 'D', 'E'],
+            q19: 'B', q20: 'false'
+        };
+
+        const feedbackText = {
+             q1: "「存在價值」強調每個生命本身的寶貴，與身分、能力無關。選項B最符合。", q2: "對特定性別抱持固定、僵化的看法，即為「性別刻板印象」。", q3: "「吃軟飯」是帶有負面價值判斷的態度，屬於「性別偏見」。", q4: "「限男性」是基於性別而產生的具體差別待遇行動，屬於「性別歧視」。", q5: "因為小華的操作能力強（貢獻較大），所以給予更多材料，這是基於「貢獻肯定」的公平原則。", q6: "錯誤。人性尊嚴是與生俱來、固有的，不需後天努力。", q7: "錯誤。這是「生理性別」的特徵。「社會性別」是後天學習的。", q8: "錯誤。《性別平等工作法》適用對象包含雇主、受雇者和「求職者」。", q9: "正確。制定法律和人權宣言等，就是將抽象的人權概念，透過具體條文來保障與實踐。", q10: "正確答案是「性別歧視」。", q11: "正確答案是「性騷擾防治」。", q12: "正確。「天生差異」不是判斷公平的原則，公平的原則是後天如何對待這些差異。",
+             q13: "正確答案是 (13)→C (職場), (14)→A (校園), (15)→B (其他)。配合題需一起批改。", q14: "正確答案是 (13)→C (職場), (14)→A (校園), (15)→B (其他)。配合題需一起批改。", q15: "正確答案是 (13)→C (職場), (14)→A (校園), (15)→B (其他)。配合題需一起批改。",
+             q16: "正確順序是 1.性別刻板印象 → 2.性別偏見 → 3.性別歧視。", q17: "正確答案是(A)和(C)。(B)和(D)屬於社会性別的描述。", q18: "正確答案是(A), (C), (D), (E)。(B)財富地位與人性尊嚴無關。", q19: "此為發生在「校園」的事件，適用《性別平等教育法》。", q20: "錯誤。促進性別平等是為了「消除不平等的觀念與制度」，尊重並欣賞生理差異，而非消除差異。"
+        };
+        
+        function disableInputs(container, disable = true) {
+            container.classList.toggle('graded', disable);
+            const inputs = container.querySelectorAll('input, select');
+            inputs.forEach(input => input.disabled = disable);
+        }
+        
+        function gradeQuestion(qId) {
+            const container = document.querySelector(`.quiz-container[data-quiz-id="${qId}"]`);
+            if (!container || container.classList.contains('graded')) return null;
+
+            const feedbackEl = container.querySelector('.feedback');
+            let isCorrect = false;
+
+            // Handle combined question (q13-15)
+            if (['q13', 'q14', 'q15'].includes(qId)) {
+                const q13User = container.querySelector('#q13-select').value;
+                const q14User = container.querySelector('#q14-select').value;
+                const q15User = container.querySelector('#q15-select').value;
+                isCorrect = q13User === correctAnswers.q13 && q14User === correctAnswers.q14 && q15User === correctAnswers.q15;
+                if(isCorrect) { // For score calculation, treat as 3 questions
+                     return { isCorrect: true, score: 3 }; 
+                } else {
+                     return { isCorrect: false, score: 0 };
+                }
+            }
+
+            if (['q1', 'q2', 'q3', 'q4', 'q5', 'q9', 'q12', 'q19'].includes(qId) || ['q6', 'q7', 'q8', 'q20'].includes(qId)) {
+                const userAnswer = container.querySelector(`input[name="${qId}"]:checked`)?.value;
+                isCorrect = (userAnswer === correctAnswers[qId]);
+            } else if (['q10', 'q11'].includes(qId)) {
+                const userAnswer = container.querySelector(`#${qId}-input`).value.trim().replace(/法$/, '');
+                isCorrect = (userAnswer === correctAnswers[qId].replace(/法$/, ''));
+            } else if (qId === 'q16') {
+                const s_val = container.querySelector('#q16-stereotype').value;
+                const p_val = container.querySelector('#q16-prejudice').value;
+                const d_val = container.querySelector('#q16-discrimination').value;
+                isCorrect = (s_val === correctAnswers.q16.stereotype && p_val === correctAnswers.q16.prejudice && d_val === correctAnswers.q16.discrimination);
+            } else if (['q17', 'q18'].includes(qId)) {
+                const userAnswers = Array.from(container.querySelectorAll(`input[name="${qId}"]:checked`)).map(cb => cb.value).sort();
+                const correctAns = [...correctAnswers[qId]].sort();
+                isCorrect = JSON.stringify(userAnswers) === JSON.stringify(correctAns);
+            }
+            
+            feedbackEl.style.display = 'block';
+            feedbackEl.className = `feedback ${isCorrect ? 'correct' : 'wrong'}`;
+            feedbackEl.innerHTML = `<i class="fas ${isCorrect ? 'fa-check-circle' : 'fa-times-circle'}"></i> ${isCorrect ? '正確！' : '錯誤。'} <p>${feedbackText[qId]}</p>`;
+            
+            disableInputs(container, true);
+            container.querySelector('.check-single-btn').style.display = 'none';
+            
+            return { isCorrect: isCorrect, score: isCorrect ? 1 : 0 };
+        }
+
+        // Event listener for single check buttons
+        quizForm.addEventListener('click', (e) => {
+            if (e.target.classList.contains('check-single-btn')) {
+                const container = e.target.closest('.quiz-container');
+                const qId = container.dataset.quizId;
+                gradeQuestion(qId);
+            }
+        });
+
+        submitBtn.addEventListener('click', () => {
+            let score = 0;
+            const allQuestions = Object.keys(correctAnswers);
+            const processed = new Set(); // To handle grouped questions
+
+            allQuestions.forEach(qId => {
+                if (processed.has(qId)) return;
+
+                const result = gradeQuestion(qId);
+                if (result !== null) {
+                    score += result.score;
+                }
+
+                if (['q13', 'q14', 'q15'].includes(qId)) {
+                    processed.add('q13');
+                    processed.add('q14');
+                    processed.add('q15');
+                }
+            });
+
+            resultsContainer.style.display = 'block';
+            scoreDisplay.textContent = `${score} / 20`;
+            if (score >= 18) {
+                scoreMessage.innerHTML = '太強了！你就是<span class="highlight-text">公民神</span>！';
+            } else if (score >= 12) {
+                scoreMessage.innerHTML = '表現不錯！再加把勁，你離公民神不遠了！';
+            } else {
+                scoreMessage.innerHTML = '別灰心，複習詳解後再挑戰一次吧！';
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Disable main buttons after final submission
+            submitBtn.disabled = true;
+            resetBtn.disabled = false; // Keep reset enabled
+        });
+        
+        resetBtn.addEventListener('click', () => {
+            // form.reset() is called automatically by the button's type="reset"
+            document.querySelectorAll('.quiz-container').forEach(container => {
+                disableInputs(container, false); // Re-enable inputs
+                container.querySelector('.feedback').style.display = 'none';
+                container.querySelector('.check-single-btn').style.display = 'inline-block';
+            });
+            resultsContainer.style.display = 'none';
+            submitBtn.disabled = false;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    });
+    </script>
+</body>
+</html>
