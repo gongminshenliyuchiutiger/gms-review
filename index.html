@@ -37,10 +37,11 @@
         main.container > section:first-of-type { margin-top: 2rem; }
 
         header {
-            text-align: center; padding: 4rem 1rem; 
+            text-align: center; padding: 4rem 1rem 2rem;
             border-bottom: 2px solid var(--border-color);
             box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
-            position: relative; overflow: hidden;
+            position: relative;
+            overflow: hidden;
             background: linear-gradient(135deg, rgba(13, 27, 42, 0.8), rgba(2, 10, 18, 0.8), rgba(255, 0, 255, 0.1), rgba(0, 242, 234, 0.1));
             background-size: 300% 300%; animation: gradient-pan 15s ease infinite;
             backdrop-filter: blur(5px);
@@ -102,7 +103,6 @@
         .title-link-icon { margin-left: auto; color: var(--secondary-glow); text-decoration: none; font-size: clamp(1.8rem, 5vw, 2.2rem); transition: all 0.3s ease; opacity: 0.7; }
         .title-link-icon:hover, .title-link-icon:focus-visible { opacity: 1; color: var(--accent-glow); text-shadow: 0 0 12px var(--accent-glow); transform: scale(1.15) rotate(15deg); outline: none; }
         
-        /* --- Podcast 播放器樣式 --- */
         #podcast-track-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-top: 2rem; }
         .podcast-track-btn {
             background: rgba(0,0,0,0.2); border: 2px solid var(--border-color); color: var(--text-color);
@@ -144,17 +144,14 @@
         .volume-control i { color: var(--primary-glow); font-size: 1.2rem; }
         .speed-control { background-color: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-color); color: var(--text-color); border-radius: 5px; padding: 5px 8px; font-family: 'Titillium Web', sans-serif; cursor: pointer; }
 
-        /* --- 【修改】吉祥物與粒子特效樣式 --- */
         #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; user-select: none; }
         #mascot-btn { background: none; border: none; padding: 0; cursor: pointer; border-radius: 50%; position: relative; }
         #mascot-img {
             width: 100px; display: block;
-            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); /* 彈跳動畫 */
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        /* 點擊彈跳動畫 */
         #mascot-btn.clicked #mascot-img { transform: scale(1.2); }
 
-        /* Hover 呼吸光暈 */
         @keyframes mascot-glow {
             from { filter: drop-shadow(0 0 8px var(--primary-glow)); transform: scale(1.05); }
             to { filter: drop-shadow(0 0 15px var(--accent-glow)); transform: scale(1.1); }
@@ -163,10 +160,12 @@
             animation: mascot-glow 0.8s infinite alternate ease-in-out;
         }
 
-        /* 繽紛對話框 */
         #mascot-speech-bubble {
-            position: absolute; bottom: 110px; right: 10px;
-            padding: 1rem; border-radius: 15px;
+            position: absolute;
+            bottom: 125px; /* 【修改】向上移動，避免遮擋 */
+            right: 10px;
+            padding: 1rem;
+            border-radius: 20px; /* 【修改】增加圓角 */
             color: #fff; width: 220px; text-align: center;
             opacity: 0; transform: translateY(20px) scale(0.9); pointer-events: none;
             transition: opacity 0.3s, transform 0.3s;
@@ -187,7 +186,7 @@
         #particle-canvas {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
-            pointer-events: none; z-index: 9999;
+            pointer-events: none; z-index: 999;
         }
         
         footer {
@@ -198,7 +197,93 @@
         }
         footer p { text-shadow: 0 0 5px rgba(0, 242, 234, 0.2); }
         
-        @media (max-width: 768px) {
+        #toc-nav {
+            position: relative;
+            padding: 1rem 1rem;
+            transition: padding 0.3s ease;
+        }
+        #toc-nav ul {
+            list-style: none;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+        #toc-nav li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            min-width: 80px;
+        }
+        #toc-nav li a:hover {
+            opacity: 1;
+            color: var(--accent-glow);
+            background-color: var(--card-bg);
+            transform: translateY(-5px);
+        }
+        #toc-nav li a.active {
+            opacity: 1;
+            color: var(--primary-glow);
+            border-bottom-color: var(--primary-glow);
+        }
+        #toc-nav li a i { font-size: 1.3rem; }
+
+        #toc-nav.is-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1010;
+            background: rgba(13, 27, 42, 0.85);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+        }
+        
+        #back-to-top-btn {
+            position: fixed; bottom: 30px; right: 30px;
+            z-index: 1000;
+            width: 50px; height: 50px;
+            background-color: var(--primary-glow);
+            color: var(--bg-dark-2);
+            border-radius: 50%;
+            border: none;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 0 20px var(--primary-glow);
+            opacity: 0;
+            transform: translateY(100px);
+            pointer-events: none;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            text-decoration: none;
+        }
+        #back-to-top-btn.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        #back-to-top-btn:hover {
+            background-color: var(--accent-glow);
+            box-shadow: 0 0 25px var(--accent-glow);
+            transform: scale(1.1);
+        }
+        
+        @media (max-width: 992px) {
+            #toc-nav { display: none !important; }
+            body { padding-top: 0 !important; }
+
             .container { padding: 1rem; }
             header { padding: 3rem 1rem; }
             .chapter-grid, .quiz-grid, #podcast-track-list { grid-template-columns: 1fr; }
@@ -206,7 +291,15 @@
             .progress-bar { order: 1; flex-basis: 100%; margin-top: 0.5rem;}
             .time-display { order: 2; }
             #mascot-img { width: 80px; }
-            #mascot-speech-bubble { width: 180px; bottom: 90px; }
+            #mascot-speech-bubble {
+                width: 180px;
+                bottom: 100px; /*【修改】在手機上也要調整位置*/
+            }
+            
+            #back-to-top-btn {
+                bottom: 20px; right: 20px;
+                width: 45px; height: 45px;
+            }
         }
     </style>
 </head>
@@ -214,8 +307,8 @@
 
     <canvas id="starry-sky"></canvas>
     <canvas id="particle-canvas"></canvas>
-
-    <header>
+    
+    <header id="page-top">
         <div class="container">
             <h1>公民神複習系統</h1>
             <h2>邱俐瑜公民，成為公民神不再只是夢想！</h2>
@@ -229,40 +322,46 @@
             </div>
         </div>
     </header>
+    
+    <nav id="toc-nav">
+        <ul id="toc-list">
+            <!-- JavaScript 會自動填入此處 -->
+        </ul>
+    </nav>
 
-    <main class="container">
+    <main id="main-content" class="container">
         <!-- Chapter sections -->
-        <section id="book1" data-book="1">
+        <section id="book1" data-book="1" data-nav-title="第一冊" data-nav-icon="fa-child">
             <h2 class="section-title"><i class="fas fa-child"></i> 第一冊・自我、家庭與社區
                 <a href="b1-card.html" class="title-link-icon" title="總複習：第一冊名詞解釋"><i class="fas fa-layer-group"></i></a>
             </h2>
             <div class="chapter-grid" id="book1-grid"></div>
         </section>
-        <section id="book2" data-book="2">
+        <section id="book2" data-book="2" data-nav-title="第二冊" data-nav-icon="fa-hands-helping">
             <h2 class="section-title"><i class="fas fa-hands-helping"></i> 第二冊・社會生活與公民德性
                  <a href="b2-card.html" class="title-link-icon" title="總複習：第二冊名詞解釋"><i class="fas fa-layer-group"></i></a>
             </h2>
             <div class="chapter-grid" id="book2-grid"></div>
         </section>
-        <section id="book3" data-book="3">
+        <section id="book3" data-book="3" data-nav-title="第三冊" data-nav-icon="fa-landmark">
             <h2 class="section-title"><i class="fas fa-landmark"></i> 第三冊・政府、民主與政治參與
                  <a href="b3-card.html" class="title-link-icon" title="總複習：第三冊名詞解釋"><i class="fas fa-layer-group"></i></a>
             </h2>
             <div class="chapter-grid" id="book3-grid"></div>
         </section>
-        <section id="book4" data-book="4">
+        <section id="book4" data-book="4" data-nav-title="第四冊" data-nav-icon="fa-gavel">
             <h2 class="section-title"><i class="fas fa-gavel"></i> 第四冊・憲法、人權與法律
                  <a href="b4-card.html" class="title-link-icon" title="總複習：第四冊名詞解釋"><i class="fas fa-layer-group"></i></a>
             </h2>
             <div class="chapter-grid" id="book4-grid"></div>
         </section>
-        <section id="book5" data-book="5">
+        <section id="book5" data-book="5" data-nav-title="第五冊" data-nav-icon="fa-chart-line">
             <h2 class="section-title"><i class="fas fa-chart-line"></i> 第五冊・經濟選擇與市場
                  <a href="b5-card.html" class="title-link-icon" title="總複習：第五冊名詞解釋"><i class="fas fa-layer-group"></i></a>
             </h2>
             <div class="chapter-grid" id="book5-grid"></div>
         </section>
-        <section id="book6" data-book="6">
+        <section id="book6" data-book="6" data-nav-title="第六冊" data-nav-icon="fa-globe-asia">
             <h2 class="section-title"><i class="fas fa-globe-asia"></i> 第六冊・科技、媒體與全球化
                  <a href="b6-card.html" class="title-link-icon" title="總複習：第六冊名詞解釋"><i class="fas fa-layer-group"></i></a>
             </h2>
@@ -270,7 +369,7 @@
         </section>
 
         <!-- 特色功能圖表 -->
-        <section id="special-tools">
+        <section id="special-tools" data-nav-title="特色功能" data-nav-icon="fa-star-of-life">
             <h2 class="section-title">
                 <i class="fas fa-star-of-life"></i> 特色功能圖表
             </h2>
@@ -283,15 +382,15 @@
         </section>
 
         <!-- 測驗連結專區 -->
-        <section id="quiz-section">
+        <section id="quiz-section" data-nav-title="綜合測驗" data-nav-icon="fa-rocket">
             <h2 class="section-title">
                 <i class="fas fa-rocket"></i> 綜合單元測驗
             </h2>
             <div class="quiz-grid" id="quiz-grid-container"></div>
         </section>
         
-        <!-- 【修改】Podcast 專區 -->
-        <section id="podcast-section">
+        <!-- Podcast 專區 -->
+        <section id="podcast-section" data-nav-title="Podcast" data-nav-icon="fa-headphones-alt">
             <h2 class="section-title">
                 <i class="fas fa-headphones-alt"></i> 單元複習 Podcast
             </h2>
@@ -330,6 +429,10 @@
         </button>
         <div id="mascot-speech-bubble">公民神，與你同在！</div>
     </div>
+    
+    <a href="#page-top" id="back-to-top-btn" aria-label="返回頂端" title="返回頂端">
+        <i class="fas fa-arrow-up"></i>
+    </a>
 
     <footer>
         <p>Copyright © Liyuchiutiger Gongminshen</p>
@@ -384,14 +487,12 @@
 
             // --- Dynamic Content Generation ---
             (() => {
-                // Chapter Cards
                 chapters.forEach(c => {
                     const chapterNum = parseInt(c.chapter.split('-')[0]);
                     const cardHTML = `<a href="${c.file}" class="link-card" data-chapter-title="${c.title}" data-chapter-number="${c.chapter}"><div class="chapter-number">${c.chapter}</div><div class="chapter-title">${c.title}</div></a>`;
                     for (const gridId in bookGrids) { if (bookGrids[gridId](chapterNum)) { document.getElementById(gridId).innerHTML += cardHTML; break; } }
                 });
 
-                // Quiz Cards with Unit Titles
                 const quizGridContainer = document.getElementById('quiz-grid-container');
                 let quizLinksHTML = '';
                 for (let i = 1; i <= 16; i++) {
@@ -399,19 +500,85 @@
                 }
                 quizGridContainer.innerHTML = quizLinksHTML;
 
-                // Header Links
                 const headerLinksContainer = document.querySelector('.header-links');
                 externalLinks.forEach(link => { headerLinksContainer.innerHTML += `<a href="${link.url}" target="_blank" rel="noopener noreferrer"><i class="${link.icon}"></i><span>${link.text}</span></a>`; });
             })();
 
             // --- Intersection Observer for animations ---
             (() => {
-                const allSections = document.querySelectorAll('section');
+                const allSections = document.querySelectorAll('main > section');
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
                 }, { threshold: 0.1 });
                 allSections.forEach(section => observer.observe(section));
             })();
+            
+            // --- TOC & Back to Top Functionality ---
+            (() => {
+                const tocNav = document.getElementById('toc-nav');
+                const tocList = document.getElementById('toc-list');
+                const backToTopBtn = document.getElementById('back-to-top-btn');
+                const mainContent = document.getElementById('main-content');
+                const sections = document.querySelectorAll('section[data-nav-title]');
+
+                // 1. 動態生成目錄
+                sections.forEach(section => {
+                    const sectionId = section.id;
+                    const navTitle = section.dataset.navTitle;
+                    const navIcon = section.dataset.navIcon;
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `<a href="#${sectionId}" title="${navTitle}"><i class="fas ${navIcon}"></i><span>${navTitle}</span></a>`;
+                    tocList.appendChild(listItem);
+                });
+                
+                // 2. 返頂按鈕的顯示/隱藏
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 300) {
+                        backToTopBtn.classList.add('visible');
+                    } else {
+                        backToTopBtn.classList.remove('visible');
+                    }
+                }, { passive: true });
+
+                // 3. 滾動時高亮目前的目錄項目
+                const tocLinks = tocList.querySelectorAll('a');
+                const observer = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        const id = entry.target.id;
+                        const link = tocList.querySelector(`a[href="#${id}"]`);
+                        if (entry.isIntersecting && link) { // 加上 link 是否存在的檢查
+                            tocLinks.forEach(l => l.classList.remove('active'));
+                            link.classList.add('active');
+                        }
+                    });
+                }, { 
+                    rootMargin: '-40% 0px -60% 0px', 
+                    threshold: 0 
+                });
+                sections.forEach(section => observer.observe(section));
+
+                // 4. 智慧固定導覽列功能
+                if (tocNav && mainContent) {
+                    const tocNavOffsetTop = tocNav.offsetTop;
+                    let tocNavHeight = tocNav.offsetHeight; // 先取一次高度
+
+                    const stickyNavHandler = () => {
+                        if (window.getComputedStyle(tocNav).display !== 'none') {
+                            if (window.scrollY >= tocNavOffsetTop) {
+                                tocNav.classList.add('is-fixed');
+                                // 固定時再取一次精確高度，避免因樣式改變造成誤差
+                                tocNavHeight = tocNav.offsetHeight; 
+                                mainContent.style.paddingTop = `${tocNavHeight}px`;
+                            } else {
+                                tocNav.classList.remove('is-fixed');
+                                mainContent.style.paddingTop = '';
+                            }
+                        }
+                    };
+                    window.addEventListener('scroll', stickyNavHandler, { passive: true });
+                }
+            })();
+
 
             // --- Mascot & Particle Effects ---
             (() => {
@@ -459,7 +626,6 @@
                 animateParticles();
 
                 mascotBtn.addEventListener('click', (e) => {
-                    // Click animation
                     mascotBtn.classList.add('clicked');
                     setTimeout(() => mascotBtn.classList.remove('clicked'), 200);
 
