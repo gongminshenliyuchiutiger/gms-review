@@ -156,6 +156,21 @@
             position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
 
+        /* --- 互動卡片樣式 --- */
+        .interactive-card { background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05)); padding: 2rem; border-radius: 15px; border-left: 5px solid var(--secondary-glow); margin-top: 3rem; box-shadow: 0 0 15px rgba(255, 0, 255, 0.1); }
+        .interactive-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--secondary-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; text-align: center; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+        .interactive-feedback.feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .interactive-feedback.feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .interactive-reset-btn { display: none; margin: 1rem auto 0; padding: 0.6rem 1.5rem; font-size: 0.9rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .interactive-reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 10px var(--accent-glow); }
+        /* --- 結束互動樣式 --- */
+
         .comparison-cards-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -302,7 +317,8 @@
             .container { padding: 1rem; }
             section { padding: 1.5rem; }
             
-            .comparison-cards-container {
+            .comparison-cards-container,
+            .interactive-options {
                 grid-template-columns: 1fr;
             }
             .law-options-list {
@@ -338,6 +354,20 @@
                  <div class="info-card"><h4><i class="fas fa-piggy-bank"></i>價值儲存</h4><p>儲存貨幣供未來使用。</p></div>
                  <div class="info-card"><h4><i class="fas fa-file-invoice-dollar"></i>債務清償</h4><p>計算及清償債務的工具。</p></div>
             </div>
+            <!-- ===== 新增互動：貨幣功能辨識 ===== -->
+            <div id="money-function-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-lightbulb"></i> 貨幣功能辨識</h3>
+                <p class="interactive-prompt">「小華在商店的標價牌上看到一瓶牛奶賣60元，他覺得很合理。」這個情境主要體現了貨幣的哪一種功能？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">交易媒介</button>
+                    <button class="interactive-btn" data-answer="true">價值衡量</button>
+                    <button class="interactive-btn" data-answer="false">價值儲存</button>
+                    <button class="interactive-btn" data-answer="false">債務清償</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="payment-tools-section">
@@ -355,6 +385,18 @@
                 <h4><i class="fas fa-mobile-alt"></i>行動支付</h4>
                 <p>使用行動裝置，如手機、平板進行付款，須注意個資外洩問題。</p>
             </div>
+            <!-- ===== 新增互動：支付方式辨識 ===== -->
+            <div id="payment-type-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-tasks"></i> 支付方式辨識</h3>
+                <p class="interactive-prompt">「小明用信用卡買了一台新筆電，下個月才需要繳交這筆款項給銀行。」這種支付方式的特性是什麼？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">先儲值後消費</button>
+                    <button class="interactive-btn" data-answer="true">先消費後付款</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="exchange-rate-section">
@@ -381,6 +423,18 @@
                     </ul>
                 </div>
             </div>
+             <!-- ===== 新增互動：匯率影響思考 ===== -->
+            <div id="exchange-rate-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-plane-departure"></i> 匯率影響思考</h3>
+                <p class="interactive-prompt">「最近日圓貶值，臺幣兌換日圓的匯率從 1:4.5 變成 1:5。對於臺灣的哈日族來說，這會產生什麼影響？」</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">去日本旅遊變貴了</button>
+                    <button class="interactive-btn" data-answer="true">去日本旅遊變便宜了</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="quiz-section">
@@ -487,15 +541,166 @@
         document.addEventListener('DOMContentLoaded', () => {
             let typingStarted = false; 
 
-            const typingSentences = [
-                "公民好神！我會遵守公民神會員守則！",
-                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
-                "公民神有三力：注意力、記憶力、戰鬥力！"
-            ];
-            const typingElementSpan = document.getElementById('typing-text-span');
+            // --- 互動卡片通用安裝函數 ---
+            function setupInteractiveCard(cardId, correctFeedbackHTML, wrongFeedbackHTML) {
+                const card = document.getElementById(cardId);
+                if (!card) return;
 
+                const buttons = card.querySelectorAll('.interactive-btn');
+                const feedbackArea = card.querySelector('.interactive-feedback');
+                const resetButton = card.querySelector('.interactive-reset-btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isCorrect = btn.dataset.answer === 'true';
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (isCorrect) {
+                            feedbackArea.innerHTML = correctFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-correct';
+                        } else {
+                            feedbackArea.innerHTML = wrongFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    buttons.forEach(b => b.disabled = false);
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                });
+            }
+
+            // --- 初始化所有互動卡片 ---
+            setupInteractiveCard(
+                'money-function-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 完全正確！</strong>將商品的價值以「元」來表示，正是「價值衡量」功能的體現。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>標示價格是為了衡量商品的價值，還沒到實際購買(交易媒介)的步驟。再想一下！'
+            );
+            setupInteractiveCard(
+                'payment-type-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 答對了！</strong>信用卡的核心特性就是「先消費後付款」，讓消費者可以延後支付。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>「先儲值後消費」是儲值卡（如悠遊卡）的特性。信用卡是先享受商品，之後再還錢。'
+            );
+            setupInteractiveCard(
+                'exchange-rate-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 沒錯！</strong>同樣的臺幣可以換到更多的日圓，代表臺幣的購買力變強了，去日本玩或買日貨都變得更划算！',
+                '<strong><i class="fas fa-times-circle"></i> 再想想看...</strong>臺幣可以換到「更多」的日圓，這代表我們的錢更「大」了，所以在日本消費是變便宜喔！'
+            );
+
+            // --- 會考歷屆試題區塊 ---
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>1甲幣可兌換的乙幣從10變成20，表示<strong class="highlight-text">甲幣升值、乙幣貶值</strong>。甲幣升值後，甲國商品對乙國人民來說變貴了，因此<strong class="highlight-text">不利甲國出口</strong>，甲國商品在乙國的銷售量會下滑。反之，乙國商品對甲國人民來說變便宜了，有利甲國進口。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>乙幣貶值，乙國商品在甲國會變便宜，銷售量可能會上升。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>乙幣貶值，甲國進口乙國商品會變便宜，數量可能會上升。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>甲幣升值，乙國進口甲國商品會變貴，價格會上升。</p>`
+                },
+                quiz2: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>甲的特色是「由國家發行」、「可直接支付」，這符合<strong class="highlight-text">法定貨幣</strong>的定義。乙的特色是「須事先存入足夠金額」、「多由民間企業發行」，這符合<strong class="highlight-text">儲值卡</strong>的定義。因此，組合應為(C)法定貨幣與儲值卡。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>商品貨幣不是由國家發行，不符合甲的特色。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>商品貨幣不符合甲的特色；信用卡不需事先存入金額，不符合乙的特色。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>信用卡是「先消費後付款」，不符合乙「須事先存入足夠金額」的特色。</p>`
+                }
+            };
+            
+            const mcqContainers = document.querySelectorAll('.quiz-container[id]');
+            
+            mcqContainers.forEach((container) => {
+                const quizId = container.id;
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
+
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
+
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        
+                        optionButtons.forEach(btn => {
+                            btn.disabled = true;
+                        });
+
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = quizData.correct;
+                        } else {
+                            const optionLetter = button.textContent.substring(1, 2);
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            feedbackArea.innerHTML = quizData[optionLetter];
+                        }
+                        feedbackArea.className = 'feedback-area ' + (isCorrect ? 'feedback-correct' : 'feedback-wrong');
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
+                    });
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+
+            // --- Matching Quiz ---
+            const matchingSelects = document.querySelectorAll('.matching-select');
+            matchingSelects.forEach(select => {
+                select.addEventListener('change', (e) => {
+                    const selectedValue = e.target.value;
+                    const item = e.target.closest('.matching-item');
+                    const correctAnswer = item.dataset.answer;
+                    const feedbackIcon = item.querySelector('.feedback-icon');
+                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    feedbackIcon.textContent = '';
+                    if (selectedValue === "請選擇") {
+                        feedbackIcon.style.display = 'none';
+                        return;
+                    }
+                    feedbackIcon.style.display = 'inline-block';
+                    if (selectedValue === correctAnswer) {
+                        feedbackIcon.classList.add('icon-correct');
+                        feedbackIcon.textContent = '✓';
+                    } else {
+                        feedbackIcon.classList.add('icon-wrong');
+                        feedbackIcon.textContent = '✗';
+                    }
+                });
+            });
+
+            // Section fade-in animation and typing effect
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
+                            typingStarted = true;
+                            startTypingLoop();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 }); 
+            sections.forEach(section => observer.observe(section));
+            
+            const typingElementSpan = document.getElementById('typing-text-span');
             function startTypingLoop() {
                 if (!typingElementSpan) return;
+                const typingSentences = [
+                    "公民好神！我會遵守公民神會員守則！",
+                    "努力向上、勇往直前、不畏艱難，我要成為公民神！",
+                    "公民神有三力：注意力、記憶力、戰鬥力！"
+                ];
                 let sentenceIndex = 0;
                 let charIndex = 0;
                 let isDeleting = false;
@@ -525,114 +730,12 @@
                 }
                 loop();
             }
-            
-            const sections = document.querySelectorAll('section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
-                            typingStarted = true;
-                            startTypingLoop();
-                        }
-                    }
-                });
-            }, { threshold: 0.1 }); 
-            
-            sections.forEach(section => observer.observe(section));
 
-            const matchingSelects = document.querySelectorAll('.matching-select');
-            matchingSelects.forEach(select => {
-                select.addEventListener('change', (e) => {
-                    const selectedValue = e.target.value;
-                    const item = e.target.closest('.matching-item');
-                    const correctAnswer = item.dataset.answer;
-                    const feedbackIcon = item.querySelector('.feedback-icon');
-                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
-                    feedbackIcon.innerHTML = '';
-                    if (selectedValue === "請選擇") {
-                        feedbackIcon.style.display = 'none';
-                        return;
-                    }
-                    feedbackIcon.style.display = 'inline-block';
-                    if (selectedValue === correctAnswer) {
-                        feedbackIcon.classList.add('icon-correct');
-                        feedbackIcon.innerHTML = '✓';
-                    } else {
-                        feedbackIcon.classList.add('icon-wrong');
-                        feedbackIcon.innerHTML = '✗';
-                    }
-                });
-            });
-
-            const allQuizData = {
-                quiz1: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>1甲幣可兌換的乙幣從10變成20，表示<strong class="highlight-text">甲幣升值、乙幣貶值</strong>。甲幣升值後，甲國商品對乙國人民來說變貴了，因此<strong class="highlight-text">不利甲國出口</strong>，甲國商品在乙國的銷售量會下滑。反之，乙國商品對甲國人民來說變便宜了，有利甲國進口。</p>`,
-                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>乙幣貶值，乙國商品在甲國會變便宜，銷售量可能會上升。</p>`,
-                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>乙幣貶值，甲國進口乙國商品會變便宜，數量可能會上升。</p>`,
-                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>甲幣升值，乙國進口甲國商品會變貴，價格會上升。</p>`
-                },
-                quiz2: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>甲的特色是「由國家發行」、「可直接支付」，這符合<strong class="highlight-text">法定貨幣</strong>的定義。乙的特色是「須事先存入足夠金額」、「多由民間企業發行」，這符合<strong class="highlight-text">儲值卡</strong>的定義。因此，組合應為(C)法定貨幣與儲值卡。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>商品貨幣不是由國家發行，不符合甲的特色。</p>`,
-                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>商品貨幣不符合甲的特色；信用卡不需事先存入金額，不符合乙的特色。</p>`,
-                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>信用卡是「先消費後付款」，不符合乙「須事先存入足夠金額」的特色。</p>`
-                }
-            };
-            
-            const quizContainers = document.querySelectorAll('.quiz-container');
-            
-            quizContainers.forEach((container) => {
-                const quizId = container.id;
-                if (!quizId) return;
-                const quizData = allQuizData[quizId];
-                if (!quizData) return;
-
-                const optionButtons = container.querySelectorAll('.option-btn');
-                const feedbackArea = container.querySelector('.feedback-area');
-                const resetButton = container.querySelector('.reset-btn');
-
-                optionButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        const isCorrect = button.dataset.correct === 'true';
-                        
-                        optionButtons.forEach(btn => {
-                            btn.disabled = true;
-                        });
-
-                        if (isCorrect) {
-                            button.classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId].correct;
-                            feedbackArea.className = 'feedback-area feedback-correct';
-                        } else {
-                            const optionLetter = button.textContent.substring(1, 2);
-                            button.classList.add('wrong');
-                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
-                            feedbackArea.className = 'feedback-area feedback-wrong';
-                        }
-                        feedbackArea.style.display = 'block';
-                        resetButton.style.display = 'block';
-                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    });
-                });
-                
-                resetButton.addEventListener('click', () => {
-                    optionButtons.forEach(btn => {
-                        btn.disabled = false;
-                        btn.classList.remove('correct', 'wrong');
-                    });
-                    feedbackArea.style.display = 'none';
-                    resetButton.style.display = 'none';
-                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                });
-            });
-
+            // Mascot JS
             const mascotContainer = document.getElementById('mascot-container');
             const mascotImg = document.getElementById('mascot-img');
             const speechBubble = document.getElementById('mascot-speech');
-            
-            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            const messages = ["公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
             let messageIndex = 0;
             let clickTimer = null;
             let speechTimeout = null;

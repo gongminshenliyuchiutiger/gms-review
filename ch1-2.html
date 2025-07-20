@@ -145,6 +145,53 @@
         .inequality-flow { display: flex; flex-direction: column; gap: 1rem; align-items: center; margin-top: 2rem; }
         .flow-item { width: 100%; background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05)); padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow); }
         .flow-arrow { font-size: 2rem; color: var(--accent-glow); transform: rotate(90deg); }
+        
+        /* --- 互動卡片樣式 --- */
+        .interactive-card {
+            background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05));
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid var(--secondary-glow);
+            margin-top: 3rem;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.1);
+        }
+        .interactive-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            color: var(--secondary-glow);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+        .interactive-feedback.feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .interactive-feedback.feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        
+        .interactive-reset-btn, .matching-reset-btn {
+            display: none;
+            margin: 1rem auto 0;
+            padding: 0.6rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            background-color: var(--accent-glow);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .interactive-reset-btn:hover, .matching-reset-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+        /* --- 結束互動樣式 --- */
 
         .principles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
         .principle-card { background: rgba(13, 27, 42, 0.5); padding: 1.5rem; border-radius: 15px; border: 1px solid var(--border-color); }
@@ -278,42 +325,63 @@
             
             <h3 style="margin-top:0;">(一) 性別差異</h3>
             <div class="info-card" style="margin-bottom:0.5rem;">
-                <h4>生理性別</h4>
+                <h4>生理性別 (Sex)</h4>
                 <p>指兩性間生理結構上的差異，是<strong class="highlight-text">與生俱來</strong>的。</p>
                 <p><strong>舉例：</strong>青春期後，男生出現喉結，女生出現月經。</p>
             </div>
             <div class="info-card">
-                <h4>社會性別</h4>
-                <p>指社會文化所認為男性或女性的特質，是<strong class="highlight-text">後天學習</strong>而來。</p>
-                <ul>
-                    <li>個人依照生理性別，表現出符合社會期待的行為，稱為<strong class="highlight-text">性別角色</strong>。</li>
-                </ul>
+                <h4>社會性別 (Gender)</h4>
+                <p>指社會文化所認為男性或女性應有的特質與行為，是<strong class="highlight-text">後天學習</strong>而來。個人據此表現出的行為，稱為<strong class="highlight-text">性別角色</strong>。</p>
                 <p><strong>舉例：</strong>傳統觀念認為女生應秀氣、溫柔；男生應剛強、勇敢。</p>
             </div>
-
+            
+            <!-- ===== 新增互動：觀念辨析 ===== -->
+            <div id="concept-clarify-1" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-lightbulb"></i> 觀念辨析</h3>
+                <p class="interactive-prompt"><b>判斷：</b>「社會期待男生要勇敢、女生要溫柔，這屬於『生理性別』的範疇。」</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">正確 (O)</button>
+                    <button class="interactive-btn" data-answer="true">錯誤 (X)</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
+            
             <h3>(二) 性別不平等的產生</h3>
             <div class="inequality-flow">
                 <div class="flow-item">
                     <h4>1. 性別刻板印象</h4>
                     <p>對男女<strong class="highlight-text">固定且僵化</strong>的看法，並以此作為評價個人的標準。<br>
                     <span class="highlight-text">→ 觀念上僵化的印象</span></p>
-                    <p><strong>舉例：</strong>醫生通常由男性擔任。</p>
                 </div>
                 <div class="flow-arrow"><i class="fas fa-long-arrow-alt-right"></i></div>
                 <div class="flow-item">
-                    <h4>2. 性別偏見 (負面態度)</h4>
+                    <h4>2. 性別偏見</h4>
                     <p>社會對個人違反性別角色期待時，所抱持的<strong class="highlight-text">負面態度</strong>。<br>
                     <span class="highlight-text">→ 觀念上的負面態度</span></p>
-                    <p><strong>舉例：</strong>「急診室竟然有女醫生？專業能力不夠吧！」</p>
                 </div>
                 <div class="flow-arrow"><i class="fas fa-long-arrow-alt-right"></i></div>
                 <div class="flow-item">
-                    <h4>3. 性別歧視 (差別對待)</h4>
+                    <h4>3. 性別歧視</h4>
                     <p>因性別偏見而對某性別採取實際的行動，形成不利的<strong class="highlight-text">差別待遇</strong>。<br>
                     <span class="highlight-text">→ 制度上的差別待遇</span></p>
-                    <p><strong>舉例：</strong>男女同工不同酬。</p>
                 </div>
             </div>
+            
+            <!-- ===== 新增互動：情境辨識 ===== -->
+            <div id="scenario-id-1" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-user-tag"></i> 情境辨識</h3>
+                <p class="interactive-prompt"><b>情境：</b>看到報導中的女性執行長，有人留言說：「女人家不好好待在家裡，出來拋頭露面。」這種帶有負面評價的態度屬於...?</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">性別刻板印象</button>
+                    <button class="interactive-btn" data-answer="true">性別偏見</button>
+                    <button class="interactive-btn" data-answer="false">性別歧視</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="principles-section">
@@ -322,60 +390,49 @@
                 <div class="principle-card">
                     <h4><i class="fas fa-tasks"></i>責任承擔</h4>
                     <p>不同性別者所負擔的事務和內容，是否公平適切。</p>
-                    <div class="principle-comparison">
-                        <div class="comparison-box fair">
-                            <h5><i class="fas fa-check-circle"></i>公平</h5>
-                            <p>家務由家人共同承擔。</p>
-                        </div>
-                        <div class="comparison-box unfair">
-                            <h5><i class="fas fa-times-circle"></i>不公平</h5>
-                            <p>雙薪家庭中，女性承擔大部分家務勞動。</p>
-                        </div>
-                    </div>
                 </div>
                 <div class="principle-card">
                     <h4><i class="fas fa-award"></i>貢獻肯定</h4>
                     <p>不同性別者付出的努力，是否都有受到肯定。</p>
-                    <div class="principle-comparison">
-                        <div class="comparison-box fair">
-                            <h5><i class="fas fa-check-circle"></i>公平</h5>
-                            <p>科學家對文明做出貢獻時即給予肯定。</p>
-                        </div>
-                        <div class="comparison-box unfair">
-                            <h5><i class="fas fa-times-circle"></i>不公平</h5>
-                            <p>女性科學家雖有貢獻，卻不受社會肯定。</p>
-                        </div>
-                    </div>
                 </div>
                 <div class="principle-card">
                     <h4><i class="fas fa-hand-holding-usd"></i>利益分配</h4>
                     <p>不同性別者獲得的利益，是否有對等或公平的分配。</p>
-                    <div class="principle-comparison">
-                        <div class="comparison-box fair">
-                            <h5><i class="fas fa-check-circle"></i>公平</h5>
-                            <p>不分性別，相同職位即給予相同薪資。</p>
-                        </div>
-                        <div class="comparison-box unfair">
-                            <h5><i class="fas fa-times-circle"></i>不公平</h5>
-                            <p>男女同工不同酬。</p>
-                        </div>
-                    </div>
                 </div>
                 <div class="principle-card">
                     <h4><i class="fas fa-lightbulb"></i>需求滿足</h4>
-                    <p>不同性別者的需求是否獲得滿足，能否發揮潛能，實現人生目標。</p>
-                    <div class="principle-comparison">
-                        <div class="comparison-box fair">
-                            <h5><i class="fas fa-check-circle"></i>公平</h5>
-                            <p>男、女性都能向公司請育嬰假。</p>
-                        </div>
-                        <div class="comparison-box unfair">
-                            <h5><i class="fas fa-times-circle"></i>不公平</h5>
-                            <p>只有女廁加裝尿布臺，男廁卻沒有。</p>
-                        </div>
-                    </div>
+                    <p>不同性別者的需求是否獲得滿足，能否發揮潛能。</p>
                 </div>
             </div>
+
+            <!-- ===== 互動：原則應用挑戰 ===== -->
+            <div id="principle-quiz-1" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-vial"></i> 原則應用挑戰 1.0</h3>
+                <p class="interactive-prompt"><b>情境：</b>在一個家庭中，夫妻兩人都有全職工作，但太太下班後仍需包辦所有家事與育兒工作。這主要違反了哪一項性別公平原則？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="true">責任承擔</button>
+                    <button class="interactive-btn" data-answer="false">貢獻肯定</button>
+                    <button class="interactive-btn" data-answer="false">利益分配</button>
+                    <button class="interactive-btn" data-answer="false">需求滿足</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
+            <!-- ===== 新增互動：原則應用挑戰 2.0 ===== -->
+            <div id="principle-quiz-2" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-vial"></i> 原則應用挑戰 2.0</h3>
+                <p class="interactive-prompt"><b>情境：</b>某公司相同職位的男女員工，做著完全一樣的工作，但女性的平均薪資卻明顯低於男性。這主要違反了哪一項性別公平原則？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">責任承擔</button>
+                    <button class="interactive-btn" data-answer="false">貢獻肯定</button>
+                    <button class="interactive-btn" data-answer="true">利益分配</button>
+                    <button class="interactive-btn" data-answer="false">需求滿足</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="promotion-section">
@@ -384,20 +441,30 @@
                 <h3>(一) 消弭不平等觀念</h3>
                 <ul>
                     <li>性別平等並非否認性別差異，而是強調<strong class="highlight-text">關懷個人的本質</strong>，不以性別刻板印象妄下論斷。</li>
-                    <li>父母基於個人興趣，而非性別刻板印象，去鼓勵小孩選擇不同的科系。</li>
                 </ul>
             </div>
             <div class="info-card">
                 <h3>(二) 制定性平法規</h3>
                 <h4>性別平等教育法</h4>
-                <p><strong>規範面向：</strong>教育上的平等。<br><strong>規定：</strong>應教導學生尊重多元性別差異，課程設置及活動設計，不得因性別而有差別待遇。</p>
-                
+                <p><strong>規範面向：</strong>教育上的平等。<strong>核心：</strong>校園內的性別平等。</p>
                 <h4>性別平等工作法</h4>
-                <p><strong>規範面向：</strong>工作上的平等。<br><strong>規定：</strong>保障求職者、受雇者不因性別而受差別待遇。禁止要求女性簽訂<strong class="highlight-text">單身或禁孕條款</strong>。提供<strong class="highlight-text">產假、陪產假、育嬰假、家庭照顧假</strong>，以及<strong class="highlight-text">哺乳時間</strong>。</p>
-
+                <p><strong>規範面向：</strong>工作上的平等。<strong>核心：</strong>職場中的性別平等，如禁止<strong class="highlight-text">單身或禁孕條款</strong>、提供<strong class="highlight-text">育嬰假</strong>等。</p>
                 <h4>性騷擾防治法</h4>
-                <p><strong>規範面向：</strong>其他公共場合的性騷擾事件。</p>
+                <p><strong>規範面向：</strong>前兩法未涵蓋的公共場合。<strong>核心：</strong>保障個人在任何地方免於性騷擾。</p>
             </div>
+            <!-- ===== 新增互動：法規知識王 ===== -->
+            <div id="law-king-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-crown"></i> 法規知識王</h3>
+                <p class="interactive-prompt">雇主要求女性員工簽署「一旦懷孕就必須自動離職」的條款，是明確違反了哪一部法律？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">性別平等教育法</button>
+                    <button class="interactive-btn" data-answer="true">性別平等工作法</button>
+                    <button class="interactive-btn" data-answer="false">性騷擾防治法</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
         
         <section id="comparison-section">
@@ -405,30 +472,48 @@
             <div class="comparison-grid">
                 <div class="comparison-grid-item">
                     <h4>性騷擾</h4>
-                    <p>以明示或暗示的方式，從事不受對方歡迎，且具有性意味或性別歧視的言詞或肢體行為，尚未達性侵害之程度。</p>
-                    <p><strong>舉例：</strong>說黃色笑話、摟腰。</p>
+                    <p>不受歡迎、具性意味或性別歧視的言詞或肢體行為，<strong class="highlight-text">未達性侵害程度</strong>。例：說黃色笑話、不當碰觸。</p>
                 </div>
                 <div class="comparison-grid-item">
                     <h4>性侵害</h4>
-                    <p>以強暴、脅迫，或其他違反被害人意願的方法，與其發生性行為，或施以猥褻行為。調查屬實將移送司法機關。</p>
-                    <p><strong>舉例：</strong>強暴、迷姦、強制猥褻下體。</p>
+                    <p>以<strong class="highlight-text">強暴、脅迫</strong>或其他違反意願方法，從事<strong class="highlight-text">性交或猥褻</strong>行為。將移送司法機關。</p>
                 </div>
             </div>
+
+            <!-- ===== 新增互動：行為分類挑戰 ===== -->
+            <div id="behavior-classifier" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-clipboard-check"></i> 行為分類挑戰</h3>
+                <p class="interactive-prompt">請將下列行為進行分類。</p>
+                <div class="matching-item" data-answer="harassment">
+                    <p>1. 在辦公室對同事講黃色笑話，讓對方感到不舒服。</p>
+                    <select class="matching-select">
+                        <option>請選擇</option><option value="harassment">性騷擾</option><option value="assault">性侵害</option>
+                    </select>
+                    <i class="feedback-icon"></i>
+                </div>
+                <div class="matching-item" data-answer="assault">
+                    <p>2. 強迫他人與自己發生性行為。</p>
+                    <select class="matching-select">
+                        <option>請選擇</option><option value="harassment">性騷擾</option><option value="assault">性侵害</option>
+                    </select>
+                    <i class="feedback-icon"></i>
+                </div>
+                 <div class="matching-item" data-answer="harassment">
+                    <p>3. 藉故搭肩、摟腰，進行不受歡迎的肢體接觸。</p>
+                    <select class="matching-select">
+                        <option>請選擇</option><option value="harassment">性騷擾</option><option value="assault">性侵害</option>
+                    </select>
+                    <i class="feedback-icon"></i>
+                </div>
+                <button class="matching-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
         
-        <section id="law-comparison-section">
-            <h2 class="section-title"><i class="fas fa-book-reader"></i>五、性平三法比較總覽</h2>
-            <div class="comparison-cards-container">
-                <div class="info-card"><h4><i class="fas fa-school"></i>性別平等教育法</h4><ul><li><strong>適用對象：</strong>各級學校校長、教職員工、學生。</li><li><strong>適用範圍：</strong>校園事件 (一方為學校教職員工生，另一方為學生)。</li><li><strong>情境：</strong>「你今天穿什麼顏色的內衣啊？讓我看一下嘛！」</li></ul></div>
-                <div class="info-card"><h4><i class="fas fa-briefcase"></i>性別平等工作法</h4><ul><li><strong>適用對象：</strong>雇主、求職者、受雇者。</li><li><strong>適用範圍：</strong>職場事件 (應徵時、執行職務期間、非工作時間遭職場相關人士性騷擾)。</li><li><strong>情境：</strong>「今天下班後要不要到我家喝個小酒、看個貓咪後空翻？」</li></ul></div>
-                <div class="info-card"><h4><i class="fas fa-users"></i>性騷擾防治法</h4><ul><li><strong>適用對象：</strong>不特定對象。</li><li><strong>適用範圍：</strong>其他事件 (不適用前兩法者)。</li><li><strong>情境：</strong>在大眾交通工具、百貨公司等公共場所被陌生人性騷擾。</li></ul></div>
-            </div>
-        </section>
-
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
             
-            <div class="quiz-container">
+            <div class="quiz-container" id="law-matching-quiz">
                 <h3 class="quiz-title"><i class="fas fa-tasks"></i>模擬神給酷 <span class="quiz-source">(情境判斷)</span></h3>
                 <div class="info-card">
                      <p><strong>請判斷下列作為適用哪部法律？</strong></p>
@@ -440,17 +525,9 @@
                      <div class="matching-item" data-answer="乙"><p>1. 小林在面試時，遭面試官以曖昧語言騷擾。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
                      <div class="matching-item" data-answer="甲"><p>2. 小振在搭公車時，對同學小晴講黃色笑話。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
                      <div class="matching-item" data-answer="丙"><p>3. 阿明在捷運上，被陌生人撫摸手臂、屁股。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
-                     <div class="matching-item" data-answer="丙"><p>4. 小淵在電影院被鄰座的陌生人開黃腔，因而向員工求助。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
-                     <div class="matching-item" data-answer="乙"><p>5. 公司的主管多次邀約小婷下班後喝酒，酒後便對小婷毛手毛腳。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
-                     <div class="matching-item" data-answer="甲"><p>6. 小華在上體育課時，被體育老師撫摸屁股，便立即向學校申訴。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
-                </div>
-        
-                 <div class="info-card" style="background-color: rgba(240, 225, 74, 0.1);">
-                    <h4 style="color: var(--accent-glow); border:none; padding-bottom:0;">解題關鍵</h4>
-                    <p>判斷性騷擾適用法規的關鍵在於<strong class="highlight-text">「加害人與被害人的關係」</strong>，而非「場合或地點」。<br>
-                    <ul><li>關係涉及<strong class="highlight-text">師生/校園</strong> → 性別平等教育法 (甲)<br></li>
-                    <li>關係涉及<strong class="highlight-text">雇主/職場</strong> → 性別平等工作法 (乙)<br></li>
-                    <li>關係為<strong class="highlight-text">陌生人/其他</strong> → 性騷擾防治法 (丙)</p></li></ul>
+                     <div class="matching-item" data-answer="乙"><p>4. 公司的主管多次邀約小婷下班後喝酒，對小婷毛手毛腳。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="甲"><p>5. 小華被體育老師撫摸屁股，立即向學校申訴。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
+                    <button class="matching-reset-btn">再挑戰一次</button>
                 </div>
             </div>
 
@@ -491,75 +568,6 @@
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
 
-            <div class="quiz-container" id="quiz2">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(111會考)</span></h3>
-                <div class="question">
-                    <p>小華將日常生活中看見的違規情形，與其可能違反的相關法律，整理如下表。根據表中內容判斷，小華所列出的配對項目何者最為適當？</p>
-                    <div class="table-container">
-                         <table class="data-table">
-                            <thead><tr><th>項目</th><th>違規情形</th><th>適用法律</th></tr></thead>
-                            <tbody>
-                                <tr><td>甲</td><td>施工工地誠徵夜班工讀生兩名，年齡不拘。</td><td>《民法》</td></tr>
-                                <tr><td>乙</td><td>網路書店的原版外文書售出後，概不退換。</td><td>《著作權法》</td></tr>
-                                <tr><td>丙</td><td>公司因訂單暴增、業務繁忙，要求員工不得申請育嬰假。</td><td>《家庭暴力防治法》</td></tr>
-                                <tr><td>丁</td><td>學校棒球社男生可優先加入，女生加入須經過老師篩檢。</td><td>《性別平等教育法》</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="options">
-                    <button class="option-btn" data-correct="false">(A) 甲</button>
-                    <button class="option-btn" data-correct="false">(B) 乙</button>
-                    <button class="option-btn" data-correct="false">(C) 丙</button>
-                    <button class="option-btn" data-correct="true">(D) 丁</button>
-                </div>
-                <div class="feedback-area"></div>
-                <button class="reset-btn">再挑戰一次！</button>
-            </div>
-
-            <div class="quiz-container" id="quiz3">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(110會考)</span></h3>
-                <div class="question">
-                    <p>世界新生兒性別比為106，右圖是同年甲、乙、丙三國國家新生兒性別比的數據。根據圖中資料判斷，下列何者最可能是甲國社會現況的敘述？</p>
-                    <div class="bar-chart-container">
-                        <div class="bar-item">
-                            <div class="bar" style="height: 107.5%;" data-value="114"></div>
-                            <div class="bar-label">甲</div>
-                        </div>
-                        <div class="bar-item">
-                            <div class="bar" style="height: 101.8%;" data-value="108"></div>
-                            <div class="bar-label">乙</div>
-                        </div>
-                        <div class="bar-item">
-                            <div class="bar" style="height: 99%;" data-value="105"></div>
-                            <div class="bar-label">丙</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="options">
-                    <button class="option-btn" data-correct="false">(A) 重男輕女，社會環境不夠穩定</button>
-                    <button class="option-btn" data-correct="true">(B) 重男輕女，性別刻板印象普遍</button>
-                    <button class="option-btn" data-correct="false">(C) 思想觀念開放，尊重多元性別發展</button>
-                    <button class="option-btn" data-correct="false">(D) 屬於母系社會，後代子女多從母姓</button>
-                </div>
-                <div class="feedback-area"></div>
-                <button class="reset-btn">再挑戰一次！</button>
-            </div>
-            
-            <div class="quiz-container" id="quiz4">
-                 <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰四 <span class="quiz-source">(109會考)</span></h3>
-                <div class="question">
-                    <p>曉軒產後向公司申請育嬰留職停薪，但主管拒絕她的申請，甚至在工作上對她百般刁難。曉軒深感職場對家有幼兒的父母十分不友善，向主管機關提出檢舉，經政府調查屬實後，對該公司的違法行為開罰。關於上述內容的說明，下列何者正確？</p>
-                </div>
-                <div class="options">
-                    <button class="option-btn" data-correct="false">(A) 該公司可以透過請願進行權利救濟</button>
-                    <button class="option-btn" data-correct="false">(B) 該公司因違反《勞動基準法》而受罰</button>
-                    <button class="option-btn" data-correct="true">(C) 受雇者不論性別皆可依法提出上述申請</button>
-                    <button class="option-btn" data-correct="false">(D) 政府對於違法行為可處以十五萬元罰金</button>
-                </div>
-                <div class="feedback-area"></div>
-                <button class="reset-btn">再挑戰一次！</button>
-            </div>
         </section>
 
         <section class="fun-bg-section">
@@ -588,6 +596,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- 全局變數和通用函數 ---
             let typingStarted = false;
 
             const sections = document.querySelectorAll('section');
@@ -604,15 +613,56 @@
             }, { threshold: 0.1 });
             sections.forEach(section => observer.observe(section));
 
-            const matchingSelects = document.querySelectorAll('.matching-select');
-            matchingSelects.forEach(select => {
-                select.addEventListener('change', (e) => {
-                    const selectedValue = e.target.value;
-                    const item = e.target.closest('.matching-item');
+            // --- 互動卡片通用安裝函數 ---
+            function setupInteractiveCard(cardId, correctFeedbackHTML, wrongFeedbackHTML) {
+                const card = document.getElementById(cardId);
+                if (!card) return;
+
+                const buttons = card.querySelectorAll('.interactive-btn');
+                const feedbackArea = card.querySelector('.interactive-feedback');
+                const resetButton = card.querySelector('.interactive-reset-btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isCorrect = btn.dataset.answer === 'true';
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (isCorrect) {
+                            feedbackArea.innerHTML = correctFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-correct';
+                        } else {
+                            feedbackArea.innerHTML = wrongFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    buttons.forEach(b => b.disabled = false);
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                });
+            }
+
+            // --- 配對題通用安裝函數 (已修改為 ch2-2 的優化版本) ---
+            function setupMatchingQuiz(quizId) {
+                const quiz = document.getElementById(quizId);
+                if (!quiz) return;
+
+                const selects = quiz.querySelectorAll('.matching-select');
+                const resetButton = quiz.querySelector('.matching-reset-btn');
+
+                function handleMatchingChange(e) {
+                    const select = e.target;
+                    const selectedValue = select.value;
+                    const item = select.closest('.matching-item');
                     const correctAnswer = item.dataset.answer;
                     const feedbackIcon = item.querySelector('.feedback-icon');
+                    
                     feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
-                    feedbackIcon.innerHTML = ''; 
+                    feedbackIcon.textContent = '';
                     if (selectedValue === "請選擇") {
                         feedbackIcon.style.display = 'none';
                         return;
@@ -620,14 +670,68 @@
                     feedbackIcon.style.display = 'inline-block';
                     if (selectedValue === correctAnswer) {
                         feedbackIcon.classList.add('icon-correct');
-                        feedbackIcon.innerHTML = '✓';
+                        feedbackIcon.textContent = '✓';
                     } else {
                         feedbackIcon.classList.add('icon-wrong');
-                        feedbackIcon.innerHTML = '✗';
+                        feedbackIcon.textContent = '✗';
                     }
-                });
-            });
+                }
 
+                selects.forEach(select => {
+                    select.addEventListener('change', handleMatchingChange);
+                });
+
+                if(resetButton) {
+                    resetButton.style.display = 'block'; // Always show reset button
+                    resetButton.addEventListener('click', () => {
+                        selects.forEach(select => {
+                            select.selectedIndex = 0;
+                            const item = select.closest('.matching-item');
+                            const feedbackIcon = item.querySelector('.feedback-icon');
+                            feedbackIcon.style.display = 'none';
+                            feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                            feedbackIcon.textContent = '';
+                        });
+                    });
+                }
+            }
+            
+            // --- 初始化所有互動卡片 ---
+            setupInteractiveCard(
+                'concept-clarify-1',
+                '<strong><i class="fas fa-check-circle"></i> 完全正確！</strong>社會的期待屬於後天學習的<span class="highlight-text">「社會性別」</span>，而「生理性別」是與生俱來的生理差異。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>社會期待是後天建構的，屬於<span class="highlight-text">「社會性別」</span>的範疇，不是天生的生理差異。'
+            );
+
+            setupInteractiveCard(
+                'scenario-id-1',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>這種基於性別刻板印象（女人應在家）而產生的<span class="highlight-text">負面態度與評價</span>，正是「性別偏見」的體現。',
+                '<strong><i class="fas fa-times-circle"></i> 再想一下！</strong>「刻板印象」是僵化的看法，而「歧視」是實際的行動。題中描述的是一種<span class="highlight-text">負面的態度</span>，所以是「性別偏見」。'
+            );
+
+            setupInteractiveCard(
+                'principle-quiz-1',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>家務與育兒的責任應該由家庭成員共同承擔，若過度集中在特定性別身上，就違反了<span class="highlight-text">「責任承擔」</span>的公平原則。',
+                '<strong><i class="fas fa-times-circle"></i> 再想一下！</strong>情境的核心在於「家務與育兒工作」的分配不均，這直接關乎到<span class="highlight-text">「責任承擔」</span>是否公平。'
+            );
+
+            setupInteractiveCard(
+                'principle-quiz-2',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>相同的工作貢獻，卻因為性別而獲得不同的薪資報酬，這明顯違反了<span class="highlight-text">「利益分配」</span>的公平原則。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>這個情境的核心是「薪資」這種<span class="highlight-text">利益</span>的分配不公，因此最貼切的原則是「利益分配」。'
+            );
+
+            setupInteractiveCard(
+                'law-king-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 完全正確！</strong>「禁孕條款」明確剝奪了女性在職場上的權益，是<span class="highlight-text">《性別平等工作法》</span>所明文禁止的行為。',
+                '<strong><i class="fas fa-times-circle"></i> 答錯了！</strong>此條款發生在「職場」，與工作權益直接相關，因此是由<span class="highlight-text">《性別平等工作法》</span>來規範的。'
+            );
+            
+            // --- 初始化所有配對題 ---
+            setupMatchingQuiz('behavior-classifier');
+            setupMatchingQuiz('law-matching-quiz');
+
+            // --- 打字機效果 ---
             const typingSentences = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
             const typingElementSpan = document.getElementById('typing-text-span');
             function startTypingLoop() {
@@ -650,34 +754,17 @@
                 loop();
             }
 
+            // --- 會考歷屆試題區塊 ---
             const allQuizData = {
                 quiz1: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！</h3><p><strong>解題關鍵：</strong>表格顯示，男性受贈財產比例遠高於女性，而女性拋棄繼承比例遠高於男性。這反映了傳統觀念中「家產不落外姓」、「財產傳子不傳女」的束縛依然存在。要改變此現象，需加強<strong class="highlight-text">性別平權教育</strong>，破除性別刻板印象。</p>`,
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>表格顯示，男性受贈財產比例遠高於女性，而女性拋棄繼承比例遠高於男性。這反映了傳統觀念中「家產不落外姓」、「財產傳子不傳女」的束縛依然存在。要改變此現象，需加強<strong class="highlight-text">性別平權教育</strong>，破除性別刻板印象。</p>`,
                     A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>表格討論的是財產在不同性別間的分配，與政府總稅收的增減沒有直接關係。</p>`,
                     B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>雖然財產繼承可能影響貧富差距，但此數據的核心是揭示<strong class="highlight-text">「性別」</strong>造成的差異，而非整體社會的貧富問題。</p>`,
                     C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>財產繼承的觀念是後天社會文化建構的，與<strong class="highlight-text">與生俱來的生理差異</strong>無關。此選項混淆了「生理性別」與「社會性別」的議題。</p>`
-                },
-                quiz2: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！</h3><p><strong>解題關鍵：</strong>《性別平等教育法》規定學校的教育活動與資源，不得因性別而有差別待遇。(丁)中學校棒球社對女生的入社資格設置不合理門檻，明顯是基於性別的差別待遇，違反了此法規。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(甲)</strong> 「年齡不拘」可能涉及僱用童工的問題，應適用<strong class="highlight-text">《勞動基準法》</strong>，而非《民法》。</p>`,
-                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(乙)</strong> 網路購物「概不退換」的條款，違反了<strong class="highlight-text">《消費者保護法》</strong>中關於通訊交易的七日鑑賞期規定。</p>`,
-                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(丙)</strong> 公司不得拒絕員工申請育嬰假，此權利受<strong class="highlight-text">《性別平等工作法》</strong>保障，而非《家庭暴力防治法》。</p>`
-                },
-                 quiz3: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！</h3><p><strong>解題關鍵：</strong>新生兒性別比的正常值約在102-106之間。甲國性別比高達114，表示男嬰數量遠多於女嬰，這通常是人為選擇（如墮胎）的結果，其背後反映了社會強烈的「重男輕女」觀念。這種觀念就是一種普遍的<strong class="highlight-text">性別刻板印象</strong>。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>「社會環境不夠穩定」是個太模糊的描述，數據直接指向的是性別偏好問題，而非廣泛的社會穩定度。</p>`,
-                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>「思想觀念開放，尊重多元性別」的社會，其新生兒性別比應接近自然正常值，甚至可能更尊重女性，與甲國的高數據恰好相反。</p>`,
-                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>「母系社會」通常更重視女性，其新生兒性別比不太可能出現男多於女的失衡狀況，此選項與數據反映的現象矛盾。</p>`
-                },
-                 quiz4: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！</h3><p><strong>解題關鍵：</strong>根據<strong class="highlight-text">《性別平等工作法》</strong>，受雇者於任職滿6個月後，於子女滿3歲前，<strong class="highlight-text">不分性別</strong>皆可申請育嬰留職停薪。因此(C)的敘述是正確的。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>公司是法人，對於行政機關的處分若有不服，應循<strong class="highlight-text">「訴願」</strong>程序尋求救濟。「請願」是人民對國家政策或公共利益的建議。</p>`,
-                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>育嬰留職停薪的權利是由<strong class="highlight-text">《性別平等工作法》</strong>所保障的，因此公司是違反此法，而非《勞動基準法》。</p>`,
-                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>根據《性別平等工作法》，雇主違反育嬰留職停薪規定，可處新臺幣<strong class="highlight-text">2萬元以上30萬元以下</strong>的罰鍰，並非固定的15萬元。</p>`
                 }
             };
             
-            const mcqContainers = document.querySelectorAll('.quiz-container[id]');
+            const mcqContainers = document.querySelectorAll('.quiz-container[id^="quiz"]');
             
             mcqContainers.forEach(container => {
                 const quizId = container.id;
@@ -717,15 +804,15 @@
                     });
                     feedbackArea.style.display = 'none';
                     resetButton.style.display = 'none';
-                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
                 });
             });
 
+            // --- 吉祥物互動 ---
             const mascotContainer = document.getElementById('mascot-container');
             const mascotImg = document.getElementById('mascot-img');
             const speechBubble = document.getElementById('mascot-speech');
             
-            const messages = [ "尊重多元，性別平等！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！"];
+            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
             let messageIndex = 0;
             let clickTimer = null;
             let speechTimeout = null;

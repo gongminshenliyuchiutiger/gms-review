@@ -155,6 +155,28 @@
             content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
             position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
+        .info-card ul ul {
+            padding-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        .info-card ul ul li::before {
+            content: '\f0da';
+        }
+        
+        /* --- 互動卡片樣式 --- */
+        .interactive-card { background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05)); padding: 2rem; border-radius: 15px; border-left: 5px solid var(--secondary-glow); margin-top: 3rem; box-shadow: 0 0 15px rgba(255, 0, 255, 0.1); }
+        .interactive-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--secondary-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+        .interactive-feedback.feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .interactive-feedback.feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .interactive-reset-btn, .matching-reset-btn { display: none; margin: 1rem auto 0; padding: 0.6rem 1.5rem; font-size: 0.9rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .interactive-reset-btn:hover, .matching-reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 10px var(--accent-glow); }
+        /* --- 結束互動樣式 --- */
         
         .comparison-cards-container {
             display: grid;
@@ -163,7 +185,7 @@
             margin-top: 1.5rem;
         }
         .grid-3-col {
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
         }
         .comparison-card {
             background-color: rgba(0,0,0,0.2);
@@ -183,6 +205,7 @@
         }
         
         .quiz-container { margin-bottom: 3rem; }
+        .quiz-container:last-child { margin-bottom: 0; }
         .quiz-title {
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
@@ -231,7 +254,7 @@
         .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
         .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
         .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
-        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
         .reset-btn:hover { transform: scale(1.05); }
         
         .matching-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
@@ -287,6 +310,7 @@
             .container { padding: 1rem; }
             section { padding: 1.5rem; }
             
+            .comparison-cards-container.grid-3-col,
             .comparison-cards-container {
                 grid-template-columns: 1fr;
             }
@@ -325,6 +349,21 @@
                 <div class="info-card"><h4><i class="fas fa-shield-alt"></i>誠實信用原則</h4><p>在行使權利、履行義務時，應抱持誠實、信用、互信的態度，不得有欺騙、隱瞞的行為。</p></div>
                 <div class="info-card"><h4><i class="fas-fa-user-check"></i>權利濫用禁止原則</h4><p>行使權利時，不能以損害他人為主要目的。若因權利濫用而造成他人損害，仍須負起法律責任。</p></div>
             </div>
+            <!-- ===== 新增互動：民法原則配對 ===== -->
+            <div id="civil-law-principles-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-tasks"></i> 民法原則配對</h3>
+                <p class="interactive-prompt">請將下列情境與其最相關的民法原則進行配對。</p>
+                 <div class="law-options-list" style="grid-template-columns: repeat(3, 1fr);">
+                    <div class="law-option-item"><span class="law-option-label">A</span> 契約自由</div>
+                    <div class="law-option-item"><span class="law-option-label">B</span> 誠實信用</div>
+                    <div class="law-option-item"><span class="law-option-label">C</span> 權利濫用禁止</div>
+                </div>
+                <div class="matching-item" data-answer="B"><p>1. 賣家故意隱瞞房屋漏水的瑕疵，將房子賣給買家。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="A"><p>2. 小明比較多家手機行的方案後，選擇對自己最有利的方案簽約購機。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="C"><p>3. 某人在自家陽台裝設大量反光鏡，故意將陽光反射到鄰居家中。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select><i class="feedback-icon"></i></div>
+                <button class="matching-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="capacity-section">
@@ -354,6 +393,18 @@
                     </ul>
                 </div>
             </div>
+            <!-- ===== 新增互動：行為能力辨識 ===== -->
+            <div id="capacity-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-birthday-cake"></i> 行為能力辨識</h3>
+                <p class="interactive-prompt">16歲的小華在路上撿到1000元，並送到警察局。警察依法公告後無人領取，將1000元發還給小華。請問小華「收下這1000元」的行為，在法律上是否有效？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="true">有效，因為這是純獲法律上利益</button>
+                    <button class="interactive-btn" data-answer="false">無效，因為他未滿18歲</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="tort-section">
@@ -366,11 +417,23 @@
                 </ul>
                 <p><strong>法律責任</strong>：被害人可向加害人請求損害賠償，以填補其損害。</p>
             </div>
+            <!-- ===== 新增互動：侵權行為思考題 ===== -->
+            <div id="tort-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-exclamation-triangle"></i> 侵權行為思考題</h3>
+                <p class="interactive-prompt">小明走路時不小心滑倒，意外撞壞了路邊停放的機車。請問小明的行為是否可能構成侵權行為？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="true">是，因為他有「過失」</button>
+                    <button class="interactive-btn" data-answer="false">否，因為他不是故意的</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
         
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
-            <div class="quiz-container" id="quiz1">
+            <div class="quiz-container" id="mock-matching-quiz">
                 <h3 class="quiz-title"><i class="fas fa-tasks"></i>模擬神給酷</h3>
                 <div class="info-card" style="margin-top:0;">
                      <p><strong>請依敘述判斷其行為的法律效力，有效為 O，無效為 X。</strong></p>
@@ -383,6 +446,7 @@
                      <div class="matching-item" data-answer="O"><p>3. 剛過 18 歲生日的敏敏，為創業向銀行貸款。</p><select class="matching-select"><option>請選擇</option><option value="O">O</option><option value="X">X</option></select><i class="feedback-icon"></i></div>
                      <div class="matching-item" data-answer="X"><p>4. 17 歲的小珍簽訂租屋契約，父母事後不同意。</p><select class="matching-select"><option>請選擇</option><option value="O">O</option><option value="X">X</option></select><i class="feedback-icon"></i></div>
                      <div class="matching-item" data-answer="X"><p>5. 25 歲受監護宣告的琪琪，向車行購買汽車。</p><select class="matching-select"><option>請選擇</option><option value="O">O</option><option value="X">X</option></select><i class="feedback-icon"></i></div>
+                     <button class="matching-reset-btn">再挑戰一次</button>
                 </div>
                  <div class="info-card" style="background-color: rgba(240, 225, 74, 0.1); margin-top:1.5rem;">
                     <h4 style="color: var(--accent-glow); border:none; padding-bottom:0;">解題關鍵</h4>
@@ -392,6 +456,34 @@
                         <li><strong>完全行為能力人</strong>：滿 18 歲者，行為在法律上完全有效。</li>
                     </ul>
                 </div>
+            </div>
+            <div class="quiz-container" id="quiz1">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(106 會考)</span></h3>
+                <div class="question">
+                     <p>新聞報導：「一名17歲的高中生，花了十幾萬元購買一套英語教材，他的母親認為這項買賣契約無效，要求業者退貨還錢。」根據我國《民法》規定，下列關於這項買賣契約效力的敘述，何者正確？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 契約須經學校老師同意才有效力</button>
+                    <button class="option-btn" data-correct="false">(B) 只要雙方同意，契約就具法律效力</button>
+                    <button class="option-btn" data-correct="false">(C) 購買教材屬日常生活所需，契約有效</button>
+                    <button class="option-btn" data-correct="true">(D) 契約未經法定代理人同意，不生法律效力</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            <div class="quiz-container" id="quiz2">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(102 基測)</span></h3>
+                <div class="question">
+                     <p>報載：「某知名餐廳被離職員工爆料，宣稱使用高檔食材，實際上卻是用廉價、快過期的食材取代。」此餐廳的行為最可能違反了《民法》的何項原則？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 契約自由原則</button>
+                    <button class="option-btn" data-correct="true">(B) 誠實信用原則</button>
+                    <button class="option-btn" data-correct="false">(C) 權利濫用禁止原則</button>
+                    <button class="option-btn" data-correct="false">(D) 所有權絕對原則</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
             </div>
         </section>
         
@@ -423,15 +515,191 @@
         document.addEventListener('DOMContentLoaded', () => {
             let typingStarted = false; 
 
-            const typingSentences = [
-                "公民好神！我會遵守公民神會員守則！",
-                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
-                "公民神有三力：注意力、記憶力、戰鬥力！"
-            ];
-            const typingElementSpan = document.getElementById('typing-text-span');
+            // --- 互動卡片通用安裝函數 ---
+            function setupInteractiveCard(cardId, correctFeedbackHTML, wrongFeedbackHTML) {
+                const card = document.getElementById(cardId);
+                if (!card) return;
 
+                const buttons = card.querySelectorAll('.interactive-btn');
+                const feedbackArea = card.querySelector('.interactive-feedback');
+                const resetButton = card.querySelector('.interactive-reset-btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isCorrect = btn.dataset.answer === 'true';
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (isCorrect) {
+                            feedbackArea.innerHTML = correctFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-correct';
+                        } else {
+                            feedbackArea.innerHTML = wrongFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    buttons.forEach(b => b.disabled = false);
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                });
+            }
+
+            // --- 配對題通用安裝函數 ---
+            function setupMatchingQuiz(quizId) {
+                const quiz = document.getElementById(quizId);
+                if (!quiz) return;
+
+                const selects = quiz.querySelectorAll('.matching-select');
+                const resetButton = quiz.querySelector('.matching-reset-btn');
+
+                function handleMatchingChange(e) {
+                    const select = e.target;
+                    const selectedValue = select.value;
+                    const item = select.closest('.matching-item');
+                    const correctAnswer = item.dataset.answer;
+                    const feedbackIcon = item.querySelector('.feedback-icon');
+                    
+                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    feedbackIcon.textContent = '';
+                    if (selectedValue === "請選擇") {
+                        feedbackIcon.style.display = 'none';
+                        return;
+                    }
+                    feedbackIcon.style.display = 'inline-block';
+                    if (selectedValue === correctAnswer) {
+                        feedbackIcon.classList.add('icon-correct');
+                        feedbackIcon.textContent = '✓';
+                    } else {
+                        feedbackIcon.classList.add('icon-wrong');
+                        feedbackIcon.textContent = '✗';
+                    }
+                }
+
+                selects.forEach(select => {
+                    select.addEventListener('change', handleMatchingChange);
+                });
+
+                if(resetButton) {
+                    resetButton.style.display = 'block';
+                    resetButton.addEventListener('click', () => {
+                        selects.forEach(select => {
+                            select.selectedIndex = 0;
+                            const item = select.closest('.matching-item');
+                            const feedbackIcon = item.querySelector('.feedback-icon');
+                            feedbackIcon.style.display = 'none';
+                            feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                            feedbackIcon.textContent = '';
+                        });
+                    });
+                }
+            }
+
+            // --- 初始化所有互動卡片 ---
+            setupInteractiveCard(
+                'capacity-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 完全正確！</strong>小華是限制行為能力人，但他收下無人認領的錢，屬於「純獲法律上利益」，不需要負擔任何義務。因此這個行為不需法定代理人同意，也是有效的。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>雖然小華是限制行為能力人，但他的行為屬於「純獲法律上利益」的例外情況，因此不需法定代理人同意，法律行為依然有效。'
+            );
+
+            setupInteractiveCard(
+                'tort-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>侵權行為的成立要件是「故意」或「過失」。雖然小明不是故意的，但他走路不小心（有過失）而造成他人財產損害，仍然可能構成侵權行為，需要負損害賠償責任。',
+                '<strong><i class="fas fa-times-circle"></i> 這個觀念很重要！</strong>侵權行為不只包含「故意」，也包含「過失」。只要行為人有應注意而未注意的過失，造成他人損害，就可能要負起賠償責任。'
+            );
+
+            // --- 初始化所有配對題 ---
+            setupMatchingQuiz('mock-matching-quiz');
+            setupMatchingQuiz('civil-law-principles-quiz');
+
+            // --- 會考歷屆試題區塊 ---
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>17歲的高中生是<strong class="highlight-text">限制行為能力人</strong>，其法律行為（如簽訂買賣契約）原則上需要法定代理人（父母）的事前允許或事後承認才會生效。因為母親不同意，所以此契約不生效力。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 法定代理人是父母，與學校老師無關。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 這個原則只適用於完全行為能力人之間。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C)</strong> 購買「十幾萬元」的教材，已超出其年齡身分在日常生活中的必需範圍，不適用例外規定。</p>`
+                },
+                quiz2: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>餐廳宣稱使用高檔食材，實際上卻用廉價品取代，這種欺騙消費者的行為，明顯違背了交易中應有的誠實與信用，違反了<strong class="highlight-text">誠實信用原則</strong>。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 契約自由原則</strong>是指締約的自由，而非契約內容的真實性。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 權利濫用禁止原則</strong>是指行使權利時不得以損害他人為主要目的，與本案的欺騙行為不同。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 所有權絕對原則</strong>是指所有權人對其物有完全的支配權，與本案無關。</p>`
+                }
+            };
+            
+            const mcqContainers = document.querySelectorAll('.quiz-container[id]');
+            
+            mcqContainers.forEach((container) => {
+                const quizId = container.id;
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
+
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
+
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        
+                        optionButtons.forEach(btn => {
+                            btn.disabled = true;
+                        });
+
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = quizData.correct;
+                        } else {
+                            const optionLetter = button.textContent.substring(1, 2);
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            feedbackArea.innerHTML = quizData[optionLetter];
+                        }
+                        feedbackArea.className = 'feedback-area ' + (isCorrect ? 'feedback-correct' : 'feedback-wrong');
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
+                    });
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+            
+            // Section fade-in animation and typing effect
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
+                            typingStarted = true;
+                            startTypingLoop();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 }); 
+            sections.forEach(section => observer.observe(section));
+            
+            const typingElementSpan = document.getElementById('typing-text-span');
             function startTypingLoop() {
                 if (!typingElementSpan) return;
+                const typingSentences = [
+                    "公民好神！我會遵守公民神會員守則！",
+                    "努力向上、勇往直前、不畏艱難，我要成為公民神！",
+                    "公民神有三力：注意力、記憶力、戰鬥力！"
+                ];
                 let sentenceIndex = 0;
                 let charIndex = 0;
                 let isDeleting = false;
@@ -461,51 +729,12 @@
                 }
                 loop();
             }
-            
-            const sections = document.querySelectorAll('section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
-                            typingStarted = true;
-                            startTypingLoop();
-                        }
-                    }
-                });
-            }, { threshold: 0.1 }); 
-            
-            sections.forEach(section => observer.observe(section));
 
-             const matchingSelects = document.querySelectorAll('.matching-select');
-            matchingSelects.forEach(select => {
-                select.addEventListener('change', (e) => {
-                    const selectedValue = e.target.value;
-                    const item = e.target.closest('.matching-item');
-                    const correctAnswer = item.dataset.answer;
-                    const feedbackIcon = item.querySelector('.feedback-icon');
-                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
-                    feedbackIcon.innerHTML = '';
-                    if (selectedValue === "請選擇") {
-                        feedbackIcon.style.display = 'none';
-                        return;
-                    }
-                    feedbackIcon.style.display = 'inline-block';
-                    if (selectedValue === correctAnswer) {
-                        feedbackIcon.classList.add('icon-correct');
-                        feedbackIcon.innerHTML = '✓';
-                    } else {
-                        feedbackIcon.classList.add('icon-wrong');
-                        feedbackIcon.innerHTML = '✗';
-                    }
-                });
-            });
-
+            // Mascot JS
             const mascotContainer = document.getElementById('mascot-container');
             const mascotImg = document.getElementById('mascot-img');
             const speechBubble = document.getElementById('mascot-speech');
-            
-            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            const messages = ["公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
             let messageIndex = 0;
             let clickTimer = null;
             let speechTimeout = null;

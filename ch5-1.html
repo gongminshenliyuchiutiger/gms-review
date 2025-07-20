@@ -163,6 +163,21 @@
             content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
             position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
+        
+        /* --- 互動卡片樣式 --- */
+        .interactive-card { background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05)); padding: 2rem; border-radius: 15px; border-left: 5px solid var(--secondary-glow); margin-top: 3rem; box-shadow: 0 0 15px rgba(255, 0, 255, 0.1); }
+        .interactive-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--secondary-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+        .interactive-feedback.feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .interactive-feedback.feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .interactive-reset-btn, .matching-reset-btn { display: none; margin: 1rem auto 0; padding: 0.6rem 1.5rem; font-size: 0.9rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .interactive-reset-btn:hover, .matching-reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 10px var(--accent-glow); }
+        /* --- 結束互動樣式 --- */
 
         .definition-list dt {
             font-weight: bold; color: var(--primary-glow); margin-top: 1rem;
@@ -211,6 +226,7 @@
         }
         
         .quiz-container { margin-bottom: 3rem; }
+        .quiz-container:last-child { margin-bottom: 0; }
         .quiz-title {
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
@@ -244,6 +260,36 @@
         .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
         .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
         .reset-btn:hover { transform: scale(1.05); }
+
+        .matching-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .matching-item:last-child { border-bottom: none; }
+        .matching-item p { flex-grow: 1; margin: 0; }
+        .matching-select { background-color: var(--bg-dark); color: var(--text-color); border: 1px solid var(--primary-glow); border-radius: 5px; padding: 0.4rem; font-family: inherit; font-size: 1rem; cursor: pointer; }
+        .feedback-icon { font-size: 1.2rem; font-weight: 900; display: none; }
+        .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
+        .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
+        
+        .law-options-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .law-option-item {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .law-option-label {
+            color: var(--accent-glow);
+            font-weight: 700;
+            margin-right: 0.5em;
+            font-family: 'Orbitron', sans-serif;
+        }
         
         .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect {
@@ -289,6 +335,7 @@
         @media (max-width: 768px) {
             .container { padding: 1rem; }
             section { padding: 1.5rem; }
+            .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
             
             .comparison-cards-container {
                 grid-template-columns: 1fr;
@@ -347,6 +394,24 @@
                     <p><strong>舉例：</strong>公共場所禁止吸菸(《菸害防制法》)、禁止酒駕規定。</p>
                 </div>
             </div>
+
+            <!-- ===== 新增互動：社會規範配對 ===== -->
+            <div id="norms-matching-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-tasks"></i> 社會規範配對</h3>
+                <p class="interactive-prompt">請將下列情境與其最主要的社會規範類型進行配對。</p>
+                <div class="law-options-list" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
+                    <div class="law-option-item"><span class="law-option-label">A</span> 風俗習慣</div>
+                    <div class="law-option-item"><span class="law-option-label">B</span> 倫理道德</div>
+                    <div class="law-option-item"><span class="law-option-label">C</span> 宗教信仰</div>
+                    <div class="law-option-item"><span class="law-option-label">D</span> 法律</div>
+                </div>
+                <div class="matching-item" data-answer="D"><p>1. 小明因為闖紅燈，被警察開了一張罰單。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="B"><p>2. 在捷運上看到長者，小華主動讓座。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="A"><p>3. 過農曆新年時，長輩會發紅包給晚輩表示祝福。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="C"><p>4. 虔誠的佛教徒因為相信不殺生的教義而選擇吃素。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+                <button class="matching-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="concepts-comparison-section">
@@ -389,6 +454,19 @@
                     <p><strong>二者關係：</strong>法律是最低限度的行為準則，無法強迫人的內心，因此社會穩定的發展需要非正式規範的輔助與配合。</p>
                 </div>
             </div>
+            
+            <!-- ===== 新增互動：規範效力思考題 ===== -->
+            <div id="norms-effectiveness-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-lightbulb"></i> 規範效力思考題</h3>
+                <p class="interactive-prompt">小華雖然內心不喜歡排隊，但因為法律規定插隊會被罰款，所以他還是會乖乖排隊。這個例子說明了什麼？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">非正式規範能啟發內在良知</button>
+                    <button class="interactive-btn" data-answer="true">法律主要約束人的外在行為</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="norms-change-section">
@@ -409,6 +487,19 @@
                     <li><strong>空間差異：</strong>瑞士病人自主安樂死的制度已經合法化，但在我國仍屬非法的行為。</li>
                 </ul>
             </div>
+
+            <!-- ===== 新增互動：規範變動辨析 ===== -->
+            <div id="norms-change-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-history"></i> 規範變動辨析</h3>
+                <p class="interactive-prompt"><b>判斷：</b>「社會規範一旦形成，就不會隨著時間或地點的不同而改變。」</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">正確 (O)</button>
+                    <button class="interactive-btn" data-answer="true">錯誤 (X)</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="quiz-section">
@@ -461,8 +552,8 @@
                 <div class="options">
                     <button class="option-btn" data-correct="true">(A) 除夕夜家人家戶團圓圍爐</button>
                     <button class="option-btn" data-correct="false">(B) 遛狗時隨手清理愛犬的糞便</button>
-                    <button class="option-btn" data-correct="false">(C) 騎車時拉拉人每日都做好禮讓</button>
-                    <button class="option-btn" data-correct="false">(D) 開車時阿拉人每日都會被開罰單</button>
+                    <button class="option-btn" data-correct="false">(C) 騎車時禮讓行人</button>
+                    <button class="option-btn" data-correct="false">(D) 開車超速會被開罰單</button>
                 </div>
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
@@ -515,10 +606,109 @@
             }, { threshold: 0.1 }); 
             sections.forEach(section => observer.observe(section));
 
-            // Quiz logic
+            // --- 互動卡片通用安裝函數 ---
+            function setupInteractiveCard(cardId, correctFeedbackHTML, wrongFeedbackHTML) {
+                const card = document.getElementById(cardId);
+                if (!card) return;
+
+                const buttons = card.querySelectorAll('.interactive-btn');
+                const feedbackArea = card.querySelector('.interactive-feedback');
+                const resetButton = card.querySelector('.interactive-reset-btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isCorrect = btn.dataset.answer === 'true';
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (isCorrect) {
+                            feedbackArea.innerHTML = correctFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-correct';
+                        } else {
+                            feedbackArea.innerHTML = wrongFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    buttons.forEach(b => b.disabled = false);
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                });
+            }
+
+            // --- 配對題通用安裝函數 ---
+            function setupMatchingQuiz(quizId) {
+                const quiz = document.getElementById(quizId);
+                if (!quiz) return;
+
+                const selects = quiz.querySelectorAll('.matching-select');
+                const resetButton = quiz.querySelector('.matching-reset-btn');
+
+                function handleMatchingChange(e) {
+                    const select = e.target;
+                    const selectedValue = select.value;
+                    const item = select.closest('.matching-item');
+                    const correctAnswer = item.dataset.answer;
+                    const feedbackIcon = item.querySelector('.feedback-icon');
+                    
+                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    feedbackIcon.textContent = '';
+                    if (selectedValue === "請選擇") {
+                        feedbackIcon.style.display = 'none';
+                        return;
+                    }
+                    feedbackIcon.style.display = 'inline-block';
+                    if (selectedValue === correctAnswer) {
+                        feedbackIcon.classList.add('icon-correct');
+                        feedbackIcon.textContent = '✓';
+                    } else {
+                        feedbackIcon.classList.add('icon-wrong');
+                        feedbackIcon.textContent = '✗';
+                    }
+                }
+
+                selects.forEach(select => {
+                    select.addEventListener('change', handleMatchingChange);
+                });
+
+                if(resetButton) {
+                    resetButton.style.display = 'block';
+                    resetButton.addEventListener('click', () => {
+                        selects.forEach(select => {
+                            select.selectedIndex = 0;
+                            const item = select.closest('.matching-item');
+                            const feedbackIcon = item.querySelector('.feedback-icon');
+                            feedbackIcon.style.display = 'none';
+                            feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                            feedbackIcon.textContent = '';
+                        });
+                    });
+                }
+            }
+
+            // --- 初始化所有互動卡片 ---
+            setupInteractiveCard(
+                'norms-effectiveness-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>這個例子完美說明了法律的特性：即使個人的內心（內在思想）不同意，但法律的強制力仍然能約束其「外在行為」，以維持社會秩序。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>小華的內心並沒有被啟發，他只是怕被罰款。這恰恰說明了法律只能約束人的「外在行為」，而無法改變內心。'
+            );
+
+            setupInteractiveCard(
+                'norms-change-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 完全正確！</strong>社會規範會隨著時代變遷、價值觀改變、科技進步等因素而發生變動。例如，過去認為「男主外、女主內」是常態，現在則強調性別平等。',
+                '<strong><i class="fas fa-times-circle"></i> 這個觀念很重要喔！</strong>社會規範是會變動的！例如過去沒有網路，現在就有了許多關於網路使用的規範。'
+            );
+            
+            // --- 初始化所有配對題 ---
+            setupMatchingQuiz('norms-matching-quiz');
+
+            // --- 會考歷屆試題區塊 ---
             const allQuizData = {
                 quiz1: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>社會規範大致可分為風俗習慣、宗教信仰、倫理道德與法律等四種。阿順提及的「報警」、「刑罰」是<strong class="highlight-text">法律</strong>層面，法律是經由立法院三讀，總統公布。大強的說法屬<strong class="highlight-text">倫理道德</strong>；小紅的說法屬<strong class="highlight-text">宗教信仰</strong>。</p>`,
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>阿順提及的「報警」、「刑罰」是<strong class="highlight-text">法律</strong>層面，法律是經由立法院三讀、總統公布。大強的說法（將心比心）屬<strong class="highlight-text">倫理道德</strong>；小紅的說法（因果報應）屬<strong class="highlight-text">宗教信仰</strong>。</p>`,
                     A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 大強提及的是倫理道德，是內在良知的約束，並非限制權利。</p>`,
                     B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 小紅提及的「因果報應」、「輪迴」屬於宗教信仰的範疇，而非倫理道德。</p>`,
                     D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 只有阿順提及的法律可透過公權力約束，倫理道德與宗教信仰沒有強制力。</p>`
@@ -533,7 +723,7 @@
                     correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>學校送「包高中」餐盒，是取其諧音祝福考生，這是一種長期累積、約定俗成的<strong class="highlight-text">風俗習慣</strong>。(A)除夕夜團圓圍爐也是一種傳統的風俗習慣。 (B)和(C)屬於倫理道德（公德心），(D)是法律行為，與題幹性質不同。</p>`,
                     B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 遛狗清狗便屬於公德心的展現，是倫理道德層面。</p>`,
                     C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C)</strong> 騎車禮讓行人屬於倫理道德層面（公德），也是交通法規的要求。</p>`,
-                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 被開罰單是違反法律的後果，屬於法律層面。選項文字有誤，但核心概念是法律。</p>`
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 被開罰單是違反法律的後果，屬於法律層面。</p>`
                 }
             };
             

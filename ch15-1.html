@@ -165,6 +165,21 @@
             content: '\f0da';
         }
 
+        /* --- 互動卡片樣式 --- */
+        .interactive-card { background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05)); padding: 2rem; border-radius: 15px; border-left: 5px solid var(--secondary-glow); margin-top: 3rem; box-shadow: 0 0 15px rgba(255, 0, 255, 0.1); }
+        .interactive-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--secondary-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; text-align: center; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+        .interactive-feedback.feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .interactive-feedback.feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .interactive-reset-btn, .matching-reset-btn { display: none; margin: 1rem auto 0; padding: 0.6rem 1.5rem; font-size: 0.9rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .interactive-reset-btn:hover, .matching-reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 10px var(--accent-glow); }
+        /* --- 結束互動樣式 --- */
+
         .comparison-cards-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -231,6 +246,14 @@
         .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
         .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
         .reset-btn:hover { transform: scale(1.05); }
+
+        .matching-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .matching-item:last-child { border-bottom: none; }
+        .matching-item p { flex-grow: 1; margin: 0; }
+        .matching-select { background-color: var(--bg-dark); color: var(--text-color); border: 1px solid var(--primary-glow); border-radius: 5px; padding: 0.4rem; font-family: inherit; font-size: 1rem; cursor: pointer; }
+        .feedback-icon { font-size: 1.2rem; font-weight: 900; display: none; }
+        .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
+        .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
         
         .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect {
@@ -278,10 +301,13 @@
             section { padding: 1.5rem; }
             
             .comparison-cards-container.grid-3-col,
-            .comparison-cards-container {
+            .comparison-cards-container,
+            .interactive-options {
                 grid-template-columns: 1fr;
             }
             #quiz-section .options { grid-template-columns: 1fr; }
+
+            .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
 
             #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
@@ -333,6 +359,18 @@
                     </ul>
                 </div>
             </div>
+            <!-- ===== 新增互動：個資法應用 ===== -->
+            <div id="privacy-law-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-user-secret"></i> 個資法應用</h3>
+                <p class="interactive-prompt">某補習班未經家長同意，將學生的姓名和聯絡電話提供給合作的書商進行推銷。此行為可能違反了哪部法律？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="true">個人資料保護法</button>
+                    <button class="interactive-btn" data-answer="false">著作權法</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="ipr-section">
@@ -373,6 +411,16 @@
                     </ul>
                 </div>
             </div>
+            <!-- ===== 新增互動：智慧財產權配對 ===== -->
+            <div id="ipr-matching-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-tasks"></i> 智慧財產權配對</h3>
+                <p class="interactive-prompt">請將下列創作與其主要的保護法律進行配對。</p>
+                <div class="matching-item" data-answer="patent"><p>1. 一種新型的省電晶片設計</p><select class="matching-select"><option>請選擇</option><option value="copyright">著作權法</option><option value="trademark">商標法</option><option value="patent">專利法</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="copyright"><p>2. 小說家最新完成的長篇小說</p><select class="matching-select"><option>請選擇</option><option value="copyright">著作權法</option><option value="trademark">商標法</option><option value="patent">專利法</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="trademark"><p>3. 知名運動品牌的三條線標誌</p><select class="matching-select"><option>請選擇</option><option value="copyright">著作權法</option><option value="trademark">商標法</option><option value="patent">專利法</option></select><i class="feedback-icon"></i></div>
+                <button class="matching-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="copyright-section">
@@ -394,6 +442,18 @@
                 <p><strong>民事責任</strong>：著作是財產的一種，侵害者須負賠償責任，除了金錢賠償其經濟損失，亦有下架、登報公開道歉等責任。</p>
                 <p><strong>刑事責任</strong>：因侵害的情節輕重不同，可能構成犯罪行為，須承擔有期徒刑、拘役或罰金等刑事責任。侵權物也可能被沒收。</p>
             </div>
+            <!-- ===== 新增互動：合理使用思考 ===== -->
+            <div id="fair-use-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-balance-scale"></i> 合理使用思考</h3>
+                <p class="interactive-prompt">一位老師為了課堂教學，影印了某本書的其中一個章節給學生參考。這種行為最可能屬於下列何者？</p>
+                <div class="interactive-options" style="grid-template-columns: 1fr;">
+                    <button class="interactive-btn" data-answer="true">合理使用</button>
+                    <button class="interactive-btn" data-answer="false">侵害著作權</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="quiz-section">
@@ -447,15 +507,183 @@
         document.addEventListener('DOMContentLoaded', () => {
             let typingStarted = false; 
 
-            const typingSentences = [
-                "公民好神！我會遵守公民神會員守則！",
-                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
-                "公民神有三力：注意力、記憶力、戰鬥力！"
-            ];
-            const typingElementSpan = document.getElementById('typing-text-span');
+            // --- 互動卡片通用安裝函數 ---
+            function setupInteractiveCard(cardId, correctFeedbackHTML, wrongFeedbackHTML) {
+                const card = document.getElementById(cardId);
+                if (!card) return;
 
+                const buttons = card.querySelectorAll('.interactive-btn');
+                const feedbackArea = card.querySelector('.interactive-feedback');
+                const resetButton = card.querySelector('.interactive-reset-btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isCorrect = btn.dataset.answer === 'true';
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (isCorrect) {
+                            feedbackArea.innerHTML = correctFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-correct';
+                        } else {
+                            feedbackArea.innerHTML = wrongFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    buttons.forEach(b => b.disabled = false);
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                });
+            }
+             
+            // --- 配對題通用安裝函數 ---
+            function setupMatchingQuiz(quizId) {
+                const quiz = document.getElementById(quizId);
+                if (!quiz) return;
+
+                const selects = quiz.querySelectorAll('.matching-select');
+                const resetButton = quiz.querySelector('.matching-reset-btn');
+
+                function handleMatchingChange(e) {
+                    const select = e.target;
+                    const selectedValue = select.value;
+                    const item = select.closest('.matching-item');
+                    const correctAnswer = item.dataset.answer;
+                    const feedbackIcon = item.querySelector('.feedback-icon');
+                    
+                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    feedbackIcon.textContent = '';
+                    if (selectedValue === "請選擇") {
+                        feedbackIcon.style.display = 'none';
+                        return;
+                    }
+                    feedbackIcon.style.display = 'inline-block';
+                    if (selectedValue === correctAnswer) {
+                        feedbackIcon.classList.add('icon-correct');
+                        feedbackIcon.textContent = '✓';
+                    } else {
+                        feedbackIcon.classList.add('icon-wrong');
+                        feedbackIcon.textContent = '✗';
+                    }
+                }
+
+                selects.forEach(select => {
+                    select.addEventListener('change', handleMatchingChange);
+                });
+
+                if(resetButton) {
+                    resetButton.style.display = 'block';
+                    resetButton.addEventListener('click', () => {
+                        selects.forEach(select => {
+                            select.selectedIndex = 0;
+                            const item = select.closest('.matching-item');
+                            const feedbackIcon = item.querySelector('.feedback-icon');
+                            feedbackIcon.style.display = 'none';
+                            feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                            feedbackIcon.textContent = '';
+                        });
+                    });
+                }
+            }
+            
+            // --- 初始化所有互動卡片 ---
+            setupInteractiveCard(
+                'privacy-law-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>姓名和聯絡電話屬於個人資料，未經當事人同意就提供給第三方用於商業目的，明確違反了《個人資料保護法》。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>《著作權法》保護的是文學、藝術等創作。姓名和電話屬於個人隱私資訊，由《個人資料保護法》規範。'
+            );
+            setupInteractiveCard(
+                'fair-use-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 答對了！</strong>為了「教學目的」，且影印的只是「部分章節」（非整本書），這種非營利的有限度使用，通常會被認定為「合理使用」的範圍。',
+                '<strong><i class="fas fa-times-circle"></i> 再想一下！</strong>雖然未經授權使用了他人著作，但法律為了促進知識傳播，允許在特定條件下（如教學、評論）有限度地使用，這就是「合理使用」喔！'
+            );
+            
+            // --- 初始化所有配對題 ---
+            setupMatchingQuiz('ipr-matching-quiz');
+
+            // --- 會考歷屆試題區塊 ---
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>根據網友甲的描述，過去使用回數票「常會造成塞車」，而現在使用「電子收費就沒這個問題了」。這直接說明了科技的發展（從人工收費到電子收費）解決了交通壅塞問題，使得交通運輸更加順暢。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>回數票是國內交通使用的票券，與外幣兌換無關。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>回數票類似現金或儲值卡，是預先支付的概念，不具備信用卡那樣的「延遲支付」功能。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>文中討論的是「收費方式」的變革，並未提及交通「工具」的選擇變多。</p>`
+                }
+            };
+            
+            const mcqContainers = document.querySelectorAll('.quiz-container[id]');
+            
+            mcqContainers.forEach((container) => {
+                const quizId = container.id;
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
+
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
+
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        
+                        optionButtons.forEach(btn => {
+                            btn.disabled = true;
+                        });
+
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = quizData.correct;
+                        } else {
+                            const optionLetter = button.textContent.substring(1, 2);
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            feedbackArea.innerHTML = quizData[optionLetter];
+                        }
+                        feedbackArea.className = 'feedback-area ' + (isCorrect ? 'feedback-correct' : 'feedback-wrong');
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
+                    });
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+
+            // Section fade-in animation and typing effect
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
+                            typingStarted = true;
+                            startTypingLoop();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 }); 
+            sections.forEach(section => observer.observe(section));
+            
+            const typingElementSpan = document.getElementById('typing-text-span');
             function startTypingLoop() {
                 if (!typingElementSpan) return;
+                const typingSentences = [
+                    "公民好神！我會遵守公民神會員守則！",
+                    "努力向上、勇往直前、不畏艱難，我要成為公民神！",
+                    "公民神有三力：注意力、記憶力、戰鬥力！"
+                ];
                 let sentenceIndex = 0;
                 let charIndex = 0;
                 let isDeleting = false;
@@ -485,83 +713,11 @@
                 }
                 loop();
             }
-            
-            const sections = document.querySelectorAll('section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
-                            typingStarted = true;
-                            startTypingLoop();
-                        }
-                    }
-                });
-            }, { threshold: 0.1 }); 
-            
-            sections.forEach(section => observer.observe(section));
 
-            const allQuizData = {
-                quiz1: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>根據網友甲的描述，過去使用回數票「常會造成塞車」，而現在使用「電子收費就沒這個問題了」。這直接說明了科技的發展（從人工收費到電子收費）解決了交通壅塞問題，使得交通運輸更加順暢。</p>`,
-                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>回數票是國內交通使用的票券，與外幣兌換無關。</p>`,
-                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>回數票類似現金或儲值卡，是預先支付的概念，不具備信用卡那樣的「延遲支付」功能。</p>`,
-                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>文中討論的是「收費方式」的變革，並未提及交通「工具」的選擇變多。</p>`
-                }
-            };
-            
-            const quizContainers = document.querySelectorAll('.quiz-container');
-            
-            quizContainers.forEach((container) => {
-                const quizId = container.id;
-                if (!quizId) return;
-                const quizData = allQuizData[quizId];
-                if (!quizData) return;
-
-                const optionButtons = container.querySelectorAll('.option-btn');
-                const feedbackArea = container.querySelector('.feedback-area');
-                const resetButton = container.querySelector('.reset-btn');
-
-                optionButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        const isCorrect = button.dataset.correct === 'true';
-                        
-                        optionButtons.forEach(btn => {
-                            btn.disabled = true;
-                        });
-
-                        if (isCorrect) {
-                            button.classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId].correct;
-                            feedbackArea.className = 'feedback-area feedback-correct';
-                        } else {
-                            const optionLetter = button.textContent.substring(1, 2);
-                            button.classList.add('wrong');
-                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
-                            feedbackArea.className = 'feedback-area feedback-wrong';
-                        }
-                        feedbackArea.style.display = 'block';
-                        resetButton.style.display = 'block';
-                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    });
-                });
-                
-                resetButton.addEventListener('click', () => {
-                    optionButtons.forEach(btn => {
-                        btn.disabled = false;
-                        btn.classList.remove('correct', 'wrong');
-                    });
-                    feedbackArea.style.display = 'none';
-                    resetButton.style.display = 'none';
-                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                });
-            });
-
+            // Mascot JS
             const mascotContainer = document.getElementById('mascot-container');
             const mascotImg = document.getElementById('mascot-img');
             const speechBubble = document.getElementById('mascot-speech');
-            
             const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
             let messageIndex = 0;
             let clickTimer = null;

@@ -232,8 +232,8 @@
         }
         .quiz-title i { margin-right: 0.75rem; }
         .quiz-title .quiz-source { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
-        #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
-        #quiz-section .options { display: grid; gap: 1rem; }
+        .quiz-container .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
+        .quiz-container .options { display: grid; gap: 1rem; }
         .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
         .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
         .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark); }
@@ -253,15 +253,15 @@
         .feedback-icon { font-size: 1.2rem; font-weight: 900; display: none; }
         .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
         .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
-        
-        .law-options-list {
+
+        .options-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 0.75rem;
             margin-top: 1rem;
             margin-bottom: 1rem;
         }
-        .law-option-item {
+        .option-item {
             background-color: rgba(0, 0, 0, 0.3);
             border: 1px solid var(--border-color);
             padding: 0.5rem 1rem;
@@ -269,12 +269,27 @@
             text-align: center;
             font-size: 0.95rem;
         }
-        .law-option-label {
+        .option-label {
             color: var(--accent-glow);
             font-weight: 700;
             margin-right: 0.5em;
             font-family: 'Orbitron', sans-serif;
         }
+
+        /* --- 互動卡片樣式 --- */
+        .interactive-card { background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05)); padding: 2rem; border-radius: 15px; border-left: 5px solid var(--secondary-glow); margin-top: 3rem; box-shadow: 0 0 15px rgba(255, 0, 255, 0.1); }
+        .interactive-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--secondary-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+        .interactive-feedback.feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .interactive-feedback.feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .interactive-reset-btn, .matching-reset-btn { display: none; margin: 1rem auto 0; padding: 0.6rem 1.5rem; font-size: 0.9rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .interactive-reset-btn:hover, .matching-reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 10px var(--accent-glow); }
+        /* --- 結束互動樣式 --- */
 
         .dialogue-container {
             display: grid;
@@ -340,14 +355,9 @@
             .container { padding: 1rem; }
             section { padding: 1.5rem; }
             .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-            
             .flow-container, .agenda-options { flex-direction: column; }
             .dialogue-box { flex-direction: column; text-align: center; }
-
-            .comparison-cards-container {
-                grid-template-columns: 1fr;
-            }
-
+            .comparison-cards-container { grid-template-columns: 1fr; }
             #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
             #mascot-img { width: 80px; }
@@ -371,105 +381,42 @@
             <div class="comparison-item">
                 <h4><i class="fas fa-book"></i>學習</h4>
                 <div class="comparison-cards-container">
-                    <div class="comparison-card left">
-                        <h5><i class="fas fa-check-circle"></i>權利</h5>
-                        <ul>
-                            <li>受國民教育的權利 (<strong class="highlight-text">《憲法》</strong>)。</li>
-                            <li>學習權應受尊重與保障。</li>
-                        </ul>
-                    </div>
-                    <div class="comparison-card right">
-                        <h5><i class="fas fa-times-circle"></i>責任</h5>
-                        <ul>
-                            <li>上課時不得發出噪音。</li>
-                            <li>干擾其他同學學習權。</li>
-                        </ul>
-                    </div>
+                    <div class="comparison-card left"><h5><i class="fas fa-check-circle"></i>權利</h5><ul><li>受國民教育的權利 (<strong class="highlight-text">《憲法》</strong>)。</li><li>學習權應受尊重與保障。</li></ul></div>
+                    <div class="comparison-card right"><h5><i class="fas fa-times-circle"></i>責任</h5><ul><li>上課時不得發出噪音。</li><li>干擾其他同學學習權。</li></ul></div>
                 </div>
             </div>
             <div class="comparison-item">
                 <h4><i class="fas fa-child"></i>身體自主</h4>
                 <div class="comparison-cards-container">
-                    <div class="comparison-card left">
-                        <h5><i class="fas fa-check-circle"></i>權利</h5>
-                        <ul>
-                            <li>身體自主權受國家保障 (<strong class="highlight-text">《教育基本法》</strong>)。</li>
-                            <li>不受任何體罰或霸凌。</li>
-                        </ul>
-                    </div>
-                    <div class="comparison-card right">
-                        <h5><i class="fas fa-times-circle"></i>責任</h5>
-                         <ul>
-                            <li>不得有霸凌行為。</li>
-                            <li>如肢體、關係、網路霸凌。</li>
-                        </ul>
-                    </div>
+                    <div class="comparison-card left"><h5><i class="fas fa-check-circle"></i>權利</h5><ul><li>身體自主權受國家保障 (<strong class="highlight-text">《教育基本法》</strong>)。</li><li>不受任何體罰或霸凌。</li></ul></div>
+                    <div class="comparison-card right"><h5><i class="fas fa-times-circle"></i>責任</h5><ul><li>不得有霸凌行為。</li><li>如肢體、關係、網路霸凌。</li></ul></div>
                 </div>
             </div>
             <div class="comparison-item">
                 <h4><i class="fas fa-user-secret"></i>名譽與隱私</h4>
                 <div class="comparison-cards-container">
-                    <div class="comparison-card left">
-                        <h5><i class="fas fa-check-circle"></i>權利</h5>
-                        <ul>
-                            <li>擁有名譽及保有隱私等權利 (<strong class="highlight-text">《教師法》</strong>)。</li>
-                            <li>發展健全人格。</li>
-                        </ul>
-                    </div>
-                    <div class="comparison-card right">
-                        <h5><i class="fas fa-times-circle"></i>責任</h5>
-                         <ul>
-                            <li>不應惡意傷害他人。</li>
-                            <li>不宜翻動他人書包或信件。</li>
-                        </ul>
-                    </div>
+                    <div class="comparison-card left"><h5><i class="fas fa-check-circle"></i>權利</h5><ul><li>擁有名譽及保有隱私等權利 (<strong class="highlight-text">《教師法》</strong>)。</li><li>發展健全人格。</li></ul></div>
+                    <div class="comparison-card right"><h5><i class="fas fa-times-circle"></i>責任</h5><ul><li>不應惡意傷害他人。</li><li>不宜翻動他人書包或信件。</li></ul></div>
                 </div>
             </div>
             <div class="comparison-item">
                 <h4><i class="fas fa-wallet"></i>財產</h4>
                 <div class="comparison-cards-container">
-                    <div class="comparison-card left">
-                        <h5><i class="fas fa-check-circle"></i>權利</h5>
-                        <ul>
-                            <li>自由使用自己物品的權利 (<strong class="highlight-text">《民法》</strong>)。</li>
-                            <li>財產權不得任意被侵害。</li>
-                        </ul>
-                    </div>
-                    <div class="comparison-card right">
-                        <h5><i class="fas fa-times-circle"></i>責任</h5>
-                         <ul>
-                            <li>不應攜帶妨害學習的物品。</li>
-                            <li>教師可依法暫代保管後交還。</li>
-                        </ul>
-                    </div>
+                    <div class="comparison-card left"><h5><i class="fas fa-check-circle"></i>權利</h5><ul><li>自由使用自己物品的權利 (<strong class="highlight-text">《民法》</strong>)。</li><li>財產權不得任意被侵害。</li></ul></div>
+                    <div class="comparison-card right"><h5><i class="fas fa-times-circle"></i>責任</h5><ul><li>不應攜帶妨害學習的物品。</li><li>教師可依法暫代保管後交還。</li></ul></div>
                 </div>
             </div>
-        </section>
 
-        <section id="quiz-matching">
-             <h2 class="section-title"><i class="fas fa-tasks"></i>公民神挑戰！</h2>
-             <div class="info-card">
-                 <p><strong>下列校園情境中，主要是哪種面向的權利受到侵害？</strong></p>
-                 <!-- MODIFIED OPTIONS LIST -->
-                 <div class="law-options-list">
-                    <div class="law-option-item"><span class="law-option-label">甲</span> 學習權</div>
-                    <div class="law-option-item"><span class="law-option-label">乙</span> 名譽與隱私權</div>
-                    <div class="law-option-item"><span class="law-option-label">丙</span> 身體自主權</div>
-                    <div class="law-option-item"><span class="law-option-label">丁</span> 財產權</div>
-                </div>
-                 <div class="matching-item" data-answer="丙"><p>1. 雨萱遭到男同學勾肩搭背而感到不舒服。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
-                 <div class="matching-item" data-answer="乙"><p>2. 俊傑在網路上被同學辱罵是孬種、娘娘腔。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
-                 <div class="matching-item" data-answer="丁"><p>3. 銓勝的鉛筆在未經允許下，被同學拿去使用。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
-                 <div class="matching-item" data-answer="甲"><p>4. 韻如因為同學一直發出噪音而聽不清楚老師講課。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+            <!-- ===== 新增互動：權利責任配對 ===== -->
+            <div id="rights-matching-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-tasks"></i> 權利責任配對挑戰</h3>
+                <p class="interactive-prompt">請將下列學生的行為與其對應的「權利」或「責任」進行配對。</p>
+                <div class="matching-item" data-answer="right"><p>1. 小明主張老師不應體罰學生。</p><select class="matching-select"><option>請選擇</option><option value="right">行使權利</option><option value="duty">善盡責任</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="duty"><p>2. 小華上課時專心聽講，不和同學聊天。</p><select class="matching-select"><option>請選擇</option><option value="right">行使權利</option><option value="duty">善盡責任</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="duty"><p>3. 小美不在網路上散播關於同學的不實言論。</p><select class="matching-select"><option>請選擇</option><option value="right">行使權利</option><option value="duty">善盡責任</option></select><i class="feedback-icon"></i></div>
+                <button class="matching-reset-btn">再挑戰一次</button>
             </div>
-            <div class="highlight-box">
-                <h4><i class="fas fa-key"></i>解題關鍵</h4>
-                <p>• <strong class="highlight-text">學習權</strong>：主要受到「噪音干擾」影響。<br>
-                • <strong class="highlight-text">名譽與隱私權</strong>：主要受到「辱罵、精神」層面侵害。<br>
-                • <strong class="highlight-text">身體自主權</strong>：主要受到「身體」層面侵害。<br>
-                • <strong class="highlight-text">財產權</strong>：主要受到「個人物品」層面侵害。
-                </p>
-            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="student-governance-section">
@@ -483,6 +430,21 @@
                 <div class="flow-arrow"><i class="fas fa-long-arrow-alt-right"></i></div>
                 <div class="flow-item">推展自治活動<br><small>(討論班服、園遊會)</small></div>
             </div>
+
+            <!-- ===== 新增互動：學生自治知識測驗 ===== -->
+            <div id="autonomy-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-question-circle"></i> 學生自治知識測驗</h3>
+                <p class="interactive-prompt">學生自治最重要的前提是什麼？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">爭取最多福利</button>
+                    <button class="interactive-btn" data-answer="false">完全不受師長干涉</button>
+                    <button class="interactive-btn" data-answer="true">遵守校規與社會規範</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
+
             <h3 style="margin-top: 2rem;">開會程序 (依據《會議規範》)</h3>
             <p>開會是實踐學生自治的重要方式，依循議事規則能讓會議順利進行。表決時應採<strong class="highlight-text">多數決原則</strong>，少數服從多數，多數尊重少數。</p>
             <div class="comparison-item">
@@ -491,27 +453,59 @@
                      <div class="comparison-card left">
                          <h5><i class="fas fa-exclamation-circle"></i>權宜問題</h5>
                          <ul>
-                             <li><strong>提出時機：</strong>議場內發生<strong class="highlight-text">干擾個人或全體</strong>的突發事件。</li>
-                             <li><strong>功能：</strong>維護議事環境的<strong class="highlight-text">秩序與舒適</strong>。</li>
-                             <li><strong>舉例：</strong>有人喧嘩、鼓譟；冷氣太冷；發生地震、有人昏倒等緊急事件。</li>
+                             <li><strong>核心：</strong>處理<strong class="highlight-text">環境干擾</strong>或<strong class="highlight-text">緊急事件</strong>。</li>
+                             <li><strong>目的：</strong>維護議事環境的<strong class="highlight-text">秩序與舒適</strong>。</li>
+                             <li><strong>舉例：</strong>有人喧嘩、冷氣太冷、地震、有人昏倒。</li>
                          </ul>
                      </div>
                      <div class="comparison-card right">
                          <h5><i class="fas fa-gavel"></i>秩序問題</h5>
                           <ul>
-                             <li><strong>提出時機：</strong>議事<strong class="highlight-text">程序出現錯誤</strong>，或發言離題。</li>
-                             <li><strong>功能：</strong>節省開會時間、<strong class="highlight-text">糾正程序錯誤</strong>。</li>
-                             <li><strong>舉例：</strong>處理表決的先後規定不合；不應提出動議而提出等。</li>
+                             <li><strong>核心：</strong>處理<strong class="highlight-text">議事程序</strong>的錯誤。</li>
+                             <li><strong>目的：</strong><strong class="highlight-text">糾正程序</strong>，確保會議合乎規範。</li>
+                             <li><strong>舉例：</strong>發言離題、表決順序錯誤、主席未依程序進行。</li>
                          </ul>
                      </div>
                  </div>
             </div>
+            
+            <!-- ===== 新增互動：情境分類挑戰 ===== -->
+            <div id="meeting-issue-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-tasks"></i> 情境分類挑戰</h3>
+                <p class="interactive-prompt">請判斷下列會議中的情境，應提出「權宜問題」還是「秩序問題」。</p>
+                <div class="matching-item" data-answer="privilege"><p>1. 會議室的冷氣太冷，像冷凍庫一樣，影響大家開會。</p><select class="matching-select"><option>請選擇</option><option value="privilege">權宜問題</option><option value="order">秩序問題</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="order"><p>2. 主席在還沒處理完李虞的提案時，就直接開始討論毛茸茸的提案。</p><select class="matching-select"><option>請選擇</option><option value="privilege">權宜問題</option><option value="order">秩序問題</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="privilege"><p>3. 隔壁教室傳來「公民神有三『力』」的巨大噪音，干擾會議進行。</p><select class="matching-select"><option>請選擇</option><option value="privilege">權宜問題</option><option value="order">秩序問題</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="order"><p>4. 小功發言時，一直說公民老師好漂亮，內容完全偏離了目前討論的主題。</p><select class="matching-select"><option>請選擇</option><option value="privilege">權宜問題</option><option value="order">秩序問題</option></select><i class="feedback-icon"></i></div>
+		<div class="matching-item" data-answer="privilege"><p>5. 突然有一隻虎頭蜂飛進來，全班尖叫驚慌失措。</p><select class="matching-select"><option>請選擇</option><option value="privilege">權宜問題</option><option value="order">秩序問題</option></select><i class="feedback-icon"></i></div>
+		<div class="matching-item" data-answer="privilege"><p>6. 小民因為肚子痛突然大便在褲子上，全班臭到無法呼吸。</p><select class="matching-select"><option>請選擇</option><option value="privilege">權宜問題</option><option value="order">秩序問題</option></select><i class="feedback-icon"></i></div>
+                <button class="matching-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
         
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
+            <div class="quiz-container" id="quiz-matching">
+                <h3 class="quiz-title"><i class="fas fa-tasks"></i>挑戰一 <span class="quiz-source">(模擬神給酷)</span></h3>
+                <div class="info-card">
+                     <p><strong>下列校園情境中，主要是哪種面向的權利受到侵害？</strong></p>
+                     <div class="options-list">
+                        <div class="option-item"><span class="option-label">甲</span> 學習權</div>
+                        <div class="option-item"><span class="option-label">乙</span> 名譽與隱私權</div>
+                        <div class="option-item"><span class="option-label">丙</span> 身體自主權</div>
+                        <div class="option-item"><span class="option-label">丁</span> 財產權</div>
+                    </div>
+                     <div class="matching-item" data-answer="丙"><p>1. 雨萱遭到男同學勾肩搭背而感到不舒服。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="乙"><p>2. 俊傑在網路上被同學辱罵是孬種、娘娘腔。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="丁"><p>3. 銓勝的鉛筆在未經允許下，被同學拿去使用。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="甲"><p>4. 韻如因為同學一直發出噪音而聽不清楚老師講課。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                     <button class="matching-reset-btn">再挑戰一次</button>
+                </div>
+            </div>
+            
             <div class="quiz-container" id="quiz1">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(112 會考)</span></h3>
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(112 會考)</span></h3>
                 <div class="question">
                     <p>在班會進行中，小華突然提出了秩序問題，下列何者最可能是他提出該要求的原因？</p>
                 </div>
@@ -526,7 +520,7 @@
             </div>
             
             <div class="quiz-container" id="quiz2">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(111 會考)</span></h3>
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(111 會考)</span></h3>
                 <div class="question">
                     <p>開班會時，有些同學在玩牌、有些同學在吃東西，阿德認為吵雜聲使他聽不清楚其他人的發言內容，影響到他參與會議的權利。根據下方班會流程，阿德應是在哪一階段要求主席處理上述問題？</p>
                     <div class="info-card" style="padding: 1rem; margin-top: 1rem;">
@@ -538,11 +532,11 @@
                              <i class="fas fa-arrow-down flow-arrow" style="transform: rotate(90deg);"></i>
                             <div class="flow-item" style="border: 2px dashed var(--accent-border-color); padding: 1rem;">
                                 <strong>主要議程</strong>
-                                <div class="law-options-list" style="grid-template-columns: 1fr 1fr; margin-bottom: 0; margin-top: 0.5rem;">
-                                    <div class="law-option-item" style="background: none; border: none; padding: 0.2rem;">(甲) 權宜問題</div>
-                                    <div class="law-option-item" style="background: none; border: none; padding: 0.2rem;">(乙) 提案討論</div>
-                                    <div class="law-option-item" style="background: none; border: none; padding: 0.2rem;">(丙) 秩序問題</div>
-                                    <div class="law-option-item" style="background: none; border: none; padding: 0.2rem;">(丁) 臨時動議</div>
+                                <div class="options-list" style="grid-template-columns: 1fr 1fr; margin-bottom: 0; margin-top: 0.5rem;">
+                                    <div class="option-item" style="background: none; border: none; padding: 0.2rem;">(甲) 權宜問題</div>
+                                    <div class="option-item" style="background: none; border: none; padding: 0.2rem;">(乙) 提案討論</div>
+                                    <div class="option-item" style="background: none; border: none; padding: 0.2rem;">(丙) 秩序問題</div>
+                                    <div class="option-item" style="background: none; border: none; padding: 0.2rem;">(丁) 臨時動議</div>
                                 </div>
                             </div>
                         </div>
@@ -553,39 +547,6 @@
                     <button class="option-btn" data-correct="false">(B) 乙</button>
                     <button class="option-btn" data-correct="false">(C) 丙</button>
                     <button class="option-btn" data-correct="false">(D) 丁</button>
-                </div>
-                <div class="feedback-area"></div>
-                <button class="reset-btn">再挑戰一次！</button>
-            </div>
-
-            <div class="quiz-container" id="quiz3">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(107 會考)</span></h3>
-                <div class="question">
-                    <p>在會議中，甲、乙、丙、丁四位同學的發言如下。根據《會議規範》，哪兩位同學的發言是合乎規定的？</p>
-                     <div class="dialogue-container">
-                        <div class="dialogue-box">
-                            <div class="character">甲</div>
-                            <p class="speech">我要提權宜問題，我們應該要先提臨時動議。</p>
-                        </div>
-                         <div class="dialogue-box">
-                            <div class="character">乙</div>
-                            <p class="speech">我要提權宜問題，應該處理場內喧嘩情況。</p>
-                        </div>
-                         <div class="dialogue-box">
-                            <div class="character">丙</div>
-                            <p class="speech">我要提秩序問題，應該處理目前議程順序不對的問題。</p>
-                        </div>
-                         <div class="dialogue-box">
-                            <div class="character">丁</div>
-                            <p class="speech">我要提秩序問題，應該處理場內喧嘩情況。</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="options">
-                    <button class="option-btn" data-correct="false">(A) 甲、丙</button>
-                    <button class="option-btn" data-correct="true">(B) 乙、丙</button>
-                    <button class="option-btn" data-correct="false">(C) 乙、丁</button>
-                    <button class="option-btn" data-correct="false">(D) 甲、丁</button>
                 </div>
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
@@ -612,7 +573,7 @@
     <!-- Mascot -->
     <div id="mascot-container">
         <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
-        <div id="mascot-speech">公民好神！</div>
+        <div id="mascot-speech">校園生活，充實精彩！</div>
     </div>
 
     <footer>
@@ -621,9 +582,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+             // --- 全局變數和通用函數 ---
             let typingStarted = false;
 
-            // Section fade-in animation
             const sections = document.querySelectorAll('section');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -635,19 +596,59 @@
                         }
                     }
                 });
-            }, { threshold: 0.1 }); 
+            }, { threshold: 0.1 });
             sections.forEach(section => observer.observe(section));
 
-            // Matching quiz logic
-            const matchingSelects = document.querySelectorAll('.matching-select');
-            matchingSelects.forEach(select => {
-                select.addEventListener('change', (e) => {
-                    const selectedValue = e.target.value;
-                    const item = e.target.closest('.matching-item');
+            // --- 互動卡片通用安裝函數 ---
+            function setupInteractiveCard(cardId, correctFeedbackHTML, wrongFeedbackHTML) {
+                const card = document.getElementById(cardId);
+                if (!card) return;
+
+                const buttons = card.querySelectorAll('.interactive-btn');
+                const feedbackArea = card.querySelector('.interactive-feedback');
+                const resetButton = card.querySelector('.interactive-reset-btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isCorrect = btn.dataset.answer === 'true';
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (isCorrect) {
+                            feedbackArea.innerHTML = correctFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-correct';
+                        } else {
+                            feedbackArea.innerHTML = wrongFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    buttons.forEach(b => b.disabled = false);
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                });
+            }
+
+            // --- 配對題通用安裝函數 ---
+            function setupMatchingQuiz(quizId) {
+                const quiz = document.getElementById(quizId);
+                if (!quiz) return;
+
+                const selects = quiz.querySelectorAll('.matching-select');
+                const resetButton = quiz.querySelector('.matching-reset-btn');
+
+                function handleMatchingChange(e) {
+                    const select = e.target;
+                    const selectedValue = select.value;
+                    const item = select.closest('.matching-item');
                     const correctAnswer = item.dataset.answer;
                     const feedbackIcon = item.querySelector('.feedback-icon');
+                    
                     feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
-                    feedbackIcon.innerHTML = '';
+                    feedbackIcon.textContent = '';
                     if (selectedValue === "請選擇") {
                         feedbackIcon.style.display = 'none';
                         return;
@@ -655,15 +656,75 @@
                     feedbackIcon.style.display = 'inline-block';
                     if (selectedValue === correctAnswer) {
                         feedbackIcon.classList.add('icon-correct');
-                        feedbackIcon.innerHTML = '✓';
+                        feedbackIcon.textContent = '✓';
                     } else {
                         feedbackIcon.classList.add('icon-wrong');
-                        feedbackIcon.innerHTML = '✗';
+                        feedbackIcon.textContent = '✗';
                     }
-                });
-            });
+                }
 
-            // Multiple choice quiz logic
+                selects.forEach(select => {
+                    select.addEventListener('change', handleMatchingChange);
+                });
+
+                if(resetButton) {
+                    resetButton.style.display = 'block'; // Always show reset button for matching quizzes
+                    resetButton.addEventListener('click', () => {
+                        selects.forEach(select => {
+                            select.selectedIndex = 0;
+                            const item = select.closest('.matching-item');
+                            const feedbackIcon = item.querySelector('.feedback-icon');
+                            feedbackIcon.style.display = 'none';
+                            feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                            feedbackIcon.textContent = '';
+                        });
+                    });
+                }
+            }
+            
+            // --- 初始化所有互動卡片 ---
+            setupInteractiveCard(
+                'autonomy-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>學生自治並非無限上綱，必須在<span class="highlight-text">遵守校規與社會規範</span>的基礎上進行，這才是負責任的表現。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>學生自治的基礎是責任與尊重，因此必須<span class="highlight-text">遵守校規與社會規範</span>。'
+            );
+
+            // --- 初始化所有配對題 ---
+            setupMatchingQuiz('rights-matching-quiz');
+            setupMatchingQuiz('quiz-matching');
+            setupMatchingQuiz('meeting-issue-quiz');
+
+
+            // Typing Effect
+            const typingSentences = [
+                "公民好神！我會遵守公民神會員守則！",
+                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
+                "公民神有三力：注意力、記憶力、戰鬥力！"
+            ];
+            const typingElementSpan = document.getElementById('typing-text-span');
+
+            function startTypingLoop() {
+                if (!typingElementSpan) return;
+                let sentenceIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
+
+                function loop() {
+                    const currentSentence = typingSentences[sentenceIndex];
+                    if (isDeleting) {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex - 1);
+                        charIndex--;
+                        if (charIndex === 0) { isDeleting = false; sentenceIndex = (sentenceIndex + 1) % typingSentences.length; setTimeout(loop, 500); } else { setTimeout(loop, 50); }
+                    } else {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex + 1);
+                        charIndex++;
+                        if (charIndex === currentSentence.length) { isDeleting = true; setTimeout(loop, 2500); } else { setTimeout(loop, 120); }
+                    }
+                }
+                loop();
+            }
+
+            // --- 會考歷屆試題區塊 ---
             const allQuizData = {
                 quiz1: {
                     correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>「秩序問題」是用來糾正<strong class="highlight-text">議事程序上的錯誤</strong>。當主席未依正確程序主持會議時，與會者可提出秩序問題要求主席改正，以維護會議程序的正確性。</p>`,
@@ -686,7 +747,6 @@
             };
             
             const mcqContainers = document.querySelectorAll('.quiz-container[id]');
-            
             mcqContainers.forEach(container => {
                 const quizId = container.id;
                 const quizData = allQuizData[quizId];
@@ -729,51 +789,12 @@
                 });
             });
             
-            // Typing Effect and Mascot JS
-            const typingSentences = [
-                "公民好神！我會遵守公民神會員守則！",
-                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
-                "公民神有三力：注意力、記憶力、戰鬥力！"
-            ];
-            const typingElementSpan = document.getElementById('typing-text-span');
-
-            function startTypingLoop() {
-                if (!typingElementSpan) return;
-                let sentenceIndex = 0;
-                let charIndex = 0;
-                let isDeleting = false;
-
-                function loop() {
-                    const currentSentence = typingSentences[sentenceIndex];
-                    if (isDeleting) {
-                        typingElementSpan.textContent = currentSentence.substring(0, charIndex - 1);
-                        charIndex--;
-                        if (charIndex === 0) {
-                            isDeleting = false;
-                            sentenceIndex = (sentenceIndex + 1) % typingSentences.length;
-                            setTimeout(loop, 500);
-                        } else {
-                            setTimeout(loop, 50);
-                        }
-                    } else {
-                        typingElementSpan.textContent = currentSentence.substring(0, charIndex + 1);
-                        charIndex++;
-                        if (charIndex === currentSentence.length) {
-                            isDeleting = true;
-                            setTimeout(loop, 2500); 
-                        } else {
-                            setTimeout(loop, 120);
-                        }
-                    }
-                }
-                loop();
-            }
-
+            // --- Mascot Interaction ---
             const mascotContainer = document.getElementById('mascot-container');
             const mascotImg = document.getElementById('mascot-img');
             const speechBubble = document.getElementById('mascot-speech');
             
-            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            const messages = ["公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！"];
             let messageIndex = 0;
             let clickTimer = null;
             let speechTimeout = null;

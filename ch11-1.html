@@ -132,6 +132,10 @@
             border: 1px solid var(--border-color); 
             border-radius: 15px; 
             padding: 1.5rem;
+            margin-bottom: 1.5rem; /* 增加卡片間距 */
+        }
+        .info-card:last-child {
+            margin-bottom: 0; /* 最後一個卡片無下邊距 */
         }
         
         .info-card h4 { 
@@ -156,16 +160,21 @@
             position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
 
-        .comparison-item {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            margin-top: 1.5rem;
-        }
-        .comparison-item:last-child {
-            margin-bottom: 0;
-        }
+        /* --- 互動卡片樣式 --- */
+        .interactive-card { background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05)); padding: 2rem; border-radius: 15px; border-left: 5px solid var(--secondary-glow); margin-top: 3rem; box-shadow: 0 0 15px rgba(255, 0, 255, 0.1); }
+        .interactive-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--secondary-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+        .interactive-feedback.feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .interactive-feedback.feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .interactive-reset-btn, .matching-reset-btn { display: none; margin: 1rem auto 0; padding: 0.6rem 1.5rem; font-size: 0.9rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .interactive-reset-btn:hover, .matching-reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 10px var(--accent-glow); }
+        /* --- 結束互動樣式 --- */
+
         .comparison-cards-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -180,8 +189,6 @@
             border-radius: 15px;
             padding: 1.5rem;
             border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
         }
         .comparison-card h5 {
             font-size: 1.2rem;
@@ -193,11 +200,9 @@
             color: var(--primary-glow);
             border-bottom: 1px solid var(--border-color);
         }
-        .comparison-card ul {
-             list-style: none; padding-left: 0; font-size: 0.95rem; flex-grow: 1;
-        }
         
         .quiz-container { margin-bottom: 3rem; }
+        .quiz-container:last-child { margin-bottom: 0; }
         .quiz-title {
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
@@ -226,6 +231,36 @@
         .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
         .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
         .reset-btn:hover { transform: scale(1.05); }
+        
+        .matching-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .matching-item:last-child { border-bottom: none; }
+        .matching-item p { flex-grow: 1; margin: 0; }
+        .matching-select { background-color: var(--bg-dark); color: var(--text-color); border: 1px solid var(--primary-glow); border-radius: 5px; padding: 0.4rem; font-family: inherit; font-size: 1rem; cursor: pointer; }
+        .feedback-icon { font-size: 1.2rem; font-weight: 900; display: none; }
+        .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
+        .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
+
+        .law-options-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .law-option-item {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .law-option-label {
+            color: var(--accent-glow);
+            font-weight: 700;
+            margin-right: 0.5em;
+            font-family: 'Orbitron', sans-serif;
+        }
         
         .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect {
@@ -271,11 +306,15 @@
         @media (max-width: 768px) {
             .container { padding: 1rem; }
             section { padding: 1.5rem; }
+            .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
             
-            .comparison-cards-container.grid-3-col,
             .comparison-cards-container {
                 grid-template-columns: 1fr;
             }
+            .law-options-list {
+                grid-template-columns: 1fr;
+            }
+            #quiz-section .options { grid-template-columns: 1fr; }
 
             #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
@@ -299,7 +338,7 @@
             <div class="info-card" style="margin-top:0;">
                 <p>行政法是指一切規範國家<strong class="highlight-text">行政權</strong>運作方式的法令總稱，並非一部獨立或專屬的法典。它與我們的日常生活息息相關，從出生登記到國民教育，都受到行政法的約束。</p>
             </div>
-             <div class="info-card" style="margin-top:1.5rem;">
+             <div class="info-card">
                 <h4><i class="fas fa-cogs"></i>作用</h4>
                 <ul>
                     <li><strong>補充憲法內容</strong>：藉由行政法的補充，才能將憲法的內容具體化。例如，《憲法》保障人民的選舉、罷免、創制、複決權，而《公民投票法》則負責落實創制、複決權的細節。</li>
@@ -310,7 +349,7 @@
 
         <section id="action-section">
             <h2 class="section-title"><i class="fas fa-tasks"></i> 二、行政作用與行政責任</h2>
-            <div class="info-card" style="margin-top:0;">
+            <div class="info-card">
                 <h4><i class="fas fa-sliders-h"></i>行政管制</h4>
                 <p>指政府運用公權力干涉、限制人民從事某種行為，並制定行政規定，以增進公共利益、維護社會秩序。</p>
             </div>
@@ -322,7 +361,19 @@
                     <li><strong>帶來利益</strong>：如學校發放畢業證書、政府核發醫師執照。</li>
                 </ul>
             </div>
-            <div class="info-card">
+            <!-- ===== 新增互動：行政處分辨識 ===== -->
+            <div id="administrative-action-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-file-alt"></i> 行政處分辨識</h3>
+                <p class="interactive-prompt">下列何者屬於「行政處分」？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="true">警察對違規停車的車主開立罰單</button>
+                    <button class="interactive-btn" data-answer="false">立法院三讀通過《道路交通管理處罰條例》</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
+            <div class="info-card" style="margin-top:3rem;">
                 <h4><i class="fas fa-exclamation-triangle"></i>行政責任（行政罰）</h4>
                 <p>人民因故意或過失違反行政法時，應承擔的法律責任。種類包括：</p>
                 <ul>
@@ -348,6 +399,15 @@
                     <p><strong>例如</strong>：《酒駕防制教育及酒癮治療實施管理辦法》（命令）的內容，不得與《道路交通管理處罰條例》（法律）相牴觸。</p>
                 </div>
             </div>
+             <!-- ===== 新增互動：依法行政原則配對 ===== -->
+            <div id="legal-principle-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-tasks"></i> 依法行政原則配對</h3>
+                <p class="interactive-prompt">請將下列情境與其最相關的「依法行政原則」進行配對。</p>
+                <div class="matching-item" data-answer="supremacy"><p>1. 某市政府自訂的建築管理規則，其罰則不得比中央的《建築法》更重。</p><select class="matching-select"><option>請選擇</option><option value="reservation">法律保留原則</option><option value="supremacy">法律優位原則</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="reservation"><p>2. 警察不能隨意臨檢路人，必須有法律授權才能執行。</p><select class="matching-select"><option>請選擇</option><option value="reservation">法律保留原則</option><option value="supremacy">法律優位原則</option></select><i class="feedback-icon"></i></div>
+                <button class="matching-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="remedy-section">
@@ -369,7 +429,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="info-card" style="margin-top:1.5rem;">
+            <div class="info-card">
                 <h4>觀念比較：請願、訴願、行政訴訟</h4>
                  <div class="comparison-cards-container grid-3-col">
                     <div class="comparison-card"><h5><i class="fas fa-file-alt"></i>請願</h5><p><strong>原因：</strong>對國家政策、公共利害或個人權益有維護意見<br><strong>受理機關：</strong>民意機關或主管行政機關</p></div>
@@ -377,6 +437,16 @@
                     <div class="comparison-card"><h5><i class="fas fa-gavel"></i>行政訴訟</h5><p><strong>原因：</strong>對行政機關的訴願結果不服<br><strong>受理機關：</strong>行政法院</p></div>
                 </div>
             </div>
+             <!-- ===== 新增互動：請願、訴願、行政訴訟 配對 ===== -->
+            <div id="remedy-matching-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-tasks"></i> 行政救濟途徑配對</h3>
+                <p class="interactive-prompt">請將下列情境與其最適合的救濟或意見表達途徑進行配對。</p>
+                <div class="matching-item" data-answer="appeal"><p>1. 不服交通罰單，向上級機關申訴。</p><select class="matching-select"><option>請選擇</option><option value="petition">請願</option><option value="appeal">訴願</option><option value="litigation">行政訴訟</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="petition"><p>2. 向立委陳情，希望政府能重視流浪動物問題。</p><select class="matching-select"><option>請選擇</option><option value="petition">請願</option><option value="appeal">訴願</option><option value="litigation">行政訴訟</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="litigation"><p>3. 對訴願的結果仍然不服，決定告上法院。</p><select class="matching-select"><option>請選擇</option><option value="petition">請願</option><option value="appeal">訴願</option><option value="litigation">行政訴訟</option></select><i class="feedback-icon"></i></div>
+                <button class="matching-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="quiz-section">
@@ -405,6 +475,20 @@
                     <button class="option-btn" data-correct="false">(B) 顧客的訂單遭店家任意取消</button>
                     <button class="option-btn" data-correct="true">(C) 業者違反食安法規遭勒令歇業</button>
                     <button class="option-btn" data-correct="false">(D) 政治人物遭政論節目來賓誹謗</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            <div class="quiz-container" id="quiz3">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(模擬神給酷)</span></h3>
+                <div class="question">
+                    <p>阿光不服被警察開了一張交通罰單，於是他決定尋求救濟。根據我國現行的行政救濟程序，阿光應該先採取下列哪一個步驟？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 向地方法院提起民事訴訟</button>
+                    <button class="option-btn" data-correct="true">(B) 向原處分機關的上級機關提起訴願</button>
+                    <button class="option-btn" data-correct="false">(C) 向司法院大法官聲請釋憲</button>
+                    <button class="option-btn" data-correct="false">(D) 向監察院提出陳情</button>
                 </div>
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
@@ -439,15 +523,197 @@
         document.addEventListener('DOMContentLoaded', () => {
             let typingStarted = false; 
 
-            const typingSentences = [
-                "公民好神！我會遵守公民神會員守則！",
-                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
-                "公民神有三力：注意力、記憶力、戰鬥力！"
-            ];
-            const typingElementSpan = document.getElementById('typing-text-span');
+            // --- 互動卡片通用安裝函數 ---
+            function setupInteractiveCard(cardId, correctFeedbackHTML, wrongFeedbackHTML) {
+                const card = document.getElementById(cardId);
+                if (!card) return;
 
+                const buttons = card.querySelectorAll('.interactive-btn');
+                const feedbackArea = card.querySelector('.interactive-feedback');
+                const resetButton = card.querySelector('.interactive-reset-btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isCorrect = btn.dataset.answer === 'true';
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (isCorrect) {
+                            feedbackArea.innerHTML = correctFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-correct';
+                        } else {
+                            feedbackArea.innerHTML = wrongFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    buttons.forEach(b => b.disabled = false);
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                });
+            }
+
+            // --- 配對題通用安裝函數 ---
+            function setupMatchingQuiz(quizId) {
+                const quiz = document.getElementById(quizId);
+                if (!quiz) return;
+
+                const selects = quiz.querySelectorAll('.matching-select');
+                const resetButton = quiz.querySelector('.matching-reset-btn');
+
+                function handleMatchingChange(e) {
+                    const select = e.target;
+                    const selectedValue = select.value;
+                    const item = select.closest('.matching-item');
+                    const correctAnswer = item.dataset.answer;
+                    const feedbackIcon = item.querySelector('.feedback-icon');
+                    
+                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    feedbackIcon.textContent = '';
+                    if (selectedValue === "請選擇") {
+                        feedbackIcon.style.display = 'none';
+                        return;
+                    }
+                    feedbackIcon.style.display = 'inline-block';
+                    if (selectedValue === correctAnswer) {
+                        feedbackIcon.classList.add('icon-correct');
+                        feedbackIcon.textContent = '✓';
+                    } else {
+                        feedbackIcon.classList.add('icon-wrong');
+                        feedbackIcon.textContent = '✗';
+                    }
+                }
+
+                selects.forEach(select => {
+                    select.addEventListener('change', handleMatchingChange);
+                });
+
+                if(resetButton) {
+                    resetButton.style.display = 'block';
+                    resetButton.addEventListener('click', () => {
+                        selects.forEach(select => {
+                            select.selectedIndex = 0;
+                            const item = select.closest('.matching-item');
+                            const feedbackIcon = item.querySelector('.feedback-icon');
+                            feedbackIcon.style.display = 'none';
+                            feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                            feedbackIcon.textContent = '';
+                        });
+                    });
+                }
+            }
+
+            // --- 初始化所有互動卡片 ---
+            setupInteractiveCard(
+                'administrative-action-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>開立罰單是行政機關（警察）針對「特定人民」的「具體違規事件」所做的決定，直接影響其權利義務（需繳納罰鍰），是典型的行政處分。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>立法院三讀通過法律是「立法行為」，針對的是不特定的大眾，屬於抽象的法規。而「行政處分」是針對具體事件對特定人所做的決定。'
+            );
+
+            setupInteractiveCard(
+                'remedy-flow-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 完全正確！</strong>我國行政救濟採「訴願先行主義」，必須先向原處分機關或其上級機關提起訴願，若對訴願結果不服，才能向行政法院提起行政訴訟。',
+                '<strong><i class="fas fa-times-circle"></i> 這個流程很重要喔！</strong>我國行政救濟原則上採「訴願先行主義」，不能直接打行政官司，必須先走完訴願程序。'
+            );
+            
+            // --- 初始化所有配對題 ---
+            setupMatchingQuiz('legal-principle-quiz');
+            setupMatchingQuiz('remedy-matching-quiz');
+
+            // --- 會考歷屆試題區塊 ---
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>題目中政府對業者處以「罰鍰」，這是一種<strong class="highlight-text">行政罰</strong>，屬於行政責任。(D)父母因縱容少年抽菸而遭行政處分，同樣是違反行政法規而受到的行政責任，兩者類型相同。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 拒絕歸還相機，屬於民事上的「債務不履行」，應負民事責任。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 竊取財物是犯罪行為，應負刑事責任。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C)</strong> 民眾對政策不滿，屬於政治責任的範疇，而非法律責任。</p>`
+                },
+                quiz2: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>電視臺因主管機關的「行政處分」（開罰）而感到權益受損，因此可循<strong class="highlight-text">行政救濟</strong>途徑，即「訴願」與「行政訴訟」。(C)業者因違反食安法規遭勒令歇業，同樣是受到行政處分，因此可以採取的救濟方式（訴願、行政訴訟）與電視臺相同。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 店面遭撞毀，屬於民事侵權，應循民事訴訟求償。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 訂單遭取消，屬於民事契約糾紛，應循民事程序解決。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 遭人誹謗，屬於刑事（妨害名譽罪）與民事（侵權）糾紛，應循刑事或民事程序解決。</p>`
+                },
+                quiz3: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>交通罰單是警察機關（行政機關）所做的「行政處分」。人民若不服，應循「行政救濟」途徑。根據<strong class="highlight-text">訴願先行原則</strong>，必須先向原處分機關的上級機關提起「訴願」，若對訴願結果仍不服，才能向行政法院提起「行政訴訟」。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 民事訴訟是用來解決私人間的糾紛，與人民對政府的處分無關。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C)</strong> 聲請釋憲是針對「法律」或「命令」本身是否違憲，而非針對單一的「行政處分」。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 向監察院陳情是一種表達意見的方式，但不具備正式的救濟效力，也不是提起行政訴訟的前置程序。</p>`
+                }
+            };
+            
+            const mcqContainers = document.querySelectorAll('.quiz-container[id]');
+            
+            mcqContainers.forEach((container) => {
+                const quizId = container.id;
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
+
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
+
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        
+                        optionButtons.forEach(btn => {
+                            btn.disabled = true;
+                        });
+
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = quizData.correct;
+                        } else {
+                            const optionLetter = button.textContent.substring(1, 2);
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            feedbackArea.innerHTML = quizData[optionLetter];
+                        }
+                        feedbackArea.className = 'feedback-area ' + (isCorrect ? 'feedback-correct' : 'feedback-wrong');
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
+                    });
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+            
+            // Section fade-in animation and typing effect
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
+                            typingStarted = true;
+                            startTypingLoop();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 }); 
+            sections.forEach(section => observer.observe(section));
+            
+            const typingElementSpan = document.getElementById('typing-text-span');
             function startTypingLoop() {
                 if (!typingElementSpan) return;
+                const typingSentences = [
+                    "公民好神！我會遵守公民神會員守則！",
+                    "努力向上、勇往直前、不畏艱難，我要成為公民神！",
+                    "公民神有三力：注意力、記憶力、戰鬥力！"
+                ];
                 let sentenceIndex = 0;
                 let charIndex = 0;
                 let isDeleting = false;
@@ -477,90 +743,12 @@
                 }
                 loop();
             }
-            
-            const sections = document.querySelectorAll('section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
-                            typingStarted = true;
-                            startTypingLoop();
-                        }
-                    }
-                });
-            }, { threshold: 0.1 }); 
-            
-            sections.forEach(section => observer.observe(section));
 
-            const allQuizData = {
-                quiz1: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>題目中政府對業者處以「罰鍰」，這是一種<strong class="highlight-text">行政罰</strong>，屬於行政責任。(D)父母因縱容少年抽菸而遭行政處分，同樣是違反行政法規而受到的行政責任，兩者類型相同。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 拒絕歸還相機，屬於民事上的「債務不履行」，應負民事責任。</p>`,
-                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 竊取財物是犯罪行為，應負刑事責任。</p>`,
-                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C)</strong> 民眾對政策不滿，屬於政治責任的範疇，而非法律責任。</p>`
-                },
-                quiz2: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>電視臺因主管機關的「行政處分」（開罰）而感到權益受損，因此可循<strong class="highlight-text">行政救濟</strong>途徑，即「訴願」與「行政訴訟」。(C)業者因違反食安法規遭勒令歇業，同樣是受到行政處分，因此可以採取的救濟方式（訴願、行政訴訟）與電視臺相同。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 店面遭撞毀，屬於民事侵權，應循民事訴訟求償。</p>`,
-                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 訂單遭取消，屬於民事契約糾紛，應循民事程序解決。</p>`,
-                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 遭人誹謗，屬於刑事（妨害名譽罪）與民事（侵權）糾紛，應循刑事或民事程序解決。</p>`
-                }
-            };
-            
-            const quizContainers = document.querySelectorAll('.quiz-container');
-            
-            quizContainers.forEach((container) => {
-                const quizId = container.id;
-                if (!quizId) return;
-                const quizData = allQuizData[quizId];
-                if (!quizData) return;
-
-                const optionButtons = container.querySelectorAll('.option-btn');
-                const feedbackArea = container.querySelector('.feedback-area');
-                const resetButton = container.querySelector('.reset-btn');
-
-                optionButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        const isCorrect = button.dataset.correct === 'true';
-                        
-                        optionButtons.forEach(btn => {
-                            btn.disabled = true;
-                        });
-
-                        if (isCorrect) {
-                            button.classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId].correct;
-                            feedbackArea.className = 'feedback-area feedback-correct';
-                        } else {
-                            const optionLetter = button.textContent.substring(1, 2);
-                            button.classList.add('wrong');
-                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
-                            feedbackArea.className = 'feedback-area feedback-wrong';
-                        }
-                        feedbackArea.style.display = 'block';
-                        resetButton.style.display = 'block';
-                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    });
-                });
-                
-                resetButton.addEventListener('click', () => {
-                    optionButtons.forEach(btn => {
-                        btn.disabled = false;
-                        btn.classList.remove('correct', 'wrong');
-                    });
-                    feedbackArea.style.display = 'none';
-                    resetButton.style.display = 'none';
-                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                });
-            });
-
+            // Mascot JS
             const mascotContainer = document.getElementById('mascot-container');
             const mascotImg = document.getElementById('mascot-img');
             const speechBubble = document.getElementById('mascot-speech');
-            
-            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            const messages = ["公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！"];
             let messageIndex = 0;
             let clickTimer = null;
             let speechTimeout = null;

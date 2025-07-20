@@ -156,6 +156,21 @@
             position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
         
+        /* --- 互動卡片樣式 --- */
+        .interactive-card { background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05)); padding: 2rem; border-radius: 15px; border-left: 5px solid var(--secondary-glow); margin-top: 3rem; box-shadow: 0 0 15px rgba(255, 0, 255, 0.1); }
+        .interactive-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--secondary-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; text-align: center; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+        .interactive-feedback.feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .interactive-feedback.feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .interactive-reset-btn { display: none; margin: 1rem auto 0; padding: 0.6rem 1.5rem; font-size: 0.9rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .interactive-reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 10px var(--accent-glow); }
+        /* --- 結束互動樣式 --- */
+
         .comparison-cards-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -298,6 +313,7 @@
             
             .comparison-cards-container.grid-3-col,
             .comparison-cards-container,
+            .interactive-options,
             .law-options-list {
                 grid-template-columns: 1fr;
             }
@@ -331,6 +347,20 @@
                  <div class="info-card"><h4><i class="fas fa-palette"></i>國際交流</h4><p>國與國間透過政府或民間團體進行經濟貿易、學術文化、藝術表演、體育競賽等活動的跨國交流。</p></div>
                  <div class="info-card"><h4><i class="fas fa-exclamation-triangle"></i>國際衝突</h4><p>因族群、宗教、政治、領土、資源等因素，國與國間產生糾紛或衝突，處理不當可能會引發戰爭。</p></div>
             </div>
+            <!-- ===== 新增互動：國際互動辨識 ===== -->
+            <div id="interaction-type-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-lightbulb"></i> 國際互動辨識</h3>
+                <p class="interactive-prompt">各國簽署《巴黎協定》，承諾共同合作減少碳排放以應對氣候變遷。這最能代表何種國際互動？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">國際援助</button>
+                    <button class="interactive-btn" data-answer="true">國際合作</button>
+                    <button class="interactive-btn" data-answer="false">國際交流</button>
+                    <button class="interactive-btn" data-answer="false">國際衝突</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="org-section">
@@ -343,6 +373,18 @@
                     <div class="comparison-card"><h5><i class="fas fa-users"></i>依成員：政府 vs. 非政府</h5><ul><li><strong>政府的 (IGO)：</strong>成員為<strong class="highlight-text">主權國家</strong>政府。<br>舉例：EU、WHO、UN</li><li><strong>非政府的 (NGO)：</strong>成員為<strong class="highlight-text">人民</strong>或<strong class="highlight-text">民間團體</strong>。<br>舉例：無國界醫生、臺灣路竹會</li></ul></div>
                 </div>
             </div>
+            <!-- ===== 新增互動：國際組織類型辨識 ===== -->
+            <div id="org-type-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-user-md"></i> 國際組織類型辨識</h3>
+                <p class="interactive-prompt">「無國界醫生」是由世界各地的專業醫護人員自願組成的團體，在戰區或落後地區提供醫療服務。它屬於何種類型的國際組織？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">政府間國際組織 (IGO)</button>
+                    <button class="interactive-btn" data-answer="true">非政府國際組織 (NGO)</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="taiwan-participation-section">
@@ -371,6 +413,18 @@
                     </ul>
                 </div>
             </div>
+            <!-- ===== 新增互動：我國國際參與 ===== -->
+            <div id="taiwan-participation-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-globe-asia"></i> 我國國際參與</h3>
+                <p class="interactive-prompt">根據課文內容，我國是以何種名義加入「世界貿易組織」(WTO)？</p>
+                <div class="interactive-options" style="grid-template-columns: 1fr;">
+                    <button class="interactive-btn" data-answer="false">中華臺北</button>
+                    <button class="interactive-btn" data-answer="true">臺澎金馬個別關稅領域</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="quiz-section">
@@ -456,15 +510,169 @@
         document.addEventListener('DOMContentLoaded', () => {
             let typingStarted = false; 
 
-            const typingSentences = [
-                "公民好神！我會遵守公民神會員守則！",
-                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
-                "公民神有三力：注意力、記憶力、戰鬥力！"
-            ];
-            const typingElementSpan = document.getElementById('typing-text-span');
+             // --- 互動卡片通用安裝函數 ---
+            function setupInteractiveCard(cardId, correctFeedbackHTML, wrongFeedbackHTML) {
+                const card = document.getElementById(cardId);
+                if (!card) return;
 
+                const buttons = card.querySelectorAll('.interactive-btn');
+                const feedbackArea = card.querySelector('.interactive-feedback');
+                const resetButton = card.querySelector('.interactive-reset-btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isCorrect = btn.dataset.answer === 'true';
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (isCorrect) {
+                            feedbackArea.innerHTML = correctFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-correct';
+                        } else {
+                            feedbackArea.innerHTML = wrongFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    buttons.forEach(b => b.disabled = false);
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                });
+            }
+
+            // --- 初始化所有互動卡片 ---
+            setupInteractiveCard(
+                'interaction-type-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>透過「簽訂條約」來達成「共同目標」(應對氣候變遷)，是「國際合作」的典型方式。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>國際援助偏向單向的協助。而《巴黎協定》是多個國家共同承諾、共同行動，因此屬於「國際合作」。'
+            );
+            setupInteractiveCard(
+                'org-type-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 答對了！</strong>因為其成員是來自民間的個人或團體，而非各國政府，所以屬於「非政府國際組織」(NGO)。',
+                '<strong><i class="fas fa-times-circle"></i> 再想想...</strong>政府間國際組織 (IGO) 的成員必須是主權國家政府。無國界醫生的成員是自願參與的個人，所以是 NGO 喔！'
+            );
+            setupInteractiveCard(
+                'taiwan-participation-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 完全正確！</strong>因應國際現實，我國是以經濟體的名義，使用「臺澎金馬個別關稅領域」的名稱加入世界貿易組織(WTO)。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>「中華臺北」是我國參與 APEC 或奧運等活動的名稱。在 WTO 中，我們使用的是更符合其經濟體性質的「臺澎金馬個別關稅領域」。'
+            );
+            
+            // --- Matching Quiz ---
+            const matchingSelects = document.querySelectorAll('.matching-select');
+            matchingSelects.forEach(select => {
+                select.addEventListener('change', (e) => {
+                    const selectedValue = e.target.value;
+                    const item = e.target.closest('.matching-item');
+                    const correctAnswer = item.dataset.answer;
+                    const feedbackIcon = item.querySelector('.feedback-icon');
+                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    feedbackIcon.innerHTML = '';
+                    if (selectedValue === "請選擇") {
+                        feedbackIcon.style.display = 'none';
+                        return;
+                    }
+                    feedbackIcon.style.display = 'inline-block';
+                    if (selectedValue === correctAnswer) {
+                        feedbackIcon.classList.add('icon-correct');
+                        feedbackIcon.innerHTML = '✓';
+                    } else {
+                        feedbackIcon.classList.add('icon-wrong');
+                        feedbackIcon.innerHTML = '✗';
+                    }
+                });
+            });
+            
+            // --- 會考歷屆試題區塊 (修正後邏輯) ---
+            const allQuizData = {
+                quiz2: { // 對應 HTML id="quiz2"
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>題目描述泰國與我國警方「聯手」破獲「跨國」詐騙集團，這是一種為了共同利益（打擊犯罪）而進行的跨國行動，屬於<strong class="highlight-text">國際合作</strong>。面對日益猖獗的跨國犯罪，單一國家很難有效打擊，因此未來各國應更加重視透過國際合作來共同應對。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>國際援助通常指對受災或低度開發國家的協助，與共同打擊犯罪的性質不同。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>國際分工是經濟層面的合作，與司法警政合作無關。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>此案例是既有國家單位間的合作，並非成立新的國際組織來減少衝突。</p>`
+                },
+                quiz3: { // 對應 HTML id="quiz3"
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>聯合國糧食與農業組織是<strong class="highlight-text">聯合國</strong>下的專門機構，其成員是各國「政府」，且其處理的糧食議題是「全球性」的。因此，它是一個「全球性」的「政府間」國際組織。(C)世界貿易組織(WTO)同樣是成員為各國政府、處理全球貿易議題的組織，兩者性質最類似。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>歐洲聯盟是「區域性」的政府間組織。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>世界展望會是「非政府」的國際組織 (NGO)。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>國際綠色和平組織是「非政府」的國際組織 (NGO)。</p>`
+                }
+            };
+            
+            const mcqContainers = document.querySelectorAll('.quiz-container[id]');
+            
+            mcqContainers.forEach((container) => {
+                const quizId = container.id;
+                if (!container.querySelector('.option-btn')) return; // 跳過非選擇題的容器
+                
+                const quizData = allQuizData[quizId];
+                if (!quizData) return; // 如果這個ID沒有對應的題目資料，也跳過
+
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
+
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        
+                        optionButtons.forEach(btn => {
+                            btn.disabled = true;
+                        });
+
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = quizData.correct;
+                            feedbackArea.className = 'feedback-area feedback-correct';
+                        } else {
+                            const optionLetter = button.textContent.substring(1, 2);
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            feedbackArea.innerHTML = quizData[optionLetter];
+                            feedbackArea.className = 'feedback-area feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
+                    });
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+
+            // Section fade-in animation and typing effect
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
+                            typingStarted = true;
+                            startTypingLoop();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 }); 
+            sections.forEach(section => observer.observe(section));
+            
+            const typingElementSpan = document.getElementById('typing-text-span');
             function startTypingLoop() {
                 if (!typingElementSpan) return;
+                const typingSentences = [
+                    "公民好神！我會遵守公民神會員守則！",
+                    "努力向上、勇往直前、不畏艱難，我要成為公民神！",
+                    "公民神有三力：注意力、記憶力、戰鬥力！"
+                ];
                 let sentenceIndex = 0;
                 let charIndex = 0;
                 let isDeleting = false;
@@ -494,116 +702,11 @@
                 }
                 loop();
             }
-            
-            const sections = document.querySelectorAll('section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
-                            typingStarted = true;
-                            startTypingLoop();
-                        }
-                    }
-                });
-            }, { threshold: 0.1 }); 
-            
-            sections.forEach(section => observer.observe(section));
 
-            const matchingSelects = document.querySelectorAll('.matching-select');
-            matchingSelects.forEach(select => {
-                select.addEventListener('change', (e) => {
-                    const selectedValue = e.target.value;
-                    const item = e.target.closest('.matching-item');
-                    const correctAnswer = item.dataset.answer;
-                    const feedbackIcon = item.querySelector('.feedback-icon');
-                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
-                    feedbackIcon.innerHTML = '';
-                    if (selectedValue === "請選擇") {
-                        feedbackIcon.style.display = 'none';
-                        return;
-                    }
-                    feedbackIcon.style.display = 'inline-block';
-                    if (selectedValue === correctAnswer) {
-                        feedbackIcon.classList.add('icon-correct');
-                        feedbackIcon.innerHTML = '✓';
-                    } else {
-                        feedbackIcon.classList.add('icon-wrong');
-                        feedbackIcon.innerHTML = '✗';
-                    }
-                });
-            });
-
-            const allQuizData = {
-                quiz1: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>題目描述泰國與我國警方「聯手」破獲「跨國」詐騙集團，這是一種為了共同利益（打擊犯罪）而進行的跨國行動，屬於<strong class="highlight-text">國際合作</strong>。面對日益猖獗的跨國犯罪，單一國家很難有效打擊，因此未來各國應更加重視透過國際合作來共同應對。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>國際援助通常指對受災或低度開發國家的協助，與共同打擊犯罪的性質不同。</p>`,
-                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>國際分工是經濟層面的合作，與司法警政合作無關。</p>`,
-                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>此案例是既有國家單位間的合作，並非成立新的國際組織來減少衝突。</p>`
-                },
-                quiz2: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>聯合國糧食與農業組織是<strong class="highlight-text">聯合國</strong>下的專門機構，其成員是各國「政府」，且其處理的糧食議題是「全球性」的。因此，它是一個「全球性」的「政府間」國際組織。(C)世界貿易組織(WTO)同樣是成員為各國政府、處理全球貿易議題的組織，兩者性質最類似。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>歐洲聯盟是「區域性」的政府間組織。</p>`,
-                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>世界展望會是「非政府」的國際組織 (NGO)。</p>`,
-                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>國際綠色和平組織是「非政府」的國際組織 (NGO)。</p>`
-                }
-            };
-            
-            const mcqContainers = document.querySelectorAll('.quiz-container');
-            let mcqIndex = 0;
-            mcqContainers.forEach((container) => {
-                if(container.querySelector('.option-btn')) {
-                    mcqIndex++;
-                    const quizId = `quiz${mcqIndex}`; 
-                    container.id = quizId;
-                    const quizData = allQuizData[quizId];
-                    if (!quizData) return;
-
-                    const optionButtons = container.querySelectorAll('.option-btn');
-                    const feedbackArea = container.querySelector('.feedback-area');
-                    const resetButton = container.querySelector('.reset-btn');
-
-                    optionButtons.forEach(button => {
-                        button.addEventListener('click', () => {
-                            const isCorrect = button.dataset.correct === 'true';
-                            
-                            optionButtons.forEach(btn => {
-                                btn.disabled = true;
-                            });
-
-                            if (isCorrect) {
-                                button.classList.add('correct');
-                                feedbackArea.innerHTML = quizData.correct;
-                                feedbackArea.className = 'feedback-area feedback-correct';
-                            } else {
-                                const optionLetter = button.textContent.substring(1, 2);
-                                button.classList.add('wrong');
-                                container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
-                                feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
-                                feedbackArea.className = 'feedback-area feedback-wrong';
-                            }
-                            feedbackArea.style.display = 'block';
-                            resetButton.style.display = 'block';
-                            feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        });
-                    });
-                    
-                    resetButton.addEventListener('click', () => {
-                        optionButtons.forEach(btn => {
-                            btn.disabled = false;
-                            btn.classList.remove('correct', 'wrong');
-                        });
-                        feedbackArea.style.display = 'none';
-                        resetButton.style.display = 'none';
-                        container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    });
-                }
-            });
-
+            // Mascot JS
             const mascotContainer = document.getElementById('mascot-container');
             const mascotImg = document.getElementById('mascot-img');
             const speechBubble = document.getElementById('mascot-speech');
-            
             const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
             let messageIndex = 0;
             let clickTimer = null;

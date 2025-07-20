@@ -156,14 +156,30 @@
             position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
         
+        /* --- 互動卡片樣式 --- */
+        .interactive-card { background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05)); padding: 2rem; border-radius: 15px; border-left: 5px solid var(--secondary-glow); margin-top: 3rem; box-shadow: 0 0 15px rgba(255, 0, 255, 0.1); }
+        .interactive-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--secondary-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+        .interactive-feedback.feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .interactive-feedback.feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .interactive-reset-btn, .matching-reset-btn { display: none; margin: 1rem auto 0; padding: 0.6rem 1.5rem; font-size: 0.9rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .interactive-reset-btn:hover, .matching-reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 10px var(--accent-glow); }
+        /* --- 結束互動樣式 --- */
+
         .comparison-cards-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1rem;
+            gap: 1.5rem;
             margin-top: 1.5rem;
         }
         
         .quiz-container { margin-bottom: 3rem; }
+        .quiz-container:last-child { margin-bottom: 0; }
         .quiz-title {
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
@@ -192,6 +208,36 @@
         .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
         .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
         .reset-btn:hover { transform: scale(1.05); }
+
+        .matching-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .matching-item:last-child { border-bottom: none; }
+        .matching-item p { flex-grow: 1; margin: 0; }
+        .matching-select { background-color: var(--bg-dark); color: var(--text-color); border: 1px solid var(--primary-glow); border-radius: 5px; padding: 0.4rem; font-family: inherit; font-size: 1rem; cursor: pointer; }
+        .feedback-icon { font-size: 1.2rem; font-weight: 900; display: none; }
+        .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
+        .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
+        
+        .law-options-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .law-option-item {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .law-option-label {
+            color: var(--accent-glow);
+            font-weight: 700;
+            margin-right: 0.5em;
+            font-family: 'Orbitron', sans-serif;
+        }
         
         .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect {
@@ -237,6 +283,7 @@
         @media (max-width: 768px) {
             .container { padding: 1rem; }
             section { padding: 1.5rem; }
+            .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
             
             .comparison-cards-container {
                 grid-template-columns: 1fr;
@@ -278,6 +325,19 @@
                 <p style="margin-top: 1rem;"><strong>後天的：</strong>須經由<strong class="highlight-text">個人努力</strong>，才可以取得的社會地位。</p>
                 <ul><li>如所得、職業、教育程度等。是一種成就的展現。</li></ul>
             </div>
+            
+            <!-- ===== 新增互動：社會地位辨析 ===== -->
+            <div id="status-distinction-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-graduation-cap"></i> 社會地位辨析</h3>
+                <p class="interactive-prompt"><b>判斷：</b>「小明透過努力讀書考上理想大學，獲得了較高的教育程度。」這屬於一種「天生」的社會地位。</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">正確 (O)</button>
+                    <button class="interactive-btn" data-answer="true">錯誤 (X)</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="unjust-situations-section">
@@ -314,6 +374,24 @@
                     <p><strong>處境：</strong><br>1. 富人有較多學習資源，窮人因經濟資源不足而發展受限。<br>2. 低所得家庭出現世代間的惡性循環。</p>
                 </div>
             </div>
+
+            <!-- ===== 新增互動：不公平處境配對 ===== -->
+            <div id="injustice-matching-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-tasks"></i> 不公平處境配對</h3>
+                <p class="interactive-prompt">請將下列情境與其最相關的「不公平處境」類型進行配對。</p>
+                <div class="law-options-list">
+                    <div class="law-option-item"><span class="law-option-label">A</span> 族群</div>
+                    <div class="law-option-item"><span class="law-option-label">B</span> 身心障礙</div>
+                    <div class="law-option-item"><span class="law-option-label">C</span> 城鄉差距</div>
+                    <div class="law-option-item"><span class="law-option-label">D</span> 貧富差距</div>
+                </div>
+                <div class="matching-item" data-answer="D"><p>1. 弱勢家庭的孩子因經濟困難，無法負擔補習費用。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="B"><p>2. 許多人行道高低不平，導致輪椅使用者通行困難。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="A"><p>3. 雇主因為國籍而拒絕聘用能力優秀的外籍移工。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="C"><p>4. 偏鄉地區的居民需要花數小時車程才能到大醫院看病。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+                <button class="matching-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="promoting-justice-section">
@@ -341,6 +419,19 @@
                 <p>1. 立法機關制定法律推動。<br>2. 行政部門妥善規畫與執行政策。</p>
                 <p><strong>舉例：</strong><br>1. 政府制定性別平等相關法律，保障不同性別者的權益。<br>2. 制定公平稅制，縮短貧富差距。</p>
             </div>
+
+            <!-- ===== 新增互動：公平正義內涵思考 ===== -->
+            <div id="justice-concept-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-balance-scale"></i> 公平正義內涵思考</h3>
+                <p class="interactive-prompt">政府為身心障礙學生舉辦升學考試時，提供延長考試時間、放大試卷等特殊安排。這項措施主要體現了公平正義的哪一項內涵？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">讓每個人得到均等的機會</button>
+                    <button class="interactive-btn" data-answer="true">讓弱勢者得到更多的照顧</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="quiz-section">
@@ -437,7 +528,106 @@
             }, { threshold: 0.1 }); 
             sections.forEach(section => observer.observe(section));
 
-            // Quiz logic
+            // --- 互動卡片通用安裝函數 ---
+            function setupInteractiveCard(cardId, correctFeedbackHTML, wrongFeedbackHTML) {
+                const card = document.getElementById(cardId);
+                if (!card) return;
+
+                const buttons = card.querySelectorAll('.interactive-btn');
+                const feedbackArea = card.querySelector('.interactive-feedback');
+                const resetButton = card.querySelector('.interactive-reset-btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isCorrect = btn.dataset.answer === 'true';
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (isCorrect) {
+                            feedbackArea.innerHTML = correctFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-correct';
+                        } else {
+                            feedbackArea.innerHTML = wrongFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    buttons.forEach(b => b.disabled = false);
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                });
+            }
+
+            // --- 配對題通用安裝函數 ---
+            function setupMatchingQuiz(quizId) {
+                const quiz = document.getElementById(quizId);
+                if (!quiz) return;
+
+                const selects = quiz.querySelectorAll('.matching-select');
+                const resetButton = quiz.querySelector('.matching-reset-btn');
+
+                function handleMatchingChange(e) {
+                    const select = e.target;
+                    const selectedValue = select.value;
+                    const item = select.closest('.matching-item');
+                    const correctAnswer = item.dataset.answer;
+                    const feedbackIcon = item.querySelector('.feedback-icon');
+                    
+                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    feedbackIcon.textContent = '';
+                    if (selectedValue === "請選擇") {
+                        feedbackIcon.style.display = 'none';
+                        return;
+                    }
+                    feedbackIcon.style.display = 'inline-block';
+                    if (selectedValue === correctAnswer) {
+                        feedbackIcon.classList.add('icon-correct');
+                        feedbackIcon.textContent = '✓';
+                    } else {
+                        feedbackIcon.classList.add('icon-wrong');
+                        feedbackIcon.textContent = '✗';
+                    }
+                }
+
+                selects.forEach(select => {
+                    select.addEventListener('change', handleMatchingChange);
+                });
+
+                if(resetButton) {
+                    resetButton.style.display = 'block';
+                    resetButton.addEventListener('click', () => {
+                        selects.forEach(select => {
+                            select.selectedIndex = 0;
+                            const item = select.closest('.matching-item');
+                            const feedbackIcon = item.querySelector('.feedback-icon');
+                            feedbackIcon.style.display = 'none';
+                            feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                            feedbackIcon.textContent = '';
+                        });
+                    });
+                }
+            }
+
+            // --- 初始化所有互動卡片 ---
+            setupInteractiveCard(
+                'status-distinction-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>透過「個人努力」而獲得的教育程度，屬於「後天」的社會地位。天生的社會地位則是指性別、家世等與生俱來的條件。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>「天生」的社會地位是無法靠努力改變的（如性別、種族）。小明透過努力讀書獲得的學歷，是典型的「後天」成就地位。'
+            );
+
+            setupInteractiveCard(
+                'justice-concept-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 完全正確！</strong>提供特殊安排並不是給予特權，而是為了彌補身心障礙者先天的劣勢，讓他們能和一般考生在「實質上」平等的基礎上競爭。這正是「讓弱勢者得到更多的照顧」以實現真正公平的體現。',
+                '<strong><i class="fas fa-times-circle"></i> 再想一下！</strong>「均等的機會」是指齊頭式的平等，例如讓所有考生都在一樣的時間內考試。但這樣對身心障礙者反而不公平。因此，提供額外協助是為了「讓弱勢者得到更多的照顧」，以達到實質的公平。'
+            );
+
+            // --- 初始化所有配對題 ---
+            setupMatchingQuiz('injustice-matching-quiz');
+
+            // --- 會考歷屆試題區塊 ---
             const allQuizData = {
                 quiz1: {
                     correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>政府針對「離島地區」居民提供交通補貼，是為了彌補他們因地理位置偏遠而需負擔較高交通成本的不利情況。這項政策旨在縮小「都市」與「離島（偏鄉）」之間因資源分配不均所產生的差距，也就是解決<strong class="highlight-text">城鄉差距</strong>問題。</p>`,

@@ -155,7 +155,22 @@
             content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
             position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
-        
+
+        /* --- 互動卡片樣式 --- */
+        .interactive-card { background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05)); padding: 2rem; border-radius: 15px; border-left: 5px solid var(--secondary-glow); margin-top: 3rem; box-shadow: 0 0 15px rgba(255, 0, 255, 0.1); }
+        .interactive-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--secondary-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; text-align: center; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+        .interactive-feedback.feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .interactive-feedback.feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .interactive-reset-btn { display: none; margin: 1rem auto 0; padding: 0.6rem 1.5rem; font-size: 0.9rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .interactive-reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 10px var(--accent-glow); }
+        /* --- 結束互動樣式 --- */
+
         .comparison-cards-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -266,7 +281,8 @@
             section { padding: 1.5rem; }
             
             .comparison-cards-container.grid-3-col,
-            .comparison-cards-container {
+            .comparison-cards-container,
+            .interactive-options {
                 grid-template-columns: 1fr;
             }
             #quiz-section .options { grid-template-columns: 1fr; }
@@ -299,6 +315,19 @@
                  <div class="info-card"><h4><i class="fas fa-landmark"></i>政治全球化</h4><p>指各國政府為因應全球性問題，成立國際組織，共同制訂政策。例如：聯合國大會以壓倒性票數通過，強力譴責俄羅斯侵略烏克蘭。</p></div>
                  <div class="info-card"><h4><i class="fas fa-palette"></i>文化全球化</h4><p>指文化跨越國界在全球流通的現象。例如：好萊塢電影風靡全球，改變部分國家民眾的生活習慣與價值觀念。</p></div>
             </div>
+             <!-- ===== 新增互動：全球化面向辨識 ===== -->
+            <div id="globalization-type-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-lightbulb"></i> 全球化面向辨識</h3>
+                <p class="interactive-prompt">韓國流行音樂（K-POP）在世界各地擁有大量粉絲，影響了全球年輕人的穿著與舞蹈風格。這最能體現全球化的哪個面向？</p>
+                <div class="interactive-options" style="grid-template-columns: 1fr;">
+                    <button class="interactive-btn" data-answer="false">經濟全球化</button>
+                    <button class="interactive-btn" data-answer="false">政治全球化</button>
+                    <button class="interactive-btn" data-answer="true">文化全球化</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="globalization-issues-section">
@@ -329,6 +358,19 @@
                     </ul>
                 </div>
             </div>
+            <!-- ===== 新增互動：全球化議題思考 ===== -->
+            <div id="globalization-issue-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-balance-scale"></i> 全球化議題思考</h3>
+                <p class="interactive-prompt">當我們在超市選購咖啡豆時，看到包裝上有「公平貿易」的標章，這主要是為了因應全球化帶來的哪一項負面問題？</p>
+                <div class="interactive-options" style="grid-template-columns: 1fr;">
+                     <button class="interactive-btn" data-answer="true">貧富差距擴大</button>
+                    <button class="interactive-btn" data-answer="false">疾病跨國傳播</button>
+                    <button class="interactive-btn" data-answer="false">國際移工文化衝突</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
         
         <section id="quiz-section">
@@ -391,15 +433,136 @@
         document.addEventListener('DOMContentLoaded', () => {
             let typingStarted = false; 
 
-            const typingSentences = [
-                "公民好神！我會遵守公民神會員守則！",
-                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
-                "公民神有三力：注意力、記憶力、戰鬥力！"
-            ];
-            const typingElementSpan = document.getElementById('typing-text-span');
+            // --- 互動卡片通用安裝函數 ---
+            function setupInteractiveCard(cardId, correctFeedbackHTML, wrongFeedbackHTML) {
+                const card = document.getElementById(cardId);
+                if (!card) return;
 
+                const buttons = card.querySelectorAll('.interactive-btn');
+                const feedbackArea = card.querySelector('.interactive-feedback');
+                const resetButton = card.querySelector('.interactive-reset-btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isCorrect = btn.dataset.answer === 'true';
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (isCorrect) {
+                            feedbackArea.innerHTML = correctFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-correct';
+                        } else {
+                            feedbackArea.innerHTML = wrongFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    buttons.forEach(b => b.disabled = false);
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                });
+            }
+
+            // --- 初始化所有互動卡片 ---
+            setupInteractiveCard(
+                'globalization-type-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>流行音樂、穿著、舞蹈風格等生活方式與價值觀的跨國傳播，是「文化全球化」最典型的例子。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>題目強調的是「生活風格」的影響，這屬於文化層面。經濟全球化偏重商品、資金流動；政治全球化則偏重國際組織與政策。'
+            );
+            setupInteractiveCard(
+                'globalization-issue-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 非常好！</strong>「公平貿易」的核心精神就是保障開發中國家的生產者能獲得合理的報酬，避免被跨國企業剝削，直接針對全球化下的「貧富差距」與「不公平貿易」問題提出解方。',
+                '<strong><i class="fas fa-times-circle"></i> 再想一下！</strong>公平貿易標章是確保生產者獲得合理報酬，這與疾病防治或文化衝突沒有直接關聯，而是針對經濟分配不均的問題。'
+            );
+
+            // --- 會考歷屆試題區塊 ---
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>題目描述了原產於美洲的藍蟹，因「國際貿易」被帶到地中海，進而對法國和突尼西亞的漁民生活產生了截然不同的影響（衝擊vs.商機）。這整個過程——物種因跨國流動而影響不同地區的生活——正是<strong class="highlight-text">全球化現象</strong>的典型例子。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>題目描述了漁民的受惠（突尼西亞）與受衝擊（法國），但核心在於探討造成此現象的「全球化」因素，而非單純的市場競爭。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>衝擊的來源是外來「物種」，而非外來「文化」。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>題目中並未提及資訊科技的應用。</p>`
+                },
+                quiz2: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>全球化是指跨國的生產、文化擴散及資訊科技發展所形成的社會關連。選項(A)金融、(B)經濟、(C)疾病的跨國傳播都屬於全球化的範疇。而(D)地震海嘯是屬於<strong class="highlight-text">區域性的「天災」</strong>，並非全球交流互動所造成的現象，因此與全球化發展最不相關。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>金融風暴是典型的「經濟全球化」現象，一國的金融問題會迅速影響全球。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>糧食是全球貿易商品，一地的歉收會影響國際糧價，屬於「經濟全球化」。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>疾病因跨國人員流動而傳播，是「全球化」帶來的負面議題之一。</p>`
+                }
+            };
+            
+            const mcqContainers = document.querySelectorAll('.quiz-container[id]');
+            
+            mcqContainers.forEach((container) => {
+                const quizId = container.id;
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
+
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
+
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        
+                        optionButtons.forEach(btn => {
+                            btn.disabled = true;
+                        });
+
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = quizData.correct;
+                        } else {
+                            const optionLetter = button.textContent.substring(1, 2);
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            feedbackArea.innerHTML = quizData[optionLetter];
+                        }
+                        feedbackArea.className = 'feedback-area ' + (isCorrect ? 'feedback-correct' : 'feedback-wrong');
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
+                    });
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+
+            // Section fade-in animation and typing effect
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
+                            typingStarted = true;
+                            startTypingLoop();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 }); 
+            sections.forEach(section => observer.observe(section));
+            
+            const typingElementSpan = document.getElementById('typing-text-span');
             function startTypingLoop() {
                 if (!typingElementSpan) return;
+                const typingSentences = [
+                    "公民好神！我會遵守公民神會員守則！",
+                    "努力向上、勇往直前、不畏艱難，我要成為公民神！",
+                    "公民神有三力：注意力、記憶力、戰鬥力！"
+                ];
                 let sentenceIndex = 0;
                 let charIndex = 0;
                 let isDeleting = false;
@@ -429,89 +592,11 @@
                 }
                 loop();
             }
-            
-            const sections = document.querySelectorAll('section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
-                            typingStarted = true;
-                            startTypingLoop();
-                        }
-                    }
-                });
-            }, { threshold: 0.1 }); 
-            
-            sections.forEach(section => observer.observe(section));
 
-            const allQuizData = {
-                quiz1: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>題目描述了原產於美洲的藍蟹，因「國際貿易」被帶到地中海，進而對法國和突尼西亞的漁民生活產生了截然不同的影響（衝擊vs.商機）。這整個過程——物種因跨國流動而影響不同地區的生活——正是<strong class="highlight-text">全球化現象</strong>的典型例子。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>題目描述了漁民的受惠（突尼西亞）與受衝擊（法國），但核心在於探討造成此現象的「全球化」因素，而非單純的市場競爭。</p>`,
-                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>衝擊的來源是外來「物種」，而非外來「文化」。</p>`,
-                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>題目中並未提及資訊科技的應用。</p>`
-                },
-                quiz2: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>全球化是指跨國的生產、文化擴散及資訊科技發展所形成的社會關連。選項(A)金融、(B)經濟、(C)疾病的跨國傳播都屬於全球化的範疇。而(D)地震海嘯是屬於<strong class="highlight-text">區域性的「天災」</strong>，並非全球交流互動所造成的現象，因此與全球化發展最不相關。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>金融風暴是典型的「經濟全球化」現象，一國的金融問題會迅速影響全球。</p>`,
-                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>糧食是全球貿易商品，一地的歉收會影響國際糧價，屬於「經濟全球化」。</p>`,
-                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>疾病因跨國人員流動而傳播，是「全球化」帶來的負面議題之一。</p>`
-                }
-            };
-            
-            const quizContainers = document.querySelectorAll('.quiz-container');
-            
-            quizContainers.forEach((container) => {
-                const quizId = container.id;
-                if (!quizId) return;
-                const quizData = allQuizData[quizId];
-                if (!quizData) return;
-
-                const optionButtons = container.querySelectorAll('.option-btn');
-                const feedbackArea = container.querySelector('.feedback-area');
-                const resetButton = container.querySelector('.reset-btn');
-
-                optionButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        const isCorrect = button.dataset.correct === 'true';
-                        
-                        optionButtons.forEach(btn => {
-                            btn.disabled = true;
-                        });
-
-                        if (isCorrect) {
-                            button.classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId].correct;
-                            feedbackArea.className = 'feedback-area feedback-correct';
-                        } else {
-                            const optionLetter = button.textContent.substring(1, 2);
-                            button.classList.add('wrong');
-                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
-                            feedbackArea.className = 'feedback-area feedback-wrong';
-                        }
-                        feedbackArea.style.display = 'block';
-                        resetButton.style.display = 'block';
-                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    });
-                });
-                
-                resetButton.addEventListener('click', () => {
-                    optionButtons.forEach(btn => {
-                        btn.disabled = false;
-                        btn.classList.remove('correct', 'wrong');
-                    });
-                    feedbackArea.style.display = 'none';
-                    resetButton.style.display = 'none';
-                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                });
-            });
-
+            // Mascot JS
             const mascotContainer = document.getElementById('mascot-container');
             const mascotImg = document.getElementById('mascot-img');
             const speechBubble = document.getElementById('mascot-speech');
-            
             const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
             let messageIndex = 0;
             let clickTimer = null;

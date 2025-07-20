@@ -136,7 +136,7 @@
         }
         
         .grid-3-col {
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         }
 
         .info-card { 
@@ -187,72 +187,23 @@
         .highlight-box li { position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem; }
         .highlight-box li::before { content: '\f054'; font-family: 'Font Awesome 5 Free'; font-weight: 900; position: absolute; left: 0; top: 5px; color: var(--accent-glow); font-size: 0.8em; }
 
-        /* --- NEW: Comparison Card Styles for Function Section --- */
-        .function-item {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-        .function-item:last-child {
-            margin-bottom: 0;
-        }
-        .function-item h4 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--accent-glow);
-            text-align: center;
-            font-size: clamp(1.3rem, 2.8vw, 1.6rem);
-            margin: 0;
-        }
-        .function-cards-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-        .function-card {
-            background-color: rgba(0,0,0,0.2);
-            border-radius: 15px;
-            padding: 1.5rem;
-            border: 1px solid transparent;
-        }
-        .function-card h5 {
-            font-size: 1.2rem;
-            margin: 0 0 1rem 0;
-            padding-bottom: 0.5rem;
-        }
-        .function-card.traditional {
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-        .function-card.traditional h5 {
-            color: #ccc;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .function-card.modern {
-            border-color: var(--border-color);
-        }
-        .function-card.modern h5 {
-            color: var(--primary-glow);
-            border-bottom: 1px solid var(--border-color);
-        }
-        /* --- END Comparison Card Styles --- */
+        .function-item { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+        .function-item:last-child { margin-bottom: 0; }
+        .function-item h4 { font-family: 'Orbitron', sans-serif; color: var(--accent-glow); text-align: center; font-size: clamp(1.3rem, 2.8vw, 1.6rem); margin: 0; }
+        .function-cards-container { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .function-card { background-color: rgba(0,0,0,0.2); border-radius: 15px; padding: 1.5rem; border: 1px solid transparent; }
+        .function-card.traditional { border-color: rgba(255, 255, 255, 0.2); }
+        .function-card.traditional h5 { color: #ccc; border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
+        .function-card.modern { border-color: var(--border-color); }
+        .function-card.modern h5 { color: var(--primary-glow); border-bottom: 1px solid var(--border-color); }
         
         .quiz-container { margin-bottom: 3rem; }
-        .quiz-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
-            color: var(--accent-glow);
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--accent-border-color);
-            display: flex;
-            align-items: baseline;
-            flex-wrap: wrap;
-            gap: 0.5rem 1rem;
-        }
+        .quiz-container:last-of-type { margin-bottom: 0; }
+        .quiz-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem); color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.5rem 1rem; }
         .quiz-title i { margin-right: 0.75rem; }
         .quiz-title .quiz-source { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
-        #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
-        #quiz-section .options { display: grid; gap: 1rem; }
+        .quiz-container .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
+        .quiz-container .options { display: grid; gap: 1rem; }
         .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
         .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
         .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark); }
@@ -273,39 +224,27 @@
         .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
         .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
 
-        /* --- UPDATED: Options List Layout --- */
-        .law-options-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 0.75rem;
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-        }
-        .law-option-item {
-            background-color: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--border-color);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 0.95rem;
-        }
-        .law-option-label {
-            color: var(--accent-glow);
-            font-weight: 700;
-            margin-right: 0.5em;
-            font-family: 'Orbitron', sans-serif;
-        }
+        .options-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.75rem; margin-top: 1rem; margin-bottom: 1rem; }
+        .option-item { background-color: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-color); padding: 0.5rem 1rem; border-radius: 8px; text-align: center; font-size: 0.95rem; }
+        .option-label { color: var(--accent-glow); font-weight: 700; margin-right: 0.5em; font-family: 'Orbitron', sans-serif; }
+        
+        /* --- 互動卡片樣式 --- */
+        .interactive-card { background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05)); padding: 2rem; border-radius: 15px; border-left: 5px solid var(--secondary-glow); margin-top: 3rem; box-shadow: 0 0 15px rgba(255, 0, 255, 0.1); }
+        .interactive-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--secondary-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+        .interactive-feedback.feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .interactive-feedback.feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .interactive-reset-btn, .matching-reset-btn { display: none; margin: 1rem auto 0; padding: 0.6rem 1.5rem; font-size: 0.9rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .interactive-reset-btn:hover, .matching-reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 10px var(--accent-glow); }
+        /* --- 結束互動樣式 --- */
 
         .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
-        .fun-bg-section .typing-effect {
-            position: relative; z-index: 5; font-family: 'Orbitron', monospace; 
-            font-size: clamp(1.0rem, 2vw + 0.5rem, 1.6rem);
-            font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            text-align: center; max-width: 100%;
-            border-bottom: none;
-            padding-bottom: 0;
-            margin-bottom: 0;
-        }
+        .fun-bg-section .typing-effect { position: relative; z-index: 5; font-family: 'Orbitron', monospace; font-size: clamp(1.0rem, 2vw + 0.5rem, 1.6rem); font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); text-align: center; max-width: 100%; border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
         .typing-effect .cursor { display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); margin-left: 5px; width: 10px; height: 1em; animation: blink-caret 0.75s step-end infinite; }
         @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
         .floating-mascot-bg { position: absolute; width: 250px; height: auto; opacity: 0.15; animation: floatMascot 15s ease-in-out infinite alternate; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; }
@@ -329,22 +268,8 @@
             .container { padding: 1rem; }
             section { padding: 1.5rem; }
             .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-            
-            .grid-3-col,
-            .info-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .css-diagram {
-                font-size: 1.8rem;
-                gap: 0.8rem;
-            }
-            
-            /* RWD: Comparison Card Layout on mobile */
-            .function-cards-container {
-                grid-template-columns: 1fr;
-            }
-
+            .grid-3-col, .info-grid, .function-cards-container { grid-template-columns: 1fr; }
+            .css-diagram { font-size: 1.8rem; gap: 0.8rem; }
             #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
             #mascot-img { width: 80px; }
@@ -377,6 +302,19 @@
                     <li><strong>配偶：</strong>因結婚而互為配偶，是獨立的親屬關係。</li>
                 </ul>
             </div>
+            <!-- ===== 新增互動：基礎挑戰 ===== -->
+            <div id="kinship-quiz-1" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-question-circle"></i> 基礎挑戰</h3>
+                <p class="interactive-prompt">小明與小美依法結婚，他們兩人之間的關係在法律上稱為什麼？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">血親</button>
+                    <button class="interactive-btn" data-answer="false">姻親</button>
+                    <button class="interactive-btn" data-answer="true">配偶</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="blood-kinship">
@@ -399,6 +337,31 @@
                     </ul>
                 </div>
             </div>
+             <!-- ===== 新增互動：血親辨識 ===== -->
+            <div id="blood-kin-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-project-diagram"></i> 血親辨識</h3>
+                <p class="interactive-prompt">你和你的「親哥哥」在法律上屬於下列何種關係？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">直系血親</button>
+                    <button class="interactive-btn" data-answer="true">旁系血親</button>
+                    <button class="interactive-btn" data-answer="false">姻親</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 新增互動：法定血親 ===== -->
+            <div id="adoption-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-gavel"></i> 法定血親挑戰</h3>
+                <p class="interactive-prompt">小華被王先生夫婦合法收養，在法律上，小華與王先生夫婦的關係是？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="true">直系血親</button>
+                    <button class="interactive-btn" data-answer="false">姻親</button>
+                    <button class="interactive-btn" data-answer="false">沒有親屬關係</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="affinity-kinship">
@@ -413,59 +376,87 @@
                 <h4><i class="fas fa-exclamation-triangle"></i>注意！法律上的陌生人</h4>
                 <p>「血親之配偶之血親」在法律上<strong class="highlight-text">不具親屬關係</strong>。例如：姊夫的爸爸、嫂嫂的媽媽。</p>
             </div>
+            <!-- ===== 新增互動：姻親大哉問 ===== -->
+            <div id="inlaw-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-user-secret"></i> 姻親關係大哉問</h3>
+                <p class="interactive-prompt"><b>判斷：</b>「我的姊夫的爸爸，在法律上是我的姻親。」</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">正確 (O)</button>
+                    <button class="interactive-btn" data-answer="true">錯誤 (X)</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 新增互動：進階姻親挑戰 ===== -->
+            <div id="advanced-inlaw-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-graduation-cap"></i> 進階姻親挑戰</h3>
+                <p class="interactive-prompt">請判斷下列關係屬於哪一種類型？</p>
+                 <div class="options-list" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                    <div class="option-item"><span class="option-label">A</span> 血親之配偶</div>
+                    <div class="option-item"><span class="option-label">B</span> 配偶之血親</div>
+                    <div class="option-item"><span class="option-label">C</span> 配偶之血親之配偶</div>
+                    <div class="option-item"><span class="option-label">D</span> 無親屬關係</div>
+                </div>
+                <div class="matching-item" data-answer="B"><p>1. 我和「岳母」</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+
+                <div class="matching-item" data-answer="A"><p>2. 我和「嫂嫂」</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+                
+                <div class="matching-item" data-answer="C"><p>3. 我和「妻子」的「妹妹」的「丈夫」</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+
+		<div class="matching-item" data-answer="D"><p>4. 我和「兒子」的「妻子」的「父親」</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+
+		<div class="matching-item" data-answer="A"><p>5. 我和「舅媽」</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+
+		<div class="matching-item" data-answer="A"><p>6. 我和「孫媳」</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+
+		<div class="matching-item" data-answer="C"><p>7. 我和「丈夫」的「哥哥」的「妻子」</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+
+		<div class="matching-item" data-answer="B"><p>8. 我和「公公」</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+
+                <button class="matching-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
         
         <section id="family-types-section">
-            <h2 class="section-title"><i class="fas fa-home"></i>五、家庭的型態</h2>
+            <h2 class="section-title"><i class="fas fa-home"></i>四、家庭的型態</h2>
              <h3>基本型態</h3>
             <div class="info-grid grid-3-col">
                 <div class="info-card">
                     <h4><i class="fas fa-users"></i>小家庭 (核心家庭)</h4>
                     <p>由<strong class="highlight-text">夫妻+未婚子女</strong>組成。</p>
                     <div class="css-diagram">
-                        <div class="person-group">
-                            <div class="couple"><i class="fas fa-user-tie"></i><i class="fas fa-female"></i></div>
-                            <small>父母</small>
-                            <i class="fas fa-long-arrow-alt-down lineage-arrow"></i>
-                            <div class="couple"><i class="fas fa-child"></i></div>
-                            <small>子女</small>
-                        </div>
+                        <div class="person-group"><div class="couple"><i class="fas fa-user-tie"></i><i class="fas fa-female"></i></div><small>父母</small><i class="fas fa-long-arrow-alt-down lineage-arrow"></i><div class="couple"><i class="fas fa-child"></i></div><small>子女</small></div>
                     </div>
                 </div>
                 <div class="info-card">
                     <h4><i class="fas fa-layer-group"></i>折衷家庭 (三代家庭)</h4>
-                    <p>由<strong class="highlight-text">夫妻+未婚子女+夫妻的直系血親長輩</strong>組成。</p>
+                    <p>由<strong class="highlight-text">夫妻+未婚子女+夫妻單方的直系血親長輩</strong>組成。</p>
                     <div class="css-diagram">
-                        <div class="person-group">
-                            <div class="couple"><i class="fas fa-male"></i><i class="fas fa-female"></i></div>
-                            <small>祖父母輩</small>
-                            <i class="fas fa-long-arrow-alt-down lineage-arrow"></i>
-                            <div class="couple"><i class="fas fa-user-tie"></i><i class="fas fa-female"></i></div>
-                            <small>父母輩</small>
-                            <i class="fas fa-long-arrow-alt-down lineage-arrow"></i>
-                            <div class="couple"><i class="fas fa-child"></i></div>
-                            <small>子女輩</small>
-                        </div>
+                        <div class="person-group"><div class="couple"><i class="fas fa-male"></i><i class="fas fa-female"></i></div><small>祖父母輩</small><i class="fas fa-long-arrow-alt-down lineage-arrow"></i><div class="couple"><i class="fas fa-user-tie"></i><i class="fas fa-female"></i></div><small>父母輩</small><i class="fas fa-long-arrow-alt-down lineage-arrow"></i><div class="couple"><i class="fas fa-child"></i></div><small>子女輩</small></div>
                     </div>
                 </div>
                 <div class="info-card">
                     <h4><i class="fas fa-project-diagram"></i>大家庭 (聯合家庭)</h4>
                     <p>由<strong class="highlight-text">數個具血緣關係的小家庭</strong>組成。</p>
-                    <div class="css-diagram">
-                        <div class="person-group">
-                            <div class="couple"><i class="fas fa-user-tie"></i><i class="fas fa-female"></i></div>
-                            <div class="couple"><i class="fas fa-child"></i></div>
-                            <small>家庭A</small>
-                        </div>
-                        <span class="op">+</span>
-                        <div class="person-group">
-                            <div class="couple"><i class="fas fa-user-tie"></i><i class="fas fa-female"></i></div>
-                            <div class="couple"><i class="fas fa-child"></i><i class="fas fa-child"></i></div>
-                            <small>家庭B</small>
-                        </div>
+                     <div class="css-diagram">
+                        <div class="person-group"><div class="couple"><i class="fas fa-user-tie"></i><i class="fas fa-female"></i></div><div class="couple"><i class="fas fa-child"></i></div><small>家庭A</small></div><span class="op">+</span><div class="person-group"><div class="couple"><i class="fas fa-user-tie"></i><i class="fas fa-female"></i></div><div class="couple"><i class="fas fa-child"></i><i class="fas fa-child"></i></div><small>家庭B</small></div>
                     </div>
                 </div>
             </div>
+            <!-- ===== 新增互動：家庭型態辨識 ===== -->
+            <div id="basic-family-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-search"></i> 家庭型態辨識</h3>
+                <p class="interactive-prompt">小丸子和爺爺、奶奶、爸爸、媽媽、姊姊住在一起，這種家庭型態是？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">小家庭</button>
+                    <button class="interactive-btn" data-answer="true">折衷家庭</button>
+                    <button class="interactive-btn" data-answer="false">大家庭</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
             <h3>多元化模式</h3>
             <div class="info-grid">
                 <div class="info-card"><h4><i class="fas fa-briefcase"></i>雙薪家庭</h4><p>夫妻雙方都有就業。其中不生育子女的稱為「頂客家庭」。</p></div>
@@ -478,68 +469,45 @@
         </section>
 
         <section id="functions-section">
-            <h2 class="section-title"><i class="fas fa-cogs"></i>六、家庭的功能與轉變</h2>
-            <!-- NEW LAYOUT: Comparison Cards -->
-            <div class="function-item">
-                <h4>生育</h4>
-                <div class="function-cards-container">
-                    <div class="function-card traditional">
-                        <h5>傳統社會</h5>
-                        <p>強調生兒育女，延續家庭血脈。</p>
-                    </div>
-                    <div class="function-card modern">
-                        <h5>現代社會</h5>
-                        <p>少生或不生，家庭子女人數減少。接受透過<strong class="highlight-text">收養</strong>來延續家庭的傳承。</p>
-                    </div>
-                </div>
+            <h2 class="section-title"><i class="fas fa-cogs"></i>五、家庭的功能與轉變</h2>
+            <div class="function-item"><h4>生育</h4><div class="function-cards-container"><div class="function-card traditional"><h5>傳統社會</h5><p>強調生兒育女，延續家庭血脈。</p></div><div class="function-card modern"><h5>現代社會</h5><p>少生或不生，家庭子女人數減少。接受透過<strong class="highlight-text">收養</strong>來延續家庭的傳承。</p></div></div></div>
+            <div class="function-item"><h4>教育</h4><div class="function-cards-container"><div class="function-card traditional"><h5>傳統社會</h5><p>個人言行舉止、習慣與價值觀念，受家庭影響甚深。</p></div><div class="function-card modern"><h5>現代社會</h5><p>傳播媒體及<strong class="highlight-text">教育機構</strong>普及，取代部分教育功能。</p></div></div></div>
+            <div class="function-item"><h4>經濟</h4><div class="function-cards-container"><div class="function-card traditional"><h5>傳統社會</h5><p>家庭是生產的基本單位，自給自足。</p></div><div class="function-card modern"><h5>現代社會</h5><p>生產功能由工廠及商店取代。透過<strong class="highlight-text">市場消費</strong>滿足需求。</p></div></div></div>
+            <div class="function-item"><h4>保護與照顧</h4><div class="function-cards-container"><div class="function-card traditional"><h5>傳統社會</h5><p>親屬間比鄰而居，提供生理與心理支持。</p></div><div class="function-card modern"><h5>現代社會</h5><p>家庭照顧人力減少，由各類<strong class="highlight-text">幼兒托育、老人安養機構</strong>，彌補照顧功能。</p></div></div></div>
+            
+            <!-- ===== 新增互動：功能配對 ===== -->
+            <div id="function-matching-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-exchange-alt"></i> 功能配對挑戰</h3>
+                <p class="interactive-prompt">請將現代社會的現象，與其相對應被轉變的「家庭功能」進行配對。</p>
+                <div class="matching-item" data-answer="education"><p>1. 孩子放學後去安親班、補習班</p><select class="matching-select"><option>請選擇</option><option value="birth">生育</option><option value="education">教育</option><option value="economic">經濟</option><option value="care">保護與照顧</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="care"><p>2. 政府推動長照2.0，提供居家服務</p><select class="matching-select"><option>請選擇</option><option value="birth">生育</option><option value="education">教育</option><option value="economic">經濟</option><option value="care">保護與照顧</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="birth"><p>3. 國內新生兒數量屢創新低</p><select class="matching-select"><option>請選擇</option><option value="birth">生育</option><option value="education">教育</option><option value="economic">經濟</option><option value="care">保護與照顧</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="economic"><p>4. 我們去超市買菜，而不是自己種菜</p><select class="matching-select"><option>請選擇</option><option value="birth">生育</option><option value="education">教育</option><option value="economic">經濟</option><option value="care">保護與照顧</option></select><i class="feedback-icon"></i></div>
+                <button class="matching-reset-btn">再挑戰一次</button>
             </div>
-            <div class="function-item">
-                <h4>教育</h4>
-                <div class="function-cards-container">
-                    <div class="function-card traditional">
-                        <h5>傳統社會</h5>
-                        <p>個人言行舉止、習慣與價值觀念，受家庭影響甚深。</p>
-                    </div>
-                    <div class="function-card modern">
-                        <h5>現代社會</h5>
-                        <p>傳播媒體及<strong class="highlight-text">教育機構</strong>普及，取代部分教育功能。</p>
-                    </div>
-                </div>
-            </div>
-            <div class="function-item">
-                <h4>經濟</h4>
-                <div class="function-cards-container">
-                    <div class="function-card traditional">
-                        <h5>傳統社會</h5>
-                        <p>家庭是生產的基本單位，自給自足。</p>
-                    </div>
-                    <div class="function-card modern">
-                        <h5>現代社會</h5>
-                        <p>生產功能由工廠及商店取代。透過<strong class="highlight-text">市場消費</strong>滿足需求。</p>
-                    </div>
-                </div>
-            </div>
-            <div class="function-item">
-                <h4>保護與照顧</h4>
-                <div class="function-cards-container">
-                    <div class="function-card traditional">
-                        <h5>傳統社會</h5>
-                        <p>親屬間比鄰而居，提供生理與心理支持。</p>
-                    </div>
-                    <div class="function-card modern">
-                        <h5>現代社會</h5>
-                        <p>家庭照顧人力減少，由各類<strong class="highlight-text">幼兒托育、老人安養機構</strong>，彌補照顧功能。</p>
-                    </div>
-                </div>
-            </div>
-            <!-- END NEW LAYOUT -->
+            <!-- ===== 結束新增 ===== -->
         </section>
         
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
+            <div class="quiz-container" id="family-type-matching">
+                <h3 class="quiz-title"><i class="fas fa-tasks"></i>挑戰一 <span class="quiz-source">(模擬神給酷)</span></h3>
+                <div class="info-card">
+                     <p><strong>請判斷下列各種家庭屬於何種類型？</strong></p>
+                     <div class="options-list">
+                         <div class="option-item"><span class="option-label">甲</span> 祖孫家庭</div><div class="option-item"><span class="option-label">乙</span> 折衷家庭</div><div class="option-item"><span class="option-label">丙</span> 單親家庭</div>
+                         <div class="option-item"><span class="option-label">丁</span> 重組家庭</div><div class="option-item"><span class="option-label">戊</span> 頂客家庭</div><div class="option-item"><span class="option-label">己</span> 兩地家庭</div>
+                     </div>
+                     <div class="matching-item" data-answer="甲"><p>1. 昭廣在佐賀由超級阿嬤單獨撫養長大。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option><option value="戊">戊</option><option value="己">己</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="丁"><p>2. 海潮的妻子早逝，多年後帶著女兒與賀梅結婚。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option><option value="戊">戊</option><option value="己">己</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="丙"><p>3. 凌霄的父母離婚，並由父親獨自扶養。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option><option value="戊">戊</option><option value="己">己</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="戊"><p>4. 宛青與老公都在工作，結婚多年仍不打算生小孩。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option><option value="戊">戊</option><option value="己">己</option></select><i class="feedback-icon"></i></div>
+                    <button class="matching-reset-btn">再挑戰一次</button>
+                </div>
+            </div>
 
             <div class="quiz-container" id="quiz1">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(111 會考)</span></h3>
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(111 會考)</span></h3>
                 <div class="question">
                     <p>我國開放部分小規模經營的乳牛業者可僱用外籍移工…<strong class="highlight-text">雇主本人、雇主的配偶、雇主的直系血親、雇主丈夫的父母、雇主兒子的配偶</strong>，只要符合相關規定者，皆可放寬認定計入本國籍勞工數。根據上述內容判斷，下列雇主的哪一位親屬最可能符合放寬認定的資格？</p>
                 </div>
@@ -554,50 +522,7 @@
             </div>
 
             <div class="quiz-container" id="quiz2">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(概念題)</span></h3>
-                <div class="question">
-                    <p>根據我國《民法》的規定，下列哪一位朋友的描述，其提到的兩人之間屬於「姻親」關係？</p>
-                </div>
-                <div class="options">
-                    <button class="option-btn" data-correct="false">(A) 小華：「我跟我親姊姊感情最好。」</button>
-                    <button class="option-btn" data-correct="false">(B) 小英：「我外公最疼我了。」</button>
-                    <button class="option-btn" data-correct="true">(C) 大雄：「我太太的哥哥下週要來家裡作客。」</button>
-                    <button class="option-btn" data-correct="false">(D) 靜香：「我爸爸去年合法收養了一個妹妹。」</button>
-                </div>
-                <div class="feedback-area"></div>
-                <button class="reset-btn">再挑戰一次！</button>
-            </div>
-            
-            <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-tasks"></i>挑戰三 <span class="quiz-source">(模擬神給酷)</span></h3>
-                <div class="info-card">
-                     <p><strong>請判斷下列各種家庭屬於何種類型？</strong></p>
-                     <div class="law-options-list">
-                         <div class="law-option-item"><span class="law-option-label">甲</span> 祖孫家庭</div>
-                         <div class="law-option-item"><span class="law-option-label">乙</span> 折衷家庭</div>
-                         <div class="law-option-item"><span class="law-option-label">丙</span> 單親家庭</div>
-                         <div class="law-option-item"><span class="law-option-label">丁</span> 重組家庭</div>
-                         <div class="law-option-item"><span class="law-option-label">戊</span> 頂客家庭</div>
-                         <div class="law-option-item"><span class="law-option-label">己</span> 聯合家庭</div>
-                     </div>
-                     <div class="matching-item" data-answer="甲"><p>1. 昭廣在佐賀的超級阿嬤之單獨撫養下長大成人。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option><option value="戊">戊</option><option value="己">己</option></select><i class="feedback-icon"></i></div>
-                     <div class="matching-item" data-answer="丁"><p>2. 海潮的妻子早逝，多年後帶著女兒與賀梅結婚。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option><option value="戊">戊</option><option value="己">己</option></select><i class="feedback-icon"></i></div>
-                     <div class="matching-item" data-answer="乙"><p>3. 小丸子與爸爸、媽媽、爺爺、奶奶、姐姐同住。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option><option value="戊">戊</option><option value="己">己</option></select><i class="feedback-icon"></i></div>
-                     <div class="matching-item" data-answer="丙"><p>4. 凌霄的父母因經常口角而選擇離婚，並由父親扶養。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option><option value="戊">戊</option><option value="己">己</option></select><i class="feedback-icon"></i></div>
-                     <div class="matching-item" data-answer="戊"><p>5. 宛青與老公都在工作，結婚多年仍不打算生小孩。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option><option value="戊">戊</option><option value="己">己</option></select><i class="feedback-icon"></i></div>
-                     <div class="matching-item" data-answer="己"><p>6. 小志家有三代親屬同住，包括第一代的爺爺奶奶、第二代的爸媽、叔嬸，以及第三代的小志。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option><option value="戊">戊</option><option value="己">己</option></select><i class="feedback-icon"></i></div>
-                </div>
-                <div class="highlight-box">
-                    <h4><i class="fas fa-key"></i>解題關鍵</h4>
-                    <ul>
-                        <li>祖孫家庭: 隔代教養家庭</li><li>折衷家庭: 三代家庭</li><li>單親家庭</li><li>重組家庭: 繼親家庭</li>
-                        <li>頂客家庭: 雙薪無子女</li><li>聯合家庭: 大家庭</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="quiz-container" id="quiz4">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰四 <span class="quiz-source">(110 會考)</span></h3>
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(110 會考)</span></h3>
                 <div class="question">
                     <p>小皇為了繳交某一主題的課堂報告，蒐集了三則新聞報導，內容分別提及「安親班與補習班興起」、「政府推動長照福利措施」、「國內寵物數量比嬰幼兒多」。<strong>這篇報告所要探討的主題與下列何者最相關？</strong></p>
                 </div>
@@ -630,7 +555,7 @@
 
     <div id="mascot-container">
         <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
-        <div id="mascot-speech">公民好神！</div>
+        <div id="mascot-speech">家是最好的避風港！</div>
     </div>
     
     <footer>
@@ -638,9 +563,9 @@
     </footer>
 
     <script>
-        // JavaScript 程式碼保持不變
         document.addEventListener('DOMContentLoaded', () => {
-            let typingStarted = false; 
+            // --- 全局變數和通用函數 ---
+            let typingStarted = false;
 
             const sections = document.querySelectorAll('section');
             const observer = new IntersectionObserver((entries) => {
@@ -653,18 +578,59 @@
                         }
                     }
                 });
-            }, { threshold: 0.1 }); 
+            }, { threshold: 0.1 });
             sections.forEach(section => observer.observe(section));
 
-            const matchingSelects = document.querySelectorAll('.matching-select');
-            matchingSelects.forEach(select => {
-                select.addEventListener('change', (e) => {
-                    const selectedValue = e.target.value;
-                    const item = e.target.closest('.matching-item');
+            // --- 互動卡片通用安裝函數 ---
+            function setupInteractiveCard(cardId, correctFeedbackHTML, wrongFeedbackHTML) {
+                const card = document.getElementById(cardId);
+                if (!card) return;
+
+                const buttons = card.querySelectorAll('.interactive-btn');
+                const feedbackArea = card.querySelector('.interactive-feedback');
+                const resetButton = card.querySelector('.interactive-reset-btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isCorrect = btn.dataset.answer === 'true';
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (isCorrect) {
+                            feedbackArea.innerHTML = correctFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-correct';
+                        } else {
+                            feedbackArea.innerHTML = wrongFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    buttons.forEach(b => b.disabled = false);
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                });
+            }
+
+            // --- 配對題通用安裝函數 (已修改為優化版本) ---
+            function setupMatchingQuiz(quizId) {
+                const quiz = document.getElementById(quizId);
+                if (!quiz) return;
+
+                const selects = quiz.querySelectorAll('.matching-select');
+                const resetButton = quiz.querySelector('.matching-reset-btn');
+
+                function handleMatchingChange(e) {
+                    const select = e.target;
+                    const selectedValue = select.value;
+                    const item = select.closest('.matching-item');
                     const correctAnswer = item.dataset.answer;
                     const feedbackIcon = item.querySelector('.feedback-icon');
+                    
                     feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
-                    feedbackIcon.innerHTML = '';
+                    feedbackIcon.textContent = '';
                     if (selectedValue === "請選擇") {
                         feedbackIcon.style.display = 'none';
                         return;
@@ -672,37 +638,108 @@
                     feedbackIcon.style.display = 'inline-block';
                     if (selectedValue === correctAnswer) {
                         feedbackIcon.classList.add('icon-correct');
-                        feedbackIcon.innerHTML = '✓';
+                        feedbackIcon.textContent = '✓';
                     } else {
                         feedbackIcon.classList.add('icon-wrong');
-                        feedbackIcon.innerHTML = '✗';
+                        feedbackIcon.textContent = '✗';
                     }
-                });
-            });
+                }
 
+                selects.forEach(select => {
+                    select.addEventListener('change', handleMatchingChange);
+                });
+
+                if(resetButton) {
+                    resetButton.style.display = 'block'; // Always show reset button
+                    resetButton.addEventListener('click', () => {
+                        selects.forEach(select => {
+                            select.selectedIndex = 0;
+                            const item = select.closest('.matching-item');
+                            const feedbackIcon = item.querySelector('.feedback-icon');
+                            feedbackIcon.style.display = 'none';
+                            feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                            feedbackIcon.textContent = '';
+                        });
+                    });
+                }
+            }
+            
+            // --- 初始化所有互動卡片 ---
+            setupInteractiveCard(
+                'kinship-quiz-1',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>夫妻之間互為<span class="highlight-text">配偶</span>，這是一種獨立的親屬關係，既不是血親也不是姻親。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>夫妻之間互為「配偶」。血親是因血緣關係而產生，例如：奶奶、爸爸、弟弟、舅舅；姻親是因婚姻和血緣關係結合而產生，例如：姊夫、岳父母、妯娌。'
+            );
+
+            setupInteractiveCard(
+                'blood-kin-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>你和哥哥並非彼此的長輩或晚輩，但都源自於同一對父母，所以是<span class="highlight-text">旁系血親</span>。',
+                '<strong><i class="fas fa-times-circle"></i> 再想一下！</strong>「直系血親」是有直接生育關係的，例如你和你的父母、祖父母。你和哥哥是「旁系血親」。'
+            );
+
+             setupInteractiveCard(
+                'adoption-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 完全正確！</strong>透過合法收養成立的「法定血親」，養父母與養子女的關係是<span class="highlight-text">直系血親</span>，其法律上的權利與義務與自然血親完全相同。',
+                '<strong><i class="fas fa-times-circle"></i> 答錯了！</strong>法定血親在法律上效力等同於自然血親，而養父母與養子女之間有擬制的生育關係，屬於<span class="highlight-text">直系血親</span>喔！'
+            );
+
+            setupInteractiveCard(
+                'inlaw-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 完全正確！</strong>「我的姊夫」是我的姻親（血親之配偶），但「姊夫的爸爸」是「血親之配偶之血親」，在法律上是沒有親屬關係的陌生人喔！',
+                '<strong><i class="fas fa-times-circle"></i> 答錯了！</strong>這是個經典的陷阱題！「姊夫的爸爸」屬於「血親之配偶之血親」，在法律上不是親屬。'
+            );
+
+            setupInteractiveCard(
+                'basic-family-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>由祖父母、父母、未婚子女三代組成的家庭，稱為<span class="highlight-text">折衷家庭</span>（三代家庭）。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>小家庭只有兩代（父母+子女），大家庭則包含兩個以上的小家庭（例如包含叔叔一家）。三代同堂是<span class="highlight-text">折衷家庭</span>。'
+            );
+            
+            // --- 初始化所有配對題 ---
+            setupMatchingQuiz('function-matching-quiz');
+            setupMatchingQuiz('family-type-matching');
+            setupMatchingQuiz('advanced-inlaw-quiz');
+
+            // --- 打字機效果 ---
+            const typingSentences = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            const typingElementSpan = document.getElementById('typing-text-span');
+            function startTypingLoop() {
+                if (!typingElementSpan) return;
+                let sentenceIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
+                function loop() {
+                    const currentSentence = typingSentences[sentenceIndex];
+                    if (isDeleting) {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex - 1);
+                        charIndex--;
+                        if (charIndex === 0) { isDeleting = false; sentenceIndex = (sentenceIndex + 1) % typingSentences.length; setTimeout(loop, 500); } else { setTimeout(loop, 50); }
+                    } else {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex + 1);
+                        charIndex++;
+                        if (charIndex === currentSentence.length) { isDeleting = true; setTimeout(loop, 2500); } else { setTimeout(loop, 120); }
+                    }
+                }
+                loop();
+            }
+
+            // --- 會考歷屆試題區塊 ---
             const allQuizData = {
                 quiz1: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！</h3><p><strong>解題關鍵：</strong>題目放寬認定的資格包含「<strong class="highlight-text">雇主的直系血親</strong>」。根據《民法》，透過收養成立的「法定血親」與「自然血親」權利義務相同。因此，<strong class="highlight-text">(B) 養母</strong> 屬於雇主的法定直系血親，符合資格。而 (A)伯父、(C)哥哥、(D)姑姑 皆為「旁系血親」，不符合資格。</p>`,
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>題目放寬認定的資格包含「<strong class="highlight-text">雇主的直系血親</strong>」。根據《民法》，透過收養成立的「法定血親」與「自然血親」權利義務相同。因此，<strong class="highlight-text">(B) 養母</strong> 屬於雇主的法定直系血親，符合資格。而 (A)伯父、(C)哥哥、(D)姑姑 皆為「旁系血親」，不符合資格。</p>`,
                     A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 伯父</strong> 是父親的哥哥，屬於「旁系血親」，不符合題目要求的「直系血親」資格。</p>`,
                     C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 哥哥</strong> 是與自己同源的兄弟，屬於「旁系血親」，不符合題目要求的「直系血親」資格。</p>`,
                     D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 姑姑</strong> 是父親的姊妹，屬於「旁系血親」，不符合題目要求的「直系血親」資格。</p>`
                 },
                 quiz2: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！</h3><p><strong>解題關鍵：</strong>「姻親」是因婚姻而產生的親屬關係。<br><strong>(C) 我太太的哥哥</strong>，屬於「配偶之血親」，是標準的姻親關係。<br><strong>(A)</strong> 我與姊姊是旁系血親。<br><strong>(B)</strong> 我與外公是直系血親。<br><strong>(D)</strong> 我與被收養的妹妹是法定旁系血親。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 我與親姊姊：</strong>這是「旁系血親」關係，源於同一對父母。</p>`,
-                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 我與外公：</strong>外公是媽媽的爸爸，這是「直系血親」關係。</p>`,
-                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 我與被收養的妹妹：</strong>這是透過收養成立的「法定血親」（旁系）關係，不是姻親。</p>`
-                },
-                quiz4: { 
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！</h3><p><strong>解題關鍵：</strong>三則新聞分別對應了家庭功能的轉變：<br> • 新聞一：親子互動減少，安親班/補習班興起 → <strong class="highlight-text">教育功能</strong>由外部機構取代。<br> • 新聞二：政府推動長照福利 → <strong class="highlight-text">保護與照顧功能</strong>由社會福利補充。<br> • 新聞三：單身/頂客家庭增加、寵物多於嬰兒 → <strong class="highlight-text">生育功能</strong>下降。<br>綜合來看，報告主題正是探討「家庭功能的變化」。</p>`,
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>三則新聞分別對應了家庭功能的轉變：<br> • 新聞一：安親班/補習班興起 → <strong class="highlight-text">教育功能</strong>由外部機構取代。<br> • 新聞二：政府推動長照福利 → <strong class="highlight-text">保護與照顧功能</strong>由社會福利補充。<br> • 新聞三：寵物多於嬰兒 → <strong class="highlight-text">生育功能</strong>下降。<br>綜合來看，報告主題正是探討「家庭功能的變化」。</p>`,
                     B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 家庭成員的改變：</strong>雖然新聞三提到單身/頂客家庭，但新聞一、二的核心是「功能」的轉移，而非成員結構。因此(A)更全面。</p>`,
                     C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 社會教育的重要性：</strong>安親班、補習班屬於教育機構，但這只是其中一環。報告還涉及了長照與生育，因此這個選項太狹隘。</p>`,
                     D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 社會救助的迫切性：</strong>社會救助通常指對經濟弱勢者的金錢或實物幫助。新聞二的長照福利雖屬社會福利，但報告主題更廣泛，不只局限於救助。</p>`
                 }
             };
             
-            const mcqContainers = document.querySelectorAll('.quiz-container[id]');
-            
+            const mcqContainers = document.querySelectorAll('.quiz-container[id^="quiz"]');
             mcqContainers.forEach((container) => {
                 const quizId = container.id;
                 const quizData = allQuizData[quizId];
@@ -740,55 +777,15 @@
                     });
                     feedbackArea.style.display = 'none';
                     resetButton.style.display = 'none';
-                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
                 });
             });
 
-            // Typing Effect and Mascot JS
-            const typingSentences = [
-                "公民好神！我會遵守公民神會員守則！",
-                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
-                "公民神有三力：注意力、記憶力、戰鬥力！"
-            ];
-            const typingElementSpan = document.getElementById('typing-text-span');
-
-            function startTypingLoop() {
-                if (!typingElementSpan) return;
-                let sentenceIndex = 0;
-                let charIndex = 0;
-                let isDeleting = false;
-
-                function loop() {
-                    const currentSentence = typingSentences[sentenceIndex];
-                    if (isDeleting) {
-                        typingElementSpan.textContent = currentSentence.substring(0, charIndex - 1);
-                        charIndex--;
-                        if (charIndex === 0) {
-                            isDeleting = false;
-                            sentenceIndex = (sentenceIndex + 1) % typingSentences.length;
-                            setTimeout(loop, 500);
-                        } else {
-                            setTimeout(loop, 50);
-                        }
-                    } else {
-                        typingElementSpan.textContent = currentSentence.substring(0, charIndex + 1);
-                        charIndex++;
-                        if (charIndex === currentSentence.length) {
-                            isDeleting = true;
-                            setTimeout(loop, 2500); 
-                        } else {
-                            setTimeout(loop, 120);
-                        }
-                    }
-                }
-                loop();
-            }
-
+            // --- 吉祥物互動 ---
             const mascotContainer = document.getElementById('mascot-container');
             const mascotImg = document.getElementById('mascot-img');
             const speechBubble = document.getElementById('mascot-speech');
             
-            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            const messages = ["公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
             let messageIndex = 0;
             let clickTimer = null;
             let speechTimeout = null;
@@ -814,7 +811,6 @@
                 mascotImg.classList.add('enlarged');
                 const particleCount = 40;
                 const particleColors = [ 'var(--primary-glow)', 'var(--secondary-glow)', 'var(--accent-glow)', '#ffffff' ];
-
                 for (let i = 0; i < particleCount; i++) {
                     const particle = document.createElement('div');
                     particle.classList.add('particle');

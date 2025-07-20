@@ -155,6 +155,21 @@
             content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
             position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
+        
+        /* --- 互動卡片樣式 --- */
+        .interactive-card { background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05)); padding: 2rem; border-radius: 15px; border-left: 5px solid var(--secondary-glow); margin-top: 3rem; box-shadow: 0 0 15px rgba(255, 0, 255, 0.1); }
+        .interactive-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--secondary-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+        .interactive-feedback.feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .interactive-feedback.feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .interactive-reset-btn, .matching-reset-btn { display: none; margin: 1rem auto 0; padding: 0.6rem 1.5rem; font-size: 0.9rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .interactive-reset-btn:hover, .matching-reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 10px var(--accent-glow); }
+        /* --- 結束互動樣式 --- */
 
         .comparison-cards-container {
             display: grid;
@@ -184,6 +199,7 @@
         }
         
         .quiz-container { margin-bottom: 3rem; }
+        .quiz-container:last-child { margin-bottom: 0; }
         .quiz-title {
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
@@ -212,6 +228,36 @@
         .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
         .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
         .reset-btn:hover { transform: scale(1.05); }
+        
+        .matching-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .matching-item:last-child { border-bottom: none; }
+        .matching-item p { flex-grow: 1; margin: 0; }
+        .matching-select { background-color: var(--bg-dark); color: var(--text-color); border: 1px solid var(--primary-glow); border-radius: 5px; padding: 0.4rem; font-family: inherit; font-size: 1rem; cursor: pointer; }
+        .feedback-icon { font-size: 1.2rem; font-weight: 900; display: none; }
+        .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
+        .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
+
+        .law-options-list {
+            display: grid;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            grid-template-columns: repeat(3, 1fr);
+        }
+        .law-option-item {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .law-option-label {
+            color: var(--accent-glow);
+            font-weight: 700;
+            margin-right: 0.5em;
+            font-family: 'Orbitron', sans-serif;
+        }
         
         .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect {
@@ -257,11 +303,17 @@
         @media (max-width: 768px) {
             .container { padding: 1rem; }
             section { padding: 1.5rem; }
+            .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
             
             .comparison-cards-container {
                 grid-template-columns: 1fr;
             }
             #quiz-section .options { grid-template-columns: 1fr; }
+
+            .law-options-list {
+                display: flex;
+                flex-direction: column;
+            }
 
             #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
@@ -303,6 +355,18 @@
                     </ul>
                 </div>
             </div>
+            <!-- ===== 新增互動：和解效力辨識 ===== -->
+            <div id="reconciliation-effect-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-file-signature"></i> 和解效力辨識</h3>
+                <p class="interactive-prompt">小明和小華因車禍私下簽訂了和解書，但事後小華反悔不願賠償。請問小明可以拿著這份和解書直接去法院聲請強制執行嗎？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">可以，因為和解書有法律效力</button>
+                    <button class="interactive-btn" data-answer="true">不可以，須另外提起訴訟</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="mediation-section">
@@ -337,6 +401,16 @@
                     <li><strong>非告訴乃論之刑事案件</strong> (如竊盜、殺人)：僅能採<strong class="highlight-text">訴訟</strong>。不論被害人是否提告，國家都必須追究。</li>
                 </ul>
             </div>
+            <!-- ===== 新增互動：案件類型與救濟途徑配對 ===== -->
+            <div id="dispute-resolution-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-tasks"></i> 案件類型與救濟途徑</h3>
+                <p class="interactive-prompt">請將下列案件類型與其「可以」採用的解決方式進行配對。</p>
+                <div class="matching-item" data-answer="all"><p>1. 租屋糾紛 (民事事件)</p><select class="matching-select"><option>請選擇</option><option value="all">和解、調解、訴訟</option><option value="litigation_only">僅能訴訟</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="litigation_only"><p>2. 搶劫案 (非告訴乃論)</p><select class="matching-select"><option>請選擇</option><option value="all">和解、調解、訴訟</option><option value="litigation_only">僅能訴訟</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="all"><p>3. 公然侮辱 (告訴乃論)</p><select class="matching-select"><option>請選擇</option><option value="all">和解、調解、訴訟</option><option value="litigation_only">僅能訴訟</option></select><i class="feedback-icon"></i></div>
+                <button class="matching-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="litigation-section">
@@ -357,6 +431,18 @@
                 <p>1. 判決確定後，雙方當事人都受到判決拘束，並可聲請<strong class="highlight-text">強制執行</strong>。</p>
                 <p>2. 對於同一事件，當事人不可再提訴訟，法院也不可再為裁判。</p>
             </div>
+             <!-- ===== 新增互動：民事訴訟原則思考題 ===== -->
+            <div id="adversarial-system-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-gavel"></i> 民事訴訟原則思考題</h3>
+                <p class="interactive-prompt">在民事訴訟中，如果原告忘記提出對自己有利的關鍵證據，法官會主動幫他調查證據嗎？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">會，法官有義務查明真相</button>
+                    <button class="interactive-btn" data-answer="true">不會，當事人需自行舉證</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="quiz-section">
@@ -429,15 +515,190 @@
         document.addEventListener('DOMContentLoaded', () => {
             let typingStarted = false; 
 
-            const typingSentences = [
-                "公民好神！我會遵守公民神會員守則！",
-                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
-                "公民神有三力：注意力、記憶力、戰鬥力！"
-            ];
-            const typingElementSpan = document.getElementById('typing-text-span');
+            // --- 互動卡片通用安裝函數 ---
+            function setupInteractiveCard(cardId, correctFeedbackHTML, wrongFeedbackHTML) {
+                const card = document.getElementById(cardId);
+                if (!card) return;
 
+                const buttons = card.querySelectorAll('.interactive-btn');
+                const feedbackArea = card.querySelector('.interactive-feedback');
+                const resetButton = card.querySelector('.interactive-reset-btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isCorrect = btn.dataset.answer === 'true';
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (isCorrect) {
+                            feedbackArea.innerHTML = correctFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-correct';
+                        } else {
+                            feedbackArea.innerHTML = wrongFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    buttons.forEach(b => b.disabled = false);
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                });
+            }
+
+            // --- 配對題通用安裝函數 ---
+            function setupMatchingQuiz(quizId) {
+                const quiz = document.getElementById(quizId);
+                if (!quiz) return;
+
+                const selects = quiz.querySelectorAll('.matching-select');
+                const resetButton = quiz.querySelector('.matching-reset-btn');
+
+                function handleMatchingChange(e) {
+                    const select = e.target;
+                    const selectedValue = select.value;
+                    const item = select.closest('.matching-item');
+                    const correctAnswer = item.dataset.answer;
+                    const feedbackIcon = item.querySelector('.feedback-icon');
+                    
+                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    feedbackIcon.textContent = '';
+                    if (selectedValue === "請選擇") {
+                        feedbackIcon.style.display = 'none';
+                        return;
+                    }
+                    feedbackIcon.style.display = 'inline-block';
+                    if (selectedValue === correctAnswer) {
+                        feedbackIcon.classList.add('icon-correct');
+                        feedbackIcon.textContent = '✓';
+                    } else {
+                        feedbackIcon.classList.add('icon-wrong');
+                        feedbackIcon.textContent = '✗';
+                    }
+                }
+
+                selects.forEach(select => {
+                    select.addEventListener('change', handleMatchingChange);
+                });
+
+                if(resetButton) {
+                    resetButton.style.display = 'block';
+                    resetButton.addEventListener('click', () => {
+                        selects.forEach(select => {
+                            select.selectedIndex = 0;
+                            const item = select.closest('.matching-item');
+                            const feedbackIcon = item.querySelector('.feedback-icon');
+                            feedbackIcon.style.display = 'none';
+                            feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                            feedbackIcon.textContent = '';
+                        });
+                    });
+                }
+            }
+
+            // --- 初始化所有互動卡片 ---
+            setupInteractiveCard(
+                'reconciliation-effect-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>「訴訟外和解」（私下和解）僅具有民法上的契約效力，若對方反悔，必須另外提起訴訟來請求履行，無法直接聲請強制執行。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>只有「訴訟上和解」或經過法院核定的「調解」，才具有等同法院確定判決的效力，可以直接聲請強制執行。私下和解不行喔！'
+            );
+
+            setupInteractiveCard(
+                'adversarial-system-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 完全正確！</strong>民事訴訟採「當事人進行主義」，意思是雙方當事人必須自己負責提出證據來證明自己的主張。法官的角色是中立的裁判，不會主動幫任何一方調查證據。',
+                '<strong><i class="fas fa-times-circle"></i> 這個觀念很重要！</strong>在民事訴訟中，法官是中立的，不會偏袒任何一方。舉證的責任在於當事人自己，這就是「當事人進行主義」。'
+            );
+            
+            // --- 初始化所有配對題 ---
+            setupMatchingQuiz('dispute-resolution-quiz');
+
+            // --- 會考歷屆試題區塊 ---
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>同學惡作劇導致受傷，此為「過失傷害罪」，屬於<strong class="highlight-text">告訴乃論之刑事案件</strong>，同時也涉及民事的損害賠償。對於這類案件，當事人可以選擇「和解」、「調解」或「訴訟」。小芬建議聲請調解，是處理此類紛爭的合法且常見途徑，因此最為適當。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 小玲</strong>：消費者保護官主要處理「消費爭議」，同學間的傷害事件不屬於此範圍。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 小奈</strong>：《家庭暴力防治法》適用於家庭成員間的暴力事件。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 小俊</strong>：「自訴」是指被害人自己當原告，直接向法院起訴，而非向檢察官提起。</p>`
+                },
+                quiz2: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>題幹要求找出符合「紓解訟源」且「與法院確定判決有相同效力」的途徑。選項中，只有(D)的<strong class="highlight-text">鄉鎮市區公所調解</strong>，其調解書經法院核定後，效力等同確定判決，完全符合題意。(C)的私下和解不具強制執行力，(B)的偷竊是非告訴乃論，無法透過和解免除刑責，(A)是行政救濟程序。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 訴願是行政救濟程序，與民事訴訟無關。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 偷竊是「非告訴乃論」罪，即便和解，檢察官仍須依法追訴，無法達到紓解訟源的效果。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C)</strong> 私下和解（訴訟外和解）僅具民法契約效力，若一方不履行，仍需上法院，不符合「與法院確定判決相同效力」的條件。</p>`
+                }
+            };
+            
+            const mcqContainers = document.querySelectorAll('.quiz-container[id]');
+            
+            mcqContainers.forEach((container) => {
+                const quizId = container.id;
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
+
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
+
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        
+                        optionButtons.forEach(btn => {
+                            btn.disabled = true;
+                        });
+
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = quizData.correct;
+                        } else {
+                            const optionLetter = button.textContent.substring(1, 2);
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            feedbackArea.innerHTML = quizData[optionLetter];
+                        }
+                        feedbackArea.className = 'feedback-area ' + (isCorrect ? 'feedback-correct' : 'feedback-wrong');
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
+                    });
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+            
+            // Section fade-in animation and typing effect
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
+                            typingStarted = true;
+                            startTypingLoop();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 }); 
+            sections.forEach(section => observer.observe(section));
+            
+            const typingElementSpan = document.getElementById('typing-text-span');
             function startTypingLoop() {
                 if (!typingElementSpan) return;
+                const typingSentences = [
+                    "公民好神！我會遵守公民神會員守則！",
+                    "努力向上、勇往直前、不畏艱難，我要成為公民神！",
+                    "公民神有三力：注意力、記憶力、戰鬥力！"
+                ];
                 let sentenceIndex = 0;
                 let charIndex = 0;
                 let isDeleting = false;
@@ -467,90 +728,12 @@
                 }
                 loop();
             }
-            
-            const sections = document.querySelectorAll('section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
-                            typingStarted = true;
-                            startTypingLoop();
-                        }
-                    }
-                });
-            }, { threshold: 0.1 }); 
-            
-            sections.forEach(section => observer.observe(section));
 
-            const allQuizData = {
-                quiz1: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>同學惡作劇導致受傷，此為「過失傷害罪」，屬於<strong class="highlight-text">告訴乃論之刑事案件</strong>，同時也涉及民事的損害賠償。對於這類案件，當事人可以選擇「和解」、「調解」或「訴訟」。小芬建議聲請調解，是處理此類紛爭的合法且常見途徑，因此最為適當。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 小玲</strong>：消費者保護官主要處理「消費爭議」，同學間的傷害事件不屬於此範圍。</p>`,
-                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 小奈</strong>：《家庭暴力防治法》適用於家庭成員間的暴力事件。</p>`,
-                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 小俊</strong>：「自訴」是指被害人自己當原告，直接向法院起訴，而非向檢察官提起。</p>`
-                },
-                quiz2: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>題幹要求找出符合「紓解訟源」且「與法院確定判決有相同效力」的途徑。選項中，只有(D)的<strong class="highlight-text">鄉鎮市區公所調解</strong>，其調解書經法院核定後，效力等同確定判決，完全符合題意。(C)的私下和解不具強制執行力，(B)的偷竊是非告訴乃論，無法透過和解免除刑責，(A)是行政救濟程序。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 訴願是行政救濟程序，與民事訴訟無關。</p>`,
-                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 偷竊是「非告訴乃論」罪，即便和解，檢察官仍須依法追訴，無法達到紓解訟源的效果。</p>`,
-                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C)</strong> 私下和解（訴訟外和解）僅具民法契約效力，若一方不履行，仍需上法院，不符合「與法院確定判決相同效力」的條件。</p>`
-                }
-            };
-            
-            const quizContainers = document.querySelectorAll('.quiz-container');
-            
-            quizContainers.forEach((container, index) => {
-                const quizId = `quiz${index + 1}`;
-                container.id = quizId;
-                const quizData = allQuizData[quizId];
-                if (!quizData) return;
-
-                const optionButtons = container.querySelectorAll('.option-btn');
-                const feedbackArea = container.querySelector('.feedback-area');
-                const resetButton = container.querySelector('.reset-btn');
-
-                optionButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        const isCorrect = button.dataset.correct === 'true';
-                        
-                        optionButtons.forEach(btn => {
-                            btn.disabled = true;
-                        });
-
-                        if (isCorrect) {
-                            button.classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId].correct;
-                            feedbackArea.className = 'feedback-area feedback-correct';
-                        } else {
-                            const optionLetter = button.textContent.substring(1, 2);
-                            button.classList.add('wrong');
-                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
-                            feedbackArea.className = 'feedback-area feedback-wrong';
-                        }
-                        feedbackArea.style.display = 'block';
-                        resetButton.style.display = 'block';
-                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    });
-                });
-                
-                resetButton.addEventListener('click', () => {
-                    optionButtons.forEach(btn => {
-                        btn.disabled = false;
-                        btn.classList.remove('correct', 'wrong');
-                    });
-                    feedbackArea.style.display = 'none';
-                    resetButton.style.display = 'none';
-                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                });
-            });
-
+            // Mascot JS
             const mascotContainer = document.getElementById('mascot-container');
             const mascotImg = document.getElementById('mascot-img');
             const speechBubble = document.getElementById('mascot-speech');
-            
-            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            const messages = ["公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
             let messageIndex = 0;
             let clickTimer = null;
             let speechTimeout = null;

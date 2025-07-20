@@ -161,6 +161,21 @@
             margin-top: 1rem;
         }
 
+        /* --- 互動卡片樣式 --- */
+        .interactive-card { background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05)); padding: 2rem; border-radius: 15px; border-left: 5px solid var(--secondary-glow); margin-top: 3rem; box-shadow: 0 0 15px rgba(255, 0, 255, 0.1); }
+        .interactive-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--secondary-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+        .interactive-feedback.feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .interactive-feedback.feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .interactive-reset-btn, .matching-reset-btn { display: none; margin: 1rem auto 0; padding: 0.6rem 1.5rem; font-size: 0.9rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .interactive-reset-btn:hover, .matching-reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 10px var(--accent-glow); }
+        /* --- 結束互動樣式 --- */
+
         .comparison-cards-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -178,6 +193,7 @@
         }
 
         .quiz-container { margin-bottom: 3rem; }
+        .quiz-container:last-child { margin-bottom: 0; }
         .quiz-title {
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
@@ -226,7 +242,7 @@
         .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
         .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
         .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
-        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
         .reset-btn:hover { transform: scale(1.05); }
         
         .matching-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
@@ -286,12 +302,11 @@
             .comparison-cards-container {
                 grid-template-columns: 1fr;
             }
-            #quiz-section .options { grid-template-columns: 1fr; }
-
             .law-options-list {
                 display: flex;
                 flex-direction: column;
             }
+            #quiz-section .options { grid-template-columns: 1fr; }
 
             .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
 
@@ -319,6 +334,18 @@
                 <div class="info-card"><h4><i class="fas fa-hourglass-half"></i>資源有限 (稀少性)</h4><p>食物、水、金錢、時間等資源有限，必須用最有效的方式運用有限的資源。</p></div>
                 <div class="info-card"><h4><i class="fas fa-random"></i>資源有多種用途</h4><p>資源具多種用途，可以選擇如何運用資源。例如：下課時間可用來休息，也可用來運動。</p></div>
             </div>
+            <!-- ===== 新增互動：選擇原因辨識 ===== -->
+            <div id="scarcity-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-gem"></i> 選擇原因辨識</h3>
+                <p class="interactive-prompt">經濟學家認為，人類之所以需要不斷做出「選擇」，最根本的原因是？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="true">資源有限，但慾望無窮</button>
+                    <button class="interactive-btn" data-answer="false">資源太多，不知如何使用</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="opportunity-cost-section">
@@ -337,6 +364,19 @@
                     <p>機會成本 = 電影票300元 (<strong class="highlight-text">外顯成本</strong>) + 放棄的打工收入800元 (<strong class="highlight-text">隱含成本</strong>) = 1,100元。</p>
                 </div>
             </div>
+             <!-- ===== 新增互動：機會成本計算題 ===== -->
+            <div id="opportunity-cost-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-calculator"></i> 機會成本計算題</h3>
+                <p class="interactive-prompt">小明有三份家教的選擇機會：數學（時薪400元）、英文（時薪350元）、物理（時薪300元）。若小明選擇了教數學，請問他選擇的機會成本是多少？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">400元</button>
+                    <button class="interactive-btn" data-answer="true">350元</button>
+                    <button class="interactive-btn" data-answer="false">650元</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="goods-section">
@@ -353,6 +393,18 @@
                     <p><strong>例如</strong>：石油、食品。<br><strong>備註</strong>：對都市居民而言，空氣雖是自由財，但「清潔的空氣」則是經濟財。</p>
                 </div>
             </div>
+             <!-- ===== 新增互動：自由財 vs 經濟財 ===== -->
+            <div id="goods-type-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-tint"></i> 自由財 vs 經濟財</h3>
+                <p class="interactive-prompt">我們在便利商店購買的瓶裝礦泉水，屬於下列何者？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">自由財</button>
+                    <button class="interactive-btn" data-answer="true">經濟財</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="incentive-section">
@@ -383,7 +435,7 @@
 
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
-            <div class="quiz-container">
+            <div class="quiz-container" id="incentive-matching-quiz">
                 <h3 class="quiz-title"><i class="fas fa-tasks"></i>模擬神給酷</h3>
                 <div class="info-card" style="margin-top:0;">
                      <p><strong>下列情境屬於何種誘因？請填入正確代號。</strong></p>
@@ -395,6 +447,7 @@
                      <div class="matching-item" data-answer="乙"><p>2. 上課遲到的人，要當一日值日生打掃環境。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option></select><i class="feedback-icon"></i></div>
                      <div class="matching-item" data-answer="乙"><p>3. 若業績沒達到標準，下個月將會被扣薪水。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option></select><i class="feedback-icon"></i></div>
                      <div class="matching-item" data-answer="甲"><p>4. 全年度未遲到早退的人，將獲得經理表揚。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option></select><i class="feedback-icon"></i></div>
+                     <button class="matching-reset-btn">再挑戰一次</button>
                 </div>
                  <div class="info-card" style="background-color: rgba(240, 225, 74, 0.1); margin-top:1.5rem;">
                     <h4 style="color: var(--accent-glow); border:none; padding-bottom:0;">解題關鍵</h4>
@@ -436,6 +489,22 @@
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
+             <!-- ===== 新增模擬挑戰三 ===== -->
+            <div class="quiz-container" id="quiz3">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(模擬神給酷)</span></h3>
+                <div class="question">
+                    <p>政府為了鼓勵民眾節約用水，宣布將對每月用水量超標的用戶加收水費。此項政策是運用了何種方式來影響民眾的選擇？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 增加正向誘因</button>
+                    <button class="option-btn" data-correct="true">(B) 增加負向誘因</button>
+                    <button class="option-btn" data-correct="false">(C) 降低機會成本</button>
+                    <button class="option-btn" data-correct="false">(D) 增加自由財供給</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
         
         <section class="fun-bg-section">
@@ -466,15 +535,202 @@
         document.addEventListener('DOMContentLoaded', () => {
             let typingStarted = false; 
 
-            const typingSentences = [
-                "公民好神！我會遵守公民神會員守則！",
-                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
-                "公民神有三力：注意力、記憶力、戰鬥力！"
-            ];
-            const typingElementSpan = document.getElementById('typing-text-span');
+            // --- 互動卡片通用安裝函數 ---
+            function setupInteractiveCard(cardId, correctFeedbackHTML, wrongFeedbackHTML) {
+                const card = document.getElementById(cardId);
+                if (!card) return;
 
+                const buttons = card.querySelectorAll('.interactive-btn');
+                const feedbackArea = card.querySelector('.interactive-feedback');
+                const resetButton = card.querySelector('.interactive-reset-btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isCorrect = btn.dataset.answer === 'true';
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (isCorrect) {
+                            feedbackArea.innerHTML = correctFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-correct';
+                        } else {
+                            feedbackArea.innerHTML = wrongFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    buttons.forEach(b => b.disabled = false);
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                });
+            }
+
+            // --- 配對題通用安裝函數 ---
+            function setupMatchingQuiz(quizId) {
+                const quiz = document.getElementById(quizId);
+                if (!quiz) return;
+
+                const selects = quiz.querySelectorAll('.matching-select');
+                const resetButton = quiz.querySelector('.matching-reset-btn');
+
+                function handleMatchingChange(e) {
+                    const select = e.target;
+                    const selectedValue = select.value;
+                    const item = select.closest('.matching-item');
+                    const correctAnswer = item.dataset.answer;
+                    const feedbackIcon = item.querySelector('.feedback-icon');
+                    
+                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    feedbackIcon.textContent = '';
+                    if (selectedValue === "請選擇") {
+                        feedbackIcon.style.display = 'none';
+                        return;
+                    }
+                    feedbackIcon.style.display = 'inline-block';
+                    if (selectedValue === correctAnswer) {
+                        feedbackIcon.classList.add('icon-correct');
+                        feedbackIcon.textContent = '✓';
+                    } else {
+                        feedbackIcon.classList.add('icon-wrong');
+                        feedbackIcon.textContent = '✗';
+                    }
+                }
+
+                selects.forEach(select => {
+                    select.addEventListener('change', handleMatchingChange);
+                });
+
+                if(resetButton) {
+                    resetButton.style.display = 'block';
+                    resetButton.addEventListener('click', () => {
+                        selects.forEach(select => {
+                            select.selectedIndex = 0;
+                            const item = select.closest('.matching-item');
+                            const feedbackIcon = item.querySelector('.feedback-icon');
+                            feedbackIcon.style.display = 'none';
+                            feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                            feedbackIcon.textContent = '';
+                        });
+                    });
+                }
+            }
+            
+            // --- 初始化所有互動卡片 ---
+            setupInteractiveCard(
+                'scarcity-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>經濟學的基本前提就是「稀少性」，因為資源有限，無法滿足所有慾望，所以我們才必須做出選擇。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>人類面臨選擇的根本問題，恰恰是因為資源「不夠用」，也就是資源的稀少性。'
+            );
+
+            setupInteractiveCard(
+                'opportunity-cost-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 完全正確！</strong>機會成本是「放棄的選項中，價值最高者」。小明選擇了時薪400元的數學，放棄的選項中價值最高的是時薪350元的英文，所以機會成本是350元。',
+                '<strong><i class="fas fa-times-circle"></i> 計算錯誤！</strong>機會成本不是選擇的價值(400)，也不是放棄的所有價值總和(350+300=650)，而是放棄的選項中「價值最高」的那一個，也就是英文家教的350元。'
+            );
+
+            setupInteractiveCard(
+                'goods-type-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>瓶裝水需要經過處理、包裝、運輸和販售，必須付出金錢（代價）才能取得，因此屬於「經濟財」。',
+                '<strong><i class="fas fa-times-circle"></i> 再想一下！</strong>「自由財」是不需付出代價就能取得的，例如陽光。瓶裝水需要花錢購買，所以是「經濟財」。'
+            );
+            
+            // --- 初始化所有配對題 ---
+            setupMatchingQuiz('incentive-matching-quiz');
+
+            // --- 會考歷屆試題區塊 ---
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>民眾選擇電動自行車，是因為它「不須掛牌、不須駕照、無年齡限制、價格低廉」。相較於電動機車，選擇電動自行車所要付出的代價（機會成本）較低，包含金錢成本（價格）和非金錢成本（考照時間、符合年齡限制等）。因此，(B)機會成本較低是民眾選擇的主因。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>題目沒有提供市場競爭程度的資訊。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>題目沒有提及匯率變化的資訊。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>負向誘因會「降低」使用意願，而非提高。</p>`
+                },
+                quiz2: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>機會成本是「被放棄的選項中，價值最高者」。機會成本「較高」的選擇，就是「較差」的選擇。 <br>• <strong>大華</strong>：只想就近，去乙商店（遠）的機會成本較高。 <br>• <strong>小年</strong>：只想便宜，去甲商店（貴）的機會成本較高。 <br>因此答案是(D)。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>對小年來說，去乙商店（近又便宜）是最佳選擇，機會成本最低。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>對大華來說，去甲商店（近又符合需求）是最佳選擇，機會成本最低。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>此選項描述的是兩人機會成本「較低」的選擇，與題目問的「較高」相反。</p>`
+                },
+                quiz3: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>政府透過「加收水費」來提高過度用水的「懲罰」，目的是為了抑制民眾超量用水的行為。這種「提高懲罰」的措施，屬於<strong class="highlight-text">負向誘因</strong>。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 正向誘因</strong>是提高報酬，例如「節水獎金」，與題目的懲罰性質相反。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 降低機會成本</strong>會「鼓勵」行為，而此政策的目的是「抑制」行為。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 自由財</strong>是免費取用的資源，水費政策顯然是針對作為「經濟財」的自來水。</p>`
+                }
+            };
+            
+            const mcqContainers = document.querySelectorAll('.quiz-container[id]');
+            
+            mcqContainers.forEach((container) => {
+                const quizId = container.id;
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
+
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
+
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        
+                        optionButtons.forEach(btn => {
+                            btn.disabled = true;
+                        });
+
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = quizData.correct;
+                        } else {
+                            const optionLetter = button.textContent.substring(1, 2);
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            feedbackArea.innerHTML = quizData[optionLetter];
+                        }
+                        feedbackArea.className = 'feedback-area ' + (isCorrect ? 'feedback-correct' : 'feedback-wrong');
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
+                    });
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+            
+            // Section fade-in animation and typing effect
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
+                            typingStarted = true;
+                            startTypingLoop();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 }); 
+            sections.forEach(section => observer.observe(section));
+            
+            const typingElementSpan = document.getElementById('typing-text-span');
             function startTypingLoop() {
                 if (!typingElementSpan) return;
+                const typingSentences = [
+                    "公民好神！我會遵守公民神會員守則！",
+                    "努力向上、勇往直前、不畏艱難，我要成為公民神！",
+                    "公民神有三力：注意力、記憶力、戰鬥力！"
+                ];
                 let sentenceIndex = 0;
                 let charIndex = 0;
                 let isDeleting = false;
@@ -504,114 +760,12 @@
                 }
                 loop();
             }
-            
-            const sections = document.querySelectorAll('section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
-                            typingStarted = true;
-                            startTypingLoop();
-                        }
-                    }
-                });
-            }, { threshold: 0.1 }); 
-            
-            sections.forEach(section => observer.observe(section));
 
-            const matchingSelects = document.querySelectorAll('.matching-select');
-            matchingSelects.forEach(select => {
-                select.addEventListener('change', (e) => {
-                    const selectedValue = e.target.value;
-                    const item = e.target.closest('.matching-item');
-                    const correctAnswer = item.dataset.answer;
-                    const feedbackIcon = item.querySelector('.feedback-icon');
-                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
-                    feedbackIcon.innerHTML = '';
-                    if (selectedValue === "請選擇") {
-                        feedbackIcon.style.display = 'none';
-                        return;
-                    }
-                    feedbackIcon.style.display = 'inline-block';
-                    if (selectedValue === correctAnswer) {
-                        feedbackIcon.classList.add('icon-correct');
-                        feedbackIcon.innerHTML = '✓';
-                    } else {
-                        feedbackIcon.classList.add('icon-wrong');
-                        feedbackIcon.innerHTML = '✗';
-                    }
-                });
-            });
-
-            const allQuizData = {
-                quiz1: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>民眾選擇電動自行車，是因為它「不須掛牌、不須駕照、無年齡限制、價格低廉」。相較於電動機車，選擇電動自行車所要付出的代價（機會成本）較低，包含金錢成本（價格）和非金錢成本（考照時間、符合年齡限制等）。因此，(B)機會成本較低是民眾選擇的主因。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>題目沒有提供市場競爭程度的資訊。</p>`,
-                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>題目沒有提及匯率變化的資訊。</p>`,
-                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>負向誘因會「降低」使用意願，而非提高。</p>`
-                },
-                quiz2: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>機會成本是「被放棄的選項中，價值最高者」。機會成本「較高」的選擇，就是「較差」的選擇。 <br>• <strong>大華</strong>：只想就近，去乙商店（遠）的機會成本較高。 <br>• <strong>小年</strong>：只想便宜，去甲商店（貴）的機會成本較高。 <br>因此答案是(D)。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>對小年來說，去乙商店（近又便宜）是最佳選擇，機會成本最低。</p>`,
-                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>對大華來說，去甲商店（近又符合需求）是最佳選擇，機會成本最低。</p>`,
-                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>此選項描述的是兩人機會成本「較低」的選擇，與題目問的「較高」相反。</p>`
-                }
-            };
-            
-            const quizContainers = document.querySelectorAll('.quiz-container');
-            
-            quizContainers.forEach((container) => {
-                const quizId = container.id;
-                if (!quizId) return;
-                const quizData = allQuizData[quizId];
-                if (!quizData) return;
-
-                const optionButtons = container.querySelectorAll('.option-btn');
-                const feedbackArea = container.querySelector('.feedback-area');
-                const resetButton = container.querySelector('.reset-btn');
-
-                optionButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        const isCorrect = button.dataset.correct === 'true';
-                        
-                        optionButtons.forEach(btn => {
-                            btn.disabled = true;
-                        });
-
-                        if (isCorrect) {
-                            button.classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId].correct;
-                            feedbackArea.className = 'feedback-area feedback-correct';
-                        } else {
-                            const optionLetter = button.textContent.substring(1, 2);
-                            button.classList.add('wrong');
-                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
-                            feedbackArea.className = 'feedback-area feedback-wrong';
-                        }
-                        feedbackArea.style.display = 'block';
-                        resetButton.style.display = 'block';
-                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    });
-                });
-                
-                resetButton.addEventListener('click', () => {
-                    optionButtons.forEach(btn => {
-                        btn.disabled = false;
-                        btn.classList.remove('correct', 'wrong');
-                    });
-                    feedbackArea.style.display = 'none';
-                    resetButton.style.display = 'none';
-                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                });
-            });
-
+            // Mascot JS
             const mascotContainer = document.getElementById('mascot-container');
             const mascotImg = document.getElementById('mascot-img');
             const speechBubble = document.getElementById('mascot-speech');
-            
-            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            const messages = ["公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
             let messageIndex = 0;
             let clickTimer = null;
             let speechTimeout = null;

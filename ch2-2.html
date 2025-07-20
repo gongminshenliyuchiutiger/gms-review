@@ -190,8 +190,8 @@
         }
         .quiz-title i { margin-right: 0.75rem; }
         .quiz-title .quiz-source { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
-        #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
-        #quiz-section .options { display: grid; gap: 1rem; }
+        .quiz-container .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
+        .quiz-container .options { display: grid; gap: 1rem; }
         .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
         .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
         .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark); }
@@ -212,38 +212,27 @@
         .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
         .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
 
-        .law-options-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 0.75rem;
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-        }
-        .law-option-item {
-            background-color: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--border-color);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 0.95rem;
-        }
-        .law-option-label {
-            color: var(--accent-glow);
-            font-weight: 700;
-            margin-right: 0.5em;
-            font-family: 'Orbitron', sans-serif;
-        }
+        .options-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem; margin-top: 1rem; margin-bottom: 1rem; }
+        .option-item { background-color: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-color); padding: 0.5rem 1rem; border-radius: 8px; text-align: center; font-size: 0.95rem; }
+        .option-label { color: var(--accent-glow); font-weight: 700; margin-right: 0.5em; font-family: 'Orbitron', sans-serif; }
+        
+        /* --- 互動卡片樣式 --- */
+        .interactive-card { background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05)); padding: 2rem; border-radius: 15px; border-left: 5px solid var(--secondary-glow); margin-top: 3rem; box-shadow: 0 0 15px rgba(255, 0, 255, 0.1); }
+        .interactive-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--secondary-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+        .interactive-feedback.feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .interactive-feedback.feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .interactive-reset-btn, .matching-reset-btn { display: none; margin: 1rem auto 0; padding: 0.6rem 1.5rem; font-size: 0.9rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .interactive-reset-btn:hover, .matching-reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 10px var(--accent-glow); }
+        /* --- 結束互動樣式 --- */
 
         .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
-        .fun-bg-section .typing-effect {
-            position: relative; z-index: 5; font-family: 'Orbitron', monospace; 
-            font-size: clamp(1.0rem, 2vw + 0.5rem, 1.6rem);
-            font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            text-align: center; max-width: 100%;
-            border-bottom: none;
-            padding-bottom: 0;
-            margin-bottom: 0;
-        }
+        .fun-bg-section .typing-effect { position: relative; z-index: 5; font-family: 'Orbitron', monospace; font-size: clamp(1.0rem, 2vw + 0.5rem, 1.6rem); font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); text-align: center; max-width: 100%; border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
         .typing-effect .cursor { display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); margin-left: 5px; width: 10px; height: 1em; animation: blink-caret 0.75s step-end infinite; }
         @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
         .floating-mascot-bg { position: absolute; width: 250px; height: auto; opacity: 0.15; animation: floatMascot 15s ease-in-out infinite alternate; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; }
@@ -267,17 +256,8 @@
             .container { padding: 1rem; }
             section { padding: 1.5rem; }
             .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-            
-            .grid-3-col,
-            .info-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .css-diagram {
-                font-size: 1.8rem;
-                gap: 0.8rem;
-            }
-
+            .grid-3-col, .info-grid { grid-template-columns: 1fr; }
+            .css-diagram { font-size: 1.8rem; gap: 0.8rem; }
             #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
             #mascot-img { width: 80px; }
@@ -316,54 +296,49 @@
                     </ul>
                 </div>
             </div>
+            <!-- ===== 新增互動：溝通技巧 ===== -->
+            <div id="communication-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-comments"></i> 溝通技巧挑戰</h3>
+                <p class="interactive-prompt"><b>情境：</b>孩子難過地說：「我這次考試考差了。」下列哪一種回應最能展現「同理心」？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">「跟你說要多讀書你就不聽！」</button>
+                    <button class="interactive-btn" data-answer="true">「你一定很難過，我們一起看看是哪裡出了問題。」</button>
+                    <button class="interactive-btn" data-answer="false">「沒關係啦，下次再努力就好。」</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="family-violence">
             <h2 class="section-title"><i class="fas fa-house-damage"></i>二、家庭暴力</h2>
             <p>家庭成員間，以身體或精神上不法侵害的行為。主要可分為四種類型：</p>
             <div class="info-grid">
-                <div class="info-card">
-                    <h4><i class="fas fa-fist-raised"></i>身體暴力</h4>
-                    <p><strong>定義：</strong>任何傷害或可能導致身體傷害的行為。</p>
-                    <p><strong>舉例：</strong>毆打、鞭打、遺棄、濫用藥物等。</p>
-                </div>
-                <div class="info-card">
-                    <h4><i class="fas fa-comment-slash"></i>精神暴力</h4>
-                    <p><strong>定義：</strong>透過言語或態度，造成對方精神痛苦的行為。</p>
-                    <p><strong>舉例：</strong>言語恐嚇、羞辱、跟蹤、騷擾等。</p>
-                </div>
-                <div class="info-card">
-                    <h4><i class="fas fa-hand-rock"></i>性暴力</h4>
-                    <p><strong>定義：</strong>任何強迫或威脅對方進行性行為的舉動。</p>
-                    <p><strong>舉例：</strong>強迫發生性行為、強拍裸照等。</p>
-                </div>
-                <div class="info-card">
-                    <h4><i class="fas fa-dollar-sign"></i>經濟暴力</h4>
-                    <p><strong>定義：</strong>透過金錢或財務控制，對家庭成員造成壓力。</p>
-                    <p><strong>舉例：</strong>不給生活費、過度控制財務等。</p>
-                </div>
+                <div class="info-card"><h4><i class="fas fa-fist-raised"></i>身體暴力</h4><p>任何傷害或可能導致身體傷害的行為。例：毆打、鞭打、遺棄、濫用藥物等。</p></div>
+                <div class="info-card"><h4><i class="fas fa-comment-slash"></i>精神暴力</h4><p>透過言語或態度，造成對方精神痛苦的行為。例：言語恐嚇、羞辱、跟蹤、騷擾等。</p></div>
+                <div class="info-card"><h4><i class="fas fa-hand-rock"></i>性暴力</h4><p>任何強迫或威脅對方進行性行為的舉動。例：強迫發生性行為、強拍裸照等。</p></div>
+                <div class="info-card"><h4><i class="fas fa-dollar-sign"></i>經濟暴力</h4><p>透過金錢或財務控制，對家庭成員造成壓力。例：不給生活費、過度控制財務等。</p></div>
             </div>
+            <!-- ===== 新增互動：家暴類型辨識 ===== -->
+            <div id="violence-type-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-clipboard-list"></i> 家暴類型辨識</h3>
+                <p class="interactive-prompt">請將下列情境與對應的家暴類型進行配對。</p>
+                <div class="matching-item" data-answer="economic"><p>1. 先生嚴格控管太太的所有開銷，讓她連買菜錢都沒有。</p><select class="matching-select"><option>請選擇</option><option value="physical">身體暴力</option><option value="mental">精神暴力</option><option value="sexual">性暴力</option><option value="economic">經濟暴力</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="mental"><p>2. 媽媽時常對孩子說：「你怎麼這麼笨，跟豬一樣！」</p><select class="matching-select"><option>請選擇</option><option value="physical">身體暴力</option><option value="mental">精神暴力</option><option value="sexual">性暴力</option><option value="economic">經濟暴力</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="physical"><p>3. 爸爸酒後情緒失控，拿棍子毆打小孩。</p><select class="matching-select"><option>請選擇</option><option value="physical">身體暴力</option><option value="mental">精神暴力</option><option value="sexual">性暴力</option><option value="economic">經濟暴力</option></select><i class="feedback-icon"></i></div>
+                <button class="matching-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="help-channels">
             <h2 class="section-title"><i class="fas fa-hands-helping"></i>三、家庭暴力的求助管道</h2>
             <div class="info-grid">
-                <div class="info-card">
-                    <h4><i class="fas fa-phone-alt"></i>113 保護專線</h4>
-                    <p>提供<strong class="highlight-text">24小時</strong>全年無休的線上諮詢服務，可提供專業的協助與建議。</p>
-                </div>
-                <div class="info-card">
-                    <h4><i class="fas fa-user-shield"></i>警察機關 (110)</h4>
-                    <p>當面臨<strong class="highlight-text">立即性</strong>的危險時，應立即撥打110報警，由警方介入制止暴力行為。</p>
-                </div>
-                <div class="info-card">
-                    <h4><i class="fas fa-hospital"></i>醫療機構</h4>
-                    <p>若因家暴受傷，應盡速就醫，並請醫院開立<strong class="highlight-text">驗傷單</strong>，作為日後法律程序的證據。</p>
-                </div>
-                <div class="info-card">
-                    <h4><i class="fas fa-building"></i>家庭暴力防治中心</h4>
-                    <p>各縣市政府設立的專責單位，提供法律諮詢、心理輔導、庇護安置等服務。</p>
-                </div>
+                <div class="info-card"><h4><i class="fas fa-phone-alt"></i>113 保護專線</h4><p>提供<strong class="highlight-text">24小時</strong>全年無休的線上諮詢服務，可提供專業的協助與建議。</p></div>
+                <div class="info-card"><h4><i class="fas fa-user-shield"></i>警察機關 (110)</h4><p>當面臨<strong class="highlight-text">立即性</strong>的危險時，應立即撥打110報警，由警方介入制止暴力行為。</p></div>
+                <div class="info-card"><h4><i class="fas fa-hospital"></i>醫療機構</h4><p>若因家暴受傷，應盡速就醫，並請醫院開立<strong class="highlight-text">驗傷單</strong>，作為日後法律程序的證據。</p></div>
+                <div class="info-card"><h4><i class="fas fa-building"></i>家庭暴力防治中心</h4><p>各縣市政府設立的專責單位，提供法律諮詢、心理輔導、庇護安置等服務。</p></div>
             </div>
             <div class="highlight-box">
                 <h4><i class="fas fa-file-alt"></i>保護令</h4>
@@ -374,13 +349,42 @@
                     <li><strong>通常保護令：</strong>經過法院審理後核發，效力最長可達<strong class="highlight-text">兩年</strong>，並可聲請延長。</li>
                 </ul>
             </div>
+             <!-- ===== 新增互動：保護令知識測驗 ===== -->
+            <div id="protection-order-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-balance-scale"></i> 保護令知識測驗</h3>
+                <p class="interactive-prompt">小美遭受家暴，情況非常緊急，需要立刻獲得保護。此時警察機關可以為她申請哪一種保護令？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="true">緊急保護令</button>
+                    <button class="interactive-btn" data-answer="false">暫時保護令</button>
+                    <button class="interactive-btn" data-answer="false">通常保護令</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
         
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
 
+            <div class="quiz-container" id="help-matching-quiz">
+                <h3 class="quiz-title"><i class="fas fa-tasks"></i>挑戰一 <span class="quiz-source">(模擬神給酷)</span></h3>
+                <div class="info-card">
+                     <p><strong>請判斷下列情境應向何者求助？</strong></p>
+                     <div class="options-list">
+                         <div class="option-item"><span class="option-label">甲</span> 家庭暴力防治中心</div>
+                         <div class="option-item"><span class="option-label">乙</span> 警察機關</div>
+                         <div class="option-item"><span class="option-label">丙</span> 醫療機構</div>
+                     </div>
+                     <div class="matching-item" data-answer="乙"><p>1. 爸爸酒後又在摔東西，媽媽擔心自己和小孩被打。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="甲"><p>2. 小華長期被家暴，想脫離家庭但不知如何是好。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
+                     <div class="matching-item" data-answer="丙"><p>3. 阿姨被家暴後身上多處瘀青，想保留證據。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
+                     <button class="matching-reset-btn">再挑戰一次</button>
+                </div>
+            </div>
+
             <div class="quiz-container" id="quiz1">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(111 會考)</span></h3>
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(111 會考)</span></h3>
                 <div class="question">
                     <p>若父母離婚後，對於未成年子女權利義務的行使及負擔，沒有達成協議，法院可依子女的最佳利益，決定由一方或雙方共同擔任監護人。當法院在做上述判決時，會請社工人員進行訪視，以了解未成年子女的受照顧情形。<strong>社工人員的訪視報告，最主要是為了協助法院判斷下列何者？</strong></p>
                 </div>
@@ -395,7 +399,7 @@
             </div>
 
             <div class="quiz-container" id="quiz2">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(109 會考)</span></h3>
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(109 會考)</span></h3>
                 <div class="question">
                     <p>新聞報導：「為避免家庭暴力被害人遭受跟蹤、騷擾，立法院三讀通過《家庭暴力防治法》修正案，增訂『防跟蹤騷擾』的<strong class="highlight-text">保護令</strong>條款，違反者最高可處三年以下有期徒刑。」上述畫線處的法律文件應由下列哪一機關核發？</p>
                 </div>
@@ -407,29 +411,6 @@
                 </div>
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
-            </div>
-
-            <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-tasks"></i>挑戰三 <span class="quiz-source">(模擬神給酷)</span></h3>
-                <div class="info-card">
-                     <p><strong>請判斷下列情境應向何者求助？</strong></p>
-                     <div class="law-options-list">
-                         <div class="law-option-item"><span class="law-option-label">甲</span> 家庭暴力防治中心</div>
-                         <div class="law-option-item"><span class="law-option-label">乙</span> 警察機關</div>
-                         <div class="law-option-item"><span class="law-option-label">丙</span> 醫療機構</div>
-                     </div>
-                     <div class="matching-item" data-answer="乙"><p>1. 爸爸酒後又在摔東西，媽媽擔心自己和小孩被打。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
-                     <div class="matching-item" data-answer="甲"><p>2. 小華長期被家暴，想脫離家庭但不知如何是好。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
-                     <div class="matching-item" data-answer="丙"><p>3. 阿姨被家暴後身上多處瘀青，想保留證據。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
-                </div>
-                 <div class="highlight-box">
-                    <h4><i class="fas fa-key"></i>解題關鍵</h4>
-                    <ul>
-                        <li><strong class="highlight-text">甲、家庭暴力防治中心：</strong>提供法律諮詢、心理輔導、庇護安置等<strong class="highlight-text">長期性的協助</strong>。</li>
-                        <li><strong class="highlight-text">乙、警察機關：</strong>處理<strong class="highlight-text">立即性</strong>的危險，制止暴力。</li>
-                        <li><strong class="highlight-text">丙、醫療機構：</strong>治療傷勢並開立<strong class="highlight-text">驗傷單</strong>作為證據。</li>
-                    </ul>
-                </div>
             </div>
 
         </section>
@@ -452,7 +433,7 @@
 
     <div id="mascot-container">
         <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
-        <div id="mascot-speech">公民好神！</div>
+        <div id="mascot-speech">溝通與尊重，家的基石。</div>
     </div>
     
     <footer>
@@ -460,9 +441,9 @@
     </footer>
 
     <script>
-        // JavaScript 程式碼保持不變
         document.addEventListener('DOMContentLoaded', () => {
-            let typingStarted = false; 
+            // --- 全局變數和通用函數 ---
+            let typingStarted = false;
 
             const sections = document.querySelectorAll('section');
             const observer = new IntersectionObserver((entries) => {
@@ -475,18 +456,59 @@
                         }
                     }
                 });
-            }, { threshold: 0.1 }); 
+            }, { threshold: 0.1 });
             sections.forEach(section => observer.observe(section));
 
-            const matchingSelects = document.querySelectorAll('.matching-select');
-            matchingSelects.forEach(select => {
-                select.addEventListener('change', (e) => {
-                    const selectedValue = e.target.value;
-                    const item = e.target.closest('.matching-item');
+            // --- 互動卡片通用安裝函數 ---
+            function setupInteractiveCard(cardId, correctFeedbackHTML, wrongFeedbackHTML) {
+                const card = document.getElementById(cardId);
+                if (!card) return;
+
+                const buttons = card.querySelectorAll('.interactive-btn');
+                const feedbackArea = card.querySelector('.interactive-feedback');
+                const resetButton = card.querySelector('.interactive-reset-btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isCorrect = btn.dataset.answer === 'true';
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (isCorrect) {
+                            feedbackArea.innerHTML = correctFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-correct';
+                        } else {
+                            feedbackArea.innerHTML = wrongFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    buttons.forEach(b => b.disabled = false);
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                });
+            }
+
+            // --- 配對題通用安裝函數 ---
+            function setupMatchingQuiz(quizId) {
+                const quiz = document.getElementById(quizId);
+                if (!quiz) return;
+
+                const selects = quiz.querySelectorAll('.matching-select');
+                const resetButton = quiz.querySelector('.matching-reset-btn');
+
+                function handleMatchingChange(e) {
+                    const select = e.target;
+                    const selectedValue = select.value;
+                    const item = select.closest('.matching-item');
                     const correctAnswer = item.dataset.answer;
                     const feedbackIcon = item.querySelector('.feedback-icon');
+                    
                     feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
-                    feedbackIcon.innerHTML = '';
+                    feedbackIcon.textContent = '';
                     if (selectedValue === "請選擇") {
                         feedbackIcon.style.display = 'none';
                         return;
@@ -494,23 +516,82 @@
                     feedbackIcon.style.display = 'inline-block';
                     if (selectedValue === correctAnswer) {
                         feedbackIcon.classList.add('icon-correct');
-                        feedbackIcon.innerHTML = '✓';
+                        feedbackIcon.textContent = '✓';
                     } else {
                         feedbackIcon.classList.add('icon-wrong');
-                        feedbackIcon.innerHTML = '✗';
+                        feedbackIcon.textContent = '✗';
                     }
-                });
-            });
+                }
 
+                selects.forEach(select => {
+                    select.addEventListener('change', handleMatchingChange);
+                });
+
+                if(resetButton) {
+                    resetButton.style.display = 'block'; // Always show reset button for matching quizzes
+                    resetButton.addEventListener('click', () => {
+                        selects.forEach(select => {
+                            select.selectedIndex = 0;
+                            const item = select.closest('.matching-item');
+                            const feedbackIcon = item.querySelector('.feedback-icon');
+                            feedbackIcon.style.display = 'none';
+                            feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                            feedbackIcon.textContent = '';
+                        });
+                    });
+                }
+            }
+            
+            // --- 初始化所有互動卡片 ---
+            setupInteractiveCard(
+                'communication-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>這種回應先肯定了對方的情緒（難過），並表達願意共同面對問題，是<span class="highlight-text">同理心</span>的最佳體現。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>指責或輕描淡寫都無法讓對方感受到被理解。先肯定對方的情緒，才是<span class="highlight-text">同理心</span>的表現。'
+            );
+
+            setupInteractiveCard(
+                'protection-order-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>當事人有<span class="highlight-text">急迫危險</span>時，檢警或主管機關可以代為申請「緊急保護令」，法院會在4小時內核發。',
+                '<strong><i class="fas fa-times-circle"></i> 差一點！</strong>「暫時保護令」適用於非緊急但仍有危險的情況。「通常保護令」則需要經過完整審理。緊急情況適用的是<span class="highlight-text">「緊急保護令」</span>。'
+            );
+            
+            // --- 初始化所有配對題 ---
+            setupMatchingQuiz('violence-type-quiz');
+            setupMatchingQuiz('help-matching-quiz');
+
+            // --- 打字機效果 ---
+            const typingSentences = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            const typingElementSpan = document.getElementById('typing-text-span');
+            function startTypingLoop() {
+                if (!typingElementSpan) return;
+                let sentenceIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
+                function loop() {
+                    const currentSentence = typingSentences[sentenceIndex];
+                    if (isDeleting) {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex - 1);
+                        charIndex--;
+                        if (charIndex === 0) { isDeleting = false; sentenceIndex = (sentenceIndex + 1) % typingSentences.length; setTimeout(loop, 500); } else { setTimeout(loop, 50); }
+                    } else {
+                        typingElementSpan.textContent = currentSentence.substring(0, charIndex + 1);
+                        charIndex++;
+                        if (charIndex === currentSentence.length) { isDeleting = true; setTimeout(loop, 2500); } else { setTimeout(loop, 120); }
+                    }
+                }
+                loop();
+            }
+
+            // --- 會考歷屆試題區塊 ---
             const allQuizData = {
                 quiz1: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！</h3><p><strong>解題關鍵：</strong>題目核心是「法院為了判斷由誰行使親權（監護權）」，而請社工訪視。社工訪視的目的在於評估哪一方能提供對子女「最佳的」成長環境，這綜合評估的就是父母的<strong class="highlight-text">監護能力</strong>。經濟狀況、子女意願、就學安排都是評估監護能力的其中一部分，但(C)選項是最高層次、最全面的目的。</p>`,
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>題目核心是「法院為了判斷由誰行使親權（監護權）」，而請社工訪視。社工訪視的目的在於評估哪一方能提供對子女「最佳的」成長環境，這綜合評估的就是父母的<strong class="highlight-text">監護能力</strong>。經濟狀況、子女意願、就學安排都是評估監護能力的其中一部分，但(C)選項是最高層次、最全面的目的。</p>`,
                     A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 父母的經濟狀況：</strong>這是評估監護能力的指標之一，但不是唯一或最重要的。社工訪視會看更全面的照顧情況，(C)是更完整的答案。</p>`,
                     B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 子女的主觀意願：</strong>法院會尊重子女的意願，但這也是評估的一部分，最終還是要回到哪一方的「監護能力」對子女最好，(C)更為全面。</p>`,
                     D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 子女的就學安排：</strong>這是評估監護能力的一環，但不是訪視的唯一目的。社工會評估整體照顧狀況，(C)才是最核心的目的。</p>`
                 },
                 quiz2: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！</h3><p><strong>解題關鍵：</strong>不論是「緊急保護令」、「暫時保護令」還是「通常保護令」，最終的核發機關都是<strong class="highlight-text">法院</strong>。警察局或社會局等單位可以「代為申請」，但無權「核發」。因此(B)是正確答案。</p>`,
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>不論是「緊急保護令」、「暫時保護令」還是「通常保護令」，最終的核發機關都是<strong class="highlight-text">法院</strong>。警察局或社會局等單位可以「代為申請」，但無權「核發」。因此(B)是正確答案。</p>`,
                     A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 警察局：</strong>在緊急情況下可以「代為申請」保護令，但無權「核發」。</p>`,
                     C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 社會局：</strong>是家庭暴力防治的主管機關，可以「代為申請」保護令，但無權「核發」。</p>`,
                     D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 衛生福利部：</strong>是中央主管機關，負責政策規劃，不會直接核發個案的保護令。</p>`
@@ -518,7 +599,6 @@
             };
             
             const mcqContainers = document.querySelectorAll('.quiz-container[id]');
-            
             mcqContainers.forEach((container) => {
                 const quizId = container.id;
                 const quizData = allQuizData[quizId];
@@ -556,55 +636,15 @@
                     });
                     feedbackArea.style.display = 'none';
                     resetButton.style.display = 'none';
-                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
                 });
             });
 
-            // Typing Effect and Mascot JS
-            const typingSentences = [
-                "公民好神！我會遵守公民神會員守則！",
-                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
-                "公民神有三力：注意力、記憶力、戰鬥力！"
-            ];
-            const typingElementSpan = document.getElementById('typing-text-span');
-
-            function startTypingLoop() {
-                if (!typingElementSpan) return;
-                let sentenceIndex = 0;
-                let charIndex = 0;
-                let isDeleting = false;
-
-                function loop() {
-                    const currentSentence = typingSentences[sentenceIndex];
-                    if (isDeleting) {
-                        typingElementSpan.textContent = currentSentence.substring(0, charIndex - 1);
-                        charIndex--;
-                        if (charIndex === 0) {
-                            isDeleting = false;
-                            sentenceIndex = (sentenceIndex + 1) % typingSentences.length;
-                            setTimeout(loop, 500);
-                        } else {
-                            setTimeout(loop, 50);
-                        }
-                    } else {
-                        typingElementSpan.textContent = currentSentence.substring(0, charIndex + 1);
-                        charIndex++;
-                        if (charIndex === currentSentence.length) {
-                            isDeleting = true;
-                            setTimeout(loop, 2500); 
-                        } else {
-                            setTimeout(loop, 120);
-                        }
-                    }
-                }
-                loop();
-            }
-
+            // --- 吉祥物互動 ---
             const mascotContainer = document.getElementById('mascot-container');
             const mascotImg = document.getElementById('mascot-img');
             const speechBubble = document.getElementById('mascot-speech');
             
-            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            const messages = ["公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
             let messageIndex = 0;
             let clickTimer = null;
             let speechTimeout = null;
@@ -630,7 +670,6 @@
                 mascotImg.classList.add('enlarged');
                 const particleCount = 40;
                 const particleColors = [ 'var(--primary-glow)', 'var(--secondary-glow)', 'var(--accent-glow)', '#ffffff' ];
-
                 for (let i = 0; i < particleCount; i++) {
                     const particle = document.createElement('div');
                     particle.classList.add('particle');

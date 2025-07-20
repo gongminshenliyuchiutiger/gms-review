@@ -155,6 +155,21 @@
             content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
             position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
+        
+        /* --- 互動卡片樣式 --- */
+        .interactive-card { background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05)); padding: 2rem; border-radius: 15px; border-left: 5px solid var(--secondary-glow); margin-top: 3rem; box-shadow: 0 0 15px rgba(255, 0, 255, 0.1); }
+        .interactive-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--secondary-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+        .interactive-feedback.feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .interactive-feedback.feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .interactive-reset-btn, .matching-reset-btn { display: none; margin: 1rem auto 0; padding: 0.6rem 1.5rem; font-size: 0.9rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .interactive-reset-btn:hover, .matching-reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 10px var(--accent-glow); }
+        /* --- 結束互動樣式 --- */
 
         .comparison-cards-container {
             display: grid;
@@ -163,13 +178,15 @@
             margin-top: 1.5rem;
         }
         .grid-3-col {
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
         }
         .comparison-card {
             background-color: rgba(0,0,0,0.2);
             border-radius: 15px;
             padding: 1.5rem;
             border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
         }
         .comparison-card h5 {
             font-size: 1.2rem;
@@ -181,8 +198,12 @@
             color: var(--primary-glow);
             border-bottom: 1px solid var(--border-color);
         }
+        .comparison-card ul {
+             list-style: none; padding-left: 0; font-size: 0.95rem; flex-grow: 1;
+        }
         
         .quiz-container { margin-bottom: 3rem; }
+        .quiz-container:last-child { margin-bottom: 0; }
         .quiz-title {
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
@@ -199,14 +220,6 @@
         .quiz-title .quiz-source { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
         #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
         
-        #quiz-section .highlight-box {
-            background-color: rgba(0, 242, 234, 0.08);
-            border: none;
-            border-left: 5px solid var(--primary-glow);
-            margin: 1.5rem 0;
-            padding-left: 1.5rem;
-        }
-        
         #quiz-section .options { display: grid; gap: 1rem; }
         .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
         .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
@@ -219,6 +232,36 @@
         .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
         .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
         .reset-btn:hover { transform: scale(1.05); }
+        
+        .matching-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .matching-item:last-child { border-bottom: none; }
+        .matching-item p { flex-grow: 1; margin: 0; }
+        .matching-select { background-color: var(--bg-dark); color: var(--text-color); border: 1px solid var(--primary-glow); border-radius: 5px; padding: 0.4rem; font-family: inherit; font-size: 1rem; cursor: pointer; }
+        .feedback-icon { font-size: 1.2rem; font-weight: 900; display: none; }
+        .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
+        .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
+
+        .law-options-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .law-option-item {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .law-option-label {
+            color: var(--accent-glow);
+            font-weight: 700;
+            margin-right: 0.5em;
+            font-family: 'Orbitron', sans-serif;
+        }
         
         .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect {
@@ -264,9 +307,13 @@
         @media (max-width: 768px) {
             .container { padding: 1rem; }
             section { padding: 1.5rem; }
+            .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
             
             .comparison-cards-container.grid-3-col,
             .comparison-cards-container {
+                grid-template-columns: 1fr;
+            }
+            .law-options-list {
                 grid-template-columns: 1fr;
             }
             #quiz-section .options { grid-template-columns: 1fr; }
@@ -320,6 +367,18 @@
              <div class="info-card" style="margin-top:1.5rem; text-align:center;">
                 <p><strong>共通點：</strong>三者皆致力於保障兒少的權益。</p>
             </div>
+            <!-- ===== 新增互動：國際與國內法辨識 ===== -->
+            <div id="law-type-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-landmark"></i> 國際與國內法辨識</h3>
+                <p class="interactive-prompt">為了將《兒童權利公約》的內容在我國國內產生法律效力，我國特別制定了哪一部法律？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">《兒童權利宣言》</button>
+                    <button class="interactive-btn" data-answer="true">《兒童權利公約施行法》</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="child-welfare-section">
@@ -339,6 +398,18 @@
                 <h4><i class="fas fa-exclamation-triangle"></i>法律責任</h4>
                 <p>父母未盡保護之責，或其他人違反規定，將處以<strong class="highlight-text">罰鍰</strong>、接受<strong class="highlight-text">親職教育輔導</strong>或<strong class="highlight-text">公布姓名</strong>等行政責任。</p>
             </div>
+            <!-- ===== 新增互動：福利/保護措施辨識 ===== -->
+            <div id="welfare-protection-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-shield-alt"></i> 福利 vs 保護措施</h3>
+                <p class="interactive-prompt">法律禁止網咖讓未滿18歲的青少年在深夜逗留。這項規定屬於《兒少權益保障法》中的哪一類措施？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">福利措施</button>
+                    <button class="interactive-btn" data-answer="true">保護措施</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="exploitation-section">
@@ -376,13 +447,25 @@
                     <li><strong>工作時間</strong>：每日工作不得超過 <strong class="highlight-text">8 小時</strong>，例假日、午後8時至隔日凌晨6時之間均不得工作。</li>
                 </ul>
             </div>
+            <!-- ===== 新增互動：勞動基準法童工規定 ===== -->
+            <div id="labor-law-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-user-clock"></i> 勞基法童工規定</h3>
+                <p class="interactive-prompt">15歲的童工小明在飲料店打工，老闆可以要求他在晚上10點上班嗎？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">可以，只要不超過8小時</button>
+                    <button class="interactive-btn" data-answer="true">不可以，違反夜間工作禁令</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
         
         <section id="juvenile-law-section">
             <h2 class="section-title"><i class="fas fa-balance-scale"></i> 五、少年事件處理法</h2>
             <p><strong>立法目的</strong>：因少年的身心發展尚未成熟，易誤觸法網，不適合用一般刑事案件處理。本法以「<strong class="highlight-text">保護代替監禁，以教育代替懲罰</strong>」為原則。</p>
             <div class="info-card" style="margin-top:0;">
-                <h4><i class="fas-fa-users"></i>適用對象</h4>
+                <h4><i class="fas fa-users"></i>適用對象</h4>
                 <p>12 歲以上，未滿 18 歲的少年。</p>
                 <h4><i class="fas fa-sitemap"></i>事件分類與處置</h4>
                 <ul>
@@ -392,6 +475,42 @@
                 <h4><i class="fas fa-university"></i>保護處分種類</h4>
                 <p>訓誡、假日生活輔導、保護管束、安置輔導、感化教育等。</p>
             </div>
+            <!-- ===== 新增互動：少年事件處理原則 ===== -->
+            <div id="juvenile-principle-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-seedling"></i> 少年事件處理原則</h3>
+                <p class="interactive-prompt">《少年事件處理法》的核心精神，是以何種理念來處理少年觸法事件？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="true">保護與教育優先</button>
+                    <button class="interactive-btn" data-answer="false">嚴刑峻罰以儆效尤</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
+             <!-- ===== 新增互動：少年事件分類辨識 ===== -->
+            <div id="juvenile-case-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-balance-scale-right"></i> 少年事件分類辨識</h3>
+                <p class="interactive-prompt">一名16歲少年犯下殺人重罪（最輕本刑為5年以上有期徒刑）。根據《少年事件處理法》，此案件應被歸類為？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">少年保護事件</button>
+                    <button class="interactive-btn" data-answer="true">少年刑事案件</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
+            <!-- ===== 新增互動：保護處分種類配對 ===== -->
+            <div id="protection-order-matching-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-tasks"></i> 保護處分種類配對</h3>
+                <p class="interactive-prompt">請將下列少年法庭的處置與其對應的保護處分種類進行配對。</p>
+                <div class="matching-item" data-answer="admonition"><p>1. 法官當庭告誡少年，並要求他寫悔過書。</p><select class="matching-select"><option>請選擇</option><option value="admonition">訓誡</option><option value="guidance">假日生活輔導</option><option value="probation">保護管束</option><option value="placement">安置輔導</option><option value="reformatory">感化教育</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="probation"><p>2. 少年不需收容，但在社區由保護官定期輔導監督。</p><select class="matching-select"><option>請選擇</option><option value="admonition">訓誡</option><option value="guidance">假日生活輔導</option><option value="probation">保護管束</option><option value="placement">安置輔導</option><option value="reformatory">感化教育</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="reformatory"><p>3. 少年被送到少年輔育院，接受較長時間的矯正教育。</p><select class="matching-select"><option>請選擇</option><option value="admonition">訓誡</option><option value="guidance">假日生活輔導</option><option value="probation">保護管束</option><option value="placement">安置輔導</option><option value="reformatory">感化教育</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="placement"><p>4. 因家庭功能不彰，少年被交由福利機構或寄養家庭照顧。</p><select class="matching-select"><option>請選擇</option><option value="admonition">訓誡</option><option value="guidance">假日生活輔導</option><option value="probation">保護管束</option><option value="placement">安置輔導</option><option value="reformatory">感化教育</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="guidance"><p>5. 要求少年在週末到指定機構參加團體活動或法治教育。</p><select class="matching-select"><option>請選擇</option><option value="admonition">訓誡</option><option value="guidance">假日生活輔導</option><option value="probation">保護管束</option><option value="placement">安置輔導</option><option value="reformatory">感化教育</option></select><i class="feedback-icon"></i></div>
+                <button class="matching-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="quiz-section">
@@ -424,6 +543,22 @@
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
+             <!-- ===== 新增模擬挑戰三 ===== -->
+            <div class="quiz-container" id="quiz3">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(模擬神給酷)</span></h3>
+                <div class="question">
+                    <p>小華今年15歲半，在一家餐廳打工。下列哪一種情況，其雇主「沒有」違反《勞動基準法》對童工的保護規定？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 要求小華在週六上班</button>
+                    <button class="option-btn" data-correct="false">(B) 要求小華在晚上9點下班</button>
+                    <button class="option-btn" data-correct="true">(C) 小華一天的工作時數為7小時</button>
+                    <button class="option-btn" data-correct="false">(D) 讓小華負責操作危險的油炸鍋</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
         
         <section class="fun-bg-section">
@@ -454,15 +589,215 @@
         document.addEventListener('DOMContentLoaded', () => {
             let typingStarted = false; 
 
-            const typingSentences = [
-                "公民好神！我會遵守公民神會員守則！",
-                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
-                "公民神有三力：注意力、記憶力、戰鬥力！"
-            ];
-            const typingElementSpan = document.getElementById('typing-text-span');
+            // --- 互動卡片通用安裝函數 ---
+            function setupInteractiveCard(cardId, correctFeedbackHTML, wrongFeedbackHTML) {
+                const card = document.getElementById(cardId);
+                if (!card) return;
 
+                const buttons = card.querySelectorAll('.interactive-btn');
+                const feedbackArea = card.querySelector('.interactive-feedback');
+                const resetButton = card.querySelector('.interactive-reset-btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isCorrect = btn.dataset.answer === 'true';
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (isCorrect) {
+                            feedbackArea.innerHTML = correctFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-correct';
+                        } else {
+                            feedbackArea.innerHTML = wrongFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    buttons.forEach(b => b.disabled = false);
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                });
+            }
+
+            // --- 配對題通用安裝函數 ---
+            function setupMatchingQuiz(quizId) {
+                const quiz = document.getElementById(quizId);
+                if (!quiz) return;
+
+                const selects = quiz.querySelectorAll('.matching-select');
+                const resetButton = quiz.querySelector('.matching-reset-btn');
+
+                function handleMatchingChange(e) {
+                    const select = e.target;
+                    const selectedValue = select.value;
+                    const item = select.closest('.matching-item');
+                    const correctAnswer = item.dataset.answer;
+                    const feedbackIcon = item.querySelector('.feedback-icon');
+                    
+                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    feedbackIcon.textContent = '';
+                    if (selectedValue === "請選擇") {
+                        feedbackIcon.style.display = 'none';
+                        return;
+                    }
+                    feedbackIcon.style.display = 'inline-block';
+                    if (selectedValue === correctAnswer) {
+                        feedbackIcon.classList.add('icon-correct');
+                        feedbackIcon.textContent = '✓';
+                    } else {
+                        feedbackIcon.classList.add('icon-wrong');
+                        feedbackIcon.textContent = '✗';
+                    }
+                }
+
+                selects.forEach(select => {
+                    select.addEventListener('change', handleMatchingChange);
+                });
+
+                if(resetButton) {
+                    resetButton.style.display = 'block';
+                    resetButton.addEventListener('click', () => {
+                        selects.forEach(select => {
+                            select.selectedIndex = 0;
+                            const item = select.closest('.matching-item');
+                            const feedbackIcon = item.querySelector('.feedback-icon');
+                            feedbackIcon.style.display = 'none';
+                            feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                            feedbackIcon.textContent = '';
+                        });
+                    });
+                }
+            }
+            
+            // --- 初始化所有互動卡片 ---
+            setupInteractiveCard(
+                'law-type-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>《兒童權利公約》是國際公約，我國為了讓其內容在國內具有法律效力，特別制定了《兒童權利公約施行法》這部國內法。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>《兒童權利宣言》僅有宣示作用，沒有法律約束力。我國是透過制定《兒童權利公約施行法》來落實公約精神的。'
+            );
+
+            setupInteractiveCard(
+                'welfare-protection-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 完全正確！</strong>福利措施是「促進」福祉（如辦活動），而保護措施是「禁止」有害行為（如禁止出入不良場所），因此這屬於保護措施。',
+                '<strong><i class="fas fa-times-circle"></i> 再想一下！</strong>福利措施是積極提供協助，如舉辦活動。而「禁止」青少年從事有害身心的行為，屬於消極的「保護措施」。'
+            );
+            
+            setupInteractiveCard(
+                'labor-law-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>《勞基法》規定，童工不得於「午後8時至隔日凌晨6時」之間工作。晚上10點已在禁止工作的時段內。',
+                '<strong><i class="fas fa-times-circle"></i> 答錯了喔！</strong>童工不僅有每日工時8小時的限制，還有夜間工作的禁令（晚上8點到早上6點），這個時間點很重要！'
+            );
+
+            setupInteractiveCard(
+                'juvenile-principle-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>《少年事件處理法》的核心精神就是「保護優先」，認為少年身心未成熟，應給予教育和輔導的機會，而非單純的懲罰。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>「嚴刑峻罰」是一般《刑法》的思維。針對少年，我國法律特別強調要以「保護與教育」為優先。'
+            );
+
+            setupInteractiveCard(
+                'juvenile-case-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 完全正確！</strong>少年若犯下最輕本刑為5年以上有期徒刑的重罪（如殺人），且已滿14歲，就會被歸類為「少年刑事案件」，由檢察官起訴後，交由少年法庭審理，可能面臨刑罰。',
+                '<strong><i class="fas fa-times-circle"></i> 再想一下！</strong>「少年保護事件」適用於犯罪情節輕微的案件。像殺人這種重罪，就會被歸類為「少年刑事案件」處理。'
+            );
+            
+            // --- 初始化所有配對題 ---
+            setupMatchingQuiz('child-law-matching-quiz');
+            setupMatchingQuiz('protection-order-matching-quiz');
+
+            // --- 會考歷屆試題區塊 ---
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>南韓政府為了避免咖啡因對青少年發育造成危害而修法，其目的在於「保障未成年人的身心健康發展」。我國《兒童及少年福利與權益保障法》中規定，學童不得出入有害身心發展的不良場所，其立法目的與南韓政府的作法最為相似，都是為了保護未成年人。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 這是《民法》中對無行為能力人的保護，與保障身心健康發展的目的不同。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 這是《性別平等工作法》的規定，旨在促進職場的性別平權。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 這是《家庭暴力防治法》的規定，旨在保護人民免受家庭成員的暴力侵害。</p>`
+                },
+                quiz2: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>1. 大牛不受《勞基法》童工（15-16歲）保護，可知他已滿16歲。 2. 他被移送「少年法庭」，可知他未滿18歲。因此，大牛的年齡在16~18歲之間。這個年齡的少年觸法，會被視為「少年保護事件」，由少年法庭審理後，可能裁定<strong class="highlight-text">保護管束</strong>等保護處分。(A) 他已滿14歲，非無責任能力人。(B) 他未滿18歲，非完全行為能力人。(D) 罰鍰是行政罰，非少年保護處分。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>無責任能力人是未滿14歲，大牛已滿16歲。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>完全行為能力人是年滿18歲，大牛被移送少年法庭，可知他未滿18歲。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>罰鍰是行政罰，而少年法庭審理的是觸犯刑罰法律的行為，會裁定的是保護處分或刑罰。</p>`
+                },
+                quiz3: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>小華是15歲半，屬於《勞基法》定義的「童工」（15歲以上未滿16歲）。其保護規定包含：每日工時不得超過8小時、不得在例假日及夜間工作、不得從事危險工作。(A)(B)(D)皆違反規定，只有(C)每日工作7小時是合法的。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 童工不得在「例假日」工作。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 童工不得在「午後8時至隔日凌晨6時」之間工作。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 雇主不得令童工從事繁重及「危險」工作。</p>`
+                }
+            };
+            
+            const mcqContainers = document.querySelectorAll('.quiz-container[id]');
+            
+            mcqContainers.forEach((container) => {
+                const quizId = container.id;
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
+
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
+
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        
+                        optionButtons.forEach(btn => {
+                            btn.disabled = true;
+                        });
+
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = quizData.correct;
+                        } else {
+                            const optionLetter = button.textContent.substring(1, 2);
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            feedbackArea.innerHTML = quizData[optionLetter];
+                        }
+                        feedbackArea.className = 'feedback-area ' + (isCorrect ? 'feedback-correct' : 'feedback-wrong');
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
+                    });
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+            
+            // Section fade-in animation and typing effect
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
+                            typingStarted = true;
+                            startTypingLoop();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 }); 
+            sections.forEach(section => observer.observe(section));
+            
+            const typingElementSpan = document.getElementById('typing-text-span');
             function startTypingLoop() {
                 if (!typingElementSpan) return;
+                const typingSentences = [
+                    "公民好神！我會遵守公民神會員守則！",
+                    "努力向上、勇往直前、不畏艱難，我要成為公民神！",
+                    "公民神有三力：注意力、記憶力、戰鬥力！"
+                ];
                 let sentenceIndex = 0;
                 let charIndex = 0;
                 let isDeleting = false;
@@ -492,90 +827,12 @@
                 }
                 loop();
             }
-            
-            const sections = document.querySelectorAll('section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
-                            typingStarted = true;
-                            startTypingLoop();
-                        }
-                    }
-                });
-            }, { threshold: 0.1 }); 
-            
-            sections.forEach(section => observer.observe(section));
 
-            const allQuizData = {
-                quiz1: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>南韓政府為了避免咖啡因對青少年發育造成危害而修法，其目的在於「保障未成年人的身心健康發展」。我國《兒童及少年福利與權益保障法》中規定，學童不得出入有害身心發展的不良場所，其立法目的與南韓政府的作法最為相似，都是為了保護未成年人。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 這是《民法》中對無行為能力人的保護，與保障身心健康發展的目的不同。</p>`,
-                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 這是《性別平等工作法》的規定，旨在促進職場的性別平權。</p>`,
-                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 這是《家庭暴力防治法》的規定，旨在保護人民免受家庭成員的暴力侵害。</p>`
-                },
-                quiz2: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>1. 大牛不受《勞基法》童工（15-16歲）保護，可知他已滿16歲。 2. 他被移送「少年法庭」，可知他未滿18歲。因此，大牛的年齡在16~18歲之間。這個年齡的少年觸法，會被視為「少年保護事件」，由少年法庭審理後，可能裁定<strong class="highlight-text">保護管束</strong>等保護處分。(A) 他已滿14歲，非無責任能力人。(B) 他未滿18歲，非完全行為能力人。(D) 罰鍰是行政罰，非少年保護處分。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>無責任能力人是未滿14歲，大牛已滿16歲。</p>`,
-                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>完全行為能力人是年滿18歲，大牛被移送少年法庭，可知他未滿18歲。</p>`,
-                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>罰鍰是行政罰，而少年法庭審理的是觸犯刑罰法律的行為，會裁定的是保護處分或刑罰。</p>`
-                }
-            };
-            
-            const quizContainers = document.querySelectorAll('.quiz-container');
-            
-            quizContainers.forEach((container) => {
-                const quizId = container.id;
-                if (!quizId) return;
-                const quizData = allQuizData[quizId];
-                if (!quizData) return;
-
-                const optionButtons = container.querySelectorAll('.option-btn');
-                const feedbackArea = container.querySelector('.feedback-area');
-                const resetButton = container.querySelector('.reset-btn');
-
-                optionButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        const isCorrect = button.dataset.correct === 'true';
-                        
-                        optionButtons.forEach(btn => {
-                            btn.disabled = true;
-                        });
-
-                        if (isCorrect) {
-                            button.classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId].correct;
-                            feedbackArea.className = 'feedback-area feedback-correct';
-                        } else {
-                            const optionLetter = button.textContent.substring(1, 2);
-                            button.classList.add('wrong');
-                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
-                            feedbackArea.className = 'feedback-area feedback-wrong';
-                        }
-                        feedbackArea.style.display = 'block';
-                        resetButton.style.display = 'block';
-                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    });
-                });
-                
-                resetButton.addEventListener('click', () => {
-                    optionButtons.forEach(btn => {
-                        btn.disabled = false;
-                        btn.classList.remove('correct', 'wrong');
-                    });
-                    feedbackArea.style.display = 'none';
-                    resetButton.style.display = 'none';
-                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                });
-            });
-
+            // Mascot JS
             const mascotContainer = document.getElementById('mascot-container');
             const mascotImg = document.getElementById('mascot-img');
             const speechBubble = document.getElementById('mascot-speech');
-            
-            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            const messages = ["公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！"];
             let messageIndex = 0;
             let clickTimer = null;
             let speechTimeout = null;

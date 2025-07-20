@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
+<!-- saved from url=(0064)file:///C:/GitHub.gongminshenliyuchiutiger/gms-review/ch3-2.html -->
+<html lang="zh-TW"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>重點3-2：社區與部落</title>
     <!-- Font Awesome script -->
-    <script src="https://kit.fontawesome.com/62a9d1d113.js" crossorigin="anonymous"></script>
+    <script src="./ch3-2_files/62a9d1d113.js.下載" crossorigin="anonymous"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Titillium+Web:wght@400;600&display=swap');
 
@@ -244,7 +244,7 @@
 
         #quiz-section .options { display: grid; gap: 1rem; }
         .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
-        .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
+        .option-btn:hover:not(:disabled) { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
         .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark);}
         .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
         
@@ -255,39 +255,33 @@
         .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
         .reset-btn:hover { transform: scale(1.05); }
 
+        /* --- 互動卡片樣式 --- */
+        .interactive-card { background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05)); padding: 2rem; border-radius: 15px; border-left: 5px solid var(--secondary-glow); margin-top: 3rem; box-shadow: 0 0 15px rgba(255, 0, 255, 0.1); }
+        .interactive-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--secondary-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+        .interactive-feedback.feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .interactive-feedback.feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .interactive-reset-btn { display: none; margin: 1rem auto 0; padding: 0.6rem 1.5rem; font-size: 0.9rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .interactive-reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 10px var(--accent-glow); }
+        /* --- 結束互動樣式 --- */
+
         .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
-        /* --- FIX: Remove border from typing effect --- */
-        .typing-effect {
-            position: relative; z-index: 5; font-family: 'Orbitron', monospace;
-            font-size: clamp(1.2rem, 2vw + 0.5rem, 1.6rem); 
-            font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            text-align: center; max-width: 100%;
-            border-bottom: none; /* Remove the underline */
-            padding-bottom: 0;
-            margin-bottom: 0;
-            margin-top: 0;
-        }
-        .typing-effect .cursor {
-            display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow);
-            margin-left: 5px; width: 10px; height: 1em; animation: blink-caret 0.75s step-end infinite;
-        }
+        .typing-effect { position: relative; z-index: 5; font-family: 'Orbitron', monospace; font-size: clamp(1.2rem, 2vw + 0.5rem, 1.6rem); font-weight: 700; color: #fff; text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); text-align: center; max-width: 100%; border-bottom: none; padding-bottom: 0; margin-bottom: 0; margin-top: 0; }
+        .typing-effect .cursor { display: inline-block; background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); margin-left: 5px; width: 10px; height: 1em; animation: blink-caret 0.75s step-end infinite; }
         @keyframes blink-caret { from, to { background-color: transparent; box-shadow: none; } 50% { background-color: #fff; box-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px var(--primary-glow); } }
-        .floating-mascot-bg {
-            position: absolute; width: 250px; height: auto; opacity: 0.15;
-            animation: floatMascot 15s ease-in-out infinite alternate;
-            top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;
-        }
+        .floating-mascot-bg { position: absolute; width: 250px; height: auto; opacity: 0.15; animation: floatMascot 15s ease-in-out infinite alternate; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; }
         @keyframes floatMascot { from { transform: translate(-60%, -60%) rotate(-15deg); } to { transform: translate(-40%, -40%) rotate(15deg); } }
+        
         #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; cursor: pointer; user-select: none; }
         #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; }
         #mascot-container:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
         #mascot-img.enlarged { transform: scale(2.5) !important; }
-        #mascot-speech {
-            position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9);
-            color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px;
-            font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s;
-            pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3);
-        }
+        #mascot-speech { position: absolute; bottom: 110px; right: 0; background-color: rgba(0, 242, 234, 0.9); color: var(--bg-dark); padding: 10px 15px; border-radius: 15px; width: max-content; max-width: 250px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; box-shadow: 0 5px 15px rgba(0, 242, 234, 0.3); }
         #mascot-speech.visible { opacity: 1; transform: translateY(0); }
         .particle { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; opacity: 1; transition: transform 1s ease-out, opacity 1s ease-out; }
 
@@ -323,7 +317,7 @@
 
     <main class="container">
 
-        <section id="community-section">
+        <section id="community-section" class="visible">
             <h2 class="section-title"><i class="fas fa-users"></i>一、社區與社區參與</h2>
             <h3>(一) 社區</h3>
             <div class="info-card" style="margin-top: 0;">
@@ -340,6 +334,19 @@
                     <li><strong>社區組織：</strong>推動社區事務的組織。</li>
                 </ul>
             </div>
+            
+                        <div id="community-awareness-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-brain"></i> 社區好神戰</h3>
+                <p class="interactive-prompt">小華非常喜歡自己居住的「幸福里」，覺得鄰居們都很友善，環境也很乾淨，讓他產生了「身為幸福里的一份子真好」的感覺。這種心理上的認同感稱為什麼？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="true">社區意識</button>
+                    <button class="interactive-btn" data-answer="false">社區參與</button>
+                    <button class="interactive-btn" data-answer="false">社區組織</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+                        
             <h3>(二) 社區參與</h3>
             <div class="info-card" style="margin-top: 0;">
                 <p><strong>意義：</strong>居民採取<strong class="highlight-text">行動</strong>處理社區公共事務的過程。</p>
@@ -352,9 +359,22 @@
             <div class="highlight-box">
                 <p><i class="fas fa-exclamation-triangle"></i> <strong>注意：</strong>社區<strong class="highlight-text">意識</strong>是心理情感，社區<strong class="highlight-text">參與</strong>是具體行動。</p>
             </div>
+            
+                        <div id="awareness-vs-participation-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-exchange-alt"></i> 社區好神戰</h3>
+                <p class="interactive-prompt">發現社區公園的垃圾很多後，小明主動號召鄰居們一起打掃。這個「號召並打掃」的行為，屬於下列何者？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">社區意識</button>
+                    <button class="interactive-btn" data-answer="true">社區參與</button>
+                    <button class="interactive-btn" data-answer="false">社區地區</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+                       
         </section>
 
-        <section id="tribe-section">
+        <section id="tribe-section" class="visible">
             <h2 class="section-title"><i class="fas fa-feather-alt"></i>二、部落的挑戰與發展</h2>
             <h3>(一) 部落</h3>
             <div class="info-card" style="margin-top: 0;">
@@ -362,6 +382,21 @@
                  <p><strong>成立：</strong>須經中央原住民族主管機關（<strong class="highlight-text">原住民族委員會</strong>）核定。</p>
                  <p><strong>組成：</strong>由擁有共通的文化、宗教、語言及價值觀的部落居民組成。</p>
             </div>
+            
+            <!-- ===== 新增互動：部落成立挑戰 ===== -->
+            <div id="tribe-formation-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-stamp"></i> 部落成立挑戰</h3>
+                <p class="interactive-prompt">根據我國法律，一個原住民族團體要正式成為「部落」，需要經過哪個機關的核定？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">鄉鎮市公所</button>
+                    <button class="interactive-btn" data-answer="true">原住民族委員會</button>
+                    <button class="interactive-btn" data-answer="false">內政部</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
+            
              <div class="info-card" style="margin-top: 1.5rem;">
                 <h4><i class="fas fa-star-of-david"></i>重要性</h4>
                 <ul>
@@ -384,9 +419,24 @@
                     <li><strong>措施三：</strong>透過<strong class="highlight-text">《原住民族基本法》</strong>保障原住民族的自治權；透過<strong class="highlight-text">《國家語言發展法》</strong>，使面臨傳承危機的原住民族語言得以保存。</li>
                 </ul>
             </div>
+
+            <!-- ===== 新增互動：法律知識王 ===== -->
+            <div id="law-knowledge-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-gavel"></i> 法律知識王</h3>
+                <p class="interactive-prompt">保障原住民族自治權、土地權及文化權等權益的根本大法是哪一部？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="true">原住民族基本法</button>
+                    <button class="interactive-btn" data-answer="false">社區營造條例</button>
+                    <button class="interactive-btn" data-answer="false">國家語言發展法</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
+            
         </section>
 
-        <section id="comparison-section">
+        <section id="comparison-section" class="visible">
             <h2 class="section-title"><i class="fas fa-exchange-alt"></i>三、社區與部落比較</h2>
             <div class="comparison-item">
                 <h4>成立方式</h4>
@@ -421,9 +471,24 @@
                     <li>居民的參與對於社區、部落的發展，都具有相當的重要性。</li>
                 </ul>
             </div>
+            
+            <!-- ===== 新增互動：概念辨析 ===== -->
+            <div id="concept-distinction-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-search-location"></i> 概念辨析</h3>
+                <p class="interactive-prompt"><b>情境：</b>花蓮縣豐濱鄉的港口部落，族人共同信仰海神，並舉辦海祭。這最能體現下列哪一項特徵？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">社區的異質性</button>
+                    <button class="interactive-btn" data-answer="true">部落的同質性</button>
+                    <button class="interactive-btn" data-answer="false">社區的自然形成</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
+            
         </section>
 
-        <section id="quiz-section">
+        <section id="quiz-section" class="visible">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
             <div class="quiz-container" id="quiz1">
                 <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(112 會考)</span></h3>
@@ -470,12 +535,12 @@
             <h3 class="typing-effect">
                 <span id="typing-text-span"></span><span class="cursor"></span>
             </h3>
-            <img src="image/LiyuChillGuy(W).svg" class="floating-mascot-bg" alt="Floating Mascot Background">
+            <img src="./ch3-2_files/LiyuChillGuy(W).svg" class="floating-mascot-bg" alt="Floating Mascot Background">
         </section>
 
     </main>
 
-    <a href="index.html" id="return-home-btn" title="返回主頁">
+    <a href="file:///C:/GitHub.gongminshenliyuchiutiger/gms-review/index.html" id="return-home-btn" title="返回主頁">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
             <polyline points="9 22 9 12 15 12 15 22"></polyline>
@@ -509,6 +574,66 @@
                 });
             }, { threshold: 0.1 }); 
             sections.forEach(section => observer.observe(section));
+
+            // --- 互動卡片通用安裝函數 ---
+            function setupInteractiveCard(cardId, correctFeedbackHTML, wrongFeedbackHTML) {
+                const card = document.getElementById(cardId);
+                if (!card) return;
+
+                const buttons = card.querySelectorAll('.interactive-btn');
+                const feedbackArea = card.querySelector('.interactive-feedback');
+                const resetButton = card.querySelector('.interactive-reset-btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isCorrect = btn.dataset.answer === 'true';
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (isCorrect) {
+                            feedbackArea.innerHTML = correctFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-correct';
+                        } else {
+                            feedbackArea.innerHTML = wrongFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    buttons.forEach(b => b.disabled = false);
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                });
+            }
+
+            // --- 初始化所有新增的互動卡片 ---
+            setupInteractiveCard(
+                'community-awareness-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>這種「身為一份子」的感覺，也就是心理上的<span class="highlight-text">認同感與歸屬感</span>，正是社區意識的核心。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>「參與」是具體行動，「組織」是推動事務的單位。心理上的認同感與歸屬感是<span class="highlight-text">社區意識</span>。'
+            );
+            setupInteractiveCard(
+                'awareness-vs-participation-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 完全正確！</strong>「號召並打掃」是一個<span class="highlight-text">具體的行動</span>，用來處理社區的公共事務，這就是社區參與的展現。',
+                '<strong><i class="fas fa-times-circle"></i> 再想一下！</strong>社區意識是心理上的情感。當你把這種情感付諸<span class="highlight-text">行動</span>時，就變成了「社區參與」。'
+            );
+            setupInteractiveCard(
+                'tribe-formation-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>根據《原住民族基本法》，部落的核定權責在中央原住民族主管機關，也就是<span class="highlight-text">「原住民族委員會」</span>。',
+                '<strong><i class="fas fa-times-circle"></i> 答錯了！</strong>這是中央層級的事務，主管機關是專責的<span class="highlight-text">「原住民族委員會」</span>。'
+            );
+            setupInteractiveCard(
+                'law-knowledge-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong><span class="highlight-text">《原住民族基本法》</span>是為了保障原住民族各項權利而制定的根本性法律。而《國家語言發展法》則是針對語言保存。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>雖然《國家語言發展法》也很重要，但全面保障原住民族權益的根本大法是<span class="highlight-text">《原住民族基本法》</span>。'
+            );
+            setupInteractiveCard(
+                'concept-distinction-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>部落成員通常擁有共通的文化、宗教和價值觀，這種「共同信仰海神並舉辦海祭」的行為，正是<span class="highlight-text">部落文化同質性高</span>的體現。',
+                '<strong><i class="fas fa-times-circle"></i> 再想想！</strong>「社區」的成員通常文化背景較多元（異質性）。而「部落」的成員則常有共通的文化與信仰，展現出高度的<span class="highlight-text">同質性</span>。'
+            );
 
             const allQuizData = {
                 quiz1: {
@@ -660,5 +785,5 @@
             }
         });
     </script>
-</body>
-</html>
+
+</body></html>

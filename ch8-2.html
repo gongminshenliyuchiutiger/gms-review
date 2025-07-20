@@ -155,13 +155,21 @@
             content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
             position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
-        .info-card ul ul {
-            padding-left: 1.5rem;
-            margin-top: 0.5rem;
-        }
-        .info-card ul ul li::before {
-            content: '\f0da';
-        }
+        
+        /* --- 互動卡片樣式 --- */
+        .interactive-card { background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05)); padding: 2rem; border-radius: 15px; border-left: 5px solid var(--secondary-glow); margin-top: 3rem; box-shadow: 0 0 15px rgba(255, 0, 255, 0.1); }
+        .interactive-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--secondary-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+        .interactive-feedback.feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .interactive-feedback.feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .interactive-reset-btn, .matching-reset-btn { display: none; margin: 1rem auto 0; padding: 0.6rem 1.5rem; font-size: 0.9rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .interactive-reset-btn:hover, .matching-reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 10px var(--accent-glow); }
+        /* --- 結束互動樣式 --- */
 
         .comparison-cards-container {
             display: grid;
@@ -178,7 +186,7 @@
             padding: 1.5rem;
             border: 1px solid var(--border-color);
         }
-        .comparison-card h5 {
+        .comparison-card h4 {
             font-size: 1.2rem;
             margin: 0 0 1rem 0;
             padding-bottom: 0.5rem;
@@ -188,8 +196,19 @@
             color: var(--primary-glow);
             border-bottom: 1px solid var(--border-color);
         }
+        .comparison-card ul {
+             list-style: none; padding-left: 0;
+        }
+        .comparison-card li {
+            position: relative; padding-left: 1.2rem; margin-bottom: 0.3rem;
+        }
+        .comparison-card li::before {
+            content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
+            position: absolute; left: 0; top: 3px;
+        }
         
         .quiz-container { margin-bottom: 3rem; }
+        .quiz-container:last-child { margin-bottom: 0; }
         .quiz-title {
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
@@ -205,6 +224,27 @@
         .quiz-title i { margin-right: 0.75rem; }
         .quiz-title .quiz-source { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
         #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
+        
+        #quiz-section .options { display: grid; gap: 1rem; }
+        .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+        .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
+        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark);}
+        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
+        
+        .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
+        .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
+        .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
+        .reset-btn:hover { transform: scale(1.05); }
+        
+        .matching-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .matching-item:last-child { border-bottom: none; }
+        .matching-item p { flex-grow: 1; margin: 0; }
+        .matching-select { background-color: var(--bg-dark); color: var(--text-color); border: 1px solid var(--primary-glow); border-radius: 5px; padding: 0.4rem; font-family: inherit; font-size: 1rem; cursor: pointer; }
+        .feedback-icon { font-size: 1.2rem; font-weight: 900; display: none; }
+        .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
+        .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
         
         .law-options-list {
             display: grid;
@@ -228,27 +268,6 @@
             font-family: 'Orbitron', sans-serif;
         }
 
-        #quiz-section .options { display: grid; gap: 1rem; }
-        .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
-        .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
-        .option-btn.correct { background-color: var(--correct-color); border-color: var(--correct-color); color: var(--bg-dark);}
-        .option-btn.wrong { background-color: var(--wrong-color); border-color: var(--wrong-color); color: var(--bg-dark);}
-        
-        .feedback-area { margin-top: 2rem; padding: 1.5rem; border-radius: 15px; display: none; }
-        .feedback-area h3 { margin-bottom: 1rem; font-family: 'Orbitron', sans-serif;}
-        .feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
-        .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
-        .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
-        .reset-btn:hover { transform: scale(1.05); }
-        
-        .matching-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
-        .matching-item:last-child { border-bottom: none; }
-        .matching-item p { flex-grow: 1; margin: 0; }
-        .matching-select { background-color: var(--bg-dark); color: var(--text-color); border: 1px solid var(--primary-glow); border-radius: 5px; padding: 0.4rem; font-family: inherit; font-size: 1rem; cursor: pointer; }
-        .feedback-icon { font-size: 1.2rem; font-weight: 900; display: none; }
-        .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
-        .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
-        
         .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect {
             position: relative; z-index: 5; font-family: 'Orbitron', monospace;
@@ -339,6 +358,18 @@
                     </li>
                 </ul>
             </div>
+            <!-- ===== 新增互動：政治參與方式辨析 ===== -->
+            <div id="participation-method-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-comments"></i> 政治參與方式辨析</h3>
+                <p class="interactive-prompt">居民們因不滿社區附近增設基地台，集體向選區的民意代表陳情。這種行為屬於？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="true">政治參與</button>
+                    <button class="interactive-btn" data-answer="false">司法訴訟</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="voting-section">
@@ -355,6 +386,18 @@
                 <div class="info-card"><h4><i class="fas fa-user-tie"></i>對「人」的投票</h4><ul><li><strong>對象：</strong>公職人員（行政首長或民代）</li><li><strong>目的：</strong>定期授權政府，落實主權在民</li><li><strong>法源：</strong>《選罷法》</li><li><strong>權利：</strong>選舉權、罷免權</li></ul></div>
                 <div class="info-card"><h4><i class="fas fa-file-alt"></i>對「事」的投票</h4><ul><li><strong>對象：</strong>法律、政策</li><li><strong>目的：</strong>決定政策與法令，落實直接民主</li><li><strong>法源：</strong>《公民投票法》</li><li><strong>權利：</strong>創制權、複決權</li></ul></div>
             </div>
+            <!-- ===== 新增互動：投票類型辨析 ===== -->
+            <div id="voting-type-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-question-circle"></i> 投票類型辨析</h3>
+                <p class="interactive-prompt">公民連署發動投票，希望能讓表現不佳的市長提早下台。這次投票是屬於對「人」還是對「事」的投票？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="true">對「人」的投票</button>
+                    <button class="interactive-btn" data-answer="false">對「事」的投票</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="fair-voting-section">
@@ -368,6 +411,24 @@
                 <div class="info-card"><h4><i class="fas fa-user-secret"></i>無記名原則</h4><p>保障選民的安全，避免選民受威脅利誘，能依自由意志投票。</p></div>
             </div>
 
+            <!-- ===== 修改後：投票原則配對題 ===== -->
+            <div id="principles-matching-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-tasks"></i> 投票原則挑戰</h3>
+                <p class="interactive-prompt">請將下列情境與其所違反的「投票原則」進行配對。</p>
+                 <div class="law-options-list" style="grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));">
+                    <div class="law-option-item"><span class="law-option-label">A</span> 普通原則</div>
+                    <div class="law-option-item"><span class="law-option-label">B</span> 平等原則</div>
+                    <div class="law-option-item"><span class="law-option-label">C</span> 直接原則</div>
+                    <div class="law-option-item"><span class="law-option-label">D</span> 無記名原則</div>
+                </div>
+                <div class="matching-item" data-answer="A"><p>1. 規定只有大學畢業的人才能投票。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="B"><p>2. 規定首都居民一人可投兩票，其他地區僅一票。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="C"><p>3. 總統由國會議員代為選舉，而非人民直選。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="D"><p>4. 要求選民在選票上簽名以供查驗。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+                <button class="matching-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束修改 ===== -->
+
              <h3 style="margin-top: 2rem;">(二) 明文規範投票過程</h3>
              <div class="comparison-cards-container">
                 <div class="info-card"><h4><i class="fas fa-user-tie"></i>選舉過程</h4><p>1. 選舉公告<br>2. 登記參選<br>3. 競選活動<br>4. 投票<br>5. 開票<br>6. 當選公告</p></div>
@@ -377,23 +438,6 @@
 
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
-            <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-tasks"></i>模擬神給酷</h3>
-                <div class="info-card" style="margin-top:0;">
-                     <p><strong>下列敘述是在說明哪一種投票原則？請填入正確代號。</strong></p>
-                     <div class="law-options-list">
-                         <div class="law-option-item"><span class="law-option-label">甲</span> 普通原則</div>
-                         <div class="law-option-item"><span class="law-option-label">乙</span> 平等原則</div>
-                         <div class="law-option-item"><span class="law-option-label">丙</span> 直接原則</div>
-                         <div class="law-option-item"><span class="law-option-label">丁</span> 無記名原則</div>
-                     </div>
-                     <div class="matching-item" data-answer="乙"><p>1. 每位選民的選票價值皆相同。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
-                     <div class="matching-item" data-answer="丁"><p>2. 為保障選民的安全，他人無法得知其投票內容。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
-                     <div class="matching-item" data-answer="甲"><p>3. 只要符合法定資格的公民，都能享有投票權。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
-                     <div class="matching-item" data-answer="丙"><p>4. 公民親自投票，而非透過他人代理。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
-                </div>
-            </div>
-
             <div class="quiz-container" id="quiz1">
                 <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(113 會考)</span></h3>
                 <div class="question">
@@ -438,7 +482,7 @@
             <div class="quiz-container" id="quiz3">
                 <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(100 基測)</span></h3>
                 <div class="question">
-                    <p>哈帝國發生外籍勞工的集體抗爭事件，以此抗議生活管理的不當，為此主管機關首長宣布請辭下臺。上述首長的做法，最符合民主政治的哪一種內涵？</p>
+                    <p>哈帝國發生外籍勞工的集體抗爭事件，以此抗議生活管理的不當，為此主管機關首長宣布請辞下臺。上述首長的做法，最符合民主政治的哪一種內涵？</p>
                 </div>
                 <div class="options">
                     <button class="option-btn" data-correct="false">(A) 民意政治</button>
@@ -449,6 +493,22 @@
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
+            <!-- ===== 新增模擬挑戰四 ===== -->
+            <div class="quiz-container" id="quiz4">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰四 <span class="quiz-source">(模擬神給酷)</span></h3>
+                <div class="question">
+                    <p>部分民眾對於立法院已三讀通過的某項法案仍感到不滿，因此發起連署，希望透過公民投票來廢止該法律。此舉是在行使《憲法》所保障的何種權利？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 選舉權</button>
+                    <button class="option-btn" data-correct="false">(B) 罷免權</button>
+                    <button class="option-btn" data-correct="false">(C) 創制權</button>
+                    <button class="option-btn" data-correct="true">(D) 複決權</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
         
         <!-- Fun BG Section -->
@@ -497,16 +557,56 @@
             }, { threshold: 0.1 }); 
             sections.forEach(section => observer.observe(section));
 
-             // Matching quiz logic
-            const matchingSelects = document.querySelectorAll('.matching-select');
-            matchingSelects.forEach(select => {
-                select.addEventListener('change', (e) => {
-                    const selectedValue = e.target.value;
-                    const item = e.target.closest('.matching-item');
+            // --- 互動卡片通用安裝函數 ---
+            function setupInteractiveCard(cardId, correctFeedbackHTML, wrongFeedbackHTML) {
+                const card = document.getElementById(cardId);
+                if (!card) return;
+
+                const buttons = card.querySelectorAll('.interactive-btn');
+                const feedbackArea = card.querySelector('.interactive-feedback');
+                const resetButton = card.querySelector('.interactive-reset-btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isCorrect = btn.dataset.answer === 'true';
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (isCorrect) {
+                            feedbackArea.innerHTML = correctFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-correct';
+                        } else {
+                            feedbackArea.innerHTML = wrongFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    buttons.forEach(b => b.disabled = false);
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                });
+            }
+
+            // --- 配對題通用安裝函數 ---
+            function setupMatchingQuiz(quizId) {
+                const quiz = document.getElementById(quizId);
+                if (!quiz) return;
+
+                const selects = quiz.querySelectorAll('.matching-select');
+                const resetButton = quiz.querySelector('.matching-reset-btn');
+
+                function handleMatchingChange(e) {
+                    const select = e.target;
+                    const selectedValue = select.value;
+                    const item = select.closest('.matching-item');
                     const correctAnswer = item.dataset.answer;
                     const feedbackIcon = item.querySelector('.feedback-icon');
+                    
                     feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
-                    feedbackIcon.innerHTML = '';
+                    feedbackIcon.textContent = '';
                     if (selectedValue === "請選擇") {
                         feedbackIcon.style.display = 'none';
                         return;
@@ -514,15 +614,49 @@
                     feedbackIcon.style.display = 'inline-block';
                     if (selectedValue === correctAnswer) {
                         feedbackIcon.classList.add('icon-correct');
-                        feedbackIcon.innerHTML = '✓';
+                        feedbackIcon.textContent = '✓';
                     } else {
                         feedbackIcon.classList.add('icon-wrong');
-                        feedbackIcon.innerHTML = '✗';
+                        feedbackIcon.textContent = '✗';
                     }
-                });
-            });
+                }
 
-            // Multiple choice quiz logic
+                selects.forEach(select => {
+                    select.addEventListener('change', handleMatchingChange);
+                });
+
+                if(resetButton) {
+                    resetButton.style.display = 'block';
+                    resetButton.addEventListener('click', () => {
+                        selects.forEach(select => {
+                            select.selectedIndex = 0;
+                            const item = select.closest('.matching-item');
+                            const feedbackIcon = item.querySelector('.feedback-icon');
+                            feedbackIcon.style.display = 'none';
+                            feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                            feedbackIcon.textContent = '';
+                        });
+                    });
+                }
+            }
+
+            // --- 初始化所有互動卡片 ---
+            setupInteractiveCard(
+                'participation-method-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>向民意代表陳情是人民影響政府決策的行為之一，屬於廣義的政治參與。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>司法訴訟是指透過法院解決紛爭，而向民代陳情是企圖影響政策，屬於「政治參與」的一環。'
+            );
+
+            setupInteractiveCard(
+                'voting-type-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 完全正確！</strong>罷免是針對「人」（公職人員）的投票，目的在於使其提早去職。對「事」的投票則是針對法案或政策。',
+                '<strong><i class="fas fa-times-circle"></i> 再想一下！</strong>罷免的對象是「市長」這位公職人員，所以是屬於對「人」的投票。'
+            );
+            
+            // --- 初始化所有配對題 ---
+            setupMatchingQuiz('principles-matching-quiz');
+            
+            // --- 會考歷屆試題區塊 ---
             const allQuizData = {
                 quiz1: {
                     correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong><br>1. 認養資格：前年小安未滿20歲，需要爸爸陪同；今年已滿20歲，可以自己辦理。<br>2. 投票資格：小安前年已經可以投票，表示他當時已滿18歲。今年他滿20歲，依然可以投票。<br>3. 結論：第一次投票時，小安介於18-19歲之間，只能投<strong class="highlight-text">公民投票</strong>。第二次投票時，小安已滿20歲，可以投<strong class="highlight-text">選舉公職人員</strong>（如中央選舉）的票。故順序為公民投票、中央選舉。</p>`,
@@ -541,57 +675,58 @@
                     A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 民意政治強調聽取民意，但官員下臺負責則屬於責任政治的範疇。</p>`,
                     B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 法治政治強調依法行政，題目未提及官員違法。</p>`,
                     C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C)</strong> 政黨政治涉及政黨競爭與監督，與官員因政策失當而下臺不同。</p>`
+                },
+                quiz4: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>「創制」是人民主動「創造」新法律，「複決」是人民對「已通過」的法律進行否決。題幹中提到法案「已三讀通過」，人民希望「廢止」它，這正是<strong class="highlight-text">複決權</strong>的行使。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 選舉權</strong>是對「人」的投票，用來選出公職人員。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 罷免權</strong>也是對「人」的投票，用來讓公職人員提早下台。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 創制權</strong>是人民主動「創造」一個新的法律，而題目是針對「已存在」的法律。</p>`
                 }
             };
             
-            const mcqContainers = document.querySelectorAll('.quiz-container');
-            let mcqIndex = 0;
+            const mcqContainers = document.querySelectorAll('.quiz-container[id]');
+            
             mcqContainers.forEach((container) => {
-                // Find only the MCQ containers
-                if(container.querySelector('.option-btn')) {
-                    mcqIndex++;
-                    const quizId = `quiz${mcqIndex}`; 
-                    container.id = quizId;
-                    const quizData = allQuizData[quizId];
-                    if (!quizData) return;
+                const quizId = container.id;
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
 
-                    const optionButtons = container.querySelectorAll('.option-btn');
-                    const feedbackArea = container.querySelector('.feedback-area');
-                    const resetButton = container.querySelector('.reset-btn');
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
 
-                    optionButtons.forEach(button => {
-                        button.addEventListener('click', () => {
-                            const isCorrect = button.dataset.correct === 'true';
-                            optionButtons.forEach(btn => btn.disabled = true);
-                            
-                            if (isCorrect) {
-                                button.classList.add('correct');
-                                feedbackArea.innerHTML = quizData.correct;
-                                feedbackArea.className = 'feedback-area feedback-correct';
-                            } else {
-                                button.classList.add('wrong');
-                                container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
-                                const optionLetter = button.textContent.substring(1, 2);
-                                feedbackArea.innerHTML = quizData[optionLetter];
-                                feedbackArea.className = 'feedback-area feedback-wrong';
-                            }
-                            
-                            feedbackArea.style.display = 'block';
-                            resetButton.style.display = 'block';
-                            feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        });
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        optionButtons.forEach(btn => btn.disabled = true);
+                        
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = quizData.correct;
+                            feedbackArea.className = 'feedback-area feedback-correct';
+                        } else {
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            const optionLetter = button.textContent.substring(1, 2);
+                            feedbackArea.innerHTML = quizData[optionLetter];
+                            feedbackArea.className = 'feedback-area feedback-wrong';
+                        }
+                        
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     });
-                    
-                    resetButton.addEventListener('click', () => {
-                        optionButtons.forEach(btn => {
-                            btn.disabled = false;
-                            btn.classList.remove('correct', 'wrong');
-                        });
-                        feedbackArea.style.display = 'none';
-                        resetButton.style.display = 'none';
-                        container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
                     });
-                }
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
             });
 
             // Typing Effect and Mascot JS

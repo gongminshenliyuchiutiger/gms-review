@@ -159,6 +159,51 @@
         #rights-section li { position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem; }
         #rights-section li::before { content: '»'; position: absolute; left: 0; top: 0; color: var(--accent-glow); font-weight: bold; }
 
+        /* --- 互動卡片樣式 --- */
+        .interactive-card {
+            background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05));
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid var(--secondary-glow);
+            margin-top: 3rem;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.1);
+        }
+        .interactive-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            color: var(--secondary-glow);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 2.5rem; font-size: 1.1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+
+        .interactive-reset-btn {
+            display: none;
+            margin: 1rem auto 0;
+            padding: 0.6rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            background-color: var(--accent-glow);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .interactive-reset-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+        /* --- 結束互動樣式 --- */
+
         .quiz-container { margin-bottom: 3rem; }
         .quiz-container:last-child { margin-bottom: 0; }
         .quiz-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--accent-glow); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--accent-border-color); display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.5rem 1rem; }
@@ -204,6 +249,7 @@
         @media (max-width: 768px) {
             .container { padding: 1rem; }
             #quiz-section .question, .option-btn { font-size: 1rem; }
+            .interactive-card { padding: 1.5rem; }
             #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
             #mascot-img { width: 80px; }
@@ -292,6 +338,18 @@
                     <li>人的<strong class="highlight-text">基本生活</strong>受到保障，才能活得有尊嚴。</li>
                 </ul>
             </div>
+
+            <!-- ===== 互動：是非題 (可重玩) ===== -->
+            <div id="quick-check-1" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-bolt"></i> 觀念快速檢測</h3>
+                <p class="interactive-prompt">請判斷以下敘述是否正確：「人性尊嚴必須透過個人努力與社會貢獻才能獲得。」</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="true">正確 (O)</button>
+                    <button class="interactive-btn" data-answer="false">錯誤 (X)</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
         </section>
 
         <section id="rights-section">
@@ -310,6 +368,19 @@
                     <li><strong>人權兩公約</strong>：包含《公民與政治權利國際公約》及《經濟社會文化權利國際公約》。</li>
                     <li><strong>保障措施</strong>：透過法律制定、政府積極提供、個人積極尊重等方式保障人權。</li>
                 </ul>
+            </div>
+            
+            <!-- ===== 互動：選擇題 (取代填空題，可重玩) ===== -->
+            <div id="keyword-choice-1" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-pen-fancy"></i> 關鍵字選擇</h3>
+                <p class="interactive-prompt">人權不因國籍、種族、性別而有差別，適用於世界上每一個人。這個特徵稱為？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="true">普遍性</button>
+                    <button class="interactive-btn" data-answer="false">平等性</button>
+                    <button class="interactive-btn" data-answer="false">不可剝奪性</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
             </div>
         </section>
 
@@ -334,7 +405,7 @@
                 <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(99 基測)</span></h3>
                 <div class="question">
                     <p><strong>下方是一份報告中的相關內容。根據內容判斷，下列哪一項敘述最可能是該報告的觀點？</strong></p>
-                    <div id="quiz-section" class="highlight-box" style="margin-top:1rem; font-size: 1rem;">
+                    <div class="highlight-box" style="margin-top:1rem; font-size: 1rem;">
                         某些威權國家，常以自身的價值理念，批判西方國家所宣揚的人權理念，認為落實人權的方法會依不同文化、歷史背景而產生差異。但我們認為，<strong class="highlight-text">不能以文化背景為由，而與基本人權的核心價值背道而馳</strong>。
                     </div>
                 </div>
@@ -343,6 +414,36 @@
                     <button class="option-btn" data-correct="true">(B) 各國都應保障人權</button>
                     <button class="option-btn" data-correct="false">(C) 人權由政黨的體制決定</button>
                     <button class="option-btn" data-correct="false">(D) 人權因文化差異而不同</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            <div class="quiz-container" id="quiz3">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(概念應用)</span></h3>
+                <div class="question">
+                    <p>某家工廠為了節省成本，要求新進員工簽署一份「自願」放棄休假的合約，並告知若不簽署就無法錄用。此舉讓員工即使身體不適也不敢請假，影響了他們的生活品質與身心健康。</p>
+                    <p><strong>請問，這家工廠的作法最主要是侵害了員工的哪一項人性尊嚴面向？</strong></p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 獨立自主</button>
+                    <button class="option-btn" data-correct="false">(B) 存在價值</button>
+                    <button class="option-btn" data-correct="true">(C) 自由選擇</button>
+                    <button class="option-btn" data-correct="false">(D) 平等尊重</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            <div class="quiz-container" id="quiz4">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰四 <span class="quiz-source">(法規辨識)</span></h3>
+                <div class="question">
+                    <p>《世界人權宣言》中宣告「人人生而自由，在尊嚴和權利上一律平等」，這句話奠定了人權保障的重要基礎。</p>
+                    <p><strong>這句話最能體現人權的哪一項特徵？</strong></p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="true">(A) 普遍性與平等性</button>
+                    <button class="option-btn" data-correct="false">(B) 不可剝奪性</button>
+                    <button class="option-btn" data-correct="false">(C) 文化相對性</button>
+                    <button class="option-btn" data-correct="false">(D) 國家主權性</button>
                 </div>
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
@@ -443,6 +544,18 @@
                     A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 國家主權高於人權</strong>：這是報告中所批判的威權國家的藉口，與報告的觀點背道而馳。</p>`,
                     C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 人權由政黨的體制決定</strong>：這與人權「與生俱來、普世」的特性完全相反，是報告所反對的觀點。</p>`,
                     D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 人權因文化差異而不同</strong>：這是威權國家提出的論點，而報告的內容正是在<strong>批判</strong>這個觀點，認為基本人權不應因文化而異。</p>`
+                },
+                quiz3: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>題目中的核心問題在於員工「被迫」簽署合約，失去了「選擇」是否要休假的權利。這直接對應到人性尊嚴中的<strong class="highlight-text">「自由選擇」</strong>面向，即個人可以自由決定自己的生活方式與行動。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 獨立自主</strong>：指的是個人不被視為他人的附屬品或工具。雖然情況也很糟，但題幹更強調「選擇權」被剝奪。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 存在價值</strong>：指的是每個人自身存在的意義。工廠的作法雖然不尊重員工，但並未直接否定他們存在的價值，而是限制了他們的行動自由。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 平等尊重</strong>：指的是每個人應受到同等的對待。雖然不平等，但問題的核心是「無法決定自己的休假」，這更貼近自由選擇的範疇。</p>`
+                },
+                quiz4: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong><strong class="highlight-text">「人人」</strong>生而自由平等，這個「人人」就強調了權利的普及性，適用於每一個人，此即<strong class="highlight-text">「普遍性」</strong>。<strong class="highlight-text">「一律平等」</strong>則直接點明了<strong class="highlight-text">「平等性」</strong>。因此，這句話最能體現這兩項特徵。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 不可剝奪性</strong>：指的是人權是與生俱來的，不能被他人或政府任意剝奪。雖然這也是人權的重要特徵，但題幹的「人人」、「一律平等」更直接對應普遍性與平等性。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 文化相對性</strong>：《世界人權宣言》主張的是普世價值，恰恰是與「文化相對性」的某些觀點對立的。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 國家主權性</strong>：人權是超越國家主權的普世價值，而非由國家主權賦予的。</p>`
                 }
             };
             
@@ -491,6 +604,66 @@
                     container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
                 });
             });
+
+             // ===== 互動區塊 JS 邏輯 (可重玩) =====
+
+            // 1. 是非題 (Quick Check 1)
+            const qc1_card = document.querySelector('#quick-check-1');
+            const qc1_btns = qc1_card.querySelectorAll('.interactive-btn');
+            const qc1_feedback = qc1_card.querySelector('.interactive-feedback');
+            const qc1_reset_btn = qc1_card.querySelector('.interactive-reset-btn');
+
+            qc1_btns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const isCorrect = btn.dataset.answer === 'false'; // 正確答案是「錯誤」
+                    qc1_btns.forEach(b => b.disabled = true);
+                    if (isCorrect) {
+                        qc1_feedback.innerHTML = '<strong><i class="fas fa-check-circle"></i> 正確！</strong>人性尊嚴是<span class="highlight-text">與生俱來、先天固有</span>的，不需要後天努力去換取。';
+                        qc1_feedback.className = 'interactive-feedback feedback-correct';
+                    } else {
+                        qc1_feedback.innerHTML = '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>這個觀念很重要！人性尊嚴是<span class="highlight-text">先天固有</span>的，無論個人成就如何，都應被尊重。';
+                        qc1_feedback.className = 'interactive-feedback feedback-wrong';
+                    }
+                    qc1_feedback.style.display = 'block';
+                    qc1_reset_btn.style.display = 'block';
+                });
+            });
+
+            qc1_reset_btn.addEventListener('click', () => {
+                qc1_btns.forEach(b => b.disabled = false);
+                qc1_feedback.style.display = 'none';
+                qc1_reset_btn.style.display = 'none';
+            });
+
+            // 2. 關鍵字選擇題 (Keyword Choice 1)
+            const kc1_card = document.querySelector('#keyword-choice-1');
+            const kc1_btns = kc1_card.querySelectorAll('.interactive-btn');
+            const kc1_feedback = kc1_card.querySelector('.interactive-feedback');
+            const kc1_reset_btn = kc1_card.querySelector('.interactive-reset-btn');
+
+            kc1_btns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const isCorrect = btn.dataset.answer === 'true';
+                    kc1_btns.forEach(b => b.disabled = true);
+                    if (isCorrect) {
+                        kc1_feedback.innerHTML = '<strong><i class="fas fa-check-circle"></i> 完全正確！</strong><span class="highlight-text">普遍性</span>正是指人權適用於地球上每一個人，不因任何身分而有差異。';
+                        kc1_feedback.className = 'interactive-feedback feedback-correct';
+                    } else {
+                        kc1_feedback.innerHTML = '<strong><i class="fas fa-times-circle"></i> 差一點！</strong>正確答案是<span class="highlight-text">「普遍性」</span>。這個特徵強調了人權的無差別適用範圍。';
+                        kc1_feedback.className = 'interactive-feedback feedback-wrong';
+                    }
+                    kc1_feedback.style.display = 'block';
+                    kc1_reset_btn.style.display = 'block';
+                });
+            });
+
+            kc1_reset_btn.addEventListener('click', () => {
+                kc1_btns.forEach(b => b.disabled = false);
+                kc1_feedback.style.display = 'none';
+                kc1_reset_btn.style.display = 'none';
+            });
+            
+            // ===== 結束互動 JS 邏輯 =====
 
             const mascotContainer = document.getElementById('mascot-container');
             const mascotImg = document.getElementById('mascot-img');

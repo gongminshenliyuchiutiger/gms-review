@@ -155,13 +155,21 @@
             content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
             position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
-        .info-card ul ul {
-            padding-left: 1.5rem;
-            margin-top: 0.5rem;
-        }
-        .info-card ul ul li::before {
-            content: '\f0da';
-        }
+        
+        /* --- 互動卡片樣式 --- */
+        .interactive-card { background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05)); padding: 2rem; border-radius: 15px; border-left: 5px solid var(--secondary-glow); margin-top: 3rem; box-shadow: 0 0 15px rgba(255, 0, 255, 0.1); }
+        .interactive-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--secondary-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+        .interactive-feedback.feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .interactive-feedback.feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .interactive-reset-btn, .matching-reset-btn { display: none; margin: 1rem auto 0; padding: 0.6rem 1.5rem; font-size: 0.9rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .interactive-reset-btn:hover, .matching-reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 10px var(--accent-glow); }
+        /* --- 結束互動樣式 --- */
 
         .comparison-item {
             display: flex;
@@ -204,6 +212,7 @@
         }
         
         .quiz-container { margin-bottom: 3rem; }
+        .quiz-container:last-child { margin-bottom: 0; }
         .quiz-title {
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
@@ -361,7 +370,19 @@
                     </div>
                 </div>
             </div>
-            <div class="info-card">
+            <!-- ===== 新增互動：法治 vs 人治辨析 ===== -->
+            <div id="law-vs-man-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-landmark"></i> 法治 vs 人治辨析</h3>
+                <p class="interactive-prompt">在一個國家裡，「皇帝說的話就是法律」，所有人都必須服從，皇帝自己卻可以不受約束。這種社會比較偏向？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">法治社會</button>
+                    <button class="interactive-btn" data-answer="true">人治社會</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
+            <div class="info-card" style="margin-top:3rem;">
                  <h4>(二) 法治社會的特徵</h4>
                  <ul>
                     <li><strong>人權保障：</strong>透過法律保障人民權利。</li>
@@ -398,6 +419,18 @@
                     <li><strong>依存：</strong>政府的公權力由人民的權利所賦予；人民權利要獲得保障，須透過政府權力來維護。</li>
                 </ul>
             </div>
+            <!-- ===== 新增互動：權力 vs 權利思考題 ===== -->
+            <div id="power-vs-right-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-vote-yea"></i> 權力 vs 權利思考題</h3>
+                <p class="interactive-prompt">年滿20歲的公民去投票選舉總統，是在行使個人的？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">權力</button>
+                    <button class="interactive-btn" data-answer="true">權利</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="separation-of-powers-section">
@@ -431,7 +464,7 @@
 
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
-            <div class="quiz-container">
+            <div class="quiz-container" id="power-vs-right-matching-quiz">
                 <h3 class="quiz-title"><i class="fas fa-tasks"></i>模擬神給酷</h3>
                 <div class="info-card" style="margin-top:0;">
                      <p><strong>下列各項敘述分別是在描述權力或權利？請填入正確代號。</strong></p>
@@ -443,6 +476,7 @@
                      <div class="matching-item" data-answer="乙"><p>2. 人民有權可接受國民教育，就讀國民小學。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option></select><i class="feedback-icon"></i></div>
                      <div class="matching-item" data-answer="甲"><p>3. 政府的權來自於人民的委託，應遵循民意。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option></select><i class="feedback-icon"></i></div>
                      <div class="matching-item" data-answer="乙"><p>4. 公務員退休時有權領取退休金，享受福利。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option></select><i class="feedback-icon"></i></div>
+                     <button class="matching-reset-btn">再挑戰一次</button>
                 </div>
             </div>
 
@@ -460,6 +494,22 @@
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
+             <!-- ===== 新增模擬挑戰二 ===== -->
+            <div class="quiz-container" id="quiz2">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(模擬神給酷)</span></h3>
+                <div class="question">
+                    <p>警察機關若要對犯罪嫌疑人進行搜索，原則上必須先向法院聲請搜索票，經法官核准後才能執行。此一規定最能體現法治社會的何項特徵？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 人權保障</button>
+                    <button class="option-btn" data-correct="true">(B) 依法行政</button>
+                    <button class="option-btn" data-correct="false">(C) 人人守法</button>
+                    <button class="option-btn" data-correct="false">(D) 主權在民</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
         
         <!-- Fun BG Section -->
@@ -508,16 +558,56 @@
             }, { threshold: 0.1 }); 
             sections.forEach(section => observer.observe(section));
 
-             // Matching quiz logic
-            const matchingSelects = document.querySelectorAll('.matching-select');
-            matchingSelects.forEach(select => {
-                select.addEventListener('change', (e) => {
-                    const selectedValue = e.target.value;
-                    const item = e.target.closest('.matching-item');
+            // --- 互動卡片通用安裝函數 ---
+            function setupInteractiveCard(cardId, correctFeedbackHTML, wrongFeedbackHTML) {
+                const card = document.getElementById(cardId);
+                if (!card) return;
+
+                const buttons = card.querySelectorAll('.interactive-btn');
+                const feedbackArea = card.querySelector('.interactive-feedback');
+                const resetButton = card.querySelector('.interactive-reset-btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isCorrect = btn.dataset.answer === 'true';
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (isCorrect) {
+                            feedbackArea.innerHTML = correctFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-correct';
+                        } else {
+                            feedbackArea.innerHTML = wrongFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    buttons.forEach(b => b.disabled = false);
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                });
+            }
+
+            // --- 配對題通用安裝函數 ---
+            function setupMatchingQuiz(quizId) {
+                const quiz = document.getElementById(quizId);
+                if (!quiz) return;
+
+                const selects = quiz.querySelectorAll('.matching-select');
+                const resetButton = quiz.querySelector('.matching-reset-btn');
+
+                function handleMatchingChange(e) {
+                    const select = e.target;
+                    const selectedValue = select.value;
+                    const item = select.closest('.matching-item');
                     const correctAnswer = item.dataset.answer;
                     const feedbackIcon = item.querySelector('.feedback-icon');
+                    
                     feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
-                    feedbackIcon.innerHTML = '';
+                    feedbackIcon.textContent = '';
                     if (selectedValue === "請選擇") {
                         feedbackIcon.style.display = 'none';
                         return;
@@ -525,72 +615,107 @@
                     feedbackIcon.style.display = 'inline-block';
                     if (selectedValue === correctAnswer) {
                         feedbackIcon.classList.add('icon-correct');
-                        feedbackIcon.innerHTML = '✓';
+                        feedbackIcon.textContent = '✓';
                     } else {
                         feedbackIcon.classList.add('icon-wrong');
-                        feedbackIcon.innerHTML = '✗';
+                        feedbackIcon.textContent = '✗';
                     }
-                });
-            });
+                }
 
-            // Multiple choice quiz logic
+                selects.forEach(select => {
+                    select.addEventListener('change', handleMatchingChange);
+                });
+
+                if(resetButton) {
+                    resetButton.style.display = 'block';
+                    resetButton.addEventListener('click', () => {
+                        selects.forEach(select => {
+                            select.selectedIndex = 0;
+                            const item = select.closest('.matching-item');
+                            const feedbackIcon = item.querySelector('.feedback-icon');
+                            feedbackIcon.style.display = 'none';
+                            feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                            feedbackIcon.textContent = '';
+                        });
+                    });
+                }
+            }
+
+            // --- 初始化所有互動卡片 ---
+            setupInteractiveCard(
+                'law-vs-man-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>人治社會的特徵就是統治者的意志高於法律，且統治者自身不受法律約束。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>法治社會強調法律由民意制定，且統治者和人民都必須遵守法律。題幹描述的是典型的人治社會。'
+            );
+
+            setupInteractiveCard(
+                'power-vs-right-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 完全正確！</strong>選舉權是憲法賦予人民的參政「權利」，人民透過行使這項權利，來授權政府行使統治「權力」。',
+                '<strong><i class="fas fa-times-circle"></i> 觀念要分清楚喔！</strong>「權力」是由上對下、由政府行使的；而投票是人民享有的、由下對上的「權利」。'
+            );
+            
+            // --- 初始化所有配對題 ---
+            setupMatchingQuiz('power-vs-right-matching-quiz');
+
+            // --- 會考歷屆試題區塊 ---
             const allQuizData = {
                 quiz1: {
                     correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>行政院（行政權）有向立法院（立法權）提出施政報告之責，而立法院可行使不信任案來制衡行政院。這是典型的行政權與立法權之間的<strong class="highlight-text">相互制衡</strong>，屬於「分權制衡」的概念。</p>`,
                     A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 均權制度</strong>是指中央與地方的權限劃分，與題目中行政、立法兩院的互動無關。</p>`,
                     C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 主權在民</strong>是指國家主權屬於人民，與政府機關間的權力制衡不同。</p>`,
                     D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 地方自治</strong>是指地方政府處理地方事務，與中央政府層級的互動無關。</p>`
+                },
+                quiz2: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>警察機關屬於「行政機關」，其執法行為必須有「法律」（搜索票）授權，不能任意而為。這種「政府行為必須遵守法律規範」的原則，正是<strong class="highlight-text">依法行政</strong>的核心精神。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 人權保障</strong>：依法行政的「目的」是為了保障人權，但此規定本身最直接體現的是「依法行政」這個「原則」。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 人人守法</strong>：這個選項強調的是「人民」守法，而題目描述的是對「政府機關」的約束。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 主權在民</strong>：這是指國家權力來自人民，與警察執法的具體程序較無直接關係。</p>`
                 }
             };
             
-            const mcqContainers = document.querySelectorAll('.quiz-container');
-            let mcqIndex = 0;
+            const mcqContainers = document.querySelectorAll('.quiz-container[id]');
+            
             mcqContainers.forEach((container) => {
-                // Find only the MCQ containers
-                if(container.querySelector('.option-btn')) {
-                    mcqIndex++;
-                    const quizId = `quiz${mcqIndex}`; 
-                    container.id = quizId;
-                    const quizData = allQuizData[quizId];
-                    if (!quizData) return;
+                const quizId = container.id;
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
 
-                    const optionButtons = container.querySelectorAll('.option-btn');
-                    const feedbackArea = container.querySelector('.feedback-area');
-                    const resetButton = container.querySelector('.reset-btn');
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
 
-                    optionButtons.forEach(button => {
-                        button.addEventListener('click', () => {
-                            const isCorrect = button.dataset.correct === 'true';
-                            optionButtons.forEach(btn => btn.disabled = true);
-                            
-                            if (isCorrect) {
-                                button.classList.add('correct');
-                                feedbackArea.innerHTML = quizData.correct;
-                                feedbackArea.className = 'feedback-area feedback-correct';
-                            } else {
-                                button.classList.add('wrong');
-                                container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
-                                const optionLetter = button.textContent.substring(1, 2);
-                                feedbackArea.innerHTML = quizData[optionLetter];
-                                feedbackArea.className = 'feedback-area feedback-wrong';
-                            }
-                            
-                            feedbackArea.style.display = 'block';
-                            resetButton.style.display = 'block';
-                            feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        });
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        optionButtons.forEach(btn => btn.disabled = true);
+                        
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = quizData.correct;
+                            feedbackArea.className = 'feedback-area feedback-correct';
+                        } else {
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            const optionLetter = button.textContent.substring(1, 2);
+                            feedbackArea.innerHTML = quizData[optionLetter];
+                            feedbackArea.className = 'feedback-area feedback-wrong';
+                        }
+                        
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     });
-                    
-                    resetButton.addEventListener('click', () => {
-                        optionButtons.forEach(btn => {
-                            btn.disabled = false;
-                            btn.classList.remove('correct', 'wrong');
-                        });
-                        feedbackArea.style.display = 'none';
-                        resetButton.style.display = 'none';
-                        container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
                     });
-                }
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
             });
 
             // Typing Effect and Mascot JS

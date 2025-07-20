@@ -153,7 +153,7 @@
             content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
             position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
-
+        
         .comparison-item {
             display: flex;
             flex-direction: column;
@@ -204,7 +204,23 @@
             position: absolute; left: 0; top: 3px;
         }
         
+        /* --- 互動卡片樣式 --- */
+        .interactive-card { background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05)); padding: 2rem; border-radius: 15px; border-left: 5px solid var(--secondary-glow); margin-top: 3rem; box-shadow: 0 0 15px rgba(255, 0, 255, 0.1); }
+        .interactive-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--secondary-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+        .interactive-feedback.feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .interactive-feedback.feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .interactive-reset-btn, .matching-reset-btn { display: none; margin: 1rem auto 0; padding: 0.6rem 1.5rem; font-size: 0.9rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .interactive-reset-btn:hover, .matching-reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 10px var(--accent-glow); }
+        /* --- 結束互動樣式 --- */
+
         .quiz-container { margin-bottom: 3rem; }
+        .quiz-container:last-child { margin-bottom: 0; }
         .quiz-title {
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
@@ -356,13 +372,26 @@
                      <ul>
                         <li><strong>年齡限制：</strong>有</li>
                         <li><strong>參與者：</strong>公民（具法定資格享有參政權的國民）</li>
-                        <li><strong>舉例：</strong>公民投票（須滿18歲）</li>
+                        <li><strong>舉例：</strong>公民投票（須滿18歲）、選舉（須滿20歲）</li>
                     </ul>
                 </div>
             </div>
             
+             <!-- ===== 新增互動：公共事務辨析 ===== -->
+            <div id="public-private-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-search"></i> 公共事務辨析</h3>
+                <p class="interactive-prompt">下列何者屬於「公共事務」的範疇？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">決定今天晚餐要吃什麼</button>
+                    <button class="interactive-btn" data-answer="true">討論班級園遊會要賣什麼商品</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
+            
             <h3>重要性</h3>
-            <div class="info-card" style="margin-top:0;">
+            <div class="info-card" style="margin-top:3rem;">
                 <ul>
                     <li><strong>與成員權益息息相關：</strong>公共事務的決定涉及與群體成員的<strong class="highlight-text">利益分配</strong>與<strong class="highlight-text">權利保障</strong>，可能直接或間接影響成員的生活。</li>
                     <li><strong>讓決策貼近成員需求：</strong>每位成員的需求不同，透過參與公共事務，積極表達意見、參與討論，才能讓決策兼顧與貼近所有成員的需求。</li>
@@ -389,7 +418,21 @@
                 </ul>
                 <p>※ 我國《國籍法》採<strong class="highlight-text">屬人為主，屬地為輔</strong>的折衷制。</p>
             </div>
-            <div class="info-card" style="margin-top:1.5rem;">
+
+            <!-- ===== 新增互動：國籍判定挑戰 ===== -->
+            <div id="nationality-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-globe-americas"></i> 國籍判定挑戰</h3>
+                <p class="interactive-prompt">小華的父母都是臺灣人，他在美國出生。根據我國《國籍法》<strong class="highlight-text">以血統為主的原則</strong>，小華是否天生就具有我國國籍？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="true">是</button>
+                    <button class="interactive-btn" data-answer="false">否</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
+            
+            <div class="info-card" style="margin-top:3rem;">
                 <h4><i class="fas fa-vote-yea"></i>狹義公民</h4>
                 <p><strong>條件：</strong>符合法定年齡 + 能行使參政權</p>
                 <p><strong>法定年齡：</strong></p>
@@ -404,24 +447,26 @@
 
         <section id="civic-virtue-section">
             <h2 class="section-title"><i class="fas fa-gem"></i>三、公民應具備的德性</h2>
-            <div class="info-card" style="margin-top:0;">
-                <h4><i class="fas fa-brain"></i>充實知能、積極參與</h4>
-                <p>1. 參與成員應對公共事務有基本認識與溝通能力。<br>2. 公共事務由眾人決定，成員應積極參與。</p>
+
+            <!-- ===== 修改後：公民德性配對題 ===== -->
+            <div id="virtue-matching-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-tasks"></i> 公民德性實踐</h3>
+                <p class="interactive-prompt">請將下列行為與其最符合的公民德性進行配對。</p>
+                 <div class="law-options-list" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+                    <div class="law-option-item"><span class="law-option-label">A</span> 充實知能、積極參與</div>
+                    <div class="law-option-item"><span class="law-option-label">B</span> 遵守法律、發揮道德</div>
+                    <div class="law-option-item"><span class="law-option-label">C</span> 理性思考、相互尊重</div>
+                    <div class="law-option-item"><span class="law-option-label">D</span> 捍衛正義、促進公益</div>
+                </div>
+                <div class="matching-item" data-answer="B"><p>1. 搭乘大眾運輸工具時遵守規定，並維持環境整潔。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="C"><p>2. 在網路上看到不同意見時，不謾罵，並試圖理解對方觀點。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="A"><p>3. 主動關心公共議題，並在投票前研究候選人政見。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="D"><p>4. 看到不公義的事件時挺身而出，並參與志工活動。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+                <button class="matching-reset-btn">再挑戰一次</button>
             </div>
-            <div class="info-card" style="margin-top:1.5rem;">
-                <h4><i class="fas fa-balance-scale"></i>遵守法律、發揮道德</h4>
-                <p>1. 參與公共事務時，個人與政府都應遵守法律規範。<br>2. 法律未規範的範圍，也應發揮私德與公德心，尊重他人的尊嚴與權利。</p>
-            </div>
-            <div class="info-card" style="margin-top:1.5rem;">
-                <h4><i class="fas fa-comments"></i>理性思考、相互尊重</h4>
-                <p>1. 具備理性思考能力，不盲目附會或反對他人論點。<br>2. 每個人都有表達意見的權利，理解彼此的差異與獨特性，互相接納與尊重。</p>
-            </div>
-            <div class="info-card" style="margin-top:1.5rem;">
-                <h4><i class="fas fa-shield-alt"></i>捍衛正義、促進公益</h4>
-                <p>1. 若有人權益受損時，應挺身而出為其爭取權益，以實現公平正義。<br>2. 個人可以奉獻自己的心力與資源，從事對他人有利的公益行為。</p>
-            </div>
+            <!-- ===== 結束修改 ===== -->
             
-            <div class="comparison-item" style="margin-top:2rem;">
+            <div class="comparison-item" style="margin-top:3rem;">
                 <h4>觀念比較：發揮公德、促進公益、捍衛正義</h4>
                 <div class="comparison-cards-container grid-3-col">
                     <div class="comparison-card">
@@ -454,7 +499,7 @@
 
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
-            <div class="quiz-container">
+            <div class="quiz-container" id="virtue-comparison-quiz">
                 <h3 class="quiz-title"><i class="fas fa-tasks"></i>模擬神給酷</h3>
                 <div class="info-card" style="margin-top:0;">
                      <p><strong>下列行為最符合何種公民德性的表現？請填入正確代號。</strong></p>
@@ -469,6 +514,7 @@
                      <div class="matching-item" data-answer="乙"><p>4. 愛好大自然的小平，為了維護海灘潔淨，號召同班同學一起淨灘。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
                      <div class="matching-item" data-answer="甲"><p>5. 王媽媽帶小兒子去公園玩耍，會珍惜使用、不損壞公園的公共設施。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
                      <div class="matching-item" data-answer="丙"><p>6. 小張在路邊看見民眾違規占用身障停車格，便撥打110報案專線檢舉。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option></select><i class="feedback-icon"></i></div>
+                     <button class="matching-reset-btn">再挑戰一次</button>
                 </div>
             </div>
 
@@ -501,6 +547,23 @@
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
+            
+             <!-- ===== 新增模擬挑戰三 ===== -->
+            <div class="quiz-container" id="quiz3">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(模擬神給酷)</span></h3>
+                <div class="question">
+                    <p>某位律師有感於許多移工因不熟悉我國法律而權益受損，因此他利用自己的休假時間，為這些移工提供免費的法律諮詢服務。請問這位律師的行為，最適合用下列何者來形容？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 遵守法律規範</button>
+                    <button class="option-btn" data-correct="false">(B) 促進社會公益</button>
+                    <button class="option-btn" data-correct="true">(C) 捍衛社會正義</button>
+                    <button class="option-btn" data-correct="false">(D) 發揮公德精神</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <!-- Fun BG Section -->
@@ -548,15 +611,56 @@
             }, { threshold: 0.1 }); 
             sections.forEach(section => observer.observe(section));
 
-            const matchingSelects = document.querySelectorAll('.matching-select');
-            matchingSelects.forEach(select => {
-                select.addEventListener('change', (e) => {
-                    const selectedValue = e.target.value;
-                    const item = e.target.closest('.matching-item');
+            // --- 互動卡片通用安裝函數 ---
+            function setupInteractiveCard(cardId, correctFeedbackHTML, wrongFeedbackHTML) {
+                const card = document.getElementById(cardId);
+                if (!card) return;
+
+                const buttons = card.querySelectorAll('.interactive-btn');
+                const feedbackArea = card.querySelector('.interactive-feedback');
+                const resetButton = card.querySelector('.interactive-reset-btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isCorrect = btn.dataset.answer === 'true';
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (isCorrect) {
+                            feedbackArea.innerHTML = correctFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-correct';
+                        } else {
+                            feedbackArea.innerHTML = wrongFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    buttons.forEach(b => b.disabled = false);
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                });
+            }
+
+            // --- 配對題通用安裝函數 ---
+            function setupMatchingQuiz(quizId) {
+                const quiz = document.getElementById(quizId);
+                if (!quiz) return;
+
+                const selects = quiz.querySelectorAll('.matching-select');
+                const resetButton = quiz.querySelector('.matching-reset-btn');
+
+                function handleMatchingChange(e) {
+                    const select = e.target;
+                    const selectedValue = select.value;
+                    const item = select.closest('.matching-item');
                     const correctAnswer = item.dataset.answer;
                     const feedbackIcon = item.querySelector('.feedback-icon');
+                    
                     feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
-                    feedbackIcon.innerHTML = '';
+                    feedbackIcon.textContent = '';
                     if (selectedValue === "請選擇") {
                         feedbackIcon.style.display = 'none';
                         return;
@@ -564,14 +668,50 @@
                     feedbackIcon.style.display = 'inline-block';
                     if (selectedValue === correctAnswer) {
                         feedbackIcon.classList.add('icon-correct');
-                        feedbackIcon.innerHTML = '✓';
+                        feedbackIcon.textContent = '✓';
                     } else {
                         feedbackIcon.classList.add('icon-wrong');
-                        feedbackIcon.innerHTML = '✗';
+                        feedbackIcon.textContent = '✗';
                     }
-                });
-            });
+                }
 
+                selects.forEach(select => {
+                    select.addEventListener('change', handleMatchingChange);
+                });
+
+                if(resetButton) {
+                    resetButton.style.display = 'block';
+                    resetButton.addEventListener('click', () => {
+                        selects.forEach(select => {
+                            select.selectedIndex = 0;
+                            const item = select.closest('.matching-item');
+                            const feedbackIcon = item.querySelector('.feedback-icon');
+                            feedbackIcon.style.display = 'none';
+                            feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                            feedbackIcon.textContent = '';
+                        });
+                    });
+                }
+            }
+            
+            // --- 初始化所有互動卡片 ---
+            setupInteractiveCard(
+                'public-private-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>園遊會的決策涉及「班級眾人」的利益，是公共事務。晚餐吃什麼是個人決定，屬於私人事務。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>公共事務的關鍵是「涉及眾人利益」。晚餐是個人事務，但班級園遊會的決策會影響到全班同學。'
+            );
+            
+            setupInteractiveCard(
+                'nationality-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 完全正確！</strong>我國國籍法採「屬人主義（血統主義）」為主，只要父母一方是我國國民，無論在哪裡出生，子女都天生具有我國國籍。',
+                '<strong><i class="fas fa-times-circle"></i> 答錯了！</strong>要記住我國的原則是「屬人為主」，也就是看父母的血統。即使在美國（屬地主義國家）出生，只要父母是臺灣人，孩子天生就是我國國民喔！'
+            );
+
+            // --- 初始化所有配對題 ---
+            setupMatchingQuiz('virtue-matching-quiz');
+            setupMatchingQuiz('virtue-comparison-quiz');
+
+            // --- 會考歷屆試題區塊 ---
             const allQuizData = {
                 quiz1: {
                     correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>王伯伯的做法核心在於「讓大家都有發言的機會」，即使意見不同，也尊重他人發言的權利。這正體現了「<strong class="highlight-text">理性思考、相互尊重</strong>」的公民德性，也就是尊重不同看法，並維護他人表達意見的基本人權。</p>`,
@@ -584,10 +724,16 @@
                     A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 增進公共利益</strong>：雖然此舉對視障者有利，但其更強調對特定弱勢群體的保障，因此「公平正義」是更精確的概念。</p>`,
                     C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 重視環境倫理</strong>：店家的行為與環境保護無關。</p>`,
                     D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 維護善良風俗</strong>：此行為屬於保障權益，與傳統風俗習慣較無關聯。</p>`
+                },
+                quiz3: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>「促進公益」和「捍衛正義」都是積極的利他行為，但關鍵區別在於對象。「促進公益」對象是廣泛的社會大眾（如：淨灘、社區服務），而「捍衛正義」的對象更側重於<strong class="highlight-text">權益受損或處於弱勢的特定群體</strong>。本題中的「移工」即為弱勢群體，因此律師的行為是「捍衛正義」。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 律師的行為遠遠超出了僅僅守法的程度，是一種主動的付出。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 這是最容易混淆的選項！「促進公益」的對象通常是普遍大眾，而本題的對象是特定的「弱勢移工」，因此用「捍衛正義」來形容更為精確。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 「發揮公德」通常指做好本分、不影響他人，是一種較為消極的德性，與律師積極付出的行為不同。</p>`
                 }
             };
             
-            const mcqContainers = document.querySelectorAll('.quiz-container[id]');
+            const mcqContainers = document.querySelectorAll('.quiz-container[id^="quiz"]');
             
             mcqContainers.forEach(container => {
                 const quizId = container.id;

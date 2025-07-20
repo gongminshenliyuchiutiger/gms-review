@@ -163,6 +163,21 @@
             content: '\f0da';
         }
 
+        /* --- 互動卡片樣式 --- */
+        .interactive-card { background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05)); padding: 2rem; border-radius: 15px; border-left: 5px solid var(--secondary-glow); margin-top: 3rem; box-shadow: 0 0 15px rgba(255, 0, 255, 0.1); }
+        .interactive-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--secondary-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+        .interactive-feedback.feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .interactive-feedback.feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .interactive-reset-btn, .matching-reset-btn { display: none; margin: 1rem auto 0; padding: 0.6rem 1.5rem; font-size: 0.9rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .interactive-reset-btn:hover, .matching-reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 10px var(--accent-glow); }
+        /* --- 結束互動樣式 --- */
+
         .comparison-cards-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -171,6 +186,7 @@
         }
         
         .quiz-container { margin-bottom: 3rem; }
+        .quiz-container:last-child { margin-bottom: 0; }
         .quiz-title {
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
@@ -280,7 +296,6 @@
                 grid-template-columns: 1fr;
             }
 
-            /* FIX: Ensure quiz options stack vertically on mobile */
             .law-options-list {
                 display: flex;
                 flex-direction: column;
@@ -316,6 +331,19 @@
                 <div class="info-card"><h4><i class="fas fa-vote-yea"></i>運作機制</h4><ul><li><strong>定期授權：</strong>人民透過定期選舉，賦予政府統治合法性與正當性。</li><li><strong>多數統治：</strong>政府的組成與施政，應取得多數選民的同意或支持。</li></ul></div>
                 <div class="info-card"><h4><i class="fas fa-thumbs-up"></i>優點與指標</h4><ul><li><strong>優點：</strong>提供人民政治參與的機會、有助於政權和平轉移。</li><li><strong>檢視指標：</strong>「定期選舉」是檢視國家是否採行民主制度的重要指標。</li></ul></div>
             </div>
+            <!-- ===== 新增互動：主權在民思考題 ===== -->
+            <div id="sovereignty-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-vote-yea"></i> 主權在民思考題</h3>
+                <p class="interactive-prompt">民主國家透過「定期選舉」來決定執政者，這個機制最能體現下列哪一項民主政治的核心理念？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="true">主權在民</button>
+                    <button class="interactive-btn" data-answer="false">責任政治</button>
+                    <button class="interactive-btn" data-answer="false">法治政治</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="democracy-features-section">
@@ -326,11 +354,25 @@
                 <div class="info-card"><h4><i class="fas fa-users"></i>政黨政治</h4><ul><li><strong>結社自由：</strong>人民有組織政黨的權利。</li><li><strong>公平競爭：</strong>兩個以上的政黨<strong class="highlight-text">公平競爭</strong>執政機會，各政黨匯集民意轉化為政見，並由勝選者成為執政黨，並由在野黨<strong class="highlight-text">監督</strong>執政黨。</li><li><strong>政黨輪替：</strong>執政黨若在選舉中敗選，就成為在野黨，而由獲勝的政黨執政。</li></ul></div>
                 <div class="info-card"><h4><i class="fas fa-user-check"></i>責任政治</h4><ul><li><strong>政治責任：</strong>政府施政不當、決策違背民意或政策失敗，相關官員須承擔國會或人民的<strong class="highlight-text">責難</strong>，甚至<strong class="highlight-text">辭職下臺</strong>。</li><li><strong>法律責任：</strong>政府官員若違法，應接受<strong class="highlight-text">法律制裁</strong>。</li></ul></div>
             </div>
+            <!-- ===== 新增互動：民主政治特色辨析 ===== -->
+            <div id="democracy-features-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-gavel"></i> 民主政治特色辨析</h3>
+                <p class="interactive-prompt">警察開罰單時，必須根據《道路交通管理處罰條例》的規定執行，不能隨意開罰。這個原則最符合民主政治的哪一項特色？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">民意政治</button>
+                    <button class="interactive-btn" data-answer="true">法治政治</button>
+                    <button class="interactive-btn" data-answer="false">政黨政治</button>
+                    <button class="interactive-btn" data-answer="false">責任政治</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
-            <div class="quiz-container">
+            <div class="quiz-container" id="features-matching-quiz">
                 <h3 class="quiz-title"><i class="fas fa-tasks"></i>模擬神給酷</h3>
                 <div class="info-card" style="margin-top:0;">
                      <p><strong>下列作為最能表現出民主政治的何種特色？請填入正確代號。</strong></p>
@@ -344,6 +386,7 @@
                      <div class="matching-item" data-answer="乙"><p>2. 政府向人民課稅時，必須依據《所得稅法》規定課徵。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
                      <div class="matching-item" data-answer="丁"><p>3. 總統選舉時，在野黨候選人提出政黨輪替執政的訴求。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
                      <div class="matching-item" data-answer="甲"><p>4. 市議會舉辦輕軌二階規畫與施工公聽會，蒐集人民意見。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                     <button class="matching-reset-btn">再挑戰一次</button>
                 </div>
             </div>
 
@@ -398,6 +441,23 @@
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
+            
+            <!-- ===== 新增模擬挑戰四 ===== -->
+            <div class="quiz-container" id="quiz4">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰四 <span class="quiz-source">(模擬神給酷)</span></h3>
+                <div class="question">
+                    <p>某國國會中，在野黨議員針對執政黨提出的預算案提出質疑，認為其中有部分款項不合理，要求執政黨公開說明並進行修改。此情境最能展現政黨政治的何種功能？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 匯集民意，提出政見</button>
+                    <button class="option-btn" data-correct="true">(B) 監督政府，制衡執政黨</button>
+                    <button class="option-btn" data-correct="false">(C) 提名候選人，參與選舉</button>
+                    <button class="option-btn" data-correct="false">(D) 實現政黨輪替</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
         
         <!-- Fun BG Section -->
@@ -446,16 +506,56 @@
             }, { threshold: 0.1 }); 
             sections.forEach(section => observer.observe(section));
 
-             // Matching quiz logic
-            const matchingSelects = document.querySelectorAll('.matching-select');
-            matchingSelects.forEach(select => {
-                select.addEventListener('change', (e) => {
-                    const selectedValue = e.target.value;
-                    const item = e.target.closest('.matching-item');
+            // --- 互動卡片通用安裝函數 ---
+            function setupInteractiveCard(cardId, correctFeedbackHTML, wrongFeedbackHTML) {
+                const card = document.getElementById(cardId);
+                if (!card) return;
+
+                const buttons = card.querySelectorAll('.interactive-btn');
+                const feedbackArea = card.querySelector('.interactive-feedback');
+                const resetButton = card.querySelector('.interactive-reset-btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isCorrect = btn.dataset.answer === 'true';
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (isCorrect) {
+                            feedbackArea.innerHTML = correctFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-correct';
+                        } else {
+                            feedbackArea.innerHTML = wrongFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    buttons.forEach(b => b.disabled = false);
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                });
+            }
+
+            // --- 配對題通用安裝函數 ---
+            function setupMatchingQuiz(quizId) {
+                const quiz = document.getElementById(quizId);
+                if (!quiz) return;
+
+                const selects = quiz.querySelectorAll('.matching-select');
+                const resetButton = quiz.querySelector('.matching-reset-btn');
+
+                function handleMatchingChange(e) {
+                    const select = e.target;
+                    const selectedValue = select.value;
+                    const item = select.closest('.matching-item');
                     const correctAnswer = item.dataset.answer;
                     const feedbackIcon = item.querySelector('.feedback-icon');
+                    
                     feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
-                    feedbackIcon.innerHTML = '';
+                    feedbackIcon.textContent = '';
                     if (selectedValue === "請選擇") {
                         feedbackIcon.style.display = 'none';
                         return;
@@ -463,15 +563,49 @@
                     feedbackIcon.style.display = 'inline-block';
                     if (selectedValue === correctAnswer) {
                         feedbackIcon.classList.add('icon-correct');
-                        feedbackIcon.innerHTML = '✓';
+                        feedbackIcon.textContent = '✓';
                     } else {
                         feedbackIcon.classList.add('icon-wrong');
-                        feedbackIcon.innerHTML = '✗';
+                        feedbackIcon.textContent = '✗';
                     }
-                });
-            });
+                }
 
-            // Multiple choice quiz logic
+                selects.forEach(select => {
+                    select.addEventListener('change', handleMatchingChange);
+                });
+
+                if(resetButton) {
+                    resetButton.style.display = 'block';
+                    resetButton.addEventListener('click', () => {
+                        selects.forEach(select => {
+                            select.selectedIndex = 0;
+                            const item = select.closest('.matching-item');
+                            const feedbackIcon = item.querySelector('.feedback-icon');
+                            feedbackIcon.style.display = 'none';
+                            feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                            feedbackIcon.textContent = '';
+                        });
+                    });
+                }
+            }
+
+            // --- 初始化所有互動卡片 ---
+            setupInteractiveCard(
+                'sovereignty-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>「主權在民」意味著國家的最高權力屬於人民，而人民透過「定期選舉」將統治權授予政府，這是民主政治最根本的理念。',
+                '<strong><i class="fas fa-times-circle"></i> 再想一下！</strong>「責任政治」和「法治政治」都是民主政治的重要特色，但「定期選舉」這個行為本身，最直接體現的是人民是國家主人的「主權在民」思想。'
+            );
+
+            setupInteractiveCard(
+                'democracy-features-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 完全正確！</strong>「法治政治」的核心精神就是「依法行政」，政府的任何權力行使都必須有法律的依據，不能任意而為。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>這個情境強調的是「依法」執行公權力，這是「法治政治」的典型例子。'
+            );
+            
+            // --- 初始化所有配對題 ---
+            setupMatchingQuiz('features-matching-quiz');
+
+            // --- 會考歷屆試題區塊 ---
             const allQuizData = {
                 quiz1: {
                     correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>民主國家的運作，是人民透過<strong class="highlight-text">定期選舉</strong>，賦予政府統治合法性與正當性。篡位與政變都缺乏這個過程，因此不具合法性，也就是缺乏(D)公平競爭的選舉過程。</p>`,
@@ -490,57 +624,58 @@
                     A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 三權分立是政府權力的分工與制衡，與探討「誰是主人」不同。</p>`,
                     C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C)</strong> 利益團體是影響政府決策的民間組織，非國家的主人。</p>`,
                     D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 政黨功能是政黨在政治中扮演的角色，與探討國家主權歸屬不同。</p>`
+                },
+                quiz4: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>政黨政治中，除了執政黨負責執政外，在野黨最重要的功能就是代表部分民意來<strong class="highlight-text">監督政府施政</strong>，防止執政黨濫權。題中在野黨質疑預算案，正是此功能的展現。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 提出政見是所有政黨的功能，但題中更強調的是「在野黨」對「執政黨」的制衡行為。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C)</strong> 提名候選人是政黨在選舉時的功能，與監督預算無關。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 政黨輪替是選舉的「結果」，而監督是選舉後的「過程」。</p>`
                 }
             };
             
-            const mcqContainers = document.querySelectorAll('.quiz-container');
-            let mcqIndex = 0;
+            const mcqContainers = document.querySelectorAll('.quiz-container[id]');
+            
             mcqContainers.forEach((container) => {
-                // Find only the MCQ containers
-                if(container.querySelector('.option-btn')) {
-                    mcqIndex++;
-                    const quizId = `quiz${mcqIndex}`; 
-                    container.id = quizId;
-                    const quizData = allQuizData[quizId];
-                    if (!quizData) return;
+                const quizId = container.id;
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
 
-                    const optionButtons = container.querySelectorAll('.option-btn');
-                    const feedbackArea = container.querySelector('.feedback-area');
-                    const resetButton = container.querySelector('.reset-btn');
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
 
-                    optionButtons.forEach(button => {
-                        button.addEventListener('click', () => {
-                            const isCorrect = button.dataset.correct === 'true';
-                            optionButtons.forEach(btn => btn.disabled = true);
-                            
-                            if (isCorrect) {
-                                button.classList.add('correct');
-                                feedbackArea.innerHTML = quizData.correct;
-                                feedbackArea.className = 'feedback-area feedback-correct';
-                            } else {
-                                button.classList.add('wrong');
-                                container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
-                                const optionLetter = button.textContent.substring(1, 2);
-                                feedbackArea.innerHTML = quizData[optionLetter];
-                                feedbackArea.className = 'feedback-area feedback-wrong';
-                            }
-                            
-                            feedbackArea.style.display = 'block';
-                            resetButton.style.display = 'block';
-                            feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        });
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        optionButtons.forEach(btn => btn.disabled = true);
+                        
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = quizData.correct;
+                            feedbackArea.className = 'feedback-area feedback-correct';
+                        } else {
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            const optionLetter = button.textContent.substring(1, 2);
+                            feedbackArea.innerHTML = quizData[optionLetter];
+                            feedbackArea.className = 'feedback-area feedback-wrong';
+                        }
+                        
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     });
-                    
-                    resetButton.addEventListener('click', () => {
-                        optionButtons.forEach(btn => {
-                            btn.disabled = false;
-                            btn.classList.remove('correct', 'wrong');
-                        });
-                        feedbackArea.style.display = 'none';
-                        resetButton.style.display = 'none';
-                        container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
                     });
-                }
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
             });
 
             // Typing Effect and Mascot JS

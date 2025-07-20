@@ -156,16 +156,51 @@
             position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
         
+        /* --- 互動卡片樣式 --- */
+        .interactive-card { background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05)); padding: 2rem; border-radius: 15px; border-left: 5px solid var(--secondary-glow); margin-top: 3rem; box-shadow: 0 0 15px rgba(255, 0, 255, 0.1); }
+        .interactive-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--secondary-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+        .interactive-feedback.feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .interactive-feedback.feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .interactive-reset-btn { display: none; margin: 1rem auto 0; padding: 0.6rem 1.5rem; font-size: 0.9rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .interactive-reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 10px var(--accent-glow); }
+        /* --- 結束互動樣式 --- */
+        
         .comparison-cards-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1rem;
             margin-top: 1.5rem;
         }
+        .comparison-card {
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+        .comparison-card h5 {
+            font-size: 1.2rem;
+            margin: 0 0 1rem 0;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-glow);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .comparison-card ul {
+             list-style: none; padding-left: 0; font-size: 0.95rem; flex-grow: 1;
+        }
         
         .highlight-box { background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05)); padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow); font-size: 1.1rem; margin-top: 2rem; box-shadow: inset 0 0 10px rgba(240, 225, 74, 0.2); }
         
         .quiz-container { margin-bottom: 3rem; }
+        .quiz-container:last-child { margin-bottom: 0; }
         .quiz-title {
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
@@ -273,6 +308,18 @@
             <div class="highlight-box">
                 若以有限資源自行生產生活所需的所有產品，機會成本相對較高。因此可透過<strong class="highlight-text">分工與交易</strong>，以自己生產的產品與他人交換所需，形成市場交易。
             </div>
+            <!-- ===== 新增互動：市場類型辨識 ===== -->
+            <div id="market-type-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-shopping-cart"></i> 市場類型辨識</h3>
+                <p class="interactive-prompt">小美透過手機App在外送平台點餐，並線上完成付款。這種交易模式屬於哪一種市場？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">有形市場</button>
+                    <button class="interactive-btn" data-answer="true">無形市場</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="specialization-section">
@@ -298,6 +345,18 @@
                 </ul>
                 <p><strong>結論</strong>：兩人依照專業分工（吉米專做褲子、薇薇專做衣服），總產量會<strong class="highlight-text">高於</strong>未分工時。分工可促使專業化生產，再透過交易，可滿足生活所需。</p>
             </div>
+            <!-- ===== 新增互動：比較利益思考題 ===== -->
+            <div id="comparative-advantage-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-chart-pie"></i> 比較利益思考題</h3>
+                <p class="interactive-prompt">根據上方的案例，薇薇應該專心生產哪一樣產品，才能發揮比較利益？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">褲子</button>
+                    <button class="interactive-btn" data-answer="true">衣服</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="trade-section">
@@ -320,20 +379,18 @@
                     </li>
                 </ul>
             </div>
-            <div class="comparison-cards-container">
-                <div class="info-card">
-                    <h4><i class="fas fa-plus-circle" style="color:var(--correct-color);"></i>對消費者的利</h4>
-                    <p>消費者有較多的選擇能買到較便宜的商品。</p>
+            <!-- ===== 新增互動：進出口決策 ===== -->
+            <div id="import-export-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-dolly-flatbed"></i> 進出口決策</h3>
+                <p class="interactive-prompt">如果臺灣生產晶片的機會成本遠低於其他國家，在自由貿易下，臺灣應該如何選擇？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">從國外進口晶片</button>
+                    <button class="interactive-btn" data-answer="true">向國外出口晶片</button>
                 </div>
-                <div class="info-card">
-                    <h4><i class="fas fa-minus-circle" style="color:var(--wrong-color);"></i>對國內生產者的弊</h4>
-                    <ul>
-                        <li>國內廠商生產的價格高於進口商品，<strong class="highlight-text">不利本國商品的銷售</strong>。</li>
-                        <li>銷售量降低，或是降低商品售價，都會使利潤減少。</li>
-                        <li>生產者若因不敷成本、無利可圖而放棄生產，或將生產線轉往成本較低的國家，會影響本國勞工的工作機會。</li>
-                    </ul>
-                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
             </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="quiz-section">
@@ -366,6 +423,22 @@
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
+             <!-- ===== 新增模擬挑戰三 ===== -->
+            <div class="quiz-container" id="quiz3">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(模擬神給酷)</span></h3>
+                <div class="question">
+                    <p>假設蘋果（Apple）公司和三星（Samsung）公司都能生產手機和電視。若Apple生產一支手機的機會成本是2台電視，而Samsung生產一支手機的機會成本是3台電視。根據比較利益法則，哪家公司在「生產手機」上具有比較利益？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="true">(A) Apple公司</button>
+                    <button class="option-btn" data-correct="false">(B) Samsung公司</button>
+                    <button class="option-btn" data-correct="false">(C) 兩家公司都沒有</button>
+                    <button class="option-btn" data-correct="false">(D) 兩家公司都有</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
         
         <section class="fun-bg-section">
@@ -396,15 +469,149 @@
         document.addEventListener('DOMContentLoaded', () => {
             let typingStarted = false; 
 
-            const typingSentences = [
-                "公民好神！我會遵守公民神會員守則！",
-                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
-                "公民神有三力：注意力、記憶力、戰鬥力！"
-            ];
-            const typingElementSpan = document.getElementById('typing-text-span');
+            // --- 互動卡片通用安裝函數 ---
+            function setupInteractiveCard(cardId, correctFeedbackHTML, wrongFeedbackHTML) {
+                const card = document.getElementById(cardId);
+                if (!card) return;
 
+                const buttons = card.querySelectorAll('.interactive-btn');
+                const feedbackArea = card.querySelector('.interactive-feedback');
+                const resetButton = card.querySelector('.interactive-reset-btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isCorrect = btn.dataset.answer === 'true';
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (isCorrect) {
+                            feedbackArea.innerHTML = correctFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-correct';
+                        } else {
+                            feedbackArea.innerHTML = wrongFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    buttons.forEach(b => b.disabled = false);
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                });
+            }
+            
+            // --- 初始化所有互動卡片 ---
+            setupInteractiveCard(
+                'market-type-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>透過網路平台進行交易，沒有實體的店面，屬於「無形市場」。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>「有形市場」是指有具體地點的場所，如菜市場或百貨公司。網路購物是在虛擬空間完成的，屬於「無形市場」。'
+            );
+
+            setupInteractiveCard(
+                'comparative-advantage-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>薇薇生產1件衣服的機會成本是放棄 1/2 件褲子，遠低於吉米的2件褲子。根據比較利益法則，她應該專心生產機會成本較低的衣服。',
+                '<strong><i class="fas fa-times-circle"></i> 再想一下！</strong>比較利益法則是選擇生產「機會成本較低」的產品。薇薇生產褲子的機會成本是2件衣服，高於吉米，所以她不該生產褲子。'
+            );
+            
+            setupInteractiveCard(
+                'import-export-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>當一國生產某項產品的機會成本較低時，代表該國在此產品上具有比較利益，適合進行專業化生產並「出口」到其他國家。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>機會成本低代表生產效率高、具有優勢，應該要「出口」賺取利潤，而不是從國外「進口」喔！'
+            );
+            
+            // --- 會考歷屆試題區塊 ---
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>政府開放進口新鮮山竹，使得市場上除了原有的「冷凍山竹」外，又多了「新鮮山竹」這個新選項。這代表消費者的選擇變多了，產品的種類也變得更加多元。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>貿易出超是指「出口總額 > 進口總額」。開放進口會增加進口額，與擴大出超無關。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>這是「進口」政策，與農業「出口」無關。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>新鮮山竹價格較高但仍銷售一空，顯示消費者的購物意願並非僅受價格影響，而是受到偏好等非價格因素影響。</p>`
+                },
+                quiz2: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>《公平交易法》旨在維護交易秩序與確保市場的公平競爭。題目中描述業者「聯合其他業者囤積」菸品，這種行為屬於<strong class="highlight-text">聯合行為</strong>，意圖操縱市場價格，破壞了市場的公平競爭，因此違反了《公平交易法》。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>囤積居奇雖然可能觸犯《刑法》，但「聯合」其他業者一同行動，主要違反的是規範市場競爭秩序的《公平交易法》。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>《消費者保護法》主要規範企業經營者與消費者之間的權益關係，如商品標示、定型化契約等，與業者間的聯合行為較無關。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>《社會秩序維護法》處理的是妨害安寧、善良風俗等情節較輕微的違法行為。</p>`
+                },
+                quiz3: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>比較利益法則是選擇生產「機會成本較低」的產品。Apple生產手機的機會成本是2台電視，Samsung是3台電視。因為 2 < 3，所以Apple在生產手機上具有比較利益。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>Samsung生產手機的機會成本（3台電視）比Apple（2台電視）高，所以不具比較利益。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>兩者機會成本不同，一定有一方具有比較利益。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>比較利益是相對的概念，只會有一方具有優勢。</p>`
+                }
+            };
+            
+            const mcqContainers = document.querySelectorAll('.quiz-container[id]');
+            
+            mcqContainers.forEach((container) => {
+                const quizId = container.id;
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
+
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
+
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        
+                        optionButtons.forEach(btn => {
+                            btn.disabled = true;
+                        });
+
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = quizData.correct;
+                        } else {
+                            const optionLetter = button.textContent.substring(1, 2);
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            feedbackArea.innerHTML = quizData[optionLetter];
+                        }
+                        feedbackArea.className = 'feedback-area ' + (isCorrect ? 'feedback-correct' : 'feedback-wrong');
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
+                    });
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+            
+            // Section fade-in animation and typing effect
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
+                            typingStarted = true;
+                            startTypingLoop();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 }); 
+            sections.forEach(section => observer.observe(section));
+            
+            const typingElementSpan = document.getElementById('typing-text-span');
             function startTypingLoop() {
                 if (!typingElementSpan) return;
+                const typingSentences = [
+                    "公民好神！我會遵守公民神會員守則！",
+                    "努力向上、勇往直前、不畏艱難，我要成為公民神！",
+                    "公民神有三力：注意力、記憶力、戰鬥力！"
+                ];
                 let sentenceIndex = 0;
                 let charIndex = 0;
                 let isDeleting = false;
@@ -434,90 +641,12 @@
                 }
                 loop();
             }
-            
-            const sections = document.querySelectorAll('section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
-                            typingStarted = true;
-                            startTypingLoop();
-                        }
-                    }
-                });
-            }, { threshold: 0.1 }); 
-            
-            sections.forEach(section => observer.observe(section));
 
-            const allQuizData = {
-                quiz1: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>政府開放進口新鮮山竹，使得市場上除了原有的「冷凍山竹」外，又多了「新鮮山竹」這個新選項。這代表消費者的選擇變多了，產品的種類也變得更加多元。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>貿易出超是指「出口總額 > 進口總額」。開放進口會增加進口額，與擴大出超無關。</p>`,
-                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>這是「進口」政策，與農業「出口」無關。</p>`,
-                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>新鮮山竹價格較高但仍銷售一空，顯示消費者的購物意願並非僅受價格影響，而是受到偏好等非價格因素影響。</p>`
-                },
-                quiz2: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>《公平交易法》旨在維護交易秩序與確保市場的公平競爭。題目中描述業者「聯合其他業者囤積」菸品，這種行為屬於<strong class="highlight-text">聯合行為</strong>，意圖操縱市場價格，破壞了市場的公平競爭，因此違反了《公平交易法》。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>囤積居奇雖然可能觸犯《刑法》，但「聯合」其他業者一同行動，主要違反的是規範市場競爭秩序的《公平交易法》。</p>`,
-                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>《消費者保護法》主要規範企業經營者與消費者之間的權益關係，如商品標示、定型化契約等，與業者間的聯合行為較無關。</p>`,
-                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>《社會秩序維護法》處理的是妨害安寧、善良風俗等情節較輕微的違法行為。</p>`
-                }
-            };
-            
-            const quizContainers = document.querySelectorAll('.quiz-container');
-            
-            quizContainers.forEach((container) => {
-                const quizId = container.id;
-                if (!quizId) return;
-                const quizData = allQuizData[quizId];
-                if (!quizData) return;
-
-                const optionButtons = container.querySelectorAll('.option-btn');
-                const feedbackArea = container.querySelector('.feedback-area');
-                const resetButton = container.querySelector('.reset-btn');
-
-                optionButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        const isCorrect = button.dataset.correct === 'true';
-                        
-                        optionButtons.forEach(btn => {
-                            btn.disabled = true;
-                        });
-
-                        if (isCorrect) {
-                            button.classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId].correct;
-                            feedbackArea.className = 'feedback-area feedback-correct';
-                        } else {
-                            const optionLetter = button.textContent.substring(1, 2);
-                            button.classList.add('wrong');
-                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
-                            feedbackArea.className = 'feedback-area feedback-wrong';
-                        }
-                        feedbackArea.style.display = 'block';
-                        resetButton.style.display = 'block';
-                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    });
-                });
-                
-                resetButton.addEventListener('click', () => {
-                    optionButtons.forEach(btn => {
-                        btn.disabled = false;
-                        btn.classList.remove('correct', 'wrong');
-                    });
-                    feedbackArea.style.display = 'none';
-                    resetButton.style.display = 'none';
-                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                });
-            });
-
+            // Mascot JS
             const mascotContainer = document.getElementById('mascot-container');
             const mascotImg = document.getElementById('mascot-img');
             const speechBubble = document.getElementById('mascot-speech');
-            
-            const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
+            const messages = ["公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
             let messageIndex = 0;
             let clickTimer = null;
             let speechTimeout = null;

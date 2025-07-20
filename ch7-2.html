@@ -127,15 +127,6 @@
             margin-top: 0;
         }
         
-        h4 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
-            color: var(--accent-glow);
-            margin: 0 0 1rem 0;
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-        
         .info-card { 
             background: rgba(0,0,0,0.2); 
             border: 1px solid var(--border-color); 
@@ -144,6 +135,7 @@
         }
         
         .info-card h4 { 
+            font-family: 'Orbitron', sans-serif;
             font-size: clamp(1.2rem, 2.5vw, 1.4rem);
             color: var(--primary-glow);
             margin: 0 0 1rem 0;
@@ -170,6 +162,21 @@
         .info-card ul ul li::before {
             content: '\f0da';
         }
+
+        /* --- 互動卡片樣式 --- */
+        .interactive-card { background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05)); padding: 2rem; border-radius: 15px; border-left: 5px solid var(--secondary-glow); margin-top: 3rem; box-shadow: 0 0 15px rgba(255, 0, 255, 0.1); }
+        .interactive-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--secondary-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+        .interactive-feedback.feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .interactive-feedback.feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .interactive-reset-btn, .matching-reset-btn { display: none; margin: 1rem auto 0; padding: 0.6rem 1.5rem; font-size: 0.9rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .interactive-reset-btn:hover, .matching-reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 10px var(--accent-glow); }
+        /* --- 結束互動樣式 --- */
 
         .comparison-item {
             display: flex;
@@ -225,6 +232,7 @@
         }
         
         .quiz-container { margin-bottom: 3rem; }
+        .quiz-container:last-child { margin-bottom: 0; }
         .quiz-title {
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
@@ -241,11 +249,25 @@
         .quiz-title .quiz-source { font-size: 0.9rem; color: var(--text-color); opacity: 0.7; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
         #quiz-section .question { background-color: rgba(13, 27, 42, 0.8); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; font-size: 1.1rem; border: 1px solid var(--border-color); }
         
-        #quiz-section .diagram-description {
-            background-color: rgba(0, 242, 234, 0.08); padding: 1rem; border-radius: 10px; margin-top: 1rem; border: 1px dashed var(--border-color);
+        .table-container { overflow-x: auto; }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            margin-top: 1.5rem;
         }
-        #quiz-section .diagram-description ul { list-style: none; padding: 0; }
-        
+        .data-table th, .data-table td {
+            border: 1px solid var(--accent-border-color);
+            padding: 0.8rem;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+        }
+        .data-table thead th {
+            background-color: rgba(13, 27, 42, 0.7);
+            color: var(--primary-glow);
+        }
+
         #quiz-section .options { display: grid; gap: 1rem; }
         .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
         .option-btn:hover { background-color: var(--primary-glow); color: var(--bg-dark); border-color: var(--primary-glow); }
@@ -397,6 +419,19 @@
                     </ul>
                 </div>
             </div>
+             <!-- ===== 新增互動：行政院長產生方式 ===== -->
+            <div id="premier-appointment-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-user-check"></i> 行政院長產生方式</h3>
+                <p class="interactive-prompt">根據我國現行憲法規定，行政院院長是如何產生的？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">由人民直接選舉</button>
+                    <button class="interactive-btn" data-answer="true">由總統直接任命</button>
+                    <button class="interactive-btn" data-answer="false">由總統提名，立法院同意後任命</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="legislative-section">
@@ -420,10 +455,36 @@
                     <li><strong>提案權：</strong>正副總統彈劾案、罷免案，憲法修正案、領土變更案。</li>
                 </ul>
             </div>
-             <div class="info-card">
+            <!-- ===== 新增互動：立法委員產生方式 ===== -->
+            <div id="legislator-election-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-vote-yea"></i> 立法委員產生方式</h3>
+                <p class="interactive-prompt">我國立法院的正、副院長是如何產生的？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">由總統任命</button>
+                    <button class="interactive-btn" data-answer="true">由立法委員互相選舉產生</button>
+                    <button class="interactive-btn" data-answer="false">由人民直接選舉</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
+             <div class="info-card" style="margin-top:3rem;">
                 <h4><i class="fas fa-project-diagram"></i>法律制訂流程</h4>
                 <p>行政院、立法委員、司法院、考試院、監察院，五院皆可提案 ➡ 立法院審查法案、三讀通過 ➡ 總統公布法律。</p>
             </div>
+             <!-- ===== 新增互動：總統彈劾流程 ===== -->
+            <div id="impeachment-flow-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-gavel"></i> 總統彈劾流程</h3>
+                <p class="interactive-prompt">若要彈劾總統，第一步應由哪個機關提出彈劾案？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">監察院</button>
+                    <button class="interactive-btn" data-answer="true">立法院</button>
+                    <button class="interactive-btn" data-answer="false">司法院</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
         
         <section id="judicial-etc-section">
@@ -475,6 +536,18 @@
                  <h4><i class="fas fa-user-plus"></i>人員產生</h4>
                  <p>司法院、考試院、監察院之正副院長、大法官、考試委員、監察委員、審計長，皆由<strong class="highlight-text">總統提名</strong>，經<strong class="highlight-text">立法院同意</strong>後，由<strong class="highlight-text">總統任命</strong>。</p>
             </div>
+            <!-- ===== 新增互動：五院職權配對 ===== -->
+            <div id="five-powers-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-sitemap"></i> 五權機關配對</h3>
+                <p class="interactive-prompt">請將下列權力與其對應的最高主管機關進行配對。</p>
+                <div class="matching-item" data-answer="executive"><p>1. 規劃與執行國家政策</p><select class="matching-select"><option>請選擇</option><option value="executive">行政院</option><option value="legislative">立法院</option><option value="judicial">司法院</option><option value="examination">考試院</option><option value="control">監察院</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="legislative"><p>2. 審查國家總預算</p><select class="matching-select"><option>請選擇</option><option value="executive">行政院</option><option value="legislative">立法院</option><option value="judicial">司法院</option><option value="examination">考試院</option><option value="control">監察院</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="judicial"><p>3. 解釋憲法、統一解釋法律命令</p><select class="matching-select"><option>請選擇</option><option value="executive">行政院</option><option value="legislative">立法院</option><option value="judicial">司法院</option><option value="examination">考試院</option><option value="control">監察院</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="examination"><p>4. 辦理公務人員考試</p><select class="matching-select"><option>請選擇</option><option value="executive">行政院</option><option value="legislative">立法院</option><option value="judicial">司法院</option><option value="examination">考試院</option><option value="control">監察院</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="control"><p>5. 彈劾違法失職的公務人員</p><select class="matching-select"><option>請選擇</option><option value="executive">行政院</option><option value="legislative">立法院</option><option value="judicial">司法院</option><option value="examination">考試院</option><option value="control">監察院</option></select><i class="feedback-icon"></i></div>
+                <button class="matching-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="concepts-comparison-section">
@@ -486,7 +559,16 @@
                     <div class="comparison-card"><h5>不信任案</h5><ul><li><strong>提出者：</strong>立法院</li><li><strong>時機：</strong>對行政院院長施政不滿意時</li><li><strong>結果：</strong>若通過，行政院長須辭職</li></ul></div>
                 </div>
             </div>
-             <div class="comparison-item">
+             <!-- ===== 新增互動：覆議 vs 不信任案配對 ===== -->
+            <div id="censure-reconsideration-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-exchange-alt"></i> 覆議 vs 不信任案</h3>
+                <p class="interactive-prompt">請將下列行為與其正確的名稱進行配對。</p>
+                <div class="matching-item" data-answer="reconsideration"><p>1. 行政院認為立法院通過的法案窒礙難行，將法案退回立法院重審。</p><select class="matching-select"><option>請選擇</option><option value="censure">不信任案</option><option value="reconsideration">覆議</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="censure"><p>2. 立法院對行政院長的施政感到不滿，發動投票要求行政院長下臺。</p><select class="matching-select"><option>請選擇</option><option value="censure">不信任案</option><option value="reconsideration">覆議</option></select><i class="feedback-icon"></i></div>
+                <button class="matching-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
+             <div class="comparison-item" style="margin-top:3rem;">
                 <h4>糾正 vs. 糾舉 vs. 彈劾</h4>
                 <div class="comparison-cards-container grid-3-col">
                     <div class="comparison-card"><h5>糾正</h5><p><strong>對象：</strong>對<strong class="highlight-text">機關</strong> (行政院及其部會)<br><strong>原因：</strong>工作及設施違法失職</p></div>
@@ -494,32 +576,29 @@
                     <div class="comparison-card"><h5>彈劾</h5><p><strong>對象：</strong>對<strong class="highlight-text">人</strong> (公務員)<br><strong>原因：</strong>違法失職行為<br><strong>受理：</strong>懲戒法院</p></div>
                 </div>
             </div>
+             <!-- ===== 新增互動：監察權觀念比較 ===== -->
+            <div id="control-power-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-eye"></i> 監察權核心辨析</h3>
+                <p class="interactive-prompt">請將下列情境與監察院最適合採取的作為進行配對。</p>
+                <div class="law-options-list" style="grid-template-columns: repeat(3, 1fr);">
+                    <div class="law-option-item"><span class="law-option-label">A</span> 糾正</div>
+                    <div class="law-option-item"><span class="law-option-label">B</span> 糾舉</div>
+                    <div class="law-option-item"><span class="law-option-label">C</span> 彈劾</div>
+                </div>
+                <div class="matching-item" data-answer="A"><p>1. 監察院發現交通部的某項工程規畫不當，浪費公帑。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="C"><p>2. 某位法官收受賄賂，做出不公判決，情節重大。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="B"><p>3. 某位公務員上班時間處理私人事務，情節較輕微。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select><i class="feedback-icon"></i></div>
+                <button class="matching-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
-            <div class="quiz-container">
-                <h3 class="quiz-title"><i class="fas fa-tasks"></i>模擬神給酷</h3>
-                <div class="info-card" style="margin-top:0;">
-                     <p><strong>下列作為最能表現出民主政治的何種特色？請填入正確代號。</strong></p>
-                     <div class="law-options-list">
-                         <div class="law-option-item"><span class="law-option-label">甲</span> 民意政治</div>
-                         <div class="law-option-item"><span class="law-option-label">乙</span> 法治政治</div>
-                         <div class="law-option-item"><span class="law-option-label">丙</span> 責任政治</div>
-                         <div class="law-option-item"><span class="law-option-label">丁</span> 政黨政治</div>
-                     </div>
-                     <div class="matching-item" data-answer="丙"><p>1. 政府官員因為貪汙而下臺，並遭到國家的刑事制裁。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
-                     <div class="matching-item" data-answer="乙"><p>2. 政府向人民課稅時，必須依據《所得稅法》規定課徵。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
-                     <div class="matching-item" data-answer="丁"><p>3. 總統選舉時，在野黨候選人提出政黨輪替執政的訴求。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
-                     <div class="matching-item" data-answer="甲"><p>4. 市議會舉辦輕軌二階規畫與施工公聽會，蒐集人民意見。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
-                </div>
-            </div>
-
             <div class="quiz-container" id="quiz1">
                 <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(112 會考)</span></h3>
                 <div class="question">
                     <p>某監察委員看見電視上新聞報導遊行抗議的事件後，便主動申請調查此案，並表示若調查後確認民眾抗議的內容屬實，將依法對布條上抗議對象提出糾正案。下列何者最可能是該委員在新聞中所看見的抗議事件標語？</p>
-                    
                 </div>
                 <div class="options">
                     <button class="option-btn" data-correct="false">(A) 抗議「鵬縣縣長官商勾結」</button>
@@ -571,6 +650,23 @@
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
+
+             <!-- ===== 新增模擬挑戰四 ===== -->
+            <div class="quiz-container" id="quiz4">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰四 <span class="quiz-source">(模擬神給酷)</span></h3>
+                <div class="question">
+                    <p>依據我國《憲法》，總統為國家元首，行政院為國家最高行政機關，行政院院長由總統任命。請問，若行政院的政策方向與總統的理念不合時，總統可以如何處理？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 對行政院長提出不信任案</button>
+                    <button class="option-btn" data-correct="true">(B) 直接要求行政院長辭職</button>
+                    <button class="option-btn" data-correct="false">(C) 提請立法院同意後更換院長</button>
+                    <button class="option-btn" data-correct="false">(D) 提請司法院大法官解釋</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
         
         <!-- Fun BG Section -->
@@ -619,16 +715,56 @@
             }, { threshold: 0.1 }); 
             sections.forEach(section => observer.observe(section));
 
-             // Matching quiz logic
-            const matchingSelects = document.querySelectorAll('.matching-select');
-            matchingSelects.forEach(select => {
-                select.addEventListener('change', (e) => {
-                    const selectedValue = e.target.value;
-                    const item = e.target.closest('.matching-item');
+            // --- 互動卡片通用安裝函數 ---
+            function setupInteractiveCard(cardId, correctFeedbackHTML, wrongFeedbackHTML) {
+                const card = document.getElementById(cardId);
+                if (!card) return;
+
+                const buttons = card.querySelectorAll('.interactive-btn');
+                const feedbackArea = card.querySelector('.interactive-feedback');
+                const resetButton = card.querySelector('.interactive-reset-btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isCorrect = btn.dataset.answer === 'true';
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (isCorrect) {
+                            feedbackArea.innerHTML = correctFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-correct';
+                        } else {
+                            feedbackArea.innerHTML = wrongFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    buttons.forEach(b => b.disabled = false);
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                });
+            }
+
+            // --- 配對題通用安裝函數 ---
+            function setupMatchingQuiz(quizId) {
+                const quiz = document.getElementById(quizId);
+                if (!quiz) return;
+
+                const selects = quiz.querySelectorAll('.matching-select');
+                const resetButton = quiz.querySelector('.matching-reset-btn');
+
+                function handleMatchingChange(e) {
+                    const select = e.target;
+                    const selectedValue = select.value;
+                    const item = select.closest('.matching-item');
                     const correctAnswer = item.dataset.answer;
                     const feedbackIcon = item.querySelector('.feedback-icon');
+                    
                     feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
-                    feedbackIcon.innerHTML = '';
+                    feedbackIcon.textContent = '';
                     if (selectedValue === "請選擇") {
                         feedbackIcon.style.display = 'none';
                         return;
@@ -636,15 +772,57 @@
                     feedbackIcon.style.display = 'inline-block';
                     if (selectedValue === correctAnswer) {
                         feedbackIcon.classList.add('icon-correct');
-                        feedbackIcon.innerHTML = '✓';
+                        feedbackIcon.textContent = '✓';
                     } else {
                         feedbackIcon.classList.add('icon-wrong');
-                        feedbackIcon.innerHTML = '✗';
+                        feedbackIcon.textContent = '✗';
                     }
-                });
-            });
+                }
 
-            // Multiple choice quiz logic
+                selects.forEach(select => {
+                    select.addEventListener('change', handleMatchingChange);
+                });
+
+                if(resetButton) {
+                    resetButton.style.display = 'block';
+                    resetButton.addEventListener('click', () => {
+                        selects.forEach(select => {
+                            select.selectedIndex = 0;
+                            const item = select.closest('.matching-item');
+                            const feedbackIcon = item.querySelector('.feedback-icon');
+                            feedbackIcon.style.display = 'none';
+                            feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                            feedbackIcon.textContent = '';
+                        });
+                    });
+                }
+            }
+
+            // --- 初始化所有互動卡片 ---
+            setupInteractiveCard(
+                'premier-appointment-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 完全正確！</strong>根據現行規定，行政院長是由總統直接任命，不需經過立法院同意。這是一個重要的考點！',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>過去曾需要立法院同意，但現在的規定是行政院長由<strong class="highlight-text">總統直接任命</strong>即可。'
+            );
+            
+            setupInteractiveCard(
+                'legislator-election-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>立法委員是由人民直選的，但他們就職後，會再「互相選舉」產生立法院的正、副院長。',
+                '<strong><i class="fas fa-times-circle"></i> 記錯了喔！</strong>人民是選舉「立法委員」，而正、副院長是由這些選出來的委員們<strong class="highlight-text">互相選舉</strong>產生的。'
+            );
+
+            setupInteractiveCard(
+                'impeachment-flow-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>對總統的彈劾案是由「立法院」提出，之後再交由「司法院」大法官組成的憲法法庭審理。監察院是彈劾一般公務員。',
+                '<strong><i class="fas fa-times-circle"></i> 答錯了！</strong>這是關鍵細節！彈劾一般公務員是監察院的職權，但彈劾「總統、副總統」的提案權屬於<strong class="highlight-text">立法院</strong>。'
+            );
+            
+            // --- 初始化所有配對題 ---
+            setupMatchingQuiz('five-powers-quiz');
+            setupMatchingQuiz('censure-reconsideration-quiz');
+            setupMatchingQuiz('mock-matching-quiz');
+
+            // --- 會考歷屆試題區塊 ---
             const allQuizData = {
                 quiz1: {
                     correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>監察院的<strong class="highlight-text">糾正權</strong>是針對「行政院及其所屬各級機關」的不當施政。因此，(B)「財政機關政策失當」是監察院可以提出糾正的對象與事由。其他選項的對象為個人或法律本身，不適用糾正權。</p>`,
@@ -663,57 +841,58 @@
                     A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(甲)</strong> 憲法修正案由立法院提出後，是交由<strong class="highlight-text">公民複決</strong>，非司法院。</p>`,
                     B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(甲)</strong> 憲法修正案是交由公民複決；<strong>(丁)</strong> 符合關係。</p>`,
                     C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(乙)</strong> 符合關係；<strong>(丙)</strong> 糾正案是監察院送至<strong class="highlight-text">行政院</strong>，非司法院。</p>`
+                },
+                quiz4: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>總統任命行政院長，不需經立法院同意，這代表總統對行政院長有實質的任免權，因此行政院長必須在政策上與總統協調一致。若理念不合，總統可以要求行政院長辭職（或稱「被辭職」），以確保行政一體。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 不信任案是由「立法院」對「行政院長」提出，總統無權提出。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C)</strong> 根據現行規定，總統任命行政院長「不需」經立法院同意，因此更換時也不需要。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 這是政治責任問題，而非法律見解爭議，不適用大法官釋憲。</p>`
                 }
             };
             
-            const mcqContainers = document.querySelectorAll('.quiz-container');
-            let mcqIndex = 0;
+            const mcqContainers = document.querySelectorAll('.quiz-container[id]');
+            
             mcqContainers.forEach((container) => {
-                // Find only the MCQ containers
-                if(container.querySelector('.option-btn')) {
-                    mcqIndex++;
-                    const quizId = `quiz${mcqIndex}`; 
-                    container.id = quizId;
-                    const quizData = allQuizData[quizId];
-                    if (!quizData) return;
+                const quizId = container.id;
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
 
-                    const optionButtons = container.querySelectorAll('.option-btn');
-                    const feedbackArea = container.querySelector('.feedback-area');
-                    const resetButton = container.querySelector('.reset-btn');
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
 
-                    optionButtons.forEach(button => {
-                        button.addEventListener('click', () => {
-                            const isCorrect = button.dataset.correct === 'true';
-                            optionButtons.forEach(btn => btn.disabled = true);
-                            
-                            if (isCorrect) {
-                                button.classList.add('correct');
-                                feedbackArea.innerHTML = quizData.correct;
-                                feedbackArea.className = 'feedback-area feedback-correct';
-                            } else {
-                                button.classList.add('wrong');
-                                container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
-                                const optionLetter = button.textContent.substring(1, 2);
-                                feedbackArea.innerHTML = quizData[optionLetter];
-                                feedbackArea.className = 'feedback-area feedback-wrong';
-                            }
-                            
-                            feedbackArea.style.display = 'block';
-                            resetButton.style.display = 'block';
-                            feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        });
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        optionButtons.forEach(btn => btn.disabled = true);
+                        
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = quizData.correct;
+                            feedbackArea.className = 'feedback-area feedback-correct';
+                        } else {
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            const optionLetter = button.textContent.substring(1, 2);
+                            feedbackArea.innerHTML = quizData[optionLetter];
+                            feedbackArea.className = 'feedback-area feedback-wrong';
+                        }
+                        
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     });
-                    
-                    resetButton.addEventListener('click', () => {
-                        optionButtons.forEach(btn => {
-                            btn.disabled = false;
-                            btn.classList.remove('correct', 'wrong');
-                        });
-                        feedbackArea.style.display = 'none';
-                        resetButton.style.display = 'none';
-                        container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
                     });
-                }
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
             });
 
             // Typing Effect and Mascot JS

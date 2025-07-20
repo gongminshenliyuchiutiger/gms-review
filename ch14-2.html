@@ -163,6 +163,21 @@
             content: '\f0da';
         }
 
+        /* --- 互動卡片樣式 --- */
+        .interactive-card { background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05)); padding: 2rem; border-radius: 15px; border-left: 5px solid var(--secondary-glow); margin-top: 3rem; box-shadow: 0 0 15px rgba(255, 0, 255, 0.1); }
+        .interactive-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--secondary-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; text-align: center; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+        .interactive-feedback.feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .interactive-feedback.feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .interactive-reset-btn { display: none; margin: 1rem auto 0; padding: 0.6rem 1.5rem; font-size: 0.9rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .interactive-reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 10px var(--accent-glow); }
+        /* --- 結束互動樣式 --- */
+
         .comparison-cards-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -281,7 +296,8 @@
             .container { padding: 1rem; }
             section { padding: 1.5rem; }
             
-            .comparison-cards-container {
+            .comparison-cards-container,
+            .interactive-options {
                 grid-template-columns: 1fr;
             }
             .law-options-list {
@@ -338,6 +354,18 @@
                 <h4><i class="fas fa-link"></i>兩者關連</h4>
                 <p>家務勞動與市場勞動相輔相成，兩者有互補關係。市場勞動提供經濟來源，而家務勞動提供生理與心理照顧，共同提升工作效能。</p>
             </div>
+             <!-- ===== 新增互動：勞動類型辨識 ===== -->
+            <div id="labor-type-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-lightbulb"></i> 勞動類型辨識</h3>
+                <p class="interactive-prompt">一位專業的保姆受雇照顧鄰居的小孩，並獲得薪水。這屬於何種類型的勞動？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="true">有酬勞動 (市場勞動)</button>
+                    <button class="interactive-btn" data-answer="false">無酬勞動</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="employment-section">
@@ -353,6 +381,18 @@
                     </ul>
                 </div>
             </div>
+             <!-- ===== 新增互動：失業身分判定 ===== -->
+            <div id="unemployment-status-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-user-check"></i> 失業身分判定</h3>
+                <p class="interactive-prompt">小華今年25歲，有工作能力，但他是全職學生，目前並沒有在找工作。請問小華屬於下列何者？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">失業者</button>
+                    <button class="interactive-btn" data-answer="true">非勞動力</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="gov-intervention-section">
@@ -371,6 +411,18 @@
             <div class="highlight-box" style="margin-top:2rem;">
                 讓勞動者都能透過工作賺取收入，且工作權利能受到保障，享有勞動尊嚴，合理的報酬是獲得勞動尊嚴的基礎。
             </div>
+            <!-- ===== 新增互動：勞動法規應用 ===== -->
+            <div id="labor-law-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-gavel"></i> 勞動法規應用</h3>
+                <p class="interactive-prompt">阿明被公司無預警解僱後，頓失經濟來源。他可以依據哪部法律申請補助來度過難關？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">勞動基準法</button>
+                    <button class="interactive-btn" data-answer="true">就業保險法</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
         
         <section id="quiz-section">
@@ -443,15 +495,160 @@
         document.addEventListener('DOMContentLoaded', () => {
             let typingStarted = false; 
 
-            const typingSentences = [
-                "公民好神！我會遵守公民神會員守則！",
-                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
-                "公民神有三力：注意力、記憶力、戰鬥力！"
-            ];
-            const typingElementSpan = document.getElementById('typing-text-span');
+            // --- 互動卡片通用安裝函數 ---
+            function setupInteractiveCard(cardId, correctFeedbackHTML, wrongFeedbackHTML) {
+                const card = document.getElementById(cardId);
+                if (!card) return;
 
+                const buttons = card.querySelectorAll('.interactive-btn');
+                const feedbackArea = card.querySelector('.interactive-feedback');
+                const resetButton = card.querySelector('.interactive-reset-btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isCorrect = btn.dataset.answer === 'true';
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (isCorrect) {
+                            feedbackArea.innerHTML = correctFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-correct';
+                        } else {
+                            feedbackArea.innerHTML = wrongFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    buttons.forEach(b => b.disabled = false);
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                });
+            }
+
+            // --- 初始化所有互動卡片 ---
+            setupInteractiveCard(
+                'labor-type-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 答對了！</strong>因為有獲得薪水報酬，所以是市場中的「有酬勞動」。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>無酬勞動是指沒有獲得金錢報酬的勞動，例如做家事。題目中有提到獲得薪水，因此是有酬勞動。'
+            );
+            setupInteractiveCard(
+                'unemployment-status-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 完全正確！</strong>失業的定義之一是「有找工作的行動」。小華雖然有工作能力，但目前沒有找工作，所以不計入勞動力中，屬於「非勞動力」。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>要被歸類為「失業者」，必須要有「正在找工作」的行動。全職學生若無求職意願及行動，則屬於非勞動力。'
+            );
+             setupInteractiveCard(
+                'labor-law-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>《就業保險法》旨在保障非自願離職的勞工，在失業期間能有「失業給付」可申請，以維持基本生活。',
+                '<strong><i class="fas fa-times-circle"></i> 再想想...</strong>《勞動基準法》是規範最低勞動條件（如工時、工資）的法律。而失業期間的補助，是由《就業保險法》來規範的喔！'
+            );
+
+            // --- 會考歷屆試題區塊 ---
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>文中提到「給予失業者的福利應多」，這相當於提高了「不工作」的價值。當勞工在「選擇就業」與「維持失業狀態領取福利」之間做決定時，因為後者的價值（福利）提高了，這就意味著選擇前者的<strong class="highlight-text">機會成本（放棄的失業福利）也跟著提高了</strong>，因此會拉長求職時間，影響就業市場。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>文中沒有提到勞工願意接受更低工資的情形。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>文中提到福利多會「拉長求職時間」，與「盡速投入」相反。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>文中討論的是市場勞動與失業福利的選擇，未提及家務勞動。</p>`
+                }
+            };
+            
+            const mcqContainers = document.querySelectorAll('.quiz-container[id]');
+            
+            mcqContainers.forEach((container) => {
+                const quizId = container.id;
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
+
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
+
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        
+                        optionButtons.forEach(btn => {
+                            btn.disabled = true;
+                        });
+
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = quizData.correct;
+                        } else {
+                            const optionLetter = button.textContent.substring(1, 2);
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            feedbackArea.innerHTML = quizData[optionLetter];
+                        }
+                        feedbackArea.className = 'feedback-area ' + (isCorrect ? 'feedback-correct' : 'feedback-wrong');
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
+                    });
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+
+            // --- Matching Quiz ---
+            const matchingSelects = document.querySelectorAll('.matching-select');
+            matchingSelects.forEach(select => {
+                select.addEventListener('change', (e) => {
+                    const selectedValue = e.target.value;
+                    const item = e.target.closest('.matching-item');
+                    const correctAnswer = item.dataset.answer;
+                    const feedbackIcon = item.querySelector('.feedback-icon');
+                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    feedbackIcon.textContent = '';
+                    if (selectedValue === "請選擇") {
+                        feedbackIcon.style.display = 'none';
+                        return;
+                    }
+                    feedbackIcon.style.display = 'inline-block';
+                    if (selectedValue === correctAnswer) {
+                        feedbackIcon.classList.add('icon-correct');
+                        feedbackIcon.textContent = '✓';
+                    } else {
+                        feedbackIcon.classList.add('icon-wrong');
+                        feedbackIcon.textContent = '✗';
+                    }
+                });
+            });
+
+            // Section fade-in animation and typing effect
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
+                            typingStarted = true;
+                            startTypingLoop();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 }); 
+            sections.forEach(section => observer.observe(section));
+            
+            const typingElementSpan = document.getElementById('typing-text-span');
             function startTypingLoop() {
                 if (!typingElementSpan) return;
+                const typingSentences = [
+                    "公民好神！我會遵守公民神會員守則！",
+                    "努力向上、勇往直前、不畏艱難，我要成為公民神！",
+                    "公民神有三力：注意力、記憶力、戰鬥力！"
+                ];
                 let sentenceIndex = 0;
                 let charIndex = 0;
                 let isDeleting = false;
@@ -481,107 +678,11 @@
                 }
                 loop();
             }
-            
-            const sections = document.querySelectorAll('section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
-                            typingStarted = true;
-                            startTypingLoop();
-                        }
-                    }
-                });
-            }, { threshold: 0.1 }); 
-            
-            sections.forEach(section => observer.observe(section));
 
-            const matchingSelects = document.querySelectorAll('.matching-select');
-            matchingSelects.forEach(select => {
-                select.addEventListener('change', (e) => {
-                    const selectedValue = e.target.value;
-                    const item = e.target.closest('.matching-item');
-                    const correctAnswer = item.dataset.answer;
-                    const feedbackIcon = item.querySelector('.feedback-icon');
-                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
-                    feedbackIcon.innerHTML = '';
-                    if (selectedValue === "請選擇") {
-                        feedbackIcon.style.display = 'none';
-                        return;
-                    }
-                    feedbackIcon.style.display = 'inline-block';
-                    if (selectedValue === correctAnswer) {
-                        feedbackIcon.classList.add('icon-correct');
-                        feedbackIcon.innerHTML = '✓';
-                    } else {
-                        feedbackIcon.classList.add('icon-wrong');
-                        feedbackIcon.innerHTML = '✗';
-                    }
-                });
-            });
-
-            const allQuizData = {
-                quiz1: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>文中提到「給予失業者的福利應多」，這相當於提高了「不工作」的價值。當勞工在「選擇就業」與「維持失業狀態領取福利」之間做決定時，因為後者的價值（福利）提高了，這就意味著選擇前者的<strong class="highlight-text">機會成本（放棄的失業福利）也跟著提高了</strong>，因此會拉長求職時間，影響就業市場。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>文中沒有提到勞工願意接受更低工資的情形。</p>`,
-                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>文中提到福利多會「拉長求職時間」，與「盡速投入」相反。</p>`,
-                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p>文中討論的是市場勞動與失業福利的選擇，未提及家務勞動。</p>`
-                }
-            };
-            
-            const quizContainers = document.querySelectorAll('.quiz-container');
-            
-            quizContainers.forEach((container) => {
-                const quizId = container.id;
-                if (!quizId) return;
-                const quizData = allQuizData[quizId];
-                if (!quizData) return;
-
-                const optionButtons = container.querySelectorAll('.option-btn');
-                const feedbackArea = container.querySelector('.feedback-area');
-                const resetButton = container.querySelector('.reset-btn');
-
-                optionButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        const isCorrect = button.dataset.correct === 'true';
-                        
-                        optionButtons.forEach(btn => {
-                            btn.disabled = true;
-                        });
-
-                        if (isCorrect) {
-                            button.classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId].correct;
-                            feedbackArea.className = 'feedback-area feedback-correct';
-                        } else {
-                            const optionLetter = button.textContent.substring(1, 2);
-                            button.classList.add('wrong');
-                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
-                            feedbackArea.className = 'feedback-area feedback-wrong';
-                        }
-                        feedbackArea.style.display = 'block';
-                        resetButton.style.display = 'block';
-                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    });
-                });
-                
-                resetButton.addEventListener('click', () => {
-                    optionButtons.forEach(btn => {
-                        btn.disabled = false;
-                        btn.classList.remove('correct', 'wrong');
-                    });
-                    feedbackArea.style.display = 'none';
-                    resetButton.style.display = 'none';
-                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                });
-            });
-
+            // Mascot JS
             const mascotContainer = document.getElementById('mascot-container');
             const mascotImg = document.getElementById('mascot-img');
             const speechBubble = document.getElementById('mascot-speech');
-            
             const messages = [ "公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！" ];
             let messageIndex = 0;
             let clickTimer = null;

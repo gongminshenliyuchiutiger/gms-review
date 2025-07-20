@@ -163,13 +163,21 @@
             content: '\f105'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
             position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
-        .info-card ul ul {
-            padding-left: 1.5rem;
-            margin-top: 0.5rem;
-        }
-        .info-card ul ul li::before {
-            content: '\f0da';
-        }
+        
+        /* --- 互動卡片樣式 --- */
+        .interactive-card { background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05)); padding: 2rem; border-radius: 15px; border-left: 5px solid var(--secondary-glow); margin-top: 3rem; box-shadow: 0 0 15px rgba(255, 0, 255, 0.1); }
+        .interactive-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--secondary-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+        .interactive-feedback.feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .interactive-feedback.feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .interactive-reset-btn, .matching-reset-btn { display: none; margin: 1rem auto 0; padding: 0.6rem 1.5rem; font-size: 0.9rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .interactive-reset-btn:hover, .matching-reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 10px var(--accent-glow); }
+        /* --- 結束互動樣式 --- */
 
         .comparison-item {
             display: flex;
@@ -191,7 +199,7 @@
         .comparison-cards-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1rem;
+            gap: 1.5rem;
             margin-top: 1.5rem;
         }
         .grid-3-col {
@@ -226,6 +234,7 @@
         }
         
         .quiz-container { margin-bottom: 3rem; }
+        .quiz-container:last-child { margin-bottom: 0; }
         .quiz-title {
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
@@ -247,7 +256,6 @@
         }
         #quiz-section .dialogue-box p { margin: 0.5rem 0; }
         
-        /* FIX: Unified Table Style for RWD */
         .table-container { overflow-x: auto; }
         .data-table {
             width: 100%;
@@ -266,7 +274,6 @@
             background-color: rgba(13, 27, 42, 0.7);
             color: var(--primary-glow);
         }
-        /* END FIX */
         
         #quiz-section .options { display: grid; gap: 1rem; }
         .option-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: left; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--border-color); border-radius: 10px; cursor: pointer; transition: all 0.3s; }
@@ -280,6 +287,36 @@
         .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
         .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
         .reset-btn:hover { transform: scale(1.05); }
+
+        .matching-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .matching-item:last-child { border-bottom: none; }
+        .matching-item p { flex-grow: 1; margin: 0; }
+        .matching-select { background-color: var(--bg-dark); color: var(--text-color); border: 1px solid var(--primary-glow); border-radius: 5px; padding: 0.4rem; font-family: inherit; font-size: 1rem; cursor: pointer; }
+        .feedback-icon { font-size: 1.2rem; font-weight: 900; display: none; }
+        .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
+        .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
+        
+        .law-options-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .law-option-item {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .law-option-label {
+            color: var(--accent-glow);
+            font-weight: 700;
+            margin-right: 0.5em;
+            font-family: 'Orbitron', sans-serif;
+        }
         
         .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect {
@@ -325,6 +362,7 @@
         @media (max-width: 768px) {
             .container { padding: 1rem; }
             section { padding: 1.5rem; }
+            .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
             
             .comparison-cards-container.grid-3-col,
             .comparison-cards-container {
@@ -374,6 +412,18 @@
                      <li><strong>目的：</strong>追求<strong class="highlight-text">社會正義</strong>，提升整體生活福祉。</li>
                 </ul>
             </div>
+            <!-- ===== 新增互動：社會福利目的辨析 ===== -->
+            <div id="welfare-purpose-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-bullseye"></i> 社會福利目的辨析</h3>
+                <p class="interactive-prompt">政府推動各種社會福利措施，最根本的目的是為了什麼？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="true">追求社會正義，保障人性尊嚴</button>
+                    <button class="interactive-btn" data-answer="false">增加政府稅收</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="welfare-development-section">
@@ -397,6 +447,29 @@
                 <div class="info-card"><h4><i class="fas fa-briefcase"></i>國民就業</h4><p><strong>目的：</strong>維護民眾就業安全（保障<strong class="highlight-text">工作權</strong>）。<br><strong>說明：</strong>協助民眾擁有工作與良好的就業環境。<br><strong>措施：</strong>職業訓練、就業服務站、在職進修。</p></div>
                 <div class="info-card"><h4><i class="fas fa-home"></i>社會住宅</h4><p><strong>目的：</strong>滿足民眾居住需求。<br><strong>說明：</strong>協助民眾有適合居住的住宅與居住環境。<br><strong>措施：</strong>提供住宅、房貸利息或租金補貼、推動社會住宅政策。</p></div>
             </div>
+            <!-- ===== 新增互動：社會福利措施配對 ===== -->
+            <div id="welfare-matching-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-tasks"></i> 社會福利措施配對</h3>
+                <p class="interactive-prompt">請將下列情境與其最相關的「社會福利措施」進行配對。</p>
+                <div class="law-options-list" style="grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));">
+                    <div class="law-option-item"><span class="law-option-label">A</span> 社會救助</div>
+                    <div class="law-option-item"><span class="law-option-label">B</span> 社會保險</div>
+                    <div class="law-option-item"><span class="law-option-label">C</span> 社會津貼</div>
+                    <div class="law-option-item"><span class="law-option-label">D</span> 福利服務</div>
+                    <div class="law-option-item"><span class="law-option-label">E</span> 醫療保健</div>
+                    <div class="law-option-item"><span class="law-option-label">F</span> 國民就業</div>
+                    <div class="law-option-item"><span class="law-option-label">G</span> 社會住宅</div>
+                </div>
+                <div class="matching-item" data-answer="B"><p>1. 小王生病時，使用健保卡看醫生，只需負擔部分費用。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="D"><p>2. 政府為雙薪家庭的幼兒設立公立托育中心。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="A"><p>3. 阿明因家庭突遭變故，向政府申請急難救助金。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="F"><p>4. 勞動部為失業民眾開設電腦技能課程，幫助他們重返職場。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="G"><p>5. 政府興建只租不賣的青年住宅，並提供租金補貼。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="C"><p>6. 王伯伯年滿65歲，每月可領取政府發放的老農津貼。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="E"><p>7. 衛生所每年秋冬季節為高風險族群免費施打流感疫苗。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select><i class="feedback-icon"></i></div>
+                <button class="matching-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="welfare-comparison-section">
@@ -416,6 +489,19 @@
                     <div class="comparison-card"><h5>福利服務</h5><p><strong>目的：</strong>提升整體人民的生活福祉<br><strong>對象：</strong>有特定需求者：兒童、少年、老人、婦女、身心障礙者、原住民、新住民等<br><strong>方式：</strong>提供社會資源：各種適當的服務</p></div>
                  </div>
             </div>
+            <!-- ===== 新增互動：社會福利觀念比較題 ===== -->
+            <div id="welfare-comparison-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-search-dollar"></i> 社會福利觀念比較</h3>
+                <p class="interactive-prompt">王先生是位上班族，每月從薪水中提撥部分金額繳納勞工保險費。這筆費用屬於下列何者？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">社會救助</button>
+                    <button class="interactive-btn" data-answer="true">社會保險</button>
+                    <button class="interactive-btn" data-answer="false">社會津貼</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="welfare-society-section">
@@ -427,6 +513,18 @@
                     <li><strong>個人力量：</strong>善盡對社會福利的責任，誠實納稅與繳納保費。建立正確使用社會福利資源的觀念，不濫用社會福利資源。</li>
                 </ul>
              </div>
+             <!-- ===== 新增互動：共構福利社會思考題 ===== -->
+            <div id="welfare-society-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-hands-helping"></i> 共構福利社會思考題</h3>
+                <p class="interactive-prompt"><b>判斷：</b>「社會福利是政府的事，個人只要享受福利就好，不需要負擔任何責任。」</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">正確 (O)</button>
+                    <button class="interactive-btn" data-answer="true">錯誤 (X)</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="quiz-section">
@@ -561,7 +659,112 @@
             }, { threshold: 0.1 }); 
             sections.forEach(section => observer.observe(section));
 
-            // Quiz logic
+            // --- 互動卡片通用安裝函數 ---
+            function setupInteractiveCard(cardId, correctFeedbackHTML, wrongFeedbackHTML) {
+                const card = document.getElementById(cardId);
+                if (!card) return;
+
+                const buttons = card.querySelectorAll('.interactive-btn');
+                const feedbackArea = card.querySelector('.interactive-feedback');
+                const resetButton = card.querySelector('.interactive-reset-btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isCorrect = btn.dataset.answer === 'true';
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (isCorrect) {
+                            feedbackArea.innerHTML = correctFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-correct';
+                        } else {
+                            feedbackArea.innerHTML = wrongFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    buttons.forEach(b => b.disabled = false);
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                });
+            }
+
+            // --- 配對題通用安裝函數 ---
+            function setupMatchingQuiz(quizId) {
+                const quiz = document.getElementById(quizId);
+                if (!quiz) return;
+
+                const selects = quiz.querySelectorAll('.matching-select');
+                const resetButton = quiz.querySelector('.matching-reset-btn');
+
+                function handleMatchingChange(e) {
+                    const select = e.target;
+                    const selectedValue = select.value;
+                    const item = select.closest('.matching-item');
+                    const correctAnswer = item.dataset.answer;
+                    const feedbackIcon = item.querySelector('.feedback-icon');
+                    
+                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    feedbackIcon.textContent = '';
+                    if (selectedValue === "請選擇") {
+                        feedbackIcon.style.display = 'none';
+                        return;
+                    }
+                    feedbackIcon.style.display = 'inline-block';
+                    if (selectedValue === correctAnswer) {
+                        feedbackIcon.classList.add('icon-correct');
+                        feedbackIcon.textContent = '✓';
+                    } else {
+                        feedbackIcon.classList.add('icon-wrong');
+                        feedbackIcon.textContent = '✗';
+                    }
+                }
+
+                selects.forEach(select => {
+                    select.addEventListener('change', handleMatchingChange);
+                });
+
+                if(resetButton) {
+                    resetButton.style.display = 'block';
+                    resetButton.addEventListener('click', () => {
+                        selects.forEach(select => {
+                            select.selectedIndex = 0;
+                            const item = select.closest('.matching-item');
+                            const feedbackIcon = item.querySelector('.feedback-icon');
+                            feedbackIcon.style.display = 'none';
+                            feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                            feedbackIcon.textContent = '';
+                        });
+                    });
+                }
+            }
+
+            // --- 初始化所有互動卡片 ---
+            setupInteractiveCard(
+                'welfare-purpose-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>社會福利是為了讓所有國民，特別是弱勢者，都能維持有尊嚴的基本生活，這是社會正義的體現。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>社會福利需要花費大量稅收，而不是為了增加稅收。它的核心目的是保障人權與實現社會正義。'
+            );
+
+            setupInteractiveCard(
+                'welfare-comparison-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>勞工保險是典型的社會保險，透過強制納保、共同分擔風險的方式，來保障勞工在發生事故時的經濟安全。',
+                '<strong><i class="fas fa-times-circle"></i> 再想一下！</strong>「社會救助」是針對弱勢的補助，「社會津貼」是針對特定身分的給付，而勞工保險是基於「預繳保費、風險分攤」原則的<span class="highlight-text">社會保險</span>喔！'
+            );
+
+            setupInteractiveCard(
+                'welfare-society-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 完全正確！</strong>社會福利需要政府、民間團體和個人三方共同努力。個人應盡的責任包括誠實納稅、繳納保費，並且不濫用資源，這樣福利制度才能永續發展。',
+                '<strong><i class="fas fa-times-circle"></i> 這個觀念很重要喔！</strong>社會福利的資源來自於全體納稅人，是有限的。每個人都有責任珍惜資源、誠實納稅與繳納保費，才能共構一個永續的福利社會。'
+            );
+
+            // --- 初始化所有配對題 ---
+            setupMatchingQuiz('welfare-matching-quiz');
+
+            // --- 會考歷屆試題區塊 ---
             const allQuizData = {
                 quiz1: {
                     correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>表格資料顯示，甲國65歲以上人口佔總人口比例，從8.5%持續大幅增加至39.5%，顯示該國將邁入<strong class="highlight-text">超高齡社會</strong>。因此，政府最需要針對此趨勢，健全相關的老人福利制度。</p>`,
@@ -570,7 +773,7 @@
                     C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C)</strong> 保障性別平等權利與人口年齡結構無直接關係。</p>`
                 },
                 quiz2: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>社會福利是指政府整合國家與民間的資源，推動滿足全體人民生活基本需求的措施。題目中的<strong class="highlight-text">社會救助</strong>是為了滿足人們的基本生活條件，其主要目的即在(C)保障人民的生存權利。</p>`,
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>題目中的兩種措施都是針對「經濟弱勢」民眾提供協助，讓他們能負擔健保費用、獲得生活救助，這些都是為了確保他們能維持最基本的生活所需，也就是保障其<strong class="highlight-text">生存權</strong>。</p>`,
                     A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 題目的措施是提供補助與救助，與保障私有財產權無直接關係。</p>`,
                     B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 題目的對象是經濟弱勢，而非針對特定地區，無法推斷是為了縮短城鄉差距。</p>`,
                     D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 題目的措施是政府的政策，與推廣民間志工服務活動不同。</p>`
@@ -727,4 +930,4 @@
         });
     </script>
 </body>
-</html>幫我改5-3
+</html>

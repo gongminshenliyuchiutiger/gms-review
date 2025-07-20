@@ -170,24 +170,22 @@
         .info-card ul ul li::before {
             content: '\f0da';
         }
+        
+        /* --- 互動卡片樣式 --- */
+        .interactive-card { background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05)); padding: 2rem; border-radius: 15px; border-left: 5px solid var(--secondary-glow); margin-top: 3rem; box-shadow: 0 0 15px rgba(255, 0, 255, 0.1); }
+        .interactive-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--secondary-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+        .interactive-feedback.feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .interactive-feedback.feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .interactive-reset-btn, .matching-reset-btn { display: none; margin: 1rem auto 0; padding: 0.6rem 1.5rem; font-size: 0.9rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .interactive-reset-btn:hover, .matching-reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 10px var(--accent-glow); }
+        /* --- 結束互動樣式 --- */
 
-        .comparison-item {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            margin-top: 1.5rem;
-        }
-        .comparison-item:last-child {
-            margin-bottom: 0;
-        }
-        .comparison-item h4 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--accent-glow);
-            text-align: center;
-            font-size: clamp(1.3rem, 2.8vw, 1.6rem);
-            margin: 0;
-        }
         .comparison-cards-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -232,6 +230,7 @@
         }
         
         .quiz-container { margin-bottom: 3rem; }
+        .quiz-container:last-child { margin-bottom: 0; }
         .quiz-title {
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
@@ -260,6 +259,36 @@
         .feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
         .reset-btn { display: none; margin: 1.5rem auto 0; padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 25px; cursor: pointer; transition: transform 0.2s; }
         .reset-btn:hover { transform: scale(1.05); }
+
+        .matching-item { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .matching-item:last-child { border-bottom: none; }
+        .matching-item p { flex-grow: 1; margin: 0; }
+        .matching-select { background-color: var(--bg-dark); color: var(--text-color); border: 1px solid var(--primary-glow); border-radius: 5px; padding: 0.4rem; font-family: inherit; font-size: 1rem; cursor: pointer; }
+        .feedback-icon { font-size: 1.2rem; font-weight: 900; display: none; }
+        .feedback-icon.icon-correct { display: inline-block; color: var(--correct-color); }
+        .feedback-icon.icon-wrong { display: inline-block; color: var(--wrong-color); }
+        
+        .law-options-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .law-option-item {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .law-option-label {
+            color: var(--accent-glow);
+            font-weight: 700;
+            margin-right: 0.5em;
+            font-family: 'Orbitron', sans-serif;
+        }
         
         .fun-bg-section { position: relative; min-height: 150px; margin-top: 4rem; margin-bottom: 2rem; border-radius: 20px; background-color: var(--card-bg); border: 2px solid var(--border-color); overflow: hidden; backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; padding: 2rem; }
         .typing-effect {
@@ -305,6 +334,7 @@
         @media (max-width: 768px) {
             .container { padding: 1rem; }
             section { padding: 1.5rem; }
+            .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
             
             .comparison-cards-container {
                 grid-template-columns: 1fr;
@@ -356,6 +386,24 @@
                     <p><strong class="highlight-text">約束</strong>同一文化的人表現出近似的行為。<br><strong>舉例：</strong>伊斯蘭教徒婦女外出會戴上頭巾。</p>
                 </div>
             </div>
+
+            <!-- ===== 新增互動：文化特性配對 ===== -->
+            <div id="culture-features-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-tasks"></i> 文化特性配對</h3>
+                <p class="interactive-prompt">請將下列情境與其最能體現的「文化特性」進行配對。</p>
+                <div class="law-options-list" style="grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));">
+                    <div class="law-option-item"><span class="law-option-label">A</span> 普遍性</div>
+                    <div class="law-option-item"><span class="law-option-label">B</span> 差異性</div>
+                    <div class="law-option-item"><span class="law-option-label">C</span> 累積性</div>
+                    <div class="law-option-item"><span class="law-option-label">D</span> 制約性</div>
+                </div>
+                <div class="matching-item" data-answer="D"><p>1. 在臺灣，我們習慣用筷子吃飯，這影響了我們的用餐方式。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="C"><p>2. 手機從早期只能打電話的「黑金剛」，演變成現在的多功能智慧型手機。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="A"><p>3. 世界上幾乎所有社會都有婚姻制度的存在。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="B"><p>4. 臺灣的原住民族群中，阿美族是母系社會，而泰雅族是父系社會。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+                <button class="matching-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="multiculturalism-section">
@@ -376,6 +424,18 @@
              <div class="info-card" style="margin-top:1.5rem; text-align: center;">
                 <p><strong>備註：</strong>次文化的「次」不是次等的意思，也不一定是負面的。有時次文化也會變成主流文化。</p>
             </div>
+            <!-- ===== 新增互動：主流/次文化辨析 ===== -->
+            <div id="subculture-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-users"></i> 主流/次文化辨析</h3>
+                <p class="interactive-prompt">在臺灣社會，一群年輕人熱衷於韓國流行音樂（K-POP），他們有自己的應援口號、粉絲社群和獨特的穿搭風格。這種「追星文化」屬於？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">主流文化</button>
+                    <button class="interactive-btn" data-answer="true">次文化</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="hierarchy-section">
@@ -405,6 +465,18 @@
                     <div class="flow-item">解決方式<br><small>肯認自我文化<br>相互尊重包容<br>制定法律保障</small></div>
                 </div>
             </div>
+            <!-- ===== 新增互動：文化位階思考題 ===== -->
+            <div id="hierarchy-thinking-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-balance-scale-left"></i> 文化位階思考題</h3>
+                <p class="interactive-prompt"><b>判斷：</b>「聽古典音樂比聽流行音樂更高尚、更有品味。」這個說法符合尊重多元文化的精神。</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">正確 (O)</button>
+                    <button class="interactive-btn" data-answer="true">錯誤 (X)</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
         
         <section id="diversity-society-section">
@@ -417,14 +489,14 @@
                     <li>與其他文化交流時，不迷失在不同文化中，並將新的元素納入自我文化。</li>
                 </ul>
             </div>
-            <div class="info-card">
+            <div class="info-card" style="margin-top:1.5rem;">
                 <h4><i class="fas fa-handshake"></i>建立相互尊重與包容的態度</h4>
                  <ul>
                     <li>面對其他文化時，抱持<strong class="highlight-text">尊重與理解</strong>的態度，不以自身文化為價值判斷基準。</li>
                     <li>每種文化都應受到尊重與平等對待，並排除<strong class="highlight-text">文化差異</strong>造成的歧視與壓抑，讓每種文化都能保有其特質。</li>
                 </ul>
             </div>
-            <div class="info-card">
+            <div class="info-card" style="margin-top:1.5rem;">
                 <h4><i class="fas fa-gavel"></i>制定法律保障多元文化</h4>
                  <ul>
                     <li><strong class="highlight-text">《憲法增修條文》</strong>：國家肯定多元文化，並積極維護發展原住民族語言及文化。</li>
@@ -456,7 +528,7 @@
             <div class="quiz-container" id="quiz2">
                 <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(109 會考)</span></h3>
                 <div class="question">
-                    <p>第二次世界大戰後，許多殖民地脫離原殖民母國獨立而成為新興國家，但由於當初列強占領時未考慮該地區原住民族群、宗教等因素，導致這些新興國家境內常因不同立場、生活方式等而發生衝突。考量何種作法最無助於緩解上述衝突？</p>
+                    <p>第二次世界大戰後，許多殖民地脫離原殖民母國獨立而成為新興國家，但由於當初列強占領時未考慮該地區原住民族群、宗教等因素，導致這些新興國家境內常因不同立場、生活方式等而發生衝突。下列何種作法最有助於緩解上述衝突？</p>
                 </div>
                 <div class="options">
                     <button class="option-btn" data-correct="false">(A) 發揚主流價值，同化少數族群</button>
@@ -467,6 +539,23 @@
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
+
+            <!-- ===== 新增模擬挑戰三 ===== -->
+            <div class="quiz-container" id="quiz3">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(模擬神給酷)</span></h3>
+                <div class="question">
+                    <p>近年來，政府將許多具有歷史意義的日式建築、糖廠、菸廠等登錄為歷史建築或古蹟，並投入經費加以修復再利用，成為民眾休閒的文創園區。此作法最能呼應下列何項目的？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="true">(A) 透過保存文化資產來肯認自我文化</button>
+                    <button class="option-btn" data-correct="false">(B) 消除主流文化與次文化的衝突</button>
+                    <button class="option-btn" data-correct="false">(C) 發展觀光以取代傳統工業</button>
+                    <button class="option-btn" data-correct="false">(D) 避免全球化對本土文化的衝擊</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
         
         <!-- Fun BG Section -->
@@ -514,8 +603,107 @@
                 });
             }, { threshold: 0.1 }); 
             sections.forEach(section => observer.observe(section));
+            
+            // --- 互動卡片通用安裝函數 ---
+            function setupInteractiveCard(cardId, correctFeedbackHTML, wrongFeedbackHTML) {
+                const card = document.getElementById(cardId);
+                if (!card) return;
 
-            // Quiz logic
+                const buttons = card.querySelectorAll('.interactive-btn');
+                const feedbackArea = card.querySelector('.interactive-feedback');
+                const resetButton = card.querySelector('.interactive-reset-btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isCorrect = btn.dataset.answer === 'true';
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (isCorrect) {
+                            feedbackArea.innerHTML = correctFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-correct';
+                        } else {
+                            feedbackArea.innerHTML = wrongFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    buttons.forEach(b => b.disabled = false);
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                });
+            }
+
+            // --- 配對題通用安裝函數 ---
+            function setupMatchingQuiz(quizId) {
+                const quiz = document.getElementById(quizId);
+                if (!quiz) return;
+
+                const selects = quiz.querySelectorAll('.matching-select');
+                const resetButton = quiz.querySelector('.matching-reset-btn');
+
+                function handleMatchingChange(e) {
+                    const select = e.target;
+                    const selectedValue = select.value;
+                    const item = select.closest('.matching-item');
+                    const correctAnswer = item.dataset.answer;
+                    const feedbackIcon = item.querySelector('.feedback-icon');
+                    
+                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    feedbackIcon.textContent = '';
+                    if (selectedValue === "請選擇") {
+                        feedbackIcon.style.display = 'none';
+                        return;
+                    }
+                    feedbackIcon.style.display = 'inline-block';
+                    if (selectedValue === correctAnswer) {
+                        feedbackIcon.classList.add('icon-correct');
+                        feedbackIcon.textContent = '✓';
+                    } else {
+                        feedbackIcon.classList.add('icon-wrong');
+                        feedbackIcon.textContent = '✗';
+                    }
+                }
+
+                selects.forEach(select => {
+                    select.addEventListener('change', handleMatchingChange);
+                });
+
+                if(resetButton) {
+                    resetButton.style.display = 'block';
+                    resetButton.addEventListener('click', () => {
+                        selects.forEach(select => {
+                            select.selectedIndex = 0;
+                            const item = select.closest('.matching-item');
+                            const feedbackIcon = item.querySelector('.feedback-icon');
+                            feedbackIcon.style.display = 'none';
+                            feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                            feedbackIcon.textContent = '';
+                        });
+                    });
+                }
+            }
+            
+            // --- 初始化所有互動卡片 ---
+            setupInteractiveCard(
+                'subculture-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>雖然追星在年輕族群中很普遍，但相對於整個社會（包含所有年齡層），它仍然是一種由特定群體發展出的獨特文化，因此屬於「次文化」。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>「主流文化」是社會上「大多數人」共同遵循的。雖然追星很流行，但它主要是在特定年齡或興趣群體中盛行，因此是「次文化」。'
+            );
+            
+            setupInteractiveCard(
+                'hierarchy-thinking-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 完全正確！</strong>尊重多元文化的核心精神就是理解「文化沒有高低優劣之分」，各種文化都應被平等看待。認為古典樂比流行樂高尚，就是一種文化位階的偏見。',
+                '<strong><i class="fas fa-times-circle"></i> 答錯了！</strong>這個觀念非常重要！尊重多元文化意味著我們不能認為某種文化比另一種「更高級」。將文化分高低，就是「文化位階」的體現，這是不對的。'
+            );
+
+            // --- 初始化所有配對題 ---
+            setupMatchingQuiz('culture-features-quiz');
+            
+            // --- 會考歷屆試題區塊 ---
             const allQuizData = {
                 quiz1: {
                     correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>演講內容強調「語言」的衰亡會導致「特有知識」的喪失，關上了「觀察世界的獨特窗戶」。語言是文化最重要的載體，語言的消失意味著文化無法延續，這正是在強調<strong class="highlight-text">「文化傳承」</strong>的重要性。</p>`,
@@ -524,18 +712,23 @@
                     D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 社會變遷</strong>：語言消失是社會變遷的一種結果，但演講者強調的是「保存」的重要性，也就是文化傳承。</p>`
                 },
                 quiz2: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>題目描述的衝突源於國家內部存在多元的族群、宗教與文化。要緩解這種衝突，最有效的方式是<strong class="highlight-text">「尊重不同族群，包容多元文化差異」</strong>，讓各種文化都能共存共榮。而(A)(B)(D)選項都是試圖同化、削弱或限制某些文化，只會加劇衝突，因此最無助於緩解衝突。</p>`,
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>題目描述的衝突源於國家內部存在多元的族群、宗教與文化。要緩解這種衝突，最有效的方式是<strong class="highlight-text">「尊重不同族群，包容多元文化差異」</strong>，讓各種文化都能共存共榮。而(A)(B)(D)選項都是試圖同化、削弱或限制某些文化，只會加劇衝突。因此本題要選最有幫助的(C)。</p>`,
                     A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 同化少數族群</strong>：這是典型的強勢文化壓迫弱勢文化的方式，會引發更激烈的衝突。</p>`,
                     B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 獨尊強勢文化</strong>：這會導致文化位階與不平等，是衝突的根源之一。</p>`,
                     D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 限制本土文化發展</strong>：這同樣是文化壓迫的表現，會加劇內部的對立與衝突。</p>`
+                },
+                quiz3: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>政府將具有歷史意義的建築登錄為古蹟或歷史建築，這是<strong class="highlight-text">《文化資產保存法》</strong>的具體實踐。而保存這些承載共同記憶的文化資產，其目的就是為了讓人民認識、進而肯定與認同這片土地上的歷史與文化，也就是「肯認自我文化」。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 消除衝突</strong>：保存古蹟與處理主流/次文化衝突沒有直接關聯。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 發展觀光</strong>：發展觀光可能是保存古蹟帶來的「附加價值」，但其最核心的「目的」是保存文化。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 避免全球化衝擊</strong>：保存本土文化有助於抵抗全球化的均質性，但題幹中更直接的對應是「保存文化資產」這個行為本身，也就是肯認自我文化的一環。</p>`
                 }
             };
             
-            const quizContainers = document.querySelectorAll('.quiz-container');
+            const quizContainers = document.querySelectorAll('.quiz-container[id^="quiz"]');
             
             quizContainers.forEach((container) => {
                 const quizId = container.id;
-                if (!quizId) return; // Skip containers without an ID
                 const quizData = allQuizData[quizId];
                 if (!quizData) return;
 
@@ -551,15 +744,14 @@
                         if (isCorrect) {
                             button.classList.add('correct');
                             feedbackArea.innerHTML = quizData.correct;
-                            feedbackArea.className = 'feedback-area feedback-correct';
                         } else {
                             button.classList.add('wrong');
                             container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
                             const optionLetter = button.textContent.substring(1, 2);
                             feedbackArea.innerHTML = quizData[optionLetter];
-                            feedbackArea.className = 'feedback-area feedback-wrong';
                         }
                         
+                        feedbackArea.className = 'feedback-area ' + (isCorrect ? 'feedback-correct' : 'feedback-wrong');
                         feedbackArea.style.display = 'block';
                         resetButton.style.display = 'block';
                         feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });

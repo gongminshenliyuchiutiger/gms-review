@@ -156,6 +156,21 @@
             position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
 
+        /* --- 互動卡片樣式 --- */
+        .interactive-card { background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05)); padding: 2rem; border-radius: 15px; border-left: 5px solid var(--secondary-glow); margin-top: 3rem; box-shadow: 0 0 15px rgba(255, 0, 255, 0.1); }
+        .interactive-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--secondary-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+        .interactive-feedback.feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .interactive-feedback.feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .interactive-reset-btn, .matching-reset-btn { display: none; margin: 1rem auto 0; padding: 0.6rem 1.5rem; font-size: 0.9rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .interactive-reset-btn:hover, .matching-reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 10px var(--accent-glow); }
+        /* --- 結束互動樣式 --- */
+
         .comparison-cards-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -181,6 +196,7 @@
         }
         
         .quiz-container { margin-bottom: 3rem; }
+        .quiz-container:last-child { margin-bottom: 0; }
         .quiz-title {
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
@@ -202,7 +218,7 @@
             border: none;
             border-left: 5px solid var(--primary-glow);
             margin: 1.5rem 0;
-            padding-left: 1.5rem;
+            padding: 1rem 1.5rem;
         }
         #quiz-section .highlight-box p { margin: 0.5rem 0; }
         #quiz-section .highlight-box ul { list-style-type: none; padding-left: 1rem; }
@@ -308,6 +324,7 @@
                 display: flex;
                 flex-direction: column;
             }
+            #quiz-section .options { grid-template-columns: 1fr; }
 
             #return-home-btn { width: 45px; height: 45px; left: 15px; bottom: 15px; }
             #mascot-container { right: 15px; bottom: 15px; }
@@ -335,6 +352,16 @@
                 <div class="info-card"><h4><i class="fas fa-gavel"></i>審判</h4><p>由<strong class="highlight-text">法官</strong>依據證據進行公正審判，採<strong class="highlight-text">有罪才罰</strong>原則。</p></div>
                 <div class="info-card"><h4><i class="fas fa-play"></i>執行</h4><p>判決確定後，由<strong class="highlight-text">檢察官</strong>指揮執行，對受刑人施予刑罰。</p></div>
             </div>
+             <!-- ===== 新增互動：刑事訴訟程序配對 ===== -->
+            <div id="procedure-matching-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-tasks"></i> 刑事訴訟程序配對</h3>
+                <p class="interactive-prompt">請將下列刑事訴訟的階段與其主要負責人進行配對。</p>
+                <div class="matching-item" data-answer="prosecutor"><p>1. 偵查犯罪事實並決定是否起訴。</p><select class="matching-select"><option>請選擇</option><option value="prosecutor">檢察官</option><option value="judge">法官</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="judge"><p>2. 保持中立，依據證據和法律進行判決。</p><select class="matching-select"><option>請選擇</option><option value="prosecutor">檢察官</option><option value="judge">法官</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="prosecutor"><p>3. 指揮刑事判決的執行。</p><select class="matching-select"><option>請選擇</option><option value="prosecutor">檢察官</option><option value="judge">法官</option></select><i class="feedback-icon"></i></div>
+                <button class="matching-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="roles-section">
@@ -345,15 +372,41 @@
                 <div class="info-card"><h4><i class="fas fa-balance-scale"></i>法官</h4><p>超然中立，不受外界干涉，依法進行客觀、公正的審判。採<strong class="highlight-text">無罪推定原則</strong>。</p></div>
                 <div class="info-card"><h4><i class="fas fa-user-graduate"></i>律師</h4><p>受當事人委託，在訴訟中為當事人<strong class="highlight-text">辯護</strong>，維護當事人的權益。</p></div>
             </div>
+            <!-- ===== 新增互動：刑事訴訟角色辨識 ===== -->
+            <div id="role-identification-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-balance-scale"></i> 刑事訴訟角色辨識</h3>
+                <p class="interactive-prompt">「在判決確定前，應推定被告為無罪。」這句話描述的是哪一位角色的核心原則？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">檢察官</button>
+                    <button class="interactive-btn" data-answer="true">法官</button>
+                    <button class="interactive-btn" data-answer="false">律師</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
             
-            <div class="info-card" style="margin-top:1.5rem;">
-                <h4><i class="fas-fa-key"></i>偵查的啟動與起訴的程序</h4>
+            <div class="info-card" style="margin-top:3rem;">
+                <h4><i class="fas fa-key"></i>偵查的啟動與起訴的程序</h4>
                 <ul>
                     <li><strong>告訴：</strong>由<strong class="highlight-text">被害人及其家屬</strong>向警察機關或檢察官提出，請求追訴犯罪。</li>
                     <li><strong>告發：</strong>由<strong class="highlight-text">任何人</strong>向警察機關或檢察官提出，告知犯罪事實。</li>
                     <li><strong>自首：</strong>由<strong class="highlight-text">犯罪者</strong>向警察機關或檢察官承認犯罪事實。</li>
                 </ul>
             </div>
+            <!-- ===== 新增互動：告訴/告發/自首辨析 ===== -->
+            <div id="initiation-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-bullhorn"></i> 告訴/告發/自首辨析</h3>
+                <p class="interactive-prompt">小華在路上看到有人搶劫，他立刻到警察局報案。請問小華的行為屬於下列何者？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="false">告訴</button>
+                    <button class="interactive-btn" data-answer="true">告發</button>
+                    <button class="interactive-btn" data-answer="false">自首</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="court-section">
@@ -379,12 +432,25 @@
                     </ul>
                 </div>
             </div>
+            <!-- ===== 新增互動：公訴vs自訴思考題 ===== -->
+            <div id="prosecution-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-user-tie"></i> 公訴 vs 自訴思考題</h3>
+                <p class="interactive-prompt">在一場竊盜案的法庭上，代表原告方與被告律師進行辯論的，最可能是下列何者？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="true">檢察官</button>
+                    <button class="interactive-btn" data-answer="false">被害人本人</button>
+                    <button class="interactive-btn" data-answer="false">法官</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
             <div class="quiz-container" id="quiz1">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span>(111 會考)</span></h3>
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰一 <span class="quiz-source">(111 會考)</span></h3>
                 <div class="question">
                     <p>國中生小安寄了一封陳情信給某位公職人員，信中敘述父親因沉迷賭博，導致家中債臺高築，害他的小母離異、家庭破碎，希望有人能幫幫他，讓父親不再沉溺賭海。該名公職人員收到信後立刻啟動偵辦，循線破獲非法賭場，並依法對賭場業者與賭徒提起公訴。根據上述內容判斷，小安寄信的對象應是下列何者？</p>
                 </div>
@@ -398,7 +464,7 @@
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
             <div class="quiz-container" id="quiz2">
-                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span>(110 會考)</span></h3>
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰二 <span class="quiz-source">(110 會考)</span></h3>
                 <div class="question">
                     <div id="quiz-section">
                         <div class="highlight-box" style="padding:1rem; margin-top:0;">
@@ -417,6 +483,22 @@
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
+             <!-- ===== 新增模擬挑戰三 ===== -->
+            <div class="quiz-container" id="quiz3">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰三 <span class="quiz-source">(模擬神給酷)</span></h3>
+                <div class="question">
+                    <p>小美被鄰居惡意毀謗，她覺得自己的名譽受到嚴重損害，決定不透過檢察官，而是自己委任律師直接向法院對鄰居提起訴訟。請問小美的行為稱為什麼？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 公訴</button>
+                    <button class="option-btn" data-correct="true">(B) 自訴</button>
+                    <button class="option-btn" data-correct="false">(C) 告訴</button>
+                    <button class="option-btn" data-correct="false">(D) 告發</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
         
         <section class="fun-bg-section">
@@ -447,15 +529,202 @@
         document.addEventListener('DOMContentLoaded', () => {
             let typingStarted = false; 
 
-            const typingSentences = [
-                "公民好神！我會遵守公民神會員守則！",
-                "努力向上、勇往直前、不畏艱難，我要成為公民神！",
-                "公民神有三力：注意力、記憶力、戰鬥力！"
-            ];
-            const typingElementSpan = document.getElementById('typing-text-span');
+            // --- 互動卡片通用安裝函數 ---
+            function setupInteractiveCard(cardId, correctFeedbackHTML, wrongFeedbackHTML) {
+                const card = document.getElementById(cardId);
+                if (!card) return;
 
+                const buttons = card.querySelectorAll('.interactive-btn');
+                const feedbackArea = card.querySelector('.interactive-feedback');
+                const resetButton = card.querySelector('.interactive-reset-btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isCorrect = btn.dataset.answer === 'true';
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (isCorrect) {
+                            feedbackArea.innerHTML = correctFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-correct';
+                        } else {
+                            feedbackArea.innerHTML = wrongFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    buttons.forEach(b => b.disabled = false);
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                });
+            }
+
+            // --- 配對題通用安裝函數 ---
+            function setupMatchingQuiz(quizId) {
+                const quiz = document.getElementById(quizId);
+                if (!quiz) return;
+
+                const selects = quiz.querySelectorAll('.matching-select');
+                const resetButton = quiz.querySelector('.matching-reset-btn');
+
+                function handleMatchingChange(e) {
+                    const select = e.target;
+                    const selectedValue = select.value;
+                    const item = select.closest('.matching-item');
+                    const correctAnswer = item.dataset.answer;
+                    const feedbackIcon = item.querySelector('.feedback-icon');
+                    
+                    feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                    feedbackIcon.textContent = '';
+                    if (selectedValue === "請選擇") {
+                        feedbackIcon.style.display = 'none';
+                        return;
+                    }
+                    feedbackIcon.style.display = 'inline-block';
+                    if (selectedValue === correctAnswer) {
+                        feedbackIcon.classList.add('icon-correct');
+                        feedbackIcon.textContent = '✓';
+                    } else {
+                        feedbackIcon.classList.add('icon-wrong');
+                        feedbackIcon.textContent = '✗';
+                    }
+                }
+
+                selects.forEach(select => {
+                    select.addEventListener('change', handleMatchingChange);
+                });
+
+                if(resetButton) {
+                    resetButton.style.display = 'block';
+                    resetButton.addEventListener('click', () => {
+                        selects.forEach(select => {
+                            select.selectedIndex = 0;
+                            const item = select.closest('.matching-item');
+                            const feedbackIcon = item.querySelector('.feedback-icon');
+                            feedbackIcon.style.display = 'none';
+                            feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                            feedbackIcon.textContent = '';
+                        });
+                    });
+                }
+            }
+            
+            // --- 初始化所有互動卡片 ---
+            setupInteractiveCard(
+                'role-identification-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>「無罪推定原則」是法官在審理刑事案件時必須遵守的核心原則，在有確切證據證明被告有罪之前，都必須先將其視為無罪之人。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>檢察官的職責是代表國家追訴犯罪，律師則是為被告辯護。保持中立、進行無罪推定的是「法官」。'
+            );
+
+            setupInteractiveCard(
+                'initiation-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 完全正確！</strong>小華並非被害人，而是以第三人的身分告知犯罪事實，這屬於「告發」。',
+                '<strong><i class="fas fa-times-circle"></i> 再想一下！</strong>「告訴」必須由被害人或其家屬提出；「自首」是犯罪者自己承認。任何人看到犯罪事實向檢警機關檢舉，稱為「告發」。'
+            );
+
+            setupInteractiveCard(
+                'prosecution-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>竊盜罪屬於「非告訴乃論」，原則上由檢察官代表國家提起「公訴」。在公訴案件的法庭上，原告方就是檢察官。',
+                '<strong><i class="fas fa-times-circle"></i> 不對喔！</strong>被害人本人只有在提起「自訴」時才會是原告方，但竊盜罪原則上是公訴案件，因此原告方是代表國家的「檢察官」。'
+            );
+            
+            // --- 初始化所有配對題 ---
+            setupMatchingQuiz('procedure-matching-quiz');
+            
+            // --- 會考歷屆試題區塊 ---
+            const allQuizData = {
+                quiz1: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>題目中描述公職人員「啟動偵辦」、「破獲非法賭場」並最終「提起公訴」。在刑事訴訟程序中，負責<strong class="highlight-text">偵查犯罪並代表國家提起公訴</strong>的角色是「檢察官」。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 法官</strong>：負責審判，不負責偵查或起訴。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 律師</strong>：為當事人辯護，不具備國家公權力。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 警察局局長</strong>：警察負責協助偵查，但最終決定並提起公訴的是檢察官。</p>`
+                },
+                quiz2: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>新聞報導中提到「相關單位進行調查後，決定……提起公訴」。在刑事訴訟中，<strong class="highlight-text">偵查犯罪並提起公訴是檢察官的主要職權</strong>。因此，(B)檢察官主導案件的偵查工作，是最可能發生的情況。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 大法官</strong>：負責解釋憲法，不審理個案。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 消保官</strong>：處理消費爭議，不負責追訴犯罪行為。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 書記官</strong>：負責法庭紀錄，不負責調解。</p>`
+                },
+                quiz3: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>刑事案件的起訴方式有二：由檢察官代表國家提起的「公訴」，以及由被害人自己委任律師提起的「自訴」。小美身為被害人，不透過檢察官而是自己提告，這正是<strong class="highlight-text">自訴</strong>的定義。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 公訴</strong>：是由「檢察官」提起的。</p>`,
+                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 告訴</strong>：是向檢警機關「請求追訴犯罪」，後續仍由檢察官決定是否起訴，並非自己直接告上法院。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 告發</strong>：是由第三人檢舉犯罪事實。</p>`
+                }
+            };
+            
+            const mcqContainers = document.querySelectorAll('.quiz-container[id]');
+            
+            mcqContainers.forEach((container) => {
+                const quizId = container.id;
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
+
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
+
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        
+                        optionButtons.forEach(btn => {
+                            btn.disabled = true;
+                        });
+
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = quizData.correct;
+                        } else {
+                            const optionLetter = button.textContent.substring(1, 2);
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            feedbackArea.innerHTML = quizData[optionLetter];
+                        }
+                        feedbackArea.className = 'feedback-area ' + (isCorrect ? 'feedback-correct' : 'feedback-wrong');
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
+                    });
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+            
+            // Section fade-in animation and typing effect
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
+                            typingStarted = true;
+                            startTypingLoop();
+                        }
+                    }
+                });
+            }, { threshold: 0.1 }); 
+            sections.forEach(section => observer.observe(section));
+            
+            const typingElementSpan = document.getElementById('typing-text-span');
             function startTypingLoop() {
                 if (!typingElementSpan) return;
+                const typingSentences = [
+                    "公民好神！我會遵守公民神會員守則！",
+                    "努力向上、勇往直前、不畏艱難，我要成為公民神！",
+                    "公民神有三力：注意力、記憶力、戰鬥力！"
+                ];
                 let sentenceIndex = 0;
                 let charIndex = 0;
                 let isDeleting = false;
@@ -485,89 +754,11 @@
                 }
                 loop();
             }
-            
-            const sections = document.querySelectorAll('section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        if (entry.target.classList.contains('fun-bg-section') && !typingStarted) {
-                            typingStarted = true;
-                            startTypingLoop();
-                        }
-                    }
-                });
-            }, { threshold: 0.1 }); 
-            
-            sections.forEach(section => observer.observe(section));
 
-            const allQuizData = {
-                quiz1: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>題目中描述公職人員「啟動偵辦」、「破獲非法賭場」並最終「提起公訴」。在刑事訴訟程序中，負責<strong class="highlight-text">偵查犯罪並代表國家提起公訴</strong>的角色是「檢察官」。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 法官</strong>：負責審判，不負責偵查或起訴。</p>`,
-                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B) 律師</strong>：為當事人辯護，不具備國家公權力。</p>`,
-                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 警察局局長</strong>：警察負責協助偵查，但最終決定並提起公訴的是檢察官。</p>`
-                },
-                quiz2: {
-                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>新聞報導中提到「相關單位進行調查後，決定……提起公訴」。在刑事訴訟中，<strong class="highlight-text">偵查犯罪並提起公訴是檢察官的主要職權</strong>。因此，(B)檢察官主導案件的偵查工作，是最可能發生的情況。</p>`,
-                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A) 大法官</strong>：負責解釋憲法，不審理個案。</p>`,
-                    C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C) 消保官</strong>：處理消費爭議，不負責追訴犯罪行為。</p>`,
-                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D) 書記官</strong>：負責法庭紀錄，不負責調解。</p>`
-                }
-            };
-            
-            const quizContainers = document.querySelectorAll('.quiz-container');
-            
-            quizContainers.forEach((container) => {
-                const quizId = container.id;
-                if (!quizId) return; // Skip containers without an ID
-                const quizData = allQuizData[quizId];
-                if (!quizData) return;
-
-                const optionButtons = container.querySelectorAll('.option-btn');
-                const feedbackArea = container.querySelector('.feedback-area');
-                const resetButton = container.querySelector('.reset-btn');
-
-                optionButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        const isCorrect = button.dataset.correct === 'true';
-                        
-                        optionButtons.forEach(btn => {
-                            btn.disabled = true;
-                        });
-
-                        if (isCorrect) {
-                            button.classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId].correct;
-                            feedbackArea.className = 'feedback-area feedback-correct';
-                        } else {
-                            const optionLetter = button.textContent.substring(1, 2);
-                            button.classList.add('wrong');
-                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
-                            feedbackArea.innerHTML = allQuizData[quizId][optionLetter];
-                            feedbackArea.className = 'feedback-area feedback-wrong';
-                        }
-                        feedbackArea.style.display = 'block';
-                        resetButton.style.display = 'block';
-                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    });
-                });
-                
-                resetButton.addEventListener('click', () => {
-                    optionButtons.forEach(btn => {
-                        btn.disabled = false;
-                        btn.classList.remove('correct', 'wrong');
-                    });
-                    feedbackArea.style.display = 'none';
-                    resetButton.style.display = 'none';
-                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                });
-            });
-
+            // Mascot JS
             const mascotContainer = document.getElementById('mascot-container');
             const mascotImg = document.getElementById('mascot-img');
             const speechBubble = document.getElementById('mascot-speech');
-            
             const messages = ["公民好神！我會遵守公民神會員守則！", "努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！"];
             let messageIndex = 0;
             let clickTimer = null;

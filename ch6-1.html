@@ -164,6 +164,21 @@
             position: absolute; left: 0; top: 3px; color: var(--primary-glow);
         }
 
+        /* --- 互動卡片樣式 --- */
+        .interactive-card { background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(255, 0, 255, 0.05)); padding: 2rem; border-radius: 15px; border-left: 5px solid var(--secondary-glow); margin-top: 3rem; box-shadow: 0 0 15px rgba(255, 0, 255, 0.1); }
+        .interactive-title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.2rem, 2.5vw, 1.5rem); color: var(--secondary-glow); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: none; padding-bottom: 0; }
+        .interactive-prompt { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        .interactive-options { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .interactive-btn { padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 700; background-color: var(--card-bg); color: var(--text-color); border: 2px solid var(--secondary-glow); border-radius: 25px; cursor: pointer; transition: all 0.3s; }
+        .interactive-btn:hover:not(:disabled) { background-color: var(--secondary-glow); color: var(--bg-dark); transform: translateY(-3px); }
+        .interactive-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+        .interactive-feedback { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 600; }
+        .interactive-feedback.feedback-correct { background-color: rgba(0, 255, 135, 0.1); border-left: 5px solid var(--correct-color); }
+        .interactive-feedback.feedback-wrong { background-color: rgba(255, 42, 109, 0.1); border-left: 5px solid var(--wrong-color); }
+        .interactive-reset-btn, .matching-reset-btn { display: none; margin: 1rem auto 0; padding: 0.6rem 1.5rem; font-size: 0.9rem; font-weight: 700; background-color: var(--accent-glow); color: var(--bg-dark); border: none; border-radius: 20px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .interactive-reset-btn:hover, .matching-reset-btn:hover { transform: scale(1.05); box-shadow: 0 0 10px var(--accent-glow); }
+        /* --- 結束互動樣式 --- */
+
         .highlight-box { background: linear-gradient(135deg, rgba(240, 225, 74, 0.1), rgba(240, 225, 74, 0.05)); padding: 1.5rem; border-radius: 15px; border-left: 5px solid var(--accent-glow); margin-top: 2rem; }
         
         .comparison-cards-container {
@@ -192,7 +207,26 @@
             border-bottom: 1px solid var(--border-color);
         }
         
+        .comparison-item {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            margin-top: 1.5rem;
+        }
+        .comparison-item:last-child {
+            margin-bottom: 0;
+        }
+        .comparison-item h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-glow);
+            text-align: center;
+            font-size: clamp(1.3rem, 2.8vw, 1.6rem);
+            margin: 0;
+        }
+        
         .quiz-container { margin-bottom: 3rem; }
+        .quiz-container:last-child { margin-bottom: 0; }
         .quiz-title {
             font-family: 'Orbitron', sans-serif;
             font-size: clamp(1.2rem, 1.5vw + 0.6rem, 1.5rem);
@@ -301,6 +335,7 @@
         @media (max-width: 768px) {
             .container { padding: 1rem; }
             section { padding: 1.5rem; }
+            .matching-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
             
             .comparison-cards-container.grid-3-col,
             .comparison-cards-container {
@@ -336,6 +371,23 @@
             <div class="highlight-box">
                 <p><i class="fas fa-exclamation-triangle"></i> <strong>注意：</strong>國家組成要素缺一不可，任一要素不存在，便不能稱為國家。</p>
             </div>
+             <!-- ===== 新增互動：國家要素配對 ===== -->
+            <div id="elements-matching-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-tasks"></i> 國家要素配對</h3>
+                <p class="interactive-prompt">請將下列描述與其對應的國家組成要素進行配對。</p>
+                <div class="law-options-list">
+                    <div class="law-option-item"><span class="law-option-label">A</span> 人民</div>
+                    <div class="law-option-item"><span class="law-option-label">B</span> 領土</div>
+                    <div class="law-option-item"><span class="law-option-label">C</span> 政府</div>
+                    <div class="law-option-item"><span class="law-option-label">D</span> 主權</div>
+                </div>
+                <div class="matching-item" data-answer="D"><p>1. 國家的最高權力，不受外力干涉。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="A"><p>2. 具有該國國籍的成員。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="C"><p>3. 負責執行國家政策的統治機關。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="B"><p>4. 國家權力所及的地理範圍，包含陸、海、空。</p><select class="matching-select"><option>請選擇</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select><i class="feedback-icon"></i></div>
+                <button class="matching-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="concepts-comparison1-section">
@@ -345,6 +397,20 @@
                 <div class="comparison-card"><h5>專屬經濟海域</h5><p>海岸基線向外延伸<strong class="highlight-text">200 浬</strong>。<br>不屬領土，但享有天然資源探勘、開發等權力。</p></div>
                 <div class="comparison-card"><h5>公海</h5><p>距海岸基線 <strong class="highlight-text">200 浬以外</strong>。<br>不屬領土，任何國籍船舶均有航行權。</p></div>
             </div>
+            <!-- ===== 新增互動：領海範圍數字題 ===== -->
+            <div id="territorial-sea-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-ruler-combined"></i> 領海範圍記憶挑戰</h3>
+                <p class="interactive-prompt">根據國際海洋法公約，一個國家的「領海」範圍，是從海岸基線向外延伸多少浬？</p>
+                <div class="interactive-options">
+                    <button class="interactive-btn" data-answer="true">12 浬</button>
+                    <button class="interactive-btn" data-answer="false">24 浬</button>
+                    <button class="interactive-btn" data-answer="false">200 浬</button>
+                </div>
+                <div class="interactive-feedback"></div>
+                <button class="interactive-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
+
         </section>
 
         <section id="state-purpose-section">
@@ -397,11 +463,20 @@
                     </div>
                 </div>
             </div>
+             <!-- ===== 新增互動：主權 vs 統治權配對 ===== -->
+            <div id="sovereignty-matching-quiz" class="interactive-card">
+                <h3 class="interactive-title"><i class="fas fa-crown"></i> 主權 vs 統治權</h3>
+                <p class="interactive-prompt">請將下列特性與「主權」或「統治權」進行配對。</p>
+                <div class="matching-item" data-answer="sovereignty"><p>1. 權力歸屬於國民全體，具有永久性。</p><select class="matching-select"><option>請選擇</option><option value="sovereignty">主權</option><option value="governance">統治權</option></select><i class="feedback-icon"></i></div>
+                <div class="matching-item" data-answer="governance"><p>2. 權力歸屬於政府，會因選舉而更替。</p><select class="matching-select"><option>請選擇</option><option value="sovereignty">主權</option><option value="governance">統治權</option></select><i class="feedback-icon"></i></div>
+                <button class="matching-reset-btn">再挑戰一次</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
 
         <section id="quiz-section">
             <h2 class="section-title"><i class="fas fa-puzzle-piece"></i>公民神挑戰！</h2>
-            <div class="quiz-container">
+            <div class="quiz-container" id="purpose-matching-quiz">
                 <h3 class="quiz-title"><i class="fas fa-tasks"></i>模擬神給酷</h3>
                 <div class="info-card" style="margin-top:0;">
                      <p><strong>下列各項政府施政主要是為達成哪項國家存在的目的？</strong></p>
@@ -415,6 +490,7 @@
                      <div class="matching-item" data-answer="乙"><p>2. 政府禁止民眾攜帶具危害性、類似真槍之玩具槍。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
                      <div class="matching-item" data-answer="丙"><p>3. 政府制定《集會遊行法》，保障民眾的集會自由。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
                      <div class="matching-item" data-answer="甲"><p>4. 我國政府近日向美國購買66架新型的 F-16V 戰機。</p><select class="matching-select"><option>請選擇</option><option value="甲">甲</option><option value="乙">乙</option><option value="丙">丙</option><option value="丁">丁</option></select><i class="feedback-icon"></i></div>
+                     <button class="matching-reset-btn">再挑戰一次</button>
                 </div>
             </div>
 
@@ -479,6 +555,23 @@
                 <div class="feedback-area"></div>
                 <button class="reset-btn">再挑戰一次！</button>
             </div>
+
+             <!-- ===== 新增模擬挑戰四 ===== -->
+            <div class="quiz-container" id="quiz4">
+                <h3 class="quiz-title"><i class="fas fa-question-circle"></i>挑戰四 <span class="quiz-source">(模擬神給酷)</span></h3>
+                <div class="question">
+                    <p>新聞報導：「我國行政院負責規畫國家整體施政方針，並交由各部會執行。」上述「行政院」的角色，最符合國家組成四要素中的哪一項？</p>
+                </div>
+                <div class="options">
+                    <button class="option-btn" data-correct="false">(A) 人民</button>
+                    <button class="option-btn" data-correct="false">(B) 領土</button>
+                    <button class="option-btn" data-correct="true">(C) 政府</button>
+                    <button class="option-btn" data-correct="false">(D) 主權</button>
+                </div>
+                <div class="feedback-area"></div>
+                <button class="reset-btn">再挑戰一次！</button>
+            </div>
+            <!-- ===== 結束新增 ===== -->
         </section>
         
         <!-- Fun BG Section -->
@@ -527,16 +620,56 @@
             }, { threshold: 0.1 }); 
             sections.forEach(section => observer.observe(section));
 
-             // Matching quiz logic
-            const matchingSelects = document.querySelectorAll('.matching-select');
-            matchingSelects.forEach(select => {
-                select.addEventListener('change', (e) => {
-                    const selectedValue = e.target.value;
-                    const item = e.target.closest('.matching-item');
+            // --- 互動卡片通用安裝函數 ---
+            function setupInteractiveCard(cardId, correctFeedbackHTML, wrongFeedbackHTML) {
+                const card = document.getElementById(cardId);
+                if (!card) return;
+
+                const buttons = card.querySelectorAll('.interactive-btn');
+                const feedbackArea = card.querySelector('.interactive-feedback');
+                const resetButton = card.querySelector('.interactive-reset-btn');
+
+                buttons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const isCorrect = btn.dataset.answer === 'true';
+                        buttons.forEach(b => b.disabled = true);
+                        
+                        if (isCorrect) {
+                            feedbackArea.innerHTML = correctFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-correct';
+                        } else {
+                            feedbackArea.innerHTML = wrongFeedbackHTML;
+                            feedbackArea.className = 'interactive-feedback feedback-wrong';
+                        }
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                    });
+                });
+
+                resetButton.addEventListener('click', () => {
+                    buttons.forEach(b => b.disabled = false);
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                });
+            }
+
+            // --- 配對題通用安裝函數 ---
+            function setupMatchingQuiz(quizId) {
+                const quiz = document.getElementById(quizId);
+                if (!quiz) return;
+
+                const selects = quiz.querySelectorAll('.matching-select');
+                const resetButton = quiz.querySelector('.matching-reset-btn');
+
+                function handleMatchingChange(e) {
+                    const select = e.target;
+                    const selectedValue = select.value;
+                    const item = select.closest('.matching-item');
                     const correctAnswer = item.dataset.answer;
                     const feedbackIcon = item.querySelector('.feedback-icon');
+                    
                     feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
-                    feedbackIcon.innerHTML = '';
+                    feedbackIcon.textContent = '';
                     if (selectedValue === "請選擇") {
                         feedbackIcon.style.display = 'none';
                         return;
@@ -544,15 +677,45 @@
                     feedbackIcon.style.display = 'inline-block';
                     if (selectedValue === correctAnswer) {
                         feedbackIcon.classList.add('icon-correct');
-                        feedbackIcon.innerHTML = '✓';
+                        feedbackIcon.textContent = '✓';
                     } else {
                         feedbackIcon.classList.add('icon-wrong');
-                        feedbackIcon.innerHTML = '✗';
+                        feedbackIcon.textContent = '✗';
                     }
-                });
-            });
+                }
 
-            // Multiple choice quiz logic
+                selects.forEach(select => {
+                    select.addEventListener('change', handleMatchingChange);
+                });
+
+                if(resetButton) {
+                    resetButton.style.display = 'block';
+                    resetButton.addEventListener('click', () => {
+                        selects.forEach(select => {
+                            select.selectedIndex = 0;
+                            const item = select.closest('.matching-item');
+                            const feedbackIcon = item.querySelector('.feedback-icon');
+                            feedbackIcon.style.display = 'none';
+                            feedbackIcon.classList.remove('icon-correct', 'icon-wrong');
+                            feedbackIcon.textContent = '';
+                        });
+                    });
+                }
+            }
+            
+            // --- 初始化所有互動卡片 ---
+            setupInteractiveCard(
+                'territorial-sea-quiz',
+                '<strong><i class="fas fa-check-circle"></i> 正確！</strong>這個數字一定要記熟！領海是 12 浬，專屬經濟海域是 200 浬。',
+                '<strong><i class="fas fa-times-circle"></i> 記錯了喔！</strong>屬於國家領土、擁有完全主權的「領海」範圍是 <strong class="highlight-text">12 浬</strong>。200 浬是專屬經濟海域的範圍。'
+            );
+
+            // --- 初始化所有配對題 ---
+            setupMatchingQuiz('elements-matching-quiz');
+            setupMatchingQuiz('sovereignty-matching-quiz');
+            setupMatchingQuiz('purpose-matching-quiz');
+
+            // --- 會考歷屆試題區塊 ---
             const allQuizData = {
                 quiz1: {
                     correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>一個國家完整的領土範圍包括<strong class="highlight-text">領陸、領海與領空</strong>。其中領空是指領陸和領海所對應大氣層中的空中領域。所以該國領土範圍為甲(領陸)＋乙(領海)＋丁(甲的領空)＋戊(乙的領空)。</p>`,
@@ -571,58 +734,58 @@
                     A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 主權屬於人民，不會轉移給政府。人民是授權政府行使「統治權」。</p>`,
                     C: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(C)</strong> 政府是會因選舉而更替的，不具有永久性；國家才具有永久性。</p>`,
                     D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 政府的更替不影響國家在國際上的地位。希臘仍然是希臘。</p>`
+                },
+                quiz4: {
+                    correct: `<h3 style="color: var(--correct-color);">🎉 答對了！你就是公民神！</h3><p><strong>解題關鍵：</strong>國家的四個組成要素中，「政府」是負責規畫與執行國家政策的統治機關。行政院是我國最高的行政機關，因此它的角色完全符合「政府」的定義。</p>`,
+                    A: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(A)</strong> 人民是國家的組成成員，而行政院是統治機關。</p>`,
+                    B: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(B)</strong> 領土是國家的地理範圍，行政院是一個組織。</p>`,
+                    D: `<h3 style="color: var(--wrong-color);">🤔 再想想...</h3><p><strong>(D)</strong> 主權是國家的最高權力，歸屬於全體國民，而行政院是行使統治權的機關。</p>`
                 }
             };
             
-            const mcqContainers = document.querySelectorAll('.quiz-container');
-            let mcqIndex = 0;
+            const mcqContainers = document.querySelectorAll('.quiz-container[id]');
+            
             mcqContainers.forEach((container) => {
-                // Find only the MCQ containers
-                if(container.querySelector('.option-btn')) {
-                    mcqIndex++;
-                    const quizId = `quiz${mcqIndex}`; 
-                    container.id = quizId; // Assign ID
-                    
-                    const quizData = allQuizData[quizId];
-                    if (!quizData) return;
+                const quizId = container.id;
+                const quizData = allQuizData[quizId];
+                if (!quizData) return;
 
-                    const optionButtons = container.querySelectorAll('.option-btn');
-                    const feedbackArea = container.querySelector('.feedback-area');
-                    const resetButton = container.querySelector('.reset-btn');
+                const optionButtons = container.querySelectorAll('.option-btn');
+                const feedbackArea = container.querySelector('.feedback-area');
+                const resetButton = container.querySelector('.reset-btn');
 
-                    optionButtons.forEach(button => {
-                        button.addEventListener('click', () => {
-                            const isCorrect = button.dataset.correct === 'true';
-                            optionButtons.forEach(btn => btn.disabled = true);
-                            
-                            if (isCorrect) {
-                                button.classList.add('correct');
-                                feedbackArea.innerHTML = quizData.correct;
-                                feedbackArea.className = 'feedback-area feedback-correct';
-                            } else {
-                                button.classList.add('wrong');
-                                container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
-                                const optionLetter = button.textContent.substring(1, 2);
-                                feedbackArea.innerHTML = quizData[optionLetter];
-                                feedbackArea.className = 'feedback-area feedback-wrong';
-                            }
-                            
-                            feedbackArea.style.display = 'block';
-                            resetButton.style.display = 'block';
-                            feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        });
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const isCorrect = button.dataset.correct === 'true';
+                        optionButtons.forEach(btn => btn.disabled = true);
+                        
+                        if (isCorrect) {
+                            button.classList.add('correct');
+                            feedbackArea.innerHTML = quizData.correct;
+                            feedbackArea.className = 'feedback-area feedback-correct';
+                        } else {
+                            button.classList.add('wrong');
+                            container.querySelector('.option-btn[data-correct="true"]').classList.add('correct');
+                            const optionLetter = button.textContent.substring(1, 2);
+                            feedbackArea.innerHTML = quizData[optionLetter];
+                            feedbackArea.className = 'feedback-area feedback-wrong';
+                        }
+                        
+                        feedbackArea.style.display = 'block';
+                        resetButton.style.display = 'block';
+                        feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     });
-                    
-                    resetButton.addEventListener('click', () => {
-                        optionButtons.forEach(btn => {
-                            btn.disabled = false;
-                            btn.classList.remove('correct', 'wrong');
-                        });
-                        feedbackArea.style.display = 'none';
-                        resetButton.style.display = 'none';
-                        container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+                
+                resetButton.addEventListener('click', () => {
+                    optionButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.classList.remove('correct', 'wrong');
                     });
-                }
+                    feedbackArea.style.display = 'none';
+                    resetButton.style.display = 'none';
+                    container.querySelector('.question').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
             });
 
             // Typing Effect and Mascot JS
