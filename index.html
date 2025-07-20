@@ -162,17 +162,21 @@
 
         #mascot-speech-bubble {
             position: absolute;
-            bottom: 125px; /* 【修改】向上移動，避免遮擋 */
+            bottom: 125px; 
             right: 10px;
             padding: 1rem;
-            border-radius: 20px; /* 【修改】增加圓角 */
+            border-radius: 20px; /* 保留圓角設定 */
             color: #fff; width: 220px; text-align: center;
             opacity: 0; transform: translateY(20px) scale(0.9); pointer-events: none;
             transition: opacity 0.3s, transform 0.3s;
             backdrop-filter: blur(8px);
-            background: linear-gradient(135deg, rgba(0, 242, 234, 0.3), rgba(255, 0, 255, 0.3));
-            border: 2px solid;
-            border-image: linear-gradient(135deg, var(--primary-glow), var(--secondary-glow)) 1;
+            /* --- 【修改】使用多重背景技巧實現圓角漸層邊框 --- */
+            border: 2px solid transparent; /* 設置透明邊框 */
+            background: 
+                linear-gradient(135deg, rgba(0, 242, 234, 0.3), rgba(255, 0, 255, 0.3)) padding-box, /* 內部背景 (會被圓角裁切) */
+                linear-gradient(135deg, var(--primary-glow), var(--secondary-glow)) border-box; /* 邊框背景 (也會被圓角裁切) */
+            background-clip: padding-box, border-box;
+            /* --- 【修改結束】移除舊的 border-image --- */
             box-shadow: 0 0 20px rgba(0, 242, 234, 0.4), 0 0 20px rgba(255, 0, 255, 0.4);
             text-shadow: 0 0 5px rgba(0,0,0,0.5);
         }
@@ -236,8 +240,6 @@
             color: var(--primary-glow);
             border-bottom-color: var(--primary-glow);
         }
-        #toc-nav li a i { font-size: 1.3rem; }
-
         #toc-nav.is-fixed {
             position: fixed;
             top: 0;
@@ -281,8 +283,9 @@
         }
         
         @media (max-width: 992px) {
-            #toc-nav { display: none !important; }
-            body { padding-top: 0 !important; }
+            /* --- 【修改】移除 display: none，讓目錄在手機上顯示 --- */
+            /* #toc-nav { display: none !important; } */
+            /* body { padding-top: 0 !important; } */
 
             .container { padding: 1rem; }
             header { padding: 3rem 1rem; }
@@ -293,7 +296,7 @@
             #mascot-img { width: 80px; }
             #mascot-speech-bubble {
                 width: 180px;
-                bottom: 100px; /*【修改】在手機上也要調整位置*/
+                bottom: 100px;
             }
             
             #back-to-top-btn {
