@@ -19,18 +19,11 @@
             --card-bg: rgba(23, 37, 51, 0.7);
             --border-color: rgba(0, 242, 234, 0.3);
             --accent-border-color: rgba(240, 225, 74, 0.5);
+            --slider-track-bg: rgba(0, 242, 234, 0.2);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Titillium Web', 'Noto Sans TC', sans-serif;
             background-color: var(--bg-dark-2);
@@ -39,133 +32,43 @@
             overflow-x: hidden;
         }
         
-        #starry-sky {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        main.container > section:first-of-type {
-            margin-top: 2rem;
-        }
+        #starry-sky { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; position: relative; z-index: 1; }
+        main.container > section:first-of-type { margin-top: 2rem; }
 
         header {
-            text-align: center;
-            padding: 4rem 1rem; 
+            text-align: center; padding: 4rem 1rem; 
             border-bottom: 2px solid var(--border-color);
             box-shadow: 0 5px 25px rgba(240, 225, 74, 0.1);
-            position: relative;
-            overflow: hidden;
+            position: relative; overflow: hidden;
             background: linear-gradient(135deg, rgba(13, 27, 42, 0.8), rgba(2, 10, 18, 0.8), rgba(255, 0, 255, 0.1), rgba(0, 242, 234, 0.1));
-            background-size: 300% 300%;
-            animation: gradient-pan 15s ease infinite;
+            background-size: 300% 300%; animation: gradient-pan 15s ease infinite;
             backdrop-filter: blur(5px);
         }
-
-        @keyframes gradient-pan {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
+        @keyframes gradient-pan { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         header h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2.2rem, 8vw, 4.5rem);
-            white-space: nowrap;
-            font-weight: 900;
-            color: var(--text-color);
-            text-shadow:
-                0 0 5px #fff,
-                0 0 10px var(--accent-glow),
-                0 0 20px var(--accent-glow),
-                0 0 40px var(--accent-glow);
-            animation: flicker-orange 3s infinite alternate;
-            z-index: 2;
-            position: relative;
+            font-family: 'Orbitron', sans-serif; font-size: clamp(2.2rem, 8vw, 4.5rem); white-space: nowrap; font-weight: 900; color: var(--text-color);
+            text-shadow: 0 0 5px #fff, 0 0 10px var(--accent-glow), 0 0 20px var(--accent-glow), 0 0 40px var(--accent-glow);
+            animation: flicker-orange 3s infinite alternate; z-index: 2; position: relative;
         }
-
-        @keyframes flicker-orange {
-            0%, 18%, 22%, 25%, 53%, 57%, 100% { text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-glow), 0 0 19px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow); }
-            20%, 24%, 55% { text-shadow: none; }
-        }
-
+        @keyframes flicker-orange { 0%, 18%, 22%, 25%, 53%, 57%, 100% { text-shadow: 0 0 4px #fff, 0 0 11px var(--accent-glow), 0 0 19px var(--accent-glow), 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow); } 20%, 24%, 55% { text-shadow: none; } }
         header h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(1.1rem, 4.5vw, 1.8rem);
-            white-space: nowrap;
-            font-weight: 700;
-            color: var(--secondary-glow);
-            margin-top: 1rem;
-            text-shadow: 0 0 8px var(--secondary-glow);
-            animation: bounce 2s infinite;
-            z-index: 2;
-            position: relative;
+            font-family: 'Orbitron', sans-serif; font-size: clamp(1.1rem, 4.5vw, 1.8rem); white-space: nowrap; font-weight: 700; color: var(--secondary-glow);
+            margin-top: 1rem; text-shadow: 0 0 8px var(--secondary-glow); animation: bounce 2s infinite; z-index: 2; position: relative;
         }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-15px);} 60% {transform: translateY(-8px);} }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-15px);}
-            60% {transform: translateY(-8px);}
-        }
-
-        .header-links {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 2rem;
-            margin-top: 2.5rem; 
-        }
-
+        .header-links { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 2rem; margin-top: 2.5rem; }
         .header-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            transition: all 0.3s ease;
-            opacity: 0.8;
-            font-weight: 500;
-            border-radius: 5px;
-            padding: 5px;
-            margin: -5px;
+            color: var(--text-color); text-decoration: none; font-size: 1rem; display: flex; align-items: center; gap: 0.6rem;
+            transition: all 0.3s ease; opacity: 0.8; font-weight: 500; border-radius: 5px; padding: 5px; margin: -5px;
         }
-
-        .header-links a:hover,
-        .header-links a:focus-visible {
-            color: var(--accent-glow);
-            text-shadow: 0 0 10px var(--accent-glow);
-            transform: scale(1.1);
-            opacity: 1;
-            outline: 2px solid var(--accent-glow);
-            outline-offset: 2px;
+        .header-links a:hover, .header-links a:focus-visible {
+            color: var(--accent-glow); text-shadow: 0 0 10px var(--accent-glow); transform: scale(1.1);
+            opacity: 1; outline: 2px solid var(--accent-glow); outline-offset: 2px;
         }
-
-        .header-links i {
-            color: var(--primary-glow);
-            font-size: 1.3rem;
-            transition: all 0.3s ease;
-            width: 1.5em; 
-            text-align: center;
-        }
-
-        .header-links a:hover i,
-        .header-links a:focus-visible i {
-            color: var(--accent-glow);
-            transform: rotate(-15deg);
-        }
+        .header-links i { color: var(--primary-glow); font-size: 1.3rem; transition: all 0.3s ease; width: 1.5em; text-align: center; }
+        .header-links a:hover i, .header-links a:focus-visible i { color: var(--accent-glow); transform: rotate(-15deg); }
 
         .search-container { position: relative; max-width: 500px; margin: 2.5rem auto 0; }
         #search-input { width: 100%; padding: 12px 20px 12px 45px; font-size: 1rem; color: var(--text-color); background-color: rgba(0, 0, 0, 0.3); border: 2px solid var(--border-color); border-radius: 50px; outline: none; transition: all 0.3s ease; font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; }
@@ -179,83 +82,144 @@
         
         section { margin-bottom: 4rem; padding: 2.5rem; background-color: var(--card-bg); border-radius: 20px; border: 2px solid var(--border-color); box-shadow: 0 0 30px rgba(0, 242, 234, 0.1), inset 0 0 15px rgba(0, 242, 234, 0.1); backdrop-filter: blur(10px); opacity: 0; transform: translateY(40px); transition: opacity 0.6s ease-out, transform 0.6s ease-out, display 0.3s; }
         section.visible { opacity: 1; transform: translateY(0); }
-
         .section-title { font-family: 'Orbitron', sans-serif; font-size: clamp(2rem, 7vw, 2.8rem); font-weight: 700; margin-bottom: 2rem; color: var(--primary-glow); display: flex; align-items: center; gap: 1.5rem; text-shadow: 0 0 10px var(--primary-glow); border-bottom: 2px solid var(--accent-border-color); padding-bottom: 1rem; }
         .section-title i { font-size: clamp(2rem, 6vw, 2.5rem); color: var(--accent-glow); text-shadow: 0 0 10px var(--accent-glow); }
         
         .chapter-grid, .quiz-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
-
         .link-card {
-            background: rgba(0,0,0,0.2);
-            border: 2px solid var(--border-color);
-            border-radius: 15px;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+            background: rgba(0,0,0,0.2); border: 2px solid var(--border-color); border-radius: 15px; padding: 1.5rem;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
             transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s, background-color 0.3s;
-            text-decoration: none;
-            color: var(--text-color);
-            min-height: 120px;
+            text-decoration: none; color: var(--text-color); min-height: 120px;
         }
-
-        .link-card:hover,
-        .link-card:focus-visible {
-            transform: translateY(-10px) scale(1.03);
-            border-color: var(--accent-glow);
-            box-shadow: 0 15px 30px rgba(240, 225, 74, 0.2);
-            background-color: rgba(240, 225, 74, 0.1);
-            outline: none;
+        .link-card:hover, .link-card:focus-visible {
+            transform: translateY(-10px) scale(1.03); border-color: var(--accent-glow);
+            box-shadow: 0 15px 30px rgba(240, 225, 74, 0.2); background-color: rgba(240, 225, 74, 0.1); outline: none;
         }
-        
         .link-card .chapter-number { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; color: var(--primary-glow); margin-bottom: 0.5rem; font-weight: 700; text-shadow: 0 0 8px var(--primary-glow); }
         .link-card .chapter-title { font-family: 'Titillium Web', 'Noto Sans TC', sans-serif; font-size: 1.1rem; font-weight: 600; }
-        
+        .link-card .unit-subtitle { font-size: 0.9rem; color: var(--text-color); opacity: 0.8; margin-top: 0.5rem; }
         .title-link-icon { margin-left: auto; color: var(--secondary-glow); text-decoration: none; font-size: clamp(1.8rem, 5vw, 2.2rem); transition: all 0.3s ease; opacity: 0.7; }
         .title-link-icon:hover, .title-link-icon:focus-visible { opacity: 1; color: var(--accent-glow); text-shadow: 0 0 12px var(--accent-glow); transform: scale(1.15) rotate(15deg); outline: none; }
+        
+        /* --- Podcast 播放器樣式 --- */
+        #podcast-track-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-top: 2rem; }
+        .podcast-track-btn {
+            background: rgba(0,0,0,0.2); border: 2px solid var(--border-color); color: var(--text-color);
+            padding: 1rem; border-radius: 10px; cursor: pointer; text-align: left;
+            transition: all 0.3s ease; display: flex; flex-direction: column;
+        }
+        .podcast-track-btn:hover { background-color: rgba(0, 242, 234, 0.1); border-color: var(--primary-glow); }
+        .podcast-track-btn.active { background-color: rgba(240, 225, 74, 0.15); border-color: var(--accent-glow); box-shadow: 0 0 15px rgba(240, 225, 74, 0.2); }
+        .track-btn-main-title { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: var(--primary-glow); font-weight: 700; }
+        .track-btn-sub-title { font-size: 0.9rem; opacity: 0.8; }
+        
+        #master-player-container {
+            background: rgba(0,0,0,0.2); border: 2px solid var(--accent-border-color); border-radius: 15px;
+            padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;
+        }
+        .podcast-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--primary-glow); text-shadow: 0 0 8px var(--primary-glow); }
+        .player-controls { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+        .play-pause-btn { background: none; border: none; color: var(--primary-glow); font-size: 2.2rem; cursor: pointer; transition: all 0.3s; padding: 0; }
+        .play-pause-btn:hover { color: var(--accent-glow); transform: scale(1.1); }
+        .time-display { font-family: 'Orbitron', sans-serif; font-size: 0.9rem; color: var(--text-color); white-space: nowrap; }
+        .progress-bar, .volume-slider {
+            -webkit-appearance: none; appearance: none; background: transparent; cursor: pointer; outline: none;
+        }
+        .progress-bar {
+            flex-grow: 1; width: 100%; height: 8px;
+            background: linear-gradient(to right, var(--primary-glow) 0%, var(--primary-glow) var(--progress-percent, 0%), var(--slider-track-bg) var(--progress-percent, 0%), var(--slider-track-bg) 100%);
+            border-radius: 5px;
+        }
+        .volume-slider {
+            width: 80px; height: 5px;
+            background: linear-gradient(to right, var(--primary-glow) 0%, var(--primary-glow) var(--volume-percent, 100%), var(--slider-track-bg) var(--volume-percent, 100%), var(--slider-track-bg) 100%);
+            border-radius: 5px;
+        }
+        .progress-bar::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; background: var(--primary-glow); border-radius: 50%; box-shadow: 0 0 10px var(--primary-glow); }
+        .volume-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 15px; height: 15px; background: var(--primary-glow); border-radius: 50%; }
+        .progress-bar::-moz-range-thumb { width: 18px; height: 18px; background: var(--primary-glow); border-radius: 50%; border: none; box-shadow: 0 0 10px var(--primary-glow); }
+        .volume-slider::-moz-range-thumb { width: 15px; height: 15px; background: var(--primary-glow); border-radius: 50%; border: none; }
+        .volume-control { display: flex; align-items: center; gap: 0.5rem; }
+        .volume-control i { color: var(--primary-glow); font-size: 1.2rem; }
+        .speed-control { background-color: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-color); color: var(--text-color); border-radius: 5px; padding: 5px 8px; font-family: 'Titillium Web', sans-serif; cursor: pointer; }
 
+        /* --- 【修改】吉祥物與粒子特效樣式 --- */
         #mascot-container { position: fixed; bottom: 20px; right: 20px; z-index: 1000; user-select: none; }
-        #mascot-btn { background: none; border: none; padding: 0; cursor: pointer; border-radius: 50%; }
-        #mascot-img { width: 100px; transition: transform 0.3s ease-in-out; display: block; }
-        #mascot-btn:hover #mascot-img { transform: scale(1.1) rotate(-5deg); }
+        #mascot-btn { background: none; border: none; padding: 0; cursor: pointer; border-radius: 50%; position: relative; }
+        #mascot-img {
+            width: 100px; display: block;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); /* 彈跳動畫 */
+        }
+        /* 點擊彈跳動畫 */
+        #mascot-btn.clicked #mascot-img { transform: scale(1.2); }
+
+        /* Hover 呼吸光暈 */
+        @keyframes mascot-glow {
+            from { filter: drop-shadow(0 0 8px var(--primary-glow)); transform: scale(1.05); }
+            to { filter: drop-shadow(0 0 15px var(--accent-glow)); transform: scale(1.1); }
+        }
+        #mascot-btn:hover #mascot-img {
+            animation: mascot-glow 0.8s infinite alternate ease-in-out;
+        }
+
+        /* 繽紛對話框 */
+        #mascot-speech-bubble {
+            position: absolute; bottom: 110px; right: 10px;
+            padding: 1rem; border-radius: 15px;
+            color: #fff; width: 220px; text-align: center;
+            opacity: 0; transform: translateY(20px) scale(0.9); pointer-events: none;
+            transition: opacity 0.3s, transform 0.3s;
+            backdrop-filter: blur(8px);
+            background: linear-gradient(135deg, rgba(0, 242, 234, 0.3), rgba(255, 0, 255, 0.3));
+            border: 2px solid;
+            border-image: linear-gradient(135deg, var(--primary-glow), var(--secondary-glow)) 1;
+            box-shadow: 0 0 20px rgba(0, 242, 234, 0.4), 0 0 20px rgba(255, 0, 255, 0.4);
+            text-shadow: 0 0 5px rgba(0,0,0,0.5);
+        }
+        #mascot-speech-bubble.visible { opacity: 1; transform: translateY(0) scale(1); }
+        #mascot-speech-bubble::after {
+            content: ''; position: absolute; bottom: -12px; right: 30px;
+            border-left: 10px solid transparent; border-right: 10px solid transparent;
+            border-top: 10px solid var(--secondary-glow);
+        }
+
+        #particle-canvas {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none; z-index: 9999;
+        }
         
         footer {
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
-            padding: 2.5rem 1rem;
-            margin-top: 4rem;
-            color: rgba(224, 224, 224, 0.6);
-            font-size: 0.9rem;
+            display: flex; justify-content: center; align-items: center; padding: 2.5rem 1rem;
+            margin-top: 4rem; color: rgba(224, 224, 224, 0.6); font-size: 0.9rem;
             border-top: 1px solid var(--border-color);
             background: linear-gradient(to top, rgba(13, 27, 42, 0.5), transparent);
         }
-        footer p {
-            text-shadow: 0 0 5px rgba(0, 242, 234, 0.2);
-        }
+        footer p { text-shadow: 0 0 5px rgba(0, 242, 234, 0.2); }
         
         @media (max-width: 768px) {
             .container { padding: 1rem; }
             header { padding: 3rem 1rem; }
-            .chapter-grid, .quiz-grid { grid-template-columns: 1fr; }
+            .chapter-grid, .quiz-grid, #podcast-track-list { grid-template-columns: 1fr; }
+            .player-controls { gap: 0.8rem; }
+            .progress-bar { order: 1; flex-basis: 100%; margin-top: 0.5rem;}
+            .time-display { order: 2; }
             #mascot-img { width: 80px; }
+            #mascot-speech-bubble { width: 180px; bottom: 90px; }
         }
     </style>
 </head>
 <body>
 
     <canvas id="starry-sky"></canvas>
+    <canvas id="particle-canvas"></canvas>
 
     <header>
         <div class="container">
             <h1>公民神複習系統</h1>
             <h2>邱俐瑜公民，成為公民神不再只是夢想！</h2>
-            <div class="header-links">
-                <!-- Header links will be inserted here by JS -->
-            </div>
-            
+            <div class="header-links"></div>
             <div class="search-container">
                 <i class="fas fa-search search-icon"></i>
                 <input type="text" id="search-input" placeholder="搜尋章節關鍵字 (例如: 民法, 10-1)..." autocomplete="off">
@@ -267,7 +231,7 @@
     </header>
 
     <main class="container">
-        <!-- Sections for chapters -->
+        <!-- Chapter sections -->
         <section id="book1" data-book="1">
             <h2 class="section-title"><i class="fas fa-child"></i> 第一冊・自我、家庭與社區
                 <a href="b1-card.html" class="title-link-icon" title="總複習：第一冊名詞解釋"><i class="fas fa-layer-group"></i></a>
@@ -305,7 +269,7 @@
             <div class="chapter-grid" id="book6-grid"></div>
         </section>
 
-        <!-- 【新增區塊】 特色功能圖表 -->
+        <!-- 特色功能圖表 -->
         <section id="special-tools">
             <h2 class="section-title">
                 <i class="fas fa-star-of-life"></i> 特色功能圖表
@@ -323,9 +287,36 @@
             <h2 class="section-title">
                 <i class="fas fa-rocket"></i> 綜合單元測驗
             </h2>
-            <div class="quiz-grid" id="quiz-grid-container">
-                <!-- JS will fill this area -->
+            <div class="quiz-grid" id="quiz-grid-container"></div>
+        </section>
+        
+        <!-- 【修改】Podcast 專區 -->
+        <section id="podcast-section">
+            <h2 class="section-title">
+                <i class="fas fa-headphones-alt"></i> 單元複習 Podcast
+            </h2>
+            <!-- 共用播放器 -->
+            <div id="master-player-container">
+                <div id="master-player-title" class="podcast-title">請選擇下方單元開始播放</div>
+                <audio id="master-audio-player" preload="metadata"></audio>
+                <div class="player-controls">
+                    <button class="play-pause-btn" aria-label="播放/暫停"><i class="fas fa-play"></i></button>
+                    <input type="range" class="progress-bar" value="0" step="0.1" aria-label="音檔進度">
+                    <span class="time-display">00:00 / 00:00</span>
+                    <div class="volume-control" aria-label="音量控制">
+                        <i class="fas fa-volume-up"></i>
+                        <input type="range" class="volume-slider" min="0" max="1" step="0.05" value="1">
+                    </div>
+                    <select class="speed-control" aria-label="播放速度">
+                        <option value="0.75">0.75x</option>
+                        <option value="1" selected>1x</option>
+                        <option value="1.5">1.5x</option>
+                        <option value="2">2.0x</option>
+                    </select>
+                </div>
             </div>
+            <!-- Podcast 播放列表 -->
+            <div id="podcast-track-list"></div>
         </section>
 
         <div id="no-results-message">
@@ -337,6 +328,7 @@
         <button id="mascot-btn" aria-label="與吉祥物互動">
             <img id="mascot-img" src="image/LiyuChillGuy(W).svg" alt="吉祥物">
         </button>
+        <div id="mascot-speech-bubble">公民神，與你同在！</div>
     </div>
 
     <footer>
@@ -346,175 +338,246 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // --- Galaxy Background ---
-            const canvas = document.getElementById('starry-sky');
-            const ctx = canvas.getContext('2d');
-            let width, height, stars = [];
-            function init() {
-                width = window.innerWidth;
-                height = window.innerHeight;
-                canvas.width = width;
-                canvas.height = height;
-                stars = [];
-                for(let i = 0; i < 150; i++) {
-                    stars.push({
-                        x: Math.random() * width,
-                        y: Math.random() * height,
-                        radius: Math.random() * 1.5 + 0.5,
-                        vx: Math.random() * 0.2 - 0.1,
-                        vy: Math.random() * 0.2 - 0.1,
-                        opacity: Math.random() * 0.5 + 0.3,
-                        twinkleSpeed: Math.random() * 0.03
-                    });
-                }
-            }
-            function draw() {
-                ctx.clearRect(0, 0, width, height);
-                stars.forEach(star => {
-                    ctx.beginPath();
-                    star.opacity += Math.sin(Date.now() * star.twinkleSpeed) * 0.05;
-                    star.opacity = Math.max(0.1, Math.min(0.8, star.opacity));
-                    ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
-                    ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-                    ctx.fill();
-                    star.x += star.vx;
-                    star.y += star.vy;
-                    if (star.x < 0) star.x = width;
-                    if (star.x > width) star.x = 0;
-                    if (star.y < 0) star.y = height;
-                    if (star.y > height) star.y = 0;
-                });
-                requestAnimationFrame(draw);
-            }
-            window.addEventListener('resize', init);
-            init();
-            draw();
+            (() => {
+                const canvas = document.getElementById('starry-sky');
+                const ctx = canvas.getContext('2d');
+                let width, height, stars = [];
+                function init() { width = window.innerWidth; height = window.innerHeight; canvas.width = width; canvas.height = height; stars = []; for(let i = 0; i < 150; i++) { stars.push({ x: Math.random() * width, y: Math.random() * height, radius: Math.random() * 1.5 + 0.5, vx: Math.random() * 0.2 - 0.1, vy: Math.random() * 0.2 - 0.1, opacity: Math.random() * 0.5 + 0.3, twinkleSpeed: Math.random() * 0.03 }); } }
+                function draw() { ctx.clearRect(0, 0, width, height); stars.forEach(star => { ctx.beginPath(); star.opacity += Math.sin(Date.now() * star.twinkleSpeed) * 0.05; star.opacity = Math.max(0.1, Math.min(0.8, star.opacity)); ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`; ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2); ctx.fill(); star.x += star.vx; star.y += star.vy; if (star.x < 0) star.x = width; if (star.x > width) star.x = 0; if (star.y < 0) star.y = height; if (star.y > height) star.y = 0; }); requestAnimationFrame(draw); }
+                window.addEventListener('resize', init); init(); draw();
+            })();
 
-            // --- Dynamic Link Generation ---
+            // --- Data Definitions ---
             const chapters = [
-                 // Book 1
                 { file: 'ch1-1.html', title: '人性尊嚴與普世人權', chapter: '1-1' }, { file: 'ch1-2.html', title: '性別', chapter: '1-2' },
                 { file: 'ch2-1.html', title: '家庭組成', chapter: '2-1' }, { file: 'ch2-2.html', title: '平權家庭', chapter: '2-2' },
                 { file: 'ch3-1.html', title: '學校生活', chapter: '3-1' }, { file: 'ch3-2.html', title: '社區與部落', chapter: '3-2' },
-                // Book 2
                 { file: 'ch4-1.html', title: '社會生活中的公民德性', chapter: '4-1' }, { file: 'ch4-2.html', title: '志願結社', chapter: '4-2' }, { file: 'ch4-3.html', title: '社會文化', chapter: '4-3' },
                 { file: 'ch5-1.html', title: '社會規範', chapter: '5-1' }, { file: 'ch5-2.html', title: '公平正義', chapter: '5-2' }, { file: 'ch5-3.html', title: '社會福利', chapter: '5-3' },
-                // Book 3
                 { file: 'ch6-1.html', title: '國家', chapter: '6-1' }, { file: 'ch6-2.html', title: '民主政治', chapter: '6-2' },
                 { file: 'ch7-1.html', title: '權力分立', chapter: '7-1' }, { file: 'ch7-2.html', title: '我國中央政府', chapter: '7-2' }, { file: 'ch7-3.html', title: '我國地方政府', chapter: '7-3' },
                 { file: 'ch8-1.html', title: '民主國家中的公共意見', chapter: '8-1' }, { file: 'ch8-2.html', title: '政治參與', chapter: '8-2' },
-                // Book 4
                 { file: 'ch9-1.html', title: '憲法與人權保障', chapter: '9-1' }, { file: 'ch9-2.html', title: '民法與生活', chapter: '9-2' }, { file: 'ch9-3.html', title: '刑法與生活', chapter: '9-3' },
                 { file: 'ch10-1.html', title: '民事糾紛的解決', chapter: '10-1' }, { file: 'ch10-2.html', title: '刑事糾紛的解決', chapter: '10-2' },
                 { file: 'ch11-1.html', title: '行政法與生活', chapter: '11-1' }, { file: 'ch11-2.html', title: '法律對兒少的保障', chapter: '11-2' },
-                // Book 5
                 { file: 'ch12-1.html', title: '選擇與機會成本', chapter: '12-1' }, { file: 'ch12-2.html', title: '資源分配', chapter: '12-2' },
                 { file: 'ch13-1.html', title: '廠商競爭', chapter: '13-1' }, { file: 'ch13-2.html', title: '市場交易的形成', chapter: '13-2' },
                 { file: 'ch14-1.html', title: '貨幣與支付方式', chapter: '14-1' }, { file: 'ch14-2.html', title: '勞動參與', chapter: '14-2' },
-                // Book 6
                 { file: 'ch15-1.html', title: '科技發展與智慧財產權', chapter: '15-1' }, { file: 'ch15-2.html', title: '社群網路與媒體識讀', chapter: '15-2' },
                 { file: 'ch16-1.html', title: '全球化', chapter: '16-1' }, { file: 'ch16-2.html', title: '國際社會的形成與互動', chapter: '16-2' }
             ];
-
+            const unitTitles = [
+                "人性尊嚴與性別", "家庭生活", "學校、社區與部落", "公民德性、志願結社與社會文化",
+                "社會規範、公平正義與社會福利", "國家與民主政治", "權力分立與政府", "公共意見與政治參與",
+                "憲法、民法與刑法", "民事與刑事糾紛的解決", "行政法與兒少法律", "選擇與資源分配",
+                "廠商競爭與市場交易", "貨幣與勞動", "科技、智慧財產權與媒體識讀", "全球化與國際社會"
+            ];
             const externalLinks = [
                 { url: 'https://gongminshen.tumblr.com/', text: '公民神官網', icon: 'fas fa-globe' },
                 { url: 'https://sites.google.com/view/gongminshen', text: '協作平臺', icon: 'fas fa-users' },
                 { url: 'https://www.facebook.com/GongMinShen', text: 'FB粉專', icon: 'fab fa-facebook' },
                 { url: 'https://www.instagram.com/gongminshen/', text: 'IG粉專', icon: 'fab fa-instagram' }
             ];
-
             const bookGrids = {
                 'book1-grid': (num) => num <= 3, 'book2-grid': (num) => num > 3 && num <= 5, 'book3-grid': (num) => num > 5 && num <= 8, 'book4-grid': (num) => num > 8 && num <= 11, 'book5-grid': (num) => num > 11 && num <= 14, 'book6-grid': (num) => num > 14
             };
 
-            chapters.forEach(c => {
-                const chapterNum = parseInt(c.chapter.split('-')[0]);
-                const cardHTML = `
-                    <a href="${c.file}" class="link-card" data-chapter-title="${c.title}" data-chapter-number="${c.chapter}">
-                        <div class="chapter-number">${c.chapter}</div>
-                        <div class="chapter-title">${c.title}</div>
-                    </a>`;
+            // --- Dynamic Content Generation ---
+            (() => {
+                // Chapter Cards
+                chapters.forEach(c => {
+                    const chapterNum = parseInt(c.chapter.split('-')[0]);
+                    const cardHTML = `<a href="${c.file}" class="link-card" data-chapter-title="${c.title}" data-chapter-number="${c.chapter}"><div class="chapter-number">${c.chapter}</div><div class="chapter-title">${c.title}</div></a>`;
+                    for (const gridId in bookGrids) { if (bookGrids[gridId](chapterNum)) { document.getElementById(gridId).innerHTML += cardHTML; break; } }
+                });
 
-                for (const gridId in bookGrids) {
-                    if (bookGrids[gridId](chapterNum)) {
-                        document.getElementById(gridId).innerHTML += cardHTML;
-                        break;
+                // Quiz Cards with Unit Titles
+                const quizGridContainer = document.getElementById('quiz-grid-container');
+                let quizLinksHTML = '';
+                for (let i = 1; i <= 16; i++) {
+                    quizLinksHTML += `<a href="test-${i}.htm" class="link-card" aria-label="單元 ${i} 綜合測驗: ${unitTitles[i-1]}"><div class="chapter-number">單元 ${i}</div><div class="chapter-title">綜合測驗</div><div class="unit-subtitle">${unitTitles[i-1]}</div></a>`;
+                }
+                quizGridContainer.innerHTML = quizLinksHTML;
+
+                // Header Links
+                const headerLinksContainer = document.querySelector('.header-links');
+                externalLinks.forEach(link => { headerLinksContainer.innerHTML += `<a href="${link.url}" target="_blank" rel="noopener noreferrer"><i class="${link.icon}"></i><span>${link.text}</span></a>`; });
+            })();
+
+            // --- Intersection Observer for animations ---
+            (() => {
+                const allSections = document.querySelectorAll('section');
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+                }, { threshold: 0.1 });
+                allSections.forEach(section => observer.observe(section));
+            })();
+
+            // --- Mascot & Particle Effects ---
+            (() => {
+                const mascotBtn = document.getElementById('mascot-btn');
+                const speechBubble = document.getElementById('mascot-speech-bubble');
+                const mascotPhrases = ["公民好神！我會遵守公民神會員守則！","努力向上、勇往直前、不畏艱難，我要成為公民神！", "公民神有三力：注意力、記憶力、戰鬥力！"];
+                let bubbleTimeout;
+
+                const particleCanvas = document.getElementById('particle-canvas');
+                const particleCtx = particleCanvas.getContext('2d');
+                let particles = [];
+                let canvasWidth, canvasHeight;
+
+                function resizeCanvas() {
+                    canvasWidth = window.innerWidth;
+                    canvasHeight = window.innerHeight;
+                    particleCanvas.width = canvasWidth;
+                    particleCanvas.height = canvasHeight;
+                }
+                resizeCanvas();
+                window.addEventListener('resize', resizeCanvas);
+
+                function createParticles(x, y) {
+                    for (let i = 0; i < 30; i++) {
+                        particles.push({
+                            x: x, y: y,
+                            vx: (Math.random() - 0.5) * 8, vy: (Math.random() - 0.5) * 8,
+                            life: 1, hue: Math.random() * 360
+                        });
                     }
                 }
-            });
-            
-            const quizGridContainer = document.getElementById('quiz-grid-container');
-            let quizLinksHTML = '';
-            const totalUnits = 16;
-            for (let i = 1; i <= totalUnits; i++) {
-                quizLinksHTML += `
-                    <a href="test-${i}.htm" class="link-card" aria-label="單元 ${i} 綜合測驗">
-                        <div class="chapter-number">單元 ${i}</div>
-                        <div class="chapter-title">綜合測驗</div>
-                    </a>
-                `;
-            }
-            quizGridContainer.innerHTML = quizLinksHTML;
-            
-            const headerLinksContainer = document.querySelector('.header-links');
-            externalLinks.forEach(link => {
-                headerLinksContainer.innerHTML += `<a href="${link.url}" target="_blank" rel="noopener noreferrer"><i class="${link.icon}"></i><span>${link.text}</span></a>`;
-            });
 
-            const allSections = document.querySelectorAll('section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
+                function animateParticles() {
+                    particleCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+                    particles = particles.filter(p => p.life > 0);
+                    particles.forEach(p => {
+                        p.x += p.vx; p.y += p.vy; p.vy += 0.1; p.life -= 0.02;
+                        particleCtx.beginPath();
+                        particleCtx.fillStyle = `hsla(${p.hue}, 100%, 70%, ${p.life})`;
+                        particleCtx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+                        particleCtx.fill();
+                    });
+                    requestAnimationFrame(animateParticles);
+                }
+                animateParticles();
+
+                mascotBtn.addEventListener('click', (e) => {
+                    // Click animation
+                    mascotBtn.classList.add('clicked');
+                    setTimeout(() => mascotBtn.classList.remove('clicked'), 200);
+
+                    createParticles(e.clientX, e.clientY);
+                    
+                    const randomPhrase = mascotPhrases[Math.floor(Math.random() * mascotPhrases.length)];
+                    speechBubble.textContent = randomPhrase;
+                    speechBubble.classList.add('visible');
+                    
+                    clearTimeout(bubbleTimeout);
+                    bubbleTimeout = setTimeout(() => { speechBubble.classList.remove('visible'); }, 3000);
                 });
-            }, { threshold: 0.1 }); 
-            allSections.forEach(section => observer.observe(section));
-
-            // Mascot JS ...
+            })();
             
             // --- Search Functionality ---
-            const searchInput = document.getElementById('search-input');
-            const clearSearchBtn = document.getElementById('clear-search-btn');
-            const noResultsMessage = document.getElementById('no-results-message');
-            const allLinkCards = document.querySelectorAll('.chapter-grid .link-card');
-
-            function filterChapters() {
-                const searchTerm = searchInput.value.toLowerCase().trim();
-                let visibleCardsCount = 0;
-                clearSearchBtn.style.display = searchTerm ? 'block' : 'none';
-
-                allLinkCards.forEach(card => {
-                    const cardTitle = card.dataset.chapterTitle.toLowerCase();
-                    const chapterNumber = card.dataset.chapterNumber.toLowerCase();
-                    const isVisible = cardTitle.includes(searchTerm) || chapterNumber.includes(searchTerm);
-                    
-                    card.style.display = isVisible ? 'flex' : 'none';
-                    if (isVisible) {
-                        visibleCardsCount++;
-                    }
-                });
-
-                // --- 【JS 修改】 ---
-                // 將 #special-tools 加入選擇器，使其也能在搜尋時被正確隱藏
-                document.querySelectorAll('section[data-book], #special-tools').forEach(section => {
-                    const visibleCardsInSection = section.querySelectorAll('.link-card[style*="display: flex"]');
-                    section.style.display = visibleCardsInSection.length > 0 ? 'block' : 'none';
-                });
-
-                if (visibleCardsCount === 0 && searchTerm) {
-                    noResultsMessage.style.display = 'block';
-                } else {
-                    noResultsMessage.style.display = 'none';
+            (() => {
+                const searchInput = document.getElementById('search-input');
+                const clearSearchBtn = document.getElementById('clear-search-btn');
+                const noResultsMessage = document.getElementById('no-results-message');
+                const allLinkCards = document.querySelectorAll('.chapter-grid .link-card');
+                function filterChapters() {
+                    const searchTerm = searchInput.value.toLowerCase().trim();
+                    let visibleCardsCount = 0;
+                    clearSearchBtn.style.display = searchTerm ? 'block' : 'none';
+                    allLinkCards.forEach(card => {
+                        const cardTitle = card.dataset.chapterTitle.toLowerCase();
+                        const chapterNumber = card.dataset.chapterNumber.toLowerCase();
+                        const isVisible = cardTitle.includes(searchTerm) || chapterNumber.includes(searchTerm);
+                        card.style.display = isVisible ? 'flex' : 'none';
+                        if (isVisible) visibleCardsCount++;
+                    });
+                    document.querySelectorAll('section[data-book], #special-tools, #quiz-section, #podcast-section').forEach(section => {
+                        const visibleCardsInSection = section.querySelectorAll('.link-card[style*="display: flex"], .podcast-track-btn');
+                        let shouldShow = visibleCardsInSection.length > 0;
+                        if (searchTerm) {
+                            if (['special-tools', 'quiz-section', 'podcast-section'].includes(section.id)) shouldShow = false;
+                        } else {
+                            if (['special-tools', 'quiz-section', 'podcast-section'].includes(section.id)) shouldShow = true;
+                        }
+                        section.style.display = shouldShow ? 'block' : 'none';
+                    });
+                    noResultsMessage.style.display = (visibleCardsCount === 0 && searchTerm) ? 'block' : 'none';
                 }
-            }
+                searchInput.addEventListener('input', filterChapters);
+                clearSearchBtn.addEventListener('click', () => {
+                    searchInput.value = '';
+                    document.querySelectorAll('.link-card').forEach(c => c.style.display = 'flex');
+                    filterChapters();
+                    searchInput.focus();
+                });
+            })();
 
-            searchInput.addEventListener('input', filterChapters);
+            // --- Podcast Player Functionality ---
+            (() => {
+                const trackListContainer = document.getElementById('podcast-track-list');
+                const playerContainer = document.getElementById('master-player-container');
+                const playerTitle = document.getElementById('master-player-title');
+                const audio = document.getElementById('master-audio-player');
+                const playPauseBtn = playerContainer.querySelector('.play-pause-btn');
+                const playIcon = playPauseBtn.querySelector('i');
+                const progressBar = playerContainer.querySelector('.progress-bar');
+                const timeDisplay = playerContainer.querySelector('.time-display');
+                const volumeSlider = playerContainer.querySelector('.volume-slider');
+                const speedControl = playerContainer.querySelector('.speed-control');
+                
+                let trackListHTML = '';
+                for (let i = 1; i <= 16; i++) {
+                    trackListHTML += `<button class="podcast-track-btn" data-unit="${i}"><span class="track-btn-main-title">單元 ${i}</span><span class="track-btn-sub-title">${unitTitles[i-1]}</span></button>`;
+                }
+                trackListContainer.innerHTML = trackListHTML;
+                
+                trackListContainer.addEventListener('click', (e) => {
+                    const trackButton = e.target.closest('.podcast-track-btn');
+                    if (!trackButton) return;
+                    const unit = trackButton.dataset.unit;
+                    document.querySelectorAll('.podcast-track-btn').forEach(btn => btn.classList.remove('active'));
+                    trackButton.classList.add('active');
+                    playerTitle.textContent = `正在播放: 單元 ${unit} - ${unitTitles[unit-1]}`;
+                    audio.src = `podcast/podcast-${unit}.wav`;
+                    audio.play();
+                });
+                
+                const updateSliderFill = (slider, percentVariable) => {
+                    const percent = (slider.value - slider.min) / (slider.max - slider.min) * 100;
+                    slider.style.setProperty(percentVariable, `${percent}%`);
+                };
 
-            clearSearchBtn.addEventListener('click', () => {
-                searchInput.value = '';
-                searchInput.dispatchEvent(new Event('input'));
-                searchInput.focus();
-            });
+                const formatTime = (seconds) => {
+                    if (isNaN(seconds) || seconds === Infinity) return '00:00';
+                    const mins = Math.floor(seconds / 60);
+                    const secs = Math.floor(seconds % 60);
+                    return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+                };
+
+                playPauseBtn.addEventListener('click', () => audio.paused ? audio.play() : audio.pause());
+                audio.addEventListener('play', () => playIcon.classList.replace('fa-play', 'fa-pause'));
+                audio.addEventListener('pause', () => playIcon.classList.replace('fa-pause', 'fa-play'));
+                audio.addEventListener('loadedmetadata', () => {
+                    progressBar.max = audio.duration;
+                    timeDisplay.textContent = `00:00 / ${formatTime(audio.duration)}`;
+                    updateSliderFill(progressBar, '--progress-percent');
+                });
+                audio.addEventListener('timeupdate', () => {
+                    progressBar.value = audio.currentTime;
+                    timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+                    updateSliderFill(progressBar, '--progress-percent');
+                });
+                progressBar.addEventListener('input', () => {
+                    audio.currentTime = progressBar.value;
+                    updateSliderFill(progressBar, '--progress-percent');
+                });
+                volumeSlider.addEventListener('input', () => {
+                    audio.volume = volumeSlider.value;
+                    updateSliderFill(volumeSlider, '--volume-percent');
+                });
+                speedControl.addEventListener('change', () => audio.playbackRate = speedControl.value);
+                updateSliderFill(volumeSlider, '--volume-percent');
+            })();
         });
     </script>
 </body>
