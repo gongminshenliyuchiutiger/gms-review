@@ -253,10 +253,15 @@
             q1: 'B', q2: 'B', q3: 'A', q4: 'A', q5: 'C', q6: 'true', q7: 'false', q8: 'false',
             q9: '經濟', q10: '國際移工', q11: '交流', 
             q12: 'B',
-            q13: 'C', q14: 'A', q15: 'B',
-            q16: { cooperation: '1', dispute: '2', conflict: '3' },
-            q17: ['A', 'B', 'D'], q18: ['A', 'C'],
-            q19: 'C', q20: 'B'
+            // q13, q14, q15 are for the matching items, and q13 is the container ID
+            q13: 'C', // 全球性國際組織 -> 世界貿易組織 (WTO)
+            q14: 'A', // 區域性國際組織 -> 歐洲聯盟 (EU)
+            q15: 'B', // 非政府的國際組織 -> 無國界醫生
+            q16: { cooperation: '1', dispute: '2', conflict: '3' }, // 國際合作 -> 國際糾紛 -> 國際衝突
+            q17: ['A', 'B', 'D'], // 貧富差距擴大, 疾病跨國傳播, 國際移工的文化適應問題
+            q18: ['A', 'C'], // 臺灣世界展望會, 臺灣路竹會
+            q19: 'C', // 文化全球化
+            q20: 'B' // 國際合作
         };
 
         const feedbackText = {
@@ -272,12 +277,10 @@
              q10: "正確答案是「國際移工」。",
              q11: "正確答案是「交流」。",
              q12: "<span class='highlight-text'>聯合國（UN）</span>是全球性最重要的國際組織，其主要宗旨即為維護國際和平與安全。",
-             q13: "正確答案是 (13)→C, (14)→A, (15)→B。配合題需一起批改。",
-             q14: "正確答案是 (13)→C, (14)→A, (15)→B。配合題需一起批改。",
-             q15: "正確答案是 (13)→C, (14)→A, (15)→B。配合題需一起批改。",
+             q13: "正確答案：(13)全球性國際組織→C.世界貿易組織(WTO), (14)區域性國際組織→A.歐洲聯盟(EU), (15)非政府的國際組織→B.無國界醫生。此題組共3分。", // Consolidated feedback for the group
              q16: "互動的激烈程度依序為 1.國際合作 → 2.國際糾紛 → 3.國際衝突。",
-             q17: "正確答案是(A), (B), (D)。(C)和(E)通常被視為全球化的<span class='highlight-text'>正面現象</span>。",
-             q18: "正確答案是(A)和(C)。(B)和(D)是我國<span class='highlight-text'>政府</span>參與的國際組織。",
+             q17: "正確答案是(A), (B), (D)。(C)文化交流頻繁和(E)經濟活動蓬勃發展通常被視為全球化的<span class='highlight-text'>正面現象</span>。",
+             q18: "正確答案是(A)和(C)。(B)加入世界貿易組織(WTO)和(D)加入亞太經濟合作會議(APEC)是我國<span class='highlight-text'>政府</span>參與的國際組織。",
              q19: "電影、動漫、音樂等流行文化的跨國流通，是<span class='highlight-text'>文化全球化</span>的典型例子。",
              q20: "為達成共同目標而進行的資源共享與協商，屬於<span class='highlight-text'>國際合作</span>。"
         };
@@ -294,41 +297,63 @@
 
             const feedbackEl = container.querySelector('.feedback');
             let isCorrect = false;
+            let questionScore = 0; // Initialize questionScore at the start
 
-            if (['q13', 'q14', 'q15'].includes(qId)) {
+            // Handle different question types
+            if (qId === 'q13') { // Special handling for the combined matching question (q13-q15)
                 const q13User = container.querySelector('#q13-select').value;
                 const q14User = container.querySelector('#q14-select').value;
                 const q15User = container.querySelector('#q15-select').value;
-                isCorrect = q13User === correctAnswers.q13 && q14User === correctAnswers.q14 && q15User === correctAnswers.q15;
-                if(isCorrect) { return { isCorrect: true, score: 3 }; } 
-                else { return { isCorrect: false, score: 0 }; }
-            }
-
-            if (['q1', 'q2', 'q3', 'q4', 'q5', 'q12', 'q19', 'q20'].includes(qId) || ['q6', 'q7', 'q8'].includes(qId)) {
+                
+                // 此題組若全部配對正確則得3分，否則0分。
+                isCorrect = (q13User === correctAnswers.q13 && 
+                             q14User === correctAnswers.q14 && 
+                             q15User === correctAnswers.q15);
+                questionScore = isCorrect ? 3 : 0; // Set questionScore here. NO EARLY RETURN.
+            } else if (['q1', 'q2', 'q3', 'q4', 'q5', 'q12', 'q19', 'q20'].includes(qId) || ['q6', 'q7', 'q8'].includes(qId)) {
+                // Radio button (single choice/true-false) questions
                 const userAnswer = container.querySelector(`input[name="${qId}"]:checked`)?.value;
                 isCorrect = (userAnswer === correctAnswers[qId]);
+                questionScore = isCorrect ? 1 : 0;
             } else if (['q9', 'q10', 'q11'].includes(qId)) {
+                // Fill-in-the-blank questions
                 const userAnswer = container.querySelector(`#${qId}-input`).value.trim();
+                // 使用 includes() 判斷，允許回答包含正確答案的變體
                 isCorrect = userAnswer.includes(correctAnswers[qId]);
+                questionScore = isCorrect ? 1 : 0;
             } else if (qId === 'q16') {
-                const c1_val = container.querySelector('#q16-cooperation').value;
-                const d_val = container.querySelector('#q16-dispute').value;
-                const c2_val = container.querySelector('#q16-conflict').value;
-                isCorrect = (c1_val === correctAnswers.q16.cooperation && d_val === correctAnswers.q16.dispute && c2_val === correctAnswers.q16.conflict);
+                // Sequencing question
+                const co_val = container.querySelector('#q16-cooperation').value;
+                const di_val = container.querySelector('#q16-dispute').value;
+                const cf_val = container.querySelector('#q16-conflict').value;
+                isCorrect = (co_val === correctAnswers.q16.cooperation && 
+                             di_val === correctAnswers.q16.dispute && 
+                             cf_val === correctAnswers.q16.conflict);
+                questionScore = isCorrect ? 1 : 0;
             } else if (['q17', 'q18'].includes(qId)) {
+                // Multiple choice (checkbox) questions
                 const userAnswers = Array.from(container.querySelectorAll(`input[name="${qId}"]:checked`)).map(cb => cb.value).sort();
-                const correctAns = [...correctAnswers[qId]].sort();
+                const correctAns = [...correctAnswers[qId]].sort(); // 確保正確答案也排序以便比對
                 isCorrect = JSON.stringify(userAnswers) === JSON.stringify(correctAns);
+                questionScore = isCorrect ? 1 : 0;
+            } else {
+                console.warn(`[gradeQuestion] Unknown or unhandled question ID: ${qId}. Skipping.`);
+                return null; // Return null if qId is not recognized/handled
             }
             
+            // Apply feedback and disable inputs after determining correctness and score
             feedbackEl.style.display = 'block';
             feedbackEl.className = `feedback ${isCorrect ? 'correct' : 'wrong'}`;
             feedbackEl.innerHTML = `<i class="fas ${isCorrect ? 'fa-check-circle' : 'fa-times-circle'}"></i> ${isCorrect ? '正確！' : '錯誤。'} <p>${feedbackText[qId]}</p>`;
             
             disableInputs(container, true);
-            container.querySelector('.check-single-btn').style.display = 'none';
+            // Hide the single check button for the graded question
+            const singleCheckBtn = container.querySelector('.check-single-btn');
+            if (singleCheckBtn) {
+                singleCheckBtn.style.display = 'none';
+            }
             
-            return { isCorrect: isCorrect, score: isCorrect ? 1 : 0 };
+            return { isCorrect: isCorrect, score: questionScore }; // Return the score
         }
 
         quizForm.addEventListener('click', (e) => {
@@ -340,42 +365,23 @@
         });
 
         submitBtn.addEventListener('click', () => {
-            let score = 0;
-            const allQuestions = Object.keys(correctAnswers);
-            const processed = new Set(); 
-
-            allQuestions.forEach(qId => {
-                if (processed.has(qId)) return;
-
-                const container = document.querySelector(`.quiz-container[data-quiz-id="${qId}"]`);
-                if (container && container.classList.contains('graded')) {
-                    const feedback = container.querySelector('.feedback');
-                    if (feedback && feedback.classList.contains('correct')) {
-                        if (['q13', 'q14', 'q15'].includes(qId)) {
-                             score += 3;
-                        } else {
-                             score += 1;
-                        }
-                    }
-                } else {
-                    const result = gradeQuestion(qId);
-                    if (result !== null) {
-                        score += result.score;
-                    }
-                }
-                
-                if (['q13', 'q14', 'q15'].includes(qId)) {
-                    processed.add('q13');
-                    processed.add('q14');
-                    processed.add('q15');
+            let totalScore = 0;
+            const quizContainers = document.querySelectorAll('.quiz-container');
+            
+            quizContainers.forEach(container => {
+                const qId = container.dataset.quizId;
+                // gradeQuestion handles if it's already graded and returns null, or grades and returns {isCorrect, score}
+                const result = gradeQuestion(qId); 
+                if (result !== null) {
+                    totalScore += result.score;
                 }
             });
 
             resultsContainer.style.display = 'block';
-            scoreDisplay.textContent = `${score} / 20`;
-            if (score >= 18) {
+            scoreDisplay.textContent = `${totalScore} / 20`;
+            if (totalScore >= 18) {
                 scoreMessage.innerHTML = '太強了！你就是<span class="highlight-text">公民神</span>！';
-            } else if (score >= 12) {
+            } else if (totalScore >= 12) {
                 scoreMessage.innerHTML = '表現不錯！再加把勁，你離公民神不遠了！';
             } else {
                 scoreMessage.innerHTML = '別灰心，複習詳解後再挑戰一次吧！';
@@ -387,10 +393,11 @@
         });
         
         resetBtn.addEventListener('click', () => {
+            // form.reset() is called automatically by the button's type="reset"
             document.querySelectorAll('.quiz-container').forEach(container => {
-                disableInputs(container, false);
+                disableInputs(container, false); // Re-enable inputs
                 container.querySelector('.feedback').style.display = 'none';
-                if (container.querySelector('.check-single-btn')) {
+                if (container.querySelector('.check-single-btn')) { // Check if button exists before trying to display
                     container.querySelector('.check-single-btn').style.display = 'inline-block';
                 }
             });

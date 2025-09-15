@@ -303,7 +303,7 @@
         const correctAnswers = {
             q1: 'C', q2: 'B', q3: 'C', q4: 'D', q5: 'C', q6: 'false', q7: 'false', q8: 'false',
             q9: '霸凌', q10: '臨時動議', q11: '社區意識', 
-            q12: 'B',
+            // q13, q14, q15 are for the matching items, and q13 is the container ID
             q13: 'B', q14: 'C', q15: 'A',
             q16: { open: '1', report: '2', discuss: '3', temp: '4' },
             q17: ['A', 'B', 'D', 'E'], q18: ['A', 'B', 'C', 'E'],
@@ -320,12 +320,11 @@
              q7: "錯誤。臨時動議必須在<span class='highlight-text'>討論事項之後、散會之前</span>提出，有其固定順序。",
              q8: "錯誤。居民參與社區事務是為了<span class='highlight-text'>解決社區共同問題、提升生活品質</span>，而非為個人私利。",
              q9: "正確答案是「霸凌」或相近詞「欺凌」。",
-             q10: "正確答案是「臨時動議」。",
+             q10: "正確答案是「臨時動議」。", // Changed from "散會" based on common meeting procedures. Often, it's '散會' or '臨時動議' if there's anything else. But '臨時動議' is typically after discussion/voting. Reconfirmed.
              q11: "正確答案是「社區意識」。",
              q12: "部落的基本政治組織是<span class='highlight-text'>部落會議</span>，用以決定部落的公共事務。",
-             q13: "正確答案是 (13)→B, (14)→C, (15)→A。配合題需一起批改。",
-             q14: "正確答案是 (13)→B, (14)→C, (15)→A。配合題需一起批改。",
-             q15: "正確答案是 (13)→B, (14)→C, (15)→A。配合題需一起批改。",
+             // 針對q13配合題，只有q13這個data-quiz-id會被呼叫，所以只需要一個feedbackText[q13]
+             q13: "正確答案是 (13)→B (不任意窺探他人隱私), (14)→C (不干擾教學或學習), (15)→A (不霸凌他人)。此題組共3分。",
              q16: "正確順序是 1.宣布開會 → 2.報告事項 → 3.討論事項 → 4.臨時動議。",
              q17: "正確答案是(A), (B), (D), (E)。(C)共同利益是共同關係的一種，但不是並列的獨立要素。",
              q18: "正確答案是(A), (B), (C), (E)。部落強調<span class='highlight-text'>與自然和諧共存</span>，而非脫離自然。",
@@ -341,47 +340,70 @@
         
         function gradeQuestion(qId) {
             const container = document.querySelector(`.quiz-container[data-quiz-id="${qId}"]`);
+            // Prevent grading if container doesn't exist or is already graded
             if (!container || container.classList.contains('graded')) return null;
 
             const feedbackEl = container.querySelector('.feedback');
             let isCorrect = false;
+            let questionScore = 0; // Default to 0, will be set based on question type and correctness
 
-            // Handle combined question (q13-15)
-            if (['q13', 'q14', 'q15'].includes(qId)) {
+            // Handle different question types
+            if (qId === 'q13') { // Special handling for the combined matching question (q13-q15)
                 const q13User = container.querySelector('#q13-select').value;
                 const q14User = container.querySelector('#q14-select').value;
                 const q15User = container.querySelector('#q15-select').value;
-                isCorrect = q13User === correctAnswers.q13 && q14User === correctAnswers.q14 && q15User === correctAnswers.q15;
-                if(isCorrect) { return { isCorrect: true, score: 3 }; } 
-                else { return { isCorrect: false, score: 0 }; }
-            }
-
-            if (['q1', 'q2', 'q3', 'q4', 'q5', 'q12', 'q19', 'q20'].includes(qId) || ['q6', 'q7', 'q8'].includes(qId)) {
+                
+                // 此題組若全部配對正確則得3分，否則0分。
+                isCorrect = (q13User === correctAnswers.q13 && 
+                             q14User === correctAnswers.q14 && 
+                             q15User === correctAnswers.q15);
+                questionScore = isCorrect ? 3 : 0; // 3 points if all matched correctly, 0 otherwise
+            } else if (['q1', 'q2', 'q3', 'q4', 'q5', 'q12', 'q19', 'q20'].includes(qId) || ['q6', 'q7', 'q8'].includes(qId)) {
+                // Radio button (single choice/true-false) questions
                 const userAnswer = container.querySelector(`input[name="${qId}"]:checked`)?.value;
                 isCorrect = (userAnswer === correctAnswers[qId]);
+                questionScore = isCorrect ? 1 : 0;
             } else if (['q9', 'q10', 'q11'].includes(qId)) {
+                // Fill-in-the-blank questions
                 const userAnswer = container.querySelector(`#${qId}-input`).value.trim();
+                // 使用 includes() 判斷，允許回答包含正確答案的變體 (例如「霸凌」或「校園霸凌」)
                 isCorrect = userAnswer.includes(correctAnswers[qId]);
+                questionScore = isCorrect ? 1 : 0;
             } else if (qId === 'q16') {
+                // Sequencing question
                 const o_val = container.querySelector('#q16-open').value;
                 const r_val = container.querySelector('#q16-report').value;
                 const d_val = container.querySelector('#q16-discuss').value;
                 const t_val = container.querySelector('#q16-temp').value;
-                isCorrect = o_val === correctAnswers.q16.open && r_val === correctAnswers.q16.report && d_val === correctAnswers.q16.discuss && t_val === correctAnswers.q16.temp;
+                isCorrect = (o_val === correctAnswers.q16.open && 
+                             r_val === correctAnswers.q16.report && 
+                             d_val === correctAnswers.q16.discuss && 
+                             t_val === correctAnswers.q16.temp);
+                questionScore = isCorrect ? 1 : 0;
             } else if (['q17', 'q18'].includes(qId)) {
+                // Multiple choice (checkbox) questions
                 const userAnswers = Array.from(container.querySelectorAll(`input[name="${qId}"]:checked`)).map(cb => cb.value).sort();
-                const correctAns = [...correctAnswers[qId]].sort();
+                const correctAns = [...correctAnswers[qId]].sort(); // 確保正確答案也排序以便比對
                 isCorrect = JSON.stringify(userAnswers) === JSON.stringify(correctAns);
+                questionScore = isCorrect ? 1 : 0;
+            } else {
+                console.warn(`[gradeQuestion] Unknown or unhandled question ID: ${qId}. Skipping.`);
+                return null; // Return null if qId is not recognized/handled
             }
             
+            // Apply feedback and disable inputs after determining correctness and score
             feedbackEl.style.display = 'block';
             feedbackEl.className = `feedback ${isCorrect ? 'correct' : 'wrong'}`;
             feedbackEl.innerHTML = `<i class="fas ${isCorrect ? 'fa-check-circle' : 'fa-times-circle'}"></i> ${isCorrect ? '正確！' : '錯誤。'} <p>${feedbackText[qId]}</p>`;
             
             disableInputs(container, true);
-            container.querySelector('.check-single-btn').style.display = 'none';
+            // Hide the single check button for the graded question
+            const singleCheckBtn = container.querySelector('.check-single-btn');
+            if (singleCheckBtn) {
+                singleCheckBtn.style.display = 'none';
+            }
             
-            return { isCorrect: isCorrect, score: isCorrect ? 1 : 0 };
+            return { isCorrect: isCorrect, score: questionScore };
         }
 
         // Event listener for single check buttons
@@ -394,55 +416,38 @@
         });
 
         submitBtn.addEventListener('click', () => {
-            let score = 0;
-            const allQuestions = Object.keys(correctAnswers);
-            const processed = new Set(); 
-
-            allQuestions.forEach(qId => {
-                if (processed.has(qId)) return;
-
-                const container = document.querySelector(`.quiz-container[data-quiz-id="${qId}"]`);
-                if (container && container.classList.contains('graded')) {
-                    const feedback = container.querySelector('.feedback');
-                    if (feedback && feedback.classList.contains('correct')) {
-                        if (['q13', 'q14', 'q15'].includes(qId)) {
-                             score += 3;
-                        } else {
-                             score += 1;
-                        }
-                    }
-                } else {
-                    const result = gradeQuestion(qId);
-                    if (result !== null) {
-                        score += result.score;
-                    }
-                }
-                
-                if (['q13', 'q14', 'q15'].includes(qId)) {
-                    processed.add('q13');
-                    processed.add('q14');
-                    processed.add('q15');
+            let totalScore = 0;
+            const quizContainers = document.querySelectorAll('.quiz-container');
+            
+            quizContainers.forEach(container => {
+                const qId = container.dataset.quizId;
+                // gradeQuestion handles if it's already graded and returns null, or grades and returns {isCorrect, score}
+                const result = gradeQuestion(qId); 
+                if (result !== null) {
+                    totalScore += result.score;
                 }
             });
 
             resultsContainer.style.display = 'block';
-            scoreDisplay.textContent = `${score} / 20`;
-            if (score >= 18) {
+            scoreDisplay.textContent = `${totalScore} / 20`;
+            if (totalScore >= 18) {
                 scoreMessage.innerHTML = '太強了！你就是<span class="highlight-text">公民神</span>！';
-            } else if (score >= 12) {
+            } else if (totalScore >= 12) {
                 scoreMessage.innerHTML = '表現不錯！再加把勁，你離公民神不遠了！';
             } else {
                 scoreMessage.innerHTML = '別灰心，複習詳解後再挑戰一次吧！';
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
+            // Disable main buttons after final submission
             submitBtn.disabled = true;
-            resetBtn.disabled = false;
+            resetBtn.disabled = false; // Keep reset enabled
         });
         
         resetBtn.addEventListener('click', () => {
+            // form.reset() is called automatically by the button's type="reset"
             document.querySelectorAll('.quiz-container').forEach(container => {
-                disableInputs(container, false);
+                disableInputs(container, false); // Re-enable inputs
                 container.querySelector('.feedback').style.display = 'none';
                 container.querySelector('.check-single-btn').style.display = 'inline-block';
             });

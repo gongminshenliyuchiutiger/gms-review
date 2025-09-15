@@ -253,10 +253,15 @@
             q1: 'A', q2: 'C', q3: 'B', q4: 'C', q5: 'A', q6: 'false', q7: 'false', q8: 'true',
             q9: '非價格', q10: '消費者保護處', q11: '有形', 
             q12: 'C',
-            q13: 'B', q14: 'A', q15: 'C',
-            q16: { division: '1', specialization: '2' },
-            q17: ['A', 'B', 'D'], q18: ['A', 'C'],
-            q19: 'B', q20: 'B'
+            // q13, q14, q15 are for the matching items, and q13 is the container ID
+            q13: 'B', // 《消費者保護法》 -> 保護消費者權益與安全
+            q14: 'A', // 《公平交易法》 -> 維護廠商間的公平競爭
+            q15: 'C', // 《民法》債篇 -> 規範買賣雙方的契約關係
+            q16: { division: '1', specialization: '2' }, // 個人依機會成本較低的原則進行分工 -> 形成專業化生產
+            q17: ['A', 'B', 'D'], // 提升服務品質, 舉辦抽獎活動, 推出季節限定商品
+            q18: ['A', 'C'], // 我國會出口晶片, 有利於我國晶片生產者 (D:有利於我國晶片消費者 is wrong here, it's referring to the same product with domestic price lower than international market. Consumers in the importing country would benefit. Our domestic consumers might face higher prices due to export.)
+            q19: 'B', // 行政院消費者保護處
+            q20: 'B' // 從產品與生活品質衡量
         };
 
         const feedbackText = {
@@ -272,12 +277,10 @@
              q10: "正確答案是「消費者保護處」。",
              q11: "正確答案是「有形」市場。",
              q12: "《公平交易法》的主管機關是<span class='highlight-text'>行政院公平交易委員會</span>。",
-             q13: "正確答案是 (13)→B, (14)→A, (15)→C。配合題需一起批改。",
-             q14: "正確答案是 (13)→B, (14)→A, (15)→C。配合題需一起批改。",
-             q15: "正確答案是 (13)→B, (14)→A, (15)→C。配合題需一起批改。",
+             q13: "正確答案：(13)《消費者保護法》→B.保護消費者權益與安全, (14)《公平交易法》→A.維護廠商間的公平競爭, (15)《民法》債篇→C.規範買賣雙方的契約關係。此題組共3分。", // Consolidated feedback for the group
              q16: "正確順序是 1.先進行<span class='highlight-text'>分工</span> → 2.才能<span class='highlight-text'>形成專業化生產</span>。",
-             q17: "正確答案是(A), (B), (D)。(C)和(E)都是直接影響價格的手段，屬於<span class='highlight-text'>價格競爭</span>。",
-             q18: "正確答案是(A)和(C)。國內價格較低代表具生產優勢，因此會<span class='highlight-text'>出口</span>該商品，對<span class='highlight-text'>國內生產者有利</span>。但國內消費者可能會面臨價格上漲。",
+             q17: "正確答案是(A), (B), (D)。(C)商品降價促銷與(E)商品買二送一都是直接影響價格的手段，屬於<span class='highlight-text'>價格競爭</span>。",
+             q18: "正確答案是(A)和(C)。國內價格較低代表具生產優勢，因此會<span class='highlight-text'>出口</span>該商品，對<span class='highlight-text'>國內生產者有利</span>。但國內消費者可能會因為產品出口而面臨供給減少或價格上漲。", // Clarified for domestic consumers
              q19: "處理消費糾紛，應向主管機關<span class='highlight-text'>行政院消費者保護處</span>（或地方政府的消保官）申訴。",
              q20: "專業分工能節省時間，讓個人有餘裕從事休閒、學習等其他活動，這是從<span class='highlight-text'>產品與生活品質</span>的角度來衡量的好處。"
         };
@@ -294,40 +297,66 @@
 
             const feedbackEl = container.querySelector('.feedback');
             let isCorrect = false;
+            let questionScore = 0; // Initialize questionScore
 
-            if (['q13', 'q14', 'q15'].includes(qId)) {
+            // Handle different question types
+            if (qId === 'q13') { // Special handling for the combined matching question (q13-q15)
                 const q13User = container.querySelector('#q13-select').value;
                 const q14User = container.querySelector('#q14-select').value;
                 const q15User = container.querySelector('#q15-select').value;
-                isCorrect = q13User === correctAnswers.q13 && q14User === correctAnswers.q14 && q15User === correctAnswers.q15;
-                if(isCorrect) { return { isCorrect: true, score: 3 }; } 
-                else { return { isCorrect: false, score: 0 }; }
-            }
-
-            if (['q1', 'q2', 'q3', 'q4', 'q5', 'q12', 'q19', 'q20'].includes(qId) || ['q6', 'q7', 'q8'].includes(qId)) {
+                
+                // 此題組若全部配對正確則得3分，否則0分。
+                isCorrect = (q13User === correctAnswers.q13 && 
+                             q14User === correctAnswers.q14 && 
+                             q15User === correctAnswers.q15);
+                questionScore = isCorrect ? 3 : 0; // Set questionScore here
+            } else if (['q1', 'q2', 'q3', 'q4', 'q5', 'q12', 'q19', 'q20'].includes(qId) || ['q6', 'q7', 'q8'].includes(qId)) {
+                // Radio button (single choice/true-false) questions
                 const userAnswer = container.querySelector(`input[name="${qId}"]:checked`)?.value;
                 isCorrect = (userAnswer === correctAnswers[qId]);
+                questionScore = isCorrect ? 1 : 0;
             } else if (['q9', 'q10', 'q11'].includes(qId)) {
-                const userAnswer = container.querySelector(`#${qId}-input`).value.trim().replace(/處$/, '');
-                isCorrect = correctAnswers[qId].includes(userAnswer) && userAnswer.length > 1;
+                // Fill-in-the-blank questions
+                const userAnswer = container.querySelector(`#${qId}-input`).value.trim();
+                // 針對 q10 的特殊處理：如果用戶答案是 "消費者保護" 或 "消費者保護處" 都算對
+                if (qId === 'q10') {
+                    const cleanUserAnswer = userAnswer.replace(/處$/, ''); // 移除「處」進行比對
+                    isCorrect = correctAnswers[qId].includes(cleanUserAnswer) && cleanUserAnswer.length > 1; // 確保答案不為空
+                } else {
+                    isCorrect = correctAnswers[qId].includes(userAnswer);
+                }
+                questionScore = isCorrect ? 1 : 0;
             } else if (qId === 'q16') {
+                // Sequencing question
                 const d_val = container.querySelector('#q16-division').value;
                 const s_val = container.querySelector('#q16-specialization').value;
-                isCorrect = (d_val === correctAnswers.q16.division && s_val === correctAnswers.q16.specialization);
+                isCorrect = (d_val === correctAnswers.q16.division && 
+                             s_val === correctAnswers.q16.specialization);
+                questionScore = isCorrect ? 1 : 0;
             } else if (['q17', 'q18'].includes(qId)) {
+                // Multiple choice (checkbox) questions
                 const userAnswers = Array.from(container.querySelectorAll(`input[name="${qId}"]:checked`)).map(cb => cb.value).sort();
-                const correctAns = [...correctAnswers[qId]].sort();
+                const correctAns = [...correctAnswers[qId]].sort(); // 確保正確答案也排序以便比對
                 isCorrect = JSON.stringify(userAnswers) === JSON.stringify(correctAns);
+                questionScore = isCorrect ? 1 : 0;
+            } else {
+                console.warn(`[gradeQuestion] Unknown or unhandled question ID: ${qId}. Skipping.`);
+                return null; // Return null if qId is not recognized/handled
             }
             
+            // Apply feedback and disable inputs after determining correctness and score
             feedbackEl.style.display = 'block';
             feedbackEl.className = `feedback ${isCorrect ? 'correct' : 'wrong'}`;
             feedbackEl.innerHTML = `<i class="fas ${isCorrect ? 'fa-check-circle' : 'fa-times-circle'}"></i> ${isCorrect ? '正確！' : '錯誤。'} <p>${feedbackText[qId]}</p>`;
             
             disableInputs(container, true);
-            container.querySelector('.check-single-btn').style.display = 'none';
+            // Hide the single check button for the graded question
+            const singleCheckBtn = container.querySelector('.check-single-btn');
+            if (singleCheckBtn) {
+                singleCheckBtn.style.display = 'none';
+            }
             
-            return { isCorrect: isCorrect, score: isCorrect ? 1 : 0 };
+            return { isCorrect: isCorrect, score: questionScore }; // Return the score
         }
 
         quizForm.addEventListener('click', (e) => {
@@ -339,42 +368,23 @@
         });
 
         submitBtn.addEventListener('click', () => {
-            let score = 0;
-            const allQuestions = Object.keys(correctAnswers);
-            const processed = new Set(); 
-
-            allQuestions.forEach(qId => {
-                if (processed.has(qId)) return;
-
-                const container = document.querySelector(`.quiz-container[data-quiz-id="${qId}"]`);
-                if (container && container.classList.contains('graded')) {
-                    const feedback = container.querySelector('.feedback');
-                    if (feedback && feedback.classList.contains('correct')) {
-                        if (['q13', 'q14', 'q15'].includes(qId)) {
-                             score += 3;
-                        } else {
-                             score += 1;
-                        }
-                    }
-                } else {
-                    const result = gradeQuestion(qId);
-                    if (result !== null) {
-                        score += result.score;
-                    }
-                }
-                
-                if (['q13', 'q14', 'q15'].includes(qId)) {
-                    processed.add('q13');
-                    processed.add('q14');
-                    processed.add('q15');
+            let totalScore = 0;
+            const quizContainers = document.querySelectorAll('.quiz-container');
+            
+            quizContainers.forEach(container => {
+                const qId = container.dataset.quizId;
+                // gradeQuestion handles if it's already graded and returns null, or grades and returns {isCorrect, score}
+                const result = gradeQuestion(qId); 
+                if (result !== null) {
+                    totalScore += result.score;
                 }
             });
 
             resultsContainer.style.display = 'block';
-            scoreDisplay.textContent = `${score} / 20`;
-            if (score >= 18) {
+            scoreDisplay.textContent = `${totalScore} / 20`;
+            if (totalScore >= 18) {
                 scoreMessage.innerHTML = '太強了！你就是<span class="highlight-text">公民神</span>！';
-            } else if (score >= 12) {
+            } else if (totalScore >= 12) {
                 scoreMessage.innerHTML = '表現不錯！再加把勁，你離公民神不遠了！';
             } else {
                 scoreMessage.innerHTML = '別灰心，複習詳解後再挑戰一次吧！';
@@ -386,10 +396,11 @@
         });
         
         resetBtn.addEventListener('click', () => {
+            // form.reset() is called automatically by the button's type="reset"
             document.querySelectorAll('.quiz-container').forEach(container => {
-                disableInputs(container, false);
+                disableInputs(container, false); // Re-enable inputs
                 container.querySelector('.feedback').style.display = 'none';
-                if (container.querySelector('.check-single-btn')) {
+                if (container.querySelector('.check-single-btn')) { // Check if button exists before trying to display
                     container.querySelector('.check-single-btn').style.display = 'inline-block';
                 }
             });

@@ -125,7 +125,7 @@
         .check-single-btn:hover { background: #fff; box-shadow: 0 0 15px var(--primary-glow); }
 
         .control-buttons { display: flex; justify-content: center; gap: 1.5rem; margin-top: 3rem; }
-        .control-btn { padding: 0.8rem 2.5rem; font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--bg-dark); background: var(--accent-glow); border: none; border-radius: 50px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .control-btn { padding: 0.8rem 2.5rem; font-family: 'Orbitium', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--bg-dark); background: var(--accent-glow); border: none; border-radius: 50px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
         .control-btn:hover { transform: scale(1.05); box-shadow: 0 0 25px var(--accent-glow); }
         .control-btn#reset-btn { background: var(--secondary-glow); }
         .control-btn#reset-btn:hover { box-shadow: 0 0 25px var(--secondary-glow); }
@@ -253,10 +253,15 @@
             q1: 'A', q2: 'A', q3: 'A', q4: 'C', q5: 'D', q6: 'false', q7: 'true', q8: 'false',
             q9: '交易媒介', q10: '外匯', q11: '改善勞動環境', 
             q12: 'B',
-            q13: 'B', q14: 'A', q15: 'C',
-            q16: { barter: '1', commodity: '2', fiat: '3' },
-            q17: ['A', 'C', 'D'], q18: ['A', 'B', 'D'],
-            q19: 'A', q20: 'B'
+            // q13, q14, q15 are for the matching items, and q13 is the container ID
+            q13: 'B', // 價值衡量 -> 一杯珍珠奶茶標價50元
+            q14: 'A', // 價值儲存 -> 小華將年終獎金存入銀行
+            q15: 'C', // 債務清償 -> 小明用1000元償還欠款
+            q16: { barter: '1', commodity: '2', fiat: '3' }, // 以物易物 -> 商品貨幣 -> 法定貨幣
+            q17: ['A', 'C', 'D'], // 醫師看診, 律師出庭辯護, 擔任企業的執行長
+            q18: ['A', 'B', 'D'], // 充分發揮人力, 提升國家競爭力, 減少社會問題
+            q19: 'A', // 1美元兌換28元新臺幣 (新台幣升值，換美元更便宜)
+            q20: 'B' // 勞資雙方權力不對等
         };
 
         const feedbackText = {
@@ -272,13 +277,11 @@
              q10: "正確答案是「外匯」。",
              q11: "正確答案是「改善勞動環境」。",
              q12: "從30元變成31元，代表新臺幣<span class='highlight-text'>貶值</span>，需要花更多新臺幣才能換到1美元，因此對出國旅遊者<span class='highlight-text'>不利</span>。",
-             q13: "正確答案是 (13)→B, (14)→A, (15)→C。配合題需一起批改。",
-             q14: "正確答案是 (13)→B, (14)→A, (15)→C。配合題需一起批改。",
-             q15: "正確答案是 (13)→B, (14)→A, (15)→C。配合題需一起批改。",
+             q13: "正確答案：(13)價值衡量→B.一杯珍珠奶茶標價50元, (14)價值儲存→A.小華將年終獎金存入銀行, (15)債務清償→C.小明用1000元償還欠款。此題組共3分。", // Consolidated feedback for the group
              q16: "貨幣發展順序是 1.以物易物 → 2.商品貨幣 → 3.法定貨幣。",
-             q17: "正確答案是(A), (C), (D)。(B)和(E)屬於<span class='highlight-text'>無酬勞動</span>，因為沒有獲得實質報酬。",
-             q18: "正確答案是(A), (B), (D)。(C)和(E)是<span class='highlight-text'>對個人的重要性</span>。",
-             q19: "進口商需要用新臺幣換美元來買貨，新臺幣越強勢（升值）越好。1:28代表新臺幣最強，因此<span class='highlight-text'>最有利</span>。",
+             q17: "正確答案是(A), (C), (D)。(B)清掃自己的房間和(E)擔任不支薪志工屬於<span class='highlight-text'>無酬勞動</span>，沒有獲得實質報酬。",
+             q18: "正確答案是(A), (B), (D)。(C)實踐個人理想抱負和(E)提供家庭經濟來源是<span class='highlight-text'>對個人的重要性</span>。",
+             q19: "進口商需要用新臺幣換美元來買貨，新臺幣越強勢（升值）表示可以用較少新臺幣換到1美元，成本越低。選項(A)1美元兌換28元新臺幣，新臺幣升值最多，因此<span class='highlight-text'>最有利</span>。",
              q20: "由於勞資雙方通常存在<span class='highlight-text'>權力不對等</span>的現象，因此需要政府立法介入，以保障勞工權益，改善勞動環境。"
         };
         
@@ -294,41 +297,63 @@
 
             const feedbackEl = container.querySelector('.feedback');
             let isCorrect = false;
+            let questionScore = 0; // Initialize questionScore
 
-            if (['q13', 'q14', 'q15'].includes(qId)) {
+            // Handle different question types
+            if (qId === 'q13') { // Special handling for the combined matching question (q13-q15)
                 const q13User = container.querySelector('#q13-select').value;
                 const q14User = container.querySelector('#q14-select').value;
                 const q15User = container.querySelector('#q15-select').value;
-                isCorrect = q13User === correctAnswers.q13 && q14User === correctAnswers.q14 && q15User === correctAnswers.q15;
-                if(isCorrect) { return { isCorrect: true, score: 3 }; } 
-                else { return { isCorrect: false, score: 0 }; }
-            }
-
-            if (['q1', 'q2', 'q3', 'q4', 'q5', 'q12', 'q19', 'q20'].includes(qId) || ['q6', 'q7', 'q8'].includes(qId)) {
+                
+                // 此題組若全部配對正確則得3分，否則0分。
+                isCorrect = (q13User === correctAnswers.q13 && 
+                             q14User === correctAnswers.q14 && 
+                             q15User === correctAnswers.q15);
+                questionScore = isCorrect ? 3 : 0; // Set questionScore here
+            } else if (['q1', 'q2', 'q3', 'q4', 'q5', 'q12', 'q19', 'q20'].includes(qId) || ['q6', 'q7', 'q8'].includes(qId)) {
+                // Radio button (single choice/true-false) questions
                 const userAnswer = container.querySelector(`input[name="${qId}"]:checked`)?.value;
                 isCorrect = (userAnswer === correctAnswers[qId]);
+                questionScore = isCorrect ? 1 : 0;
             } else if (['q9', 'q10', 'q11'].includes(qId)) {
+                // Fill-in-the-blank questions
                 const userAnswer = container.querySelector(`#${qId}-input`).value.trim();
+                // 使用 includes() 判斷，允許回答包含正確答案的變體
                 isCorrect = userAnswer.includes(correctAnswers[qId]);
+                questionScore = isCorrect ? 1 : 0;
             } else if (qId === 'q16') {
+                // Sequencing question
                 const b_val = container.querySelector('#q16-barter').value;
                 const c_val = container.querySelector('#q16-commodity').value;
                 const f_val = container.querySelector('#q16-fiat').value;
-                isCorrect = (b_val === correctAnswers.q16.barter && c_val === correctAnswers.q16.commodity && f_val === correctAnswers.q16.fiat);
+                isCorrect = (b_val === correctAnswers.q16.barter && 
+                             c_val === correctAnswers.q16.commodity && 
+                             f_val === correctAnswers.q16.fiat);
+                questionScore = isCorrect ? 1 : 0;
             } else if (['q17', 'q18'].includes(qId)) {
+                // Multiple choice (checkbox) questions
                 const userAnswers = Array.from(container.querySelectorAll(`input[name="${qId}"]:checked`)).map(cb => cb.value).sort();
-                const correctAns = [...correctAnswers[qId]].sort();
+                const correctAns = [...correctAnswers[qId]].sort(); // 確保正確答案也排序以便比對
                 isCorrect = JSON.stringify(userAnswers) === JSON.stringify(correctAns);
+                questionScore = isCorrect ? 1 : 0;
+            } else {
+                console.warn(`[gradeQuestion] Unknown or unhandled question ID: ${qId}. Skipping.`);
+                return null; // Return null if qId is not recognized/handled
             }
             
+            // Apply feedback and disable inputs after determining correctness and score
             feedbackEl.style.display = 'block';
             feedbackEl.className = `feedback ${isCorrect ? 'correct' : 'wrong'}`;
             feedbackEl.innerHTML = `<i class="fas ${isCorrect ? 'fa-check-circle' : 'fa-times-circle'}"></i> ${isCorrect ? '正確！' : '錯誤。'} <p>${feedbackText[qId]}</p>`;
             
             disableInputs(container, true);
-            container.querySelector('.check-single-btn').style.display = 'none';
+            // Hide the single check button for the graded question
+            const singleCheckBtn = container.querySelector('.check-single-btn');
+            if (singleCheckBtn) {
+                singleCheckBtn.style.display = 'none';
+            }
             
-            return { isCorrect: isCorrect, score: isCorrect ? 1 : 0 };
+            return { isCorrect: isCorrect, score: questionScore }; // Return the score
         }
 
         quizForm.addEventListener('click', (e) => {
@@ -340,42 +365,23 @@
         });
 
         submitBtn.addEventListener('click', () => {
-            let score = 0;
-            const allQuestions = Object.keys(correctAnswers);
-            const processed = new Set(); 
-
-            allQuestions.forEach(qId => {
-                if (processed.has(qId)) return;
-
-                const container = document.querySelector(`.quiz-container[data-quiz-id="${qId}"]`);
-                if (container && container.classList.contains('graded')) {
-                    const feedback = container.querySelector('.feedback');
-                    if (feedback && feedback.classList.contains('correct')) {
-                        if (['q13', 'q14', 'q15'].includes(qId)) {
-                             score += 3;
-                        } else {
-                             score += 1;
-                        }
-                    }
-                } else {
-                    const result = gradeQuestion(qId);
-                    if (result !== null) {
-                        score += result.score;
-                    }
-                }
-                
-                if (['q13', 'q14', 'q15'].includes(qId)) {
-                    processed.add('q13');
-                    processed.add('q14');
-                    processed.add('q15');
+            let totalScore = 0;
+            const quizContainers = document.querySelectorAll('.quiz-container');
+            
+            quizContainers.forEach(container => {
+                const qId = container.dataset.quizId;
+                // gradeQuestion handles if it's already graded and returns null, or grades and returns {isCorrect, score}
+                const result = gradeQuestion(qId); 
+                if (result !== null) {
+                    totalScore += result.score;
                 }
             });
 
             resultsContainer.style.display = 'block';
-            scoreDisplay.textContent = `${score} / 20`;
-            if (score >= 18) {
+            scoreDisplay.textContent = `${totalScore} / 20`;
+            if (totalScore >= 18) {
                 scoreMessage.innerHTML = '太強了！你就是<span class="highlight-text">公民神</span>！';
-            } else if (score >= 12) {
+            } else if (totalScore >= 12) {
                 scoreMessage.innerHTML = '表現不錯！再加把勁，你離公民神不遠了！';
             } else {
                 scoreMessage.innerHTML = '別灰心，複習詳解後再挑戰一次吧！';
@@ -387,10 +393,11 @@
         });
         
         resetBtn.addEventListener('click', () => {
+            // form.reset() is called automatically by the button's type="reset"
             document.querySelectorAll('.quiz-container').forEach(container => {
-                disableInputs(container, false);
+                disableInputs(container, false); // Re-enable inputs
                 container.querySelector('.feedback').style.display = 'none';
-                if (container.querySelector('.check-single-btn')) {
+                if (container.querySelector('.check-single-btn')) { // Check if button exists before trying to display
                     container.querySelector('.check-single-btn').style.display = 'inline-block';
                 }
             });

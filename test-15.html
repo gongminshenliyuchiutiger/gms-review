@@ -251,12 +251,19 @@
 
         const correctAnswers = {
             q1: 'C', q2: 'C', q3: 'D', q4: 'C', q5: 'C', q6: 'false', q7: 'false', q8: 'true',
-            q9: '著作權', q10: '辨識', q11: '接近使用', 
-            q12: 'A',
-            q13: 'C', q14: 'B', q15: 'A',
-            q16: 'B', 
-            q17: ['A', 'C', 'D'], q18: ['A', 'B', 'D'],
-            q19: 'A', q20: 'A'
+            q9: '著作權', // Expecting '著作權' or '著作權法'
+            q10: '辨識',
+            q11: '接近使用', // Expecting '接近使用' or '接近使用權'
+            q12: 'A', // 資訊倫理
+            // q13, q14, q15 are for the matching items, and q13 is the container ID
+            q13: 'C', // 著作權 -> 保護文學、藝術創作
+            q14: 'B', // 商標權 -> 保護品牌標誌
+            q15: 'A', // 專利權 -> 保護發明與創作
+            q16: 'B', // 合理使用 (choice question)
+            q17: ['A', 'C', 'D'], // 資訊快速傳播, 加速電子商務, 促進公民參與公共事務
+            q18: ['A', 'B', 'D'], // 培養辨識事實與意見的能力, 培養主動思辨與查證的能力, 運用媒體接近使用權的能力
+            q19: 'A', // 歌曲完成創作時
+            q20: 'A' // 報導未必反映事實
         };
 
         const feedbackText = {
@@ -268,15 +275,13 @@
              q6: "錯誤。《著作權法》採<span class='highlight-text'>創作保護主義</span>，著作權在著作完成時即自動產生，不需登記或申請。",
              q7: "錯誤。媒體報導可能因編輯的選擇、立場或商業考量，而<span class='highlight-text'>未必能完全反映事實或可能帶有特定立場</span>。",
              q8: "正確。這正是媒體識讀的核心精神，以成為一個主動、理性的閱聽人。",
-             q9: "正確答案是「著作權」法。",
+             q9: "正確答案是「著作權」。(即使回答「著作權法」也算對)",
              q10: "正確答案是「辨識」或「分辨」。",
-             q11: "正確答案是「接近使用」權。",
+             q11: "正確答案是「接近使用」權。(即使回答「接近使用」也算對)",
              q12: "正確使用資訊科技，尊重他人隱私並遵守規範的行為準則，稱為<span class='highlight-text'>資訊倫理</span>。",
-             q13: "正確答案是 (13)→C, (14)→B, (15)→A。配合題需一起批改。",
-             q14: "正確答案是 (13)→C, (14)→B, (15)→A。配合題需一起批改。",
-             q15: "正確答案是 (13)→C, (14)→B, (15)→A。配合題需一起批改。",
+             q13: "正確答案：(13)著作權→C.保護文學、藝術創作, (14)商標權→B.保護品牌標誌, (15)專利權→A.保護發明與創作。此題組共3分。", // Consolidated feedback for the group
              q16: "為了教學、研究等非營利目的，在適當範圍內使用他人著作，可能構成<span class='highlight-text'>合理使用</span>而不侵權。",
-             q17: "正確答案是(A), (C), (D)。(B)和(E)是資訊科技發展帶來的<span class='highlight-text'>隱憂</span>。",
+             q17: "正確答案是(A), (C), (D)。(B)網路犯罪和(E)侵犯隱私是資訊科技發展帶來的<span class='highlight-text'>隱憂</span>。",
              q18: "正確答案是(A), (B), (D)。(C)全盤接受資訊是媒體識讀<span class='highlight-text'>反對</span>的行為。",
              q19: "《著作權法》採創作保護主義，著作權在<span class='highlight-text'>創作完成時</span>即自動產生保護。",
              q20: "媒體受限於版面和時間，無法報導所有事件，這種篩選過程可能導致<span class='highlight-text'>報導未必能完整反映事實</span>。"
@@ -294,36 +299,63 @@
 
             const feedbackEl = container.querySelector('.feedback');
             let isCorrect = false;
+            let questionScore = 0; // Initialize questionScore at the start
 
-            if (['q13', 'q14', 'q15'].includes(qId)) {
+            // Handle different question types
+            if (qId === 'q13') { // Special handling for the combined matching question (q13-q15)
                 const q13User = container.querySelector('#q13-select').value;
                 const q14User = container.querySelector('#q14-select').value;
                 const q15User = container.querySelector('#q15-select').value;
-                isCorrect = q13User === correctAnswers.q13 && q14User === correctAnswers.q14 && q15User === correctAnswers.q15;
-                if(isCorrect) { return { isCorrect: true, score: 3 }; } 
-                else { return { isCorrect: false, score: 0 }; }
-            }
-
-            if (['q1', 'q2', 'q3', 'q4', 'q5', 'q12', 'q16', 'q19', 'q20'].includes(qId) || ['q6', 'q7', 'q8'].includes(qId)) {
+                
+                // 此題組若全部配對正確則得3分，否則0分。
+                isCorrect = (q13User === correctAnswers.q13 && 
+                             q14User === correctAnswers.q14 && 
+                             q15User === correctAnswers.q15);
+                questionScore = isCorrect ? 3 : 0; // Set questionScore here. NO EARLY RETURN.
+            } else if (['q1', 'q2', 'q3', 'q4', 'q5', 'q12', 'q16', 'q19', 'q20'].includes(qId) || ['q6', 'q7', 'q8'].includes(qId)) {
+                // Radio button (single choice/true-false) questions
                 const userAnswer = container.querySelector(`input[name="${qId}"]:checked`)?.value;
                 isCorrect = (userAnswer === correctAnswers[qId]);
+                questionScore = isCorrect ? 1 : 0;
             } else if (['q9', 'q10', 'q11'].includes(qId)) {
-                const userAnswer = container.querySelector(`#${qId}-input`).value.trim().replace(/法$/, '');
-                isCorrect = correctAnswers[qId].includes(userAnswer) && userAnswer.length > 1;
+                // Fill-in-the-blank questions
+                const userAnswer = container.querySelector(`#${qId}-input`).value.trim();
+                
+                // Flexible matching for fill-in-the-blanks
+                let expectedAnswer = correctAnswers[qId];
+                
+                if (qId === 'q9') { // "著作權" or "著作權法"
+                    isCorrect = (userAnswer === expectedAnswer || userAnswer === expectedAnswer + '法');
+                } else if (qId === 'q11') { // "接近使用" or "接近使用權"
+                    isCorrect = (userAnswer === expectedAnswer || userAnswer === expectedAnswer + '權');
+                } else { // For q10 "辨識"
+                    isCorrect = (userAnswer === expectedAnswer);
+                }
+                questionScore = isCorrect ? 1 : 0;
             } else if (['q17', 'q18'].includes(qId)) {
+                // Multiple choice (checkbox) questions
                 const userAnswers = Array.from(container.querySelectorAll(`input[name="${qId}"]:checked`)).map(cb => cb.value).sort();
-                const correctAns = [...correctAnswers[qId]].sort();
+                const correctAns = [...correctAnswers[qId]].sort(); // 確保正確答案也排序以便比對
                 isCorrect = JSON.stringify(userAnswers) === JSON.stringify(correctAns);
+                questionScore = isCorrect ? 1 : 0;
+            } else {
+                console.warn(`[gradeQuestion] Unknown or unhandled question ID: ${qId}. Skipping.`);
+                return null; // Return null if qId is not recognized/handled
             }
             
+            // Apply feedback and disable inputs after determining correctness and score
             feedbackEl.style.display = 'block';
             feedbackEl.className = `feedback ${isCorrect ? 'correct' : 'wrong'}`;
             feedbackEl.innerHTML = `<i class="fas ${isCorrect ? 'fa-check-circle' : 'fa-times-circle'}"></i> ${isCorrect ? '正確！' : '錯誤。'} <p>${feedbackText[qId]}</p>`;
             
             disableInputs(container, true);
-            container.querySelector('.check-single-btn').style.display = 'none';
+            // Hide the single check button for the graded question
+            const singleCheckBtn = container.querySelector('.check-single-btn');
+            if (singleCheckBtn) {
+                singleCheckBtn.style.display = 'none';
+            }
             
-            return { isCorrect: isCorrect, score: isCorrect ? 1 : 0 };
+            return { isCorrect: isCorrect, score: questionScore }; // Return the score
         }
 
         quizForm.addEventListener('click', (e) => {
@@ -335,42 +367,23 @@
         });
 
         submitBtn.addEventListener('click', () => {
-            let score = 0;
-            const allQuestions = Object.keys(correctAnswers);
-            const processed = new Set(); 
-
-            allQuestions.forEach(qId => {
-                if (processed.has(qId)) return;
-
-                const container = document.querySelector(`.quiz-container[data-quiz-id="${qId}"]`);
-                if (container && container.classList.contains('graded')) {
-                    const feedback = container.querySelector('.feedback');
-                    if (feedback && feedback.classList.contains('correct')) {
-                        if (['q13', 'q14', 'q15'].includes(qId)) {
-                             score += 3;
-                        } else {
-                             score += 1;
-                        }
-                    }
-                } else {
-                    const result = gradeQuestion(qId);
-                    if (result !== null) {
-                        score += result.score;
-                    }
-                }
-                
-                if (['q13', 'q14', 'q15'].includes(qId)) {
-                    processed.add('q13');
-                    processed.add('q14');
-                    processed.add('q15');
+            let totalScore = 0;
+            const quizContainers = document.querySelectorAll('.quiz-container');
+            
+            quizContainers.forEach(container => {
+                const qId = container.dataset.quizId;
+                // gradeQuestion handles if it's already graded and returns null, or grades and returns {isCorrect, score}
+                const result = gradeQuestion(qId); 
+                if (result !== null) {
+                    totalScore += result.score;
                 }
             });
 
             resultsContainer.style.display = 'block';
-            scoreDisplay.textContent = `${score} / 20`;
-            if (score >= 18) {
+            scoreDisplay.textContent = `${totalScore} / 20`;
+            if (totalScore >= 18) {
                 scoreMessage.innerHTML = '太強了！你就是<span class="highlight-text">公民神</span>！';
-            } else if (score >= 12) {
+            } else if (totalScore >= 12) {
                 scoreMessage.innerHTML = '表現不錯！再加把勁，你離公民神不遠了！';
             } else {
                 scoreMessage.innerHTML = '別灰心，複習詳解後再挑戰一次吧！';
@@ -382,10 +395,11 @@
         });
         
         resetBtn.addEventListener('click', () => {
+            // form.reset() is called automatically by the button's type="reset"
             document.querySelectorAll('.quiz-container').forEach(container => {
-                disableInputs(container, false);
+                disableInputs(container, false); // Re-enable inputs
                 container.querySelector('.feedback').style.display = 'none';
-                if (container.querySelector('.check-single-btn')) {
+                if (container.querySelector('.check-single-btn')) { // Check if button exists before trying to display
                     container.querySelector('.check-single-btn').style.display = 'inline-block';
                 }
             });
